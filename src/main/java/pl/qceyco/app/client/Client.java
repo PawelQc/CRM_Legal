@@ -1,9 +1,16 @@
 package pl.qceyco.app.client;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.pl.NIP;
 import pl.qceyco.app.client.legalPersonality.LegalPersonality;
 import pl.qceyco.app.employee.Employee;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "clients")
@@ -14,27 +21,60 @@ public class Client {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "legal_personality_id")
+    @NotNull
     private LegalPersonality legalPersonality;
 
     @ManyToOne
+    @JoinColumn(name = "assigned_employee_id")
+    @NotNull
     private Employee assignedEmployee;
 
+    @Column(name = "first_name", length = 50)
+    @Size(min = 2, max = 50)
+    @NotBlank
     private String firstName;
 
+    @Column(name = "last_name", length = 50)
+    @Size(min = 2, max = 50)
+    @NotBlank
     private String lastName;
 
+    @Column(name = "company_name", length = 100)
+    @Size(min = 2, max = 100)
+    @NotBlank
     private String companyName;
 
+    @Column(name = "tax_id_no", unique = true)
+    @NIP
+    @NotBlank
     private String nip;
 
+    @Column(length = 150)
+    @Size(min = 5, max = 150)
+    @NotBlank
     private String address;
 
+    @Column(length = 100, unique = true)
+    @Size(min = 3, max = 100)
+    @Email
+    @NotBlank
     private String email;
 
+    @Column(name = "phone_number", length = 15)
+    @Size(min = 5, max = 15)
+    @NotBlank
     private String phoneNumber;
 
+    @Column(name = "bank_account", length = 26)
+    @Size(min = 26, max = 26)
+    @NotBlank
     private String bankAccount;
 
+    @Column(name = "hourly_rate_charge_PLN")
+    @Min(1)
+    @Max(100000)
+    @NotNull
     private Integer hourlyRateIsCharged;
 
 

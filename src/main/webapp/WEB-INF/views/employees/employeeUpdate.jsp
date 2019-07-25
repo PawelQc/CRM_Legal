@@ -14,43 +14,43 @@
 
     <label for="firstNameId">First name:</label>
     <form:input type="text" path="firstName" id="firstNameId"/>
-    <form:errors path="firstName"/>
+    <form:errors path="firstName" element="div"/>
 
     <br/><br/>
 
     <label for="lastNameId">Last name:</label>
     <form:input type="text" path="lastName" id="lastNameId"/>
-    <form:errors path="lastName"/>
+    <form:errors path="lastName" element="div"/>
 
     <br/><br/>
 
     <label for="emailLoginId">Email (login):</label>
     <form:input type="text" path="emailLogin" id="emailLoginId"/>
-    <form:errors path="emailLogin"/>
+    <form:errors path="emailLogin" element="div"/>
 
     <br/><br/>
 
     <label for="hourlyRateReceivingSalaryId">Salary (hourly rate): </label>
     <form:input type="number" path="hourlyRateReceivingSalary" id="hourlyRateReceivingSalaryId"/>
-    <form:errors path="hourlyRateReceivingSalary"/>
+    <form:errors path="hourlyRateReceivingSalary" element="div"/>
 
     <br/><br/>
 
     <label for="hourlyRateChargingClientsId">Charge rate (hourly rate): </label>
     <form:input type="number" path="hourlyRateChargingClients" id="hourlyRateChargingClientsId"/>
-    <form:errors path="hourlyRateChargingClients"/>
+    <form:errors path="hourlyRateChargingClients" element="div"/>
 
     <br/><br/>
 
     <label for="targetBudgetId">Target budget (per month) </label>
     <form:input type="number" path="targetBudget" id="targetBudgetId"/>
-    <form:errors path="targetBudget"/>
+    <form:errors path="targetBudget" element="div"/>
 
     <br/><br/>
 
     <label for="phoneNumberId">Phone no</label>
     <form:input type="number" path="phoneNumber" id="phoneNumberId"/>
-    <form:errors path="phoneNumber"/>
+    <form:errors path="phoneNumber" element="div"/>
 
     <br/><br/>
 

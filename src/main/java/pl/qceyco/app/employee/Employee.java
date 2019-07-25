@@ -1,6 +1,13 @@
 package pl.qceyco.app.employee;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "employees")
@@ -10,18 +17,43 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "first_name", length = 50)
+    @Size(min = 2, max = 50)
+    @NotBlank
     private String firstName;
 
+    @Column(name = "last_name", length = 50)
+    @Size(min = 2, max = 50)
+    @NotBlank
     private String lastName;
 
+    @Column(name = "email_login", length = 100, unique = true)
+    @Size(min = 3, max = 100)
+    @Email
+    @NotBlank
     private String emailLogin;
 
+    @Column(name = "hourly_rate_salary_PLN")
+    @Min(1)
+    @Max(100000)
+    @NotNull
     private Integer hourlyRateReceivingSalary;
 
+    @Column(name = "hourly_rate_client_charge_PLN")
+    @Min(1)
+    @Max(100000)
+    @NotNull
     private Integer hourlyRateChargingClients;
 
+    @Column(name = "target_budget_monthly")
+    @Min(1)
+    @Max(1000000)
+    @NotNull
     private Integer targetBudget;
 
+    @Column(name = "phone_number", length = 15)
+    @Size(min = 5, max = 15)
+    @NotBlank
     private String phoneNumber;
 
 

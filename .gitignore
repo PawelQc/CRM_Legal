@@ -103,3 +103,5 @@ fabric.properties
 /.idea/vcs.xml
 /.idea/$PRODUCT_WORKSPACE_FILE$
 /.idea/.gitignore
+target/
+.idea
