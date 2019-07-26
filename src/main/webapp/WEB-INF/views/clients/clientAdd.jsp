@@ -7,8 +7,6 @@
 </head>
 <body>
 
-<%--TODO dlaczego jest błąd - forumarz nie widzi modelattribute --%>
-
 <%@ include file="/fragments/header.jspf" %>
 
 <form:form method="post" modelAttribute="client">
