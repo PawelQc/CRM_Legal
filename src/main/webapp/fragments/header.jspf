@@ -4,6 +4,7 @@
     <a href="/legal-cases/list" style="padding-right: 20px">Cases</a>
     <a href="/clients/list" style="padding-right: 20px">Clients</a>
     <a href="/employees/list" style="padding-right: 20px">Employees</a>
+    <a href="/timesheet/list" style="padding-right: 20px">Timesheets</a>
 
     <br> <br>
 </header>
