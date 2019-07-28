@@ -4,6 +4,11 @@
 <html>
 <head>
     <title>Title</title>
+    <style>
+        a {
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
 <%@ include file="/fragments/header.jspf" %>
@@ -14,7 +19,9 @@
     <form:hidden path="dateMonday"/>
 
     <table border="1">
+
         <tr>
+            <td rowspan="2"> <a href="/timesheet/add?mode=prev&mondaySelect=${timesheetWeek.dateMonday}"/> < </td>
             <th>${timesheetWeek.dateMonday}</th>
             <th>${timesheetWeek.dateMonday.plusDays(1)}</th>
             <th>${timesheetWeek.dateMonday.plusDays(2)}</th>
@@ -22,6 +29,7 @@
             <th>${timesheetWeek.dateMonday.plusDays(4)}</th>
             <th>${timesheetWeek.dateMonday.plusDays(5)}</th>
             <th>${timesheetWeek.dateMonday.plusDays(6)}</th>
+            <td rowspan="2"> <a href="/timesheet/add?mode=next&mondaySelect=${timesheetWeek.dateMonday}"/> > </td>
         </tr>
         <tr>
             <td>

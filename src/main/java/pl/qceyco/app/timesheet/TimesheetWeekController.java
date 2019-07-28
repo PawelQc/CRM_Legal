@@ -4,12 +4,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 
 @Controller
@@ -36,14 +35,24 @@ public class TimesheetWeekController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String showAddForm(Model model) {
-        //TODO tutaj na sztywno ustalam datę - do zmiany
+    public String showAddForm(Model model, @RequestParam(required = false) String mode, @RequestParam(required = false) String mondaySelect) {
+        LocalDate monday = LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.MONDAY));
+        if (mondaySelect != null) {
+            monday = LocalDate.parse(mondaySelect);
+        }
+        if ("prev".equals(mode)) {
+            monday = monday.minusDays(7);
+        }
+        if ("next".equals(mode)) {
+            monday = monday.plusDays(7);
+        }
         TimesheetWeek timesheetWeek = new TimesheetWeek();
-        LocalDate monday = LocalDate.now().plusDays(1);
         timesheetWeek.setDateMonday(monday);
         model.addAttribute("timesheetWeek", timesheetWeek);
         return "timesheets/timesheetAdd";
     }
+
+    //TODO przy zapisie zmienia się wartość monday -1 (w kontrolerze jest OK)
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String processAddForm(@ModelAttribute @Validated TimesheetWeek timesheetWeek, BindingResult result) {
@@ -59,6 +68,8 @@ public class TimesheetWeekController {
         timesheetWeekRepository.deleteById(id);
         return "redirect:../list";
     }
+
+    //TODO przy update zmienia się wartość monday -1
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String showUpdateForm(@PathVariable Long id, Model model) {
@@ -76,6 +87,8 @@ public class TimesheetWeekController {
         if (result.hasErrors()) {
             return "timesheets/timesheetUpdate";
         }
+        TimesheetWeek timesheetWeek1 = timesheetWeek;
+        System.out.println(timesheetWeek1.toString());
         timesheetWeekRepository.save(timesheetWeek);
         return "redirect:list";
     }
