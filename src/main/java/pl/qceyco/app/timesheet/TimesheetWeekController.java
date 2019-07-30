@@ -52,7 +52,7 @@ public class TimesheetWeekController {
         return "timesheets/timesheetAdd";
     }
 
-    //TODO przy zapisie zmienia się wartość monday -1 (w kontrolerze jest OK)
+    //TODO przy zapisie zmienia się wartość monday -1 (możliwy problem ze strefami czasowymi)
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String processAddForm(@ModelAttribute @Validated TimesheetWeek timesheetWeek, BindingResult result) {
@@ -87,8 +87,6 @@ public class TimesheetWeekController {
         if (result.hasErrors()) {
             return "timesheets/timesheetUpdate";
         }
-        TimesheetWeek timesheetWeek1 = timesheetWeek;
-        System.out.println(timesheetWeek1.toString());
         timesheetWeekRepository.save(timesheetWeek);
         return "redirect:list";
     }
