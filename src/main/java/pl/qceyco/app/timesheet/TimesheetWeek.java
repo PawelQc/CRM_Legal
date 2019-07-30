@@ -16,33 +16,40 @@ public class TimesheetWeek {
     @Column(name = "date_monday")
     private LocalDate dateMonday;
 
+    @Column(name = "monday_hours")
     @Min(1)
     @Max(24)
-    private Integer mondayMinutes;
+    private Integer mondayHours;
 
+    @Column(name = "tuesday_hours")
     @Min(1)
     @Max(24)
-    private Integer tuesdayMinutes;
+    private Integer tuesdayHours;
 
+    @Column(name = "wednesday_hours")
     @Min(1)
     @Max(24)
-    private Integer wednesdayMinutes;
+    private Integer wednesdayHours;
 
+    @Column(name = "thursday_hours")
     @Min(1)
     @Max(24)
-    private Integer thursdayMinutes;
+    private Integer thursdayHours;
 
+    @Column(name = "friday_hours")
     @Min(1)
     @Max(24)
-    private Integer fridayMinutes;
+    private Integer fridayHours;
 
+    @Column(name = "saturday_hours")
     @Min(1)
     @Max(24)
-    private Integer saturdayMinutes;
+    private Integer saturdayHours;
 
+    @Column(name = "sunday_hours")
     @Min(1)
     @Max(24)
-    private Integer sundayMinutes;
+    private Integer sundayHours;
 
     public Long getId() {
         return id;
@@ -60,60 +67,60 @@ public class TimesheetWeek {
         this.dateMonday = dateMonday;
     }
 
-    public Integer getMondayMinutes() {
-        return mondayMinutes;
+    public Integer getMondayHours() {
+        return mondayHours;
     }
 
-    public void setMondayMinutes(Integer mondayMinutes) {
-        this.mondayMinutes = mondayMinutes;
+    public void setMondayHours(Integer mondayHours) {
+        this.mondayHours = mondayHours;
     }
 
-    public Integer getTuesdayMinutes() {
-        return tuesdayMinutes;
+    public Integer getTuesdayHours() {
+        return tuesdayHours;
     }
 
-    public void setTuesdayMinutes(Integer tuesdayMinutes) {
-        this.tuesdayMinutes = tuesdayMinutes;
+    public void setTuesdayHours(Integer tuesdayHours) {
+        this.tuesdayHours = tuesdayHours;
     }
 
-    public Integer getWednesdayMinutes() {
-        return wednesdayMinutes;
+    public Integer getWednesdayHours() {
+        return wednesdayHours;
     }
 
-    public void setWednesdayMinutes(Integer wednesdayMinutes) {
-        this.wednesdayMinutes = wednesdayMinutes;
+    public void setWednesdayHours(Integer wednesdayHours) {
+        this.wednesdayHours = wednesdayHours;
     }
 
-    public Integer getThursdayMinutes() {
-        return thursdayMinutes;
+    public Integer getThursdayHours() {
+        return thursdayHours;
     }
 
-    public void setThursdayMinutes(Integer thursdayMinutes) {
-        this.thursdayMinutes = thursdayMinutes;
+    public void setThursdayHours(Integer thursdayHours) {
+        this.thursdayHours = thursdayHours;
     }
 
-    public Integer getFridayMinutes() {
-        return fridayMinutes;
+    public Integer getFridayHours() {
+        return fridayHours;
     }
 
-    public void setFridayMinutes(Integer fridayMinutes) {
-        this.fridayMinutes = fridayMinutes;
+    public void setFridayHours(Integer fridayHours) {
+        this.fridayHours = fridayHours;
     }
 
-    public Integer getSaturdayMinutes() {
-        return saturdayMinutes;
+    public Integer getSaturdayHours() {
+        return saturdayHours;
     }
 
-    public void setSaturdayMinutes(Integer saturdayMinutes) {
-        this.saturdayMinutes = saturdayMinutes;
+    public void setSaturdayHours(Integer saturdayHours) {
+        this.saturdayHours = saturdayHours;
     }
 
-    public Integer getSundayMinutes() {
-        return sundayMinutes;
+    public Integer getSundayHours() {
+        return sundayHours;
     }
 
-    public void setSundayMinutes(Integer sundayMinutes) {
-        this.sundayMinutes = sundayMinutes;
+    public void setSundayHours(Integer sundayHours) {
+        this.sundayHours = sundayHours;
     }
 
     @Override
@@ -121,13 +128,13 @@ public class TimesheetWeek {
         return "TimesheetWeek{" +
                 "id=" + id +
                 ", dateMonday=" + dateMonday +
-                ", mondayMinutes=" + mondayMinutes +
-                ", tuesdayMinutes=" + tuesdayMinutes +
-                ", wednesdayMinutes=" + wednesdayMinutes +
-                ", thursdayMinutes=" + thursdayMinutes +
-                ", fridayMinutes=" + fridayMinutes +
-                ", saturdayMinutes=" + saturdayMinutes +
-                ", sundayMinutes=" + sundayMinutes +
+                ", mondayMinutes=" + mondayHours +
+                ", tuesdayMinutes=" + tuesdayHours +
+                ", wednesdayMinutes=" + wednesdayHours +
+                ", thursdayMinutes=" + thursdayHours +
+                ", fridayMinutes=" + fridayHours +
+                ", saturdayMinutes=" + saturdayHours +
+                ", sundayMinutes=" + sundayHours +
                 '}';
     }
 }

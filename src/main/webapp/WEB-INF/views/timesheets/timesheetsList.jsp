@@ -16,26 +16,26 @@
     <tr>
         <th>No</th>
         <th>Monday</th>
-        <th>MMinutes</th>
-        <th>TMinutes</th>
-        <th>WMinutes</th>
-        <th>ThMinutes</th>
-        <th>FMinutes</th>
-        <th>SatMinutes</th>
-        <th>SunMinutes</th>
+        <th>MonHours</th>
+        <th>TueHours</th>
+        <th>WedHours</th>
+        <th>ThHours</th>
+        <th>FriHours</th>
+        <th>SatHours</th>
+        <th>SunHours</th>
         <th>Action</th>
     </tr>
     <c:forEach var="timesheet" items="${timesheets}" varStatus="count">
         <tr>
             <td>${count.count}</td>
             <td>${timesheet.dateMonday}</td>
-            <td>${timesheet.mondayMinutes}</td>
-            <td>${timesheet.tuesdayMinutes}</td>
-            <td>${timesheet.wednesdayMinutes}</td>
-            <td>${timesheet.thursdayMinutes}</td>
-            <td>${timesheet.fridayMinutes}</td>
-            <td>${timesheet.saturdayMinutes}</td>
-            <td>${timesheet.sundayMinutes}</td>
+            <td>${timesheet.mondayHours}</td>
+            <td>${timesheet.tuesdayHours}</td>
+            <td>${timesheet.wednesdayHours}</td>
+            <td>${timesheet.thursdayHours}</td>
+            <td>${timesheet.fridayHours}</td>
+            <td>${timesheet.saturdayHours}</td>
+            <td>${timesheet.sundayHours}</td>
             <td>
                     <a href="/timesheet/update/${timesheet.id}">Update</a>
                     <a href="/timesheet/delete/${timesheet.id}">Delete</a>
