@@ -18,10 +18,8 @@
         <th>First name</th>
         <th>Last name</th>
         <th>Email</th>
-        <th>Salary (per hour)</th>
-        <th>Charging (per hour)</th>
-        <th>Target budget (per month)</th>
-        <th>Phone no</th>
+        <th>Password</th>
+        <th>IsAdmin?</th>
         <th>Action</th>
     </tr>
     <c:forEach var="employee" items="${employees}" varStatus="count">
@@ -30,13 +28,13 @@
             <td>${employee.firstName}</td>
             <td>${employee.lastName}</td>
             <td>${employee.emailLogin}</td>
-            <td>${employee.hourlyRateReceivingSalary}</td>
-            <td>${employee.hourlyRateChargingClients}</td>
-            <td>${employee.targetBudget}</td>
-            <td>${employee.phoneNumber}</td>
+            <td>${employee.password}</td>
+            <td>${employee.admin}</td>
             <td>
                 <a href="/employees/update/${employee.id}">Update</a>
-                <a href="/employees/delete/${employee.id}">Delete</a>
+                <a href="/employees/additional-info/list?employeeId=${employee.id}&additionalInfoId=${employee.additionalInfo.id}">Details</a>
+                <a href="http://localhost:8080/employees/delete/${employee.id}"
+                   onclick="return confirm('Are you sure you want to delete this employee?');">Delete</a>
             </td>
         </tr>
     </c:forEach>

@@ -2,10 +2,9 @@ package pl.qceyco.app.employee;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import pl.qceyco.app.employee.additinalInfo.AdditionalInfoEmployee;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -33,29 +32,18 @@ public class Employee {
     @NotBlank
     private String emailLogin;
 
-    @Column(name = "hourly_rate_salary_PLN")
-    @Min(1)
-    @Max(100000)
-    @NotNull
-    private Integer hourlyRateReceivingSalary;
-
-    @Column(name = "hourly_rate_client_charge_PLN")
-    @Min(1)
-    @Max(100000)
-    @NotNull
-    private Integer hourlyRateChargingClients;
-
-    @Column(name = "target_budget_monthly")
-    @Min(1)
-    @Max(1000000)
-    @NotNull
-    private Integer targetBudget;
-
-    @Column(name = "phone_number", length = 15)
-    @Size(min = 5, max = 15)
+    @Column(name = "password", length = 20)
+    @Size(min = 8, max = 20)
     @NotBlank
-    private String phoneNumber;
+    private String password;
 
+    @NotNull
+    @Column(name = "is_admin")
+    private Boolean isAdmin;
+
+    @OneToOne
+    @JoinColumn(name = "additional_info_id")
+    private AdditionalInfoEmployee additionalInfo;
 
     public Long getId() {
         return id;
@@ -89,36 +77,28 @@ public class Employee {
         this.emailLogin = emailLogin;
     }
 
-    public Integer getHourlyRateReceivingSalary() {
-        return hourlyRateReceivingSalary;
+    public String getPassword() {
+        return password;
     }
 
-    public void setHourlyRateReceivingSalary(Integer hourlyRateReceivingSalary) {
-        this.hourlyRateReceivingSalary = hourlyRateReceivingSalary;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public Integer getHourlyRateChargingClients() {
-        return hourlyRateChargingClients;
+    public Boolean getAdmin() {
+        return isAdmin;
     }
 
-    public void setHourlyRateChargingClients(Integer hourlyRateChargingClients) {
-        this.hourlyRateChargingClients = hourlyRateChargingClients;
+    public void setAdmin(Boolean admin) {
+        isAdmin = admin;
     }
 
-    public Integer getTargetBudget() {
-        return targetBudget;
+    public AdditionalInfoEmployee getAdditionalInfo() {
+        return additionalInfo;
     }
 
-    public void setTargetBudget(Integer targetBudget) {
-        this.targetBudget = targetBudget;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setAdditionalInfo(AdditionalInfoEmployee additionalInfo) {
+        this.additionalInfo = additionalInfo;
     }
 
     @Override
@@ -128,10 +108,9 @@ public class Employee {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", emailLogin='" + emailLogin + '\'' +
-                ", hourlyRateReceivingSalary=" + hourlyRateReceivingSalary +
-                ", hourlyRateChargingClients=" + hourlyRateChargingClients +
-                ", targetBudget=" + targetBudget +
-                ", phoneNumber='" + phoneNumber + '\'' +
+                ", password='" + password + '\'' +
+                ", isAdmin=" + isAdmin +
+                ", additionalInfo=" + additionalInfo +
                 '}';
     }
 }

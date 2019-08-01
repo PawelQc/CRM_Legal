@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import pl.qceyco.app.employee.additinalInfo.AdditionalInfoEmployeeRepository;
 
 import java.util.List;
 
@@ -16,10 +17,12 @@ import java.util.List;
 
 public class EmployeeController {
 
+    private final AdditionalInfoEmployeeRepository additionalInfoEmployeeRepository;
     private final EmployeeRepository employeeRepository;
 
-    public EmployeeController(EmployeeRepository employeeRepository) {
+    public EmployeeController(EmployeeRepository employeeRepository, AdditionalInfoEmployeeRepository additionalInfoEmployeeRepository) {
         this.employeeRepository = employeeRepository;
+        this.additionalInfoEmployeeRepository = additionalInfoEmployeeRepository;
     }
 
     @ModelAttribute("employees")
@@ -51,13 +54,18 @@ public class EmployeeController {
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable Long id) {
+        Employee employeeToDelete = employeeRepository.findFirstById(id);
         employeeRepository.deleteById(id);
+        if (employeeToDelete.getAdditionalInfo() != null) {
+            Long infoId = employeeToDelete.getAdditionalInfo().getId();
+            additionalInfoEmployeeRepository.deleteById(infoId);
+        }
         return "redirect:../list";
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String showUpdateForm(@PathVariable Long id, Model model) {
-        Employee employee = employeeRepository.findFirstEmployeeById(id);
+        Employee employee = employeeRepository.findFirstById(id);
         if (employee == null) {
             model.addAttribute("error", "Update Error");
             return "error";

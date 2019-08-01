@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import pl.qceyco.app.client.additionalInfo.AdditionalInfoClient;
 import pl.qceyco.app.client.additionalInfo.AdditionalInfoClientRepository;
 
 import java.util.List;
@@ -43,7 +44,10 @@ public class ClientsAllController {
     public String delete(@PathVariable Long id) {
         Client clientToDelete = clientsAllRepository.findFirstById(id);
         clientsAllRepository.deleteById(id);
-        additionalInfoClientRepository.deleteById(clientToDelete.getAdditionalInfo().getId());
+        if (clientToDelete.getAdditionalInfo() != null) {
+            Long infoId = clientToDelete.getAdditionalInfo().getId();
+            additionalInfoClientRepository.deleteById(infoId);
+        }
         return "redirect:../list";
     }
 

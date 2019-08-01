@@ -12,6 +12,10 @@
 
     <form:hidden path="id" value="${employee.id}"/>
 
+    <c:if test="${not empty employee.additionalInfo}">
+        <form:hidden path="additionalInfo.id"/>
+    </c:if>
+
     <label for="firstNameId">First name:</label>
     <form:input type="text" path="firstName" id="firstNameId"/>
     <form:errors path="firstName" element="div"/>
@@ -30,27 +34,15 @@
 
     <br/><br/>
 
-    <label for="hourlyRateReceivingSalaryId">Salary (hourly rate): </label>
-    <form:input type="number" path="hourlyRateReceivingSalary" id="hourlyRateReceivingSalaryId"/>
-    <form:errors path="hourlyRateReceivingSalary" element="div"/>
+    <label for="passwordId">Password:</label>
+    <form:input type="password" path="password" id="passwordId"/>
+    <form:errors path="password" element="div"/>
 
     <br/><br/>
 
-    <label for="hourlyRateChargingClientsId">Charge rate (hourly rate): </label>
-    <form:input type="number" path="hourlyRateChargingClients" id="hourlyRateChargingClientsId"/>
-    <form:errors path="hourlyRateChargingClients" element="div"/>
-
-    <br/><br/>
-
-    <label for="targetBudgetId">Target budget (per month) </label>
-    <form:input type="number" path="targetBudget" id="targetBudgetId"/>
-    <form:errors path="targetBudget" element="div"/>
-
-    <br/><br/>
-
-    <label for="phoneNumberId">Phone no</label>
-    <form:input type="number" path="phoneNumber" id="phoneNumberId"/>
-    <form:errors path="phoneNumber" element="div"/>
+    <label for="isAdminId">Grant admin access?</label>
+    <form:checkbox path="admin" id="isAdminId"/>
+    <form:errors path="admin" element="div"/>
 
     <br/><br/>
 

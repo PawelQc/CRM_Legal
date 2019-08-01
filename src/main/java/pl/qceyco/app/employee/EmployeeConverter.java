@@ -10,6 +10,6 @@ public class EmployeeConverter implements Converter<String, Employee> {
     EmployeeRepository employeeRepository;
 
     public Employee convert(String s) {
-        return employeeRepository.findFirstEmployeeById(Long.parseLong(s));
+        return employeeRepository.findFirstById(Long.parseLong(s));
     }
 }

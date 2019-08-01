@@ -11,8 +11,6 @@
 
 <h3>Client - details</h3>
 
-
-
 <table border="1">
     <tr>
         <th>NIP no</th>
