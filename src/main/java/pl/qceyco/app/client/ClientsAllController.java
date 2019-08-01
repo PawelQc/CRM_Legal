@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import pl.qceyco.app.client.additionalInfo.AdditionalInfoClientRepository;
 
 import java.util.List;
 
@@ -14,9 +15,11 @@ import java.util.List;
 public class ClientsAllController {
 
     private final ClientsAllRepository clientsAllRepository;
+    private final AdditionalInfoClientRepository additionalInfoClientRepository;
 
-    public ClientsAllController(ClientsAllRepository clientsAllRepository) {
+    public ClientsAllController(ClientsAllRepository clientsAllRepository, AdditionalInfoClientRepository additionalInfoClientRepository) {
         this.clientsAllRepository = clientsAllRepository;
+        this.additionalInfoClientRepository = additionalInfoClientRepository;
     }
 
     @ModelAttribute("clients")
@@ -38,7 +41,9 @@ public class ClientsAllController {
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable Long id) {
+        Client clientToDelete = clientsAllRepository.findFirstById(id);
         clientsAllRepository.deleteById(id);
+        additionalInfoClientRepository.deleteById(clientToDelete.getAdditionalInfo().getId());
         return "redirect:../list";
     }
 
