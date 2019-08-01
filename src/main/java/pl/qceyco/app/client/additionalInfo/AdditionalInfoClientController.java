@@ -39,8 +39,6 @@ public class AdditionalInfoClientController {
         return "clients/detailedInfo/clientDetailsAdd";
     }
 
-    //TODO przy zmianie podstawowych pól client - tracę obiekt zależny - details - chyba niewłaściwa metoda przy zapisie update encji
-
     @RequestMapping(value = "/add/{clientId}", method = RequestMethod.POST)
     public String processAddForm(@PathVariable Long clientId, @ModelAttribute @Validated AdditionalInfoClient additionalInfoClient, BindingResult result) {
         if (result.hasErrors()) {
