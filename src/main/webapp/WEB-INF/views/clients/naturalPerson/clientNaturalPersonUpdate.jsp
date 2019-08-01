@@ -12,7 +12,10 @@
 
 <form:form method="post" modelAttribute="clientNaturalPerson" action="/clients/natural-person/update">
     <form:hidden path="id"/>
-    <form:hidden path="additionalInfo.id"/>
+
+    <c:if test="${not empty clientNaturalPerson.additionalInfo}">
+        <form:hidden path="additionalInfo.id"/>
+    </c:if>
 
     <label for="firstNameId">First name:</label>
     <form:input type="text" path="firstName" id="firstNameId"/>
