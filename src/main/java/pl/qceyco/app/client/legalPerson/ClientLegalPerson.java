@@ -2,6 +2,7 @@ package pl.qceyco.app.client.legalPerson;
 
 import org.hibernate.validator.constraints.NotBlank;
 import pl.qceyco.app.client.Client;
+import pl.qceyco.app.client.additionalInfo.AdditionalInfoClient;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,8 +28,14 @@ public class ClientLegalPerson extends Client {
 
     @Override
     public String toString() {
+        AdditionalInfoClient additionalInfoClientTest = getAdditionalInfo();
+        AdditionalInfoClient infoToShow = new AdditionalInfoClient();
+        if (additionalInfoClientTest != null) {
+            infoToShow = additionalInfoClientTest;
+        }
         return "ClientLegalPerson{" +
                 "companyName='" + companyName + '\'' +
+                " additionalInfo: " + infoToShow.toString() +
                 '}';
     }
 }

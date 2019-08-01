@@ -12,6 +12,7 @@
 
 <form:form method="post" modelAttribute="clientNaturalPerson" action="/clients/natural-person/update">
     <form:hidden path="id"/>
+    <form:hidden path="additionalInfo"/>
 
     <label for="firstNameId">First name:</label>
     <form:input type="text" path="firstName" id="firstNameId"/>

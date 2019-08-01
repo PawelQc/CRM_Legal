@@ -11,6 +11,8 @@
 
 <h3>Client - details</h3>
 
+
+
 <table border="1">
     <tr>
         <th>NIP no</th>
@@ -37,6 +39,7 @@
         <td>${additionalInfoClient.bankAccount}</td>
     </tr>
 </table>
+<a href="/clients/additional-info/update/${additionalInfoClient.id}">Update</a>
 
 </body>
 </html>

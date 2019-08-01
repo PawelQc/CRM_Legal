@@ -20,18 +20,6 @@ public class ClientLegalPersonController {
         this.clientLegalPersonRepository = clientLegalPersonRepository;
     }
 
-   /* @ModelAttribute("clientsLP")
-    public List<ClientLegalPerson> populateClientsLP() {
-        return clientLegalPersonRepository.findAll();
-    }
-
-    //////////////////////
-
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String showAllClientsLP() {
-        return "clients/clientsList";
-    }*/
-
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String showAddForm(Model model) {
         model.addAttribute("clientLegalPerson", new ClientLegalPerson());
@@ -50,6 +38,9 @@ public class ClientLegalPersonController {
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String showUpdateForm(@PathVariable Long id, Model model) {
         ClientLegalPerson clientLegalPerson = clientLegalPersonRepository.findFirstById(id);
+
+        System.out.println("XXXXXXXXXXX przed zmianą: " + clientLegalPerson);
+
         if (clientLegalPerson == null) {
             model.addAttribute("error", "Update Error");
             return "error";
@@ -63,6 +54,9 @@ public class ClientLegalPersonController {
         if (result.hasErrors()) {
             return "clients/legalPerson/clientLegalPersonUpdate";
         }
+
+        System.out.println("po zmianie przed zapisem: " + clientLegalPerson);
+
         clientLegalPersonRepository.save(clientLegalPerson);
         return "redirect:/clients/list";
     }

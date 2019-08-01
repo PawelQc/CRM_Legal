@@ -22,7 +22,7 @@ public class AdditionalInfoClientController {
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String showDetails(@RequestParam Long clientId, @RequestParam Long additionalInfoId, Model model) {
+    public String showDetails(@RequestParam Long clientId, @RequestParam(required = false) Long additionalInfoId, Model model) {
         if (additionalInfoId == null) {
             return "redirect:/clients/additional-info/add/" + clientId;
         }
@@ -53,25 +53,25 @@ public class AdditionalInfoClientController {
         return "redirect:/clients/list";
     }
 
-    /*@RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
-    public String showUpdateForm(@PathVariable Long id, Model model) {
-        ClientLegalPerson clientLegalPerson = clientLegalPersonRepository.findFirstById(id);
-        if (clientLegalPerson == null) {
+    @RequestMapping(value = "/update/{infoId}", method = RequestMethod.GET)
+    public String showUpdateForm(@PathVariable Long infoId, Model model) {
+        AdditionalInfoClient additionalInfoClient = additionalInfoClientRepository.findFirstById(infoId);
+        if (additionalInfoClient == null) {
             model.addAttribute("error", "Update Error");
             return "error";
         }
-        model.addAttribute("clientLegalPerson", clientLegalPerson);
-        return "clients/legalPerson/clientLegalPersonUpdate";
+        model.addAttribute("additionalInfoClient", additionalInfoClient);
+        return "clients/detailedInfo/clientDetailsUpdate";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String processUpdateForm(@ModelAttribute @Validated ClientLegalPerson clientLegalPerson, BindingResult result) {
+    public String processUpdateForm(@ModelAttribute @Validated AdditionalInfoClient additionalInfoClient, BindingResult result) {
         if (result.hasErrors()) {
-            return "clients/legalPerson/clientLegalPersonUpdate";
+            return "clients/detailedInfo/clientDetailsUpdate";
         }
-        clientLegalPersonRepository.save(clientLegalPerson);
+        additionalInfoClientRepository.save(additionalInfoClient);
         return "redirect:/clients/list";
-    }*/
+    }
 
 
 }

@@ -12,6 +12,8 @@
 
 <form:form method="post" modelAttribute="clientLegalPerson" action="/clients/legal-person/update">
     <form:hidden path="id"/>
+    <form:hidden path="additionalInfo" value="${clientLegalPerson.additionalInfo.id}"/>
+
 
     <label for="companyNameId">Company name:</label>
     <form:input type="text" path="companyName" id="companyNameId"/>
