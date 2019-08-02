@@ -41,15 +41,6 @@ public class ClientNaturalPerson extends Client {
 
     @Override
     public String toString() {
-        AdditionalInfoClient additionalInfoClientTest = getAdditionalInfo();
-        AdditionalInfoClient infoToShow = new AdditionalInfoClient();
-        if (additionalInfoClientTest != null) {
-            infoToShow = additionalInfoClientTest;
-        }
-        return "ClientNaturalPerson{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                " additionalInfo: " + infoToShow.toString() +
-                '}';
+        return "Natural person: " + firstName + " " + lastName;
     }
 }

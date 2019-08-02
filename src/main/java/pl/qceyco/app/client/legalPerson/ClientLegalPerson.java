@@ -28,14 +28,6 @@ public class ClientLegalPerson extends Client {
 
     @Override
     public String toString() {
-        AdditionalInfoClient additionalInfoClientTest = getAdditionalInfo();
-        AdditionalInfoClient infoToShow = new AdditionalInfoClient();
-        if (additionalInfoClientTest != null) {
-            infoToShow = additionalInfoClientTest;
-        }
-        return "ClientLegalPerson{" +
-                "companyName='" + companyName + '\'' +
-                " additionalInfo: " + infoToShow.toString() +
-                '}';
+        return "Legal person: " + companyName;
     }
 }

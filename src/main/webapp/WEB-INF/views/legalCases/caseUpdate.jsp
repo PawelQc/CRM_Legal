@@ -26,9 +26,13 @@
     <br/><br/>
 
     <label for="clientId">Client:</label>
-    <form:select path="client.id" items="${clients}" itemLabel="companyName" itemValue="id"
-                 id="clientId"/>
-    <form:errors path="client.id" element="div"/>
+    <form:select path="client.id">
+        <form:option value="-" label="--Please select a client--" id="clientId"/>
+        <c:forEach items="${clients}" var="client">
+            <form:option value="${client.id}" label="${client.toString()}" id="clientId"/>
+        </c:forEach>
+    </form:select>
+    <form:errors path="projectTeam"/>
 
     <br/><br/>
 

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.qceyco.app.client.Client;
-import pl.qceyco.app.client.ClientRepository;
+import pl.qceyco.app.client.ClientsAllRepository;
 import pl.qceyco.app.employee.Employee;
 import pl.qceyco.app.employee.EmployeeRepository;
 
@@ -20,19 +20,19 @@ import java.util.List;
 
 public class LegalCaseController {
 
-    private final ClientRepository clientRepository;
+    private final ClientsAllRepository clientsAllRepository;
     private final EmployeeRepository employeeRepository;
     private final LegalCaseRepository legalCaseRepository;
 
-    public LegalCaseController(ClientRepository clientRepository, EmployeeRepository employeeRepository, LegalCaseRepository legalCaseRepository) {
-        this.clientRepository = clientRepository;
+    public LegalCaseController(ClientsAllRepository clientsAllRepository, EmployeeRepository employeeRepository, LegalCaseRepository legalCaseRepository) {
+        this.clientsAllRepository = clientsAllRepository;
         this.employeeRepository = employeeRepository;
         this.legalCaseRepository = legalCaseRepository;
     }
 
     @ModelAttribute("clients")
     public List<Client> populateClients() {
-        return clientRepository.findAll();
+        return clientsAllRepository.findAll();
     }
 
     @ModelAttribute("employees")

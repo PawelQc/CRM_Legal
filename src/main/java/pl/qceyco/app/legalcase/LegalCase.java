@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import pl.qceyco.app.client.Client;
 import pl.qceyco.app.employee.Employee;
+import pl.qceyco.app.timesheet.TimesheetWeek;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -34,6 +35,10 @@ public class LegalCase {
     @NotBlank
     private String description;
 
+    @ManyToOne
+    @NotNull
+    private Client client;
+
     @ManyToMany
     @JoinTable(name = "case_employee",
             joinColumns = @JoinColumn(name = "case_id"),
@@ -41,9 +46,11 @@ public class LegalCase {
     @NotEmpty
     private List<Employee> projectTeam = new ArrayList<>();
 
-    @ManyToOne
-    @NotNull
-    private Client client;
+    @ManyToMany
+    @JoinTable(name = "case_timesheet",
+            joinColumns = @JoinColumn(name = "case_id"),
+            inverseJoinColumns = @JoinColumn(name = "timesheet_id"))
+    private List<TimesheetWeek> timesheets = new ArrayList<>();
 
 
     public Long getId() {
@@ -94,6 +101,14 @@ public class LegalCase {
         this.client = client;
     }
 
+    public List<TimesheetWeek> getTimesheets() {
+        return timesheets;
+    }
+
+    public void setTimesheets(List<TimesheetWeek> timesheets) {
+        this.timesheets = timesheets;
+    }
+
     @Override
     public String toString() {
         return "LegalCase{" +
@@ -101,8 +116,9 @@ public class LegalCase {
                 ", signature='" + signature + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", projectTeam=" + projectTeam +
                 ", client=" + client +
+                ", projectTeam=" + projectTeam +
+                ", timesheets=" + timesheets +
                 '}';
     }
 }

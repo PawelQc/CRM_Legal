@@ -13,7 +13,7 @@
 <body>
 <%@ include file="/fragments/header.jspf" %>
 
-<h4>Add timesheet (indicate time in hours and quarters)</h4>
+<h4>Add timesheet (indicate time in full hours)</h4>
 
 <form:form method="post" modelAttribute="timesheetWeek">
     <form:hidden path="dateMonday"/>

@@ -37,8 +37,9 @@
             <td>${timesheet.saturdayHours}</td>
             <td>${timesheet.sundayHours}</td>
             <td>
-                    <a href="/timesheet/update/${timesheet.id}">Update</a>
-                    <a href="/timesheet/delete/${timesheet.id}">Delete</a>
+                <a href="/timesheet/update/${timesheet.id}">Update</a>
+                <a href="http://localhost:8080/timesheet/delete/${timesheet.id}"
+                   onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
             </td>
         </tr>
     </c:forEach>

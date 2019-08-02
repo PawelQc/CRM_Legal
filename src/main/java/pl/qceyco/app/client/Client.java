@@ -6,7 +6,8 @@ import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Client {
+public class Client {
+    //TODO czy klasa musi abstrakcyjna? jak jest abstrakcyjna - jest problem przy dodawaniu clienta w legalcase
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

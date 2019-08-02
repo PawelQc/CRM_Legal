@@ -33,10 +33,11 @@
                     ${lawyer.lastName}
                 </c:forEach>
             </td>
-            <td>${legalCase.client.companyName}</td>
+            <td>${legalCase.client.toString()}</td>
             <td>
-                    <a href="/legal-cases/update/${legalCase.id}">Update</a>
-                    <a href="/legal-cases/delete/${legalCase.id}">Delete</a>
+                <a href="/legal-cases/update/${legalCase.id}">Update</a>
+                <a href="http://localhost:8080/legal-cases/delete/${legalCase.id}"
+                   onclick="return confirm('Are you sure you want to delete this case?');">Delete</a>
             </td>
         </tr>
     </c:forEach>

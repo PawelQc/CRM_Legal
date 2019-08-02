@@ -52,13 +52,13 @@ public class TimesheetWeekController {
         return "timesheets/timesheetAdd";
     }
 
-    //TODO przy zapisie zmienia się wartość monday -1 (możliwy problem ze strefami czasowymi)
-
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String processAddForm(@ModelAttribute @Validated TimesheetWeek timesheetWeek, BindingResult result) {
         if (result.hasErrors()) {
             return "timesheets/timesheetAdd";
         }
+        //TODO dzięki +1 nie ma błędnego zapisu(prawdopodobnie problem z różnymi strefami czasowymi)
+        timesheetWeek.setDateMonday(timesheetWeek.getDateMonday().plusDays(1));
         timesheetWeekRepository.save(timesheetWeek);
         return "redirect:list";
     }
@@ -69,7 +69,6 @@ public class TimesheetWeekController {
         return "redirect:../list";
     }
 
-    //TODO przy update zmienia się wartość monday -1
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String showUpdateForm(@PathVariable Long id, Model model) {
@@ -87,6 +86,8 @@ public class TimesheetWeekController {
         if (result.hasErrors()) {
             return "timesheets/timesheetUpdate";
         }
+        //TODO dzięki +1 nie ma błędnego zapisu(prawdopodobnie problem z różnymi strefami czasowymi)
+        timesheetWeek.setDateMonday(timesheetWeek.getDateMonday().plusDays(1));
         timesheetWeekRepository.save(timesheetWeek);
         return "redirect:list";
     }
