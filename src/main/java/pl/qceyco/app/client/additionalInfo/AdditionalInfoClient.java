@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 public class AdditionalInfoClient {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "tax_id_no", unique = true)

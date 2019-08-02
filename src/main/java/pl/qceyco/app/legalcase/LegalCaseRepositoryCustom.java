@@ -8,4 +8,10 @@ public interface LegalCaseRepositoryCustom {
 
     LegalCase findCaseWithProjectTeamMembers(Long caseId);
 
+    List<LegalCase> findAllCasesWithProjectTeamMembersAndTimesheets();
+
+    LegalCase findCaseWithProjectTeamMembersAndTimesheets(Long caseId);
+
+
+
 }

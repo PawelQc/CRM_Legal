@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "timesheet_week")
@@ -136,5 +137,18 @@ public class TimesheetWeek {
                 ", saturdayMinutes=" + saturdayHours +
                 ", sundayMinutes=" + sundayHours +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TimesheetWeek that = (TimesheetWeek) o;
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

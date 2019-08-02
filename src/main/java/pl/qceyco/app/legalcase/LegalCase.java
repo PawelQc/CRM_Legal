@@ -20,8 +20,8 @@ public class LegalCase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 10)
-    @Size(min = 4, max = 10)
+    @Column(length = 20)
+    @Size(min = 4, max = 20)
     @NotBlank
     private String signature;
 

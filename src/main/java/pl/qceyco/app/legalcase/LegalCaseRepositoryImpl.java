@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class LegalCaseRepositoryImpl implements LegalCaseRepositoryCustom{
+public class LegalCaseRepositoryImpl implements LegalCaseRepositoryCustom {
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -30,6 +30,25 @@ public class LegalCaseRepositoryImpl implements LegalCaseRepositoryCustom{
     public LegalCase findCaseWithProjectTeamMembers(Long caseId) {
         LegalCase legalCase = entityManager.find(LegalCase.class, caseId);
         Hibernate.initialize(legalCase.getProjectTeam());
+        return legalCase;
+    }
+
+    @Override
+    public List<LegalCase> findAllCasesWithProjectTeamMembersAndTimesheets() {
+        Query query = entityManager.createQuery("SELECT l FROM LegalCase l");
+        List<LegalCase> cases = query.getResultList();
+        for (LegalCase l : cases) {
+            Hibernate.initialize(l.getProjectTeam());
+            Hibernate.initialize(l.getTimesheets());
+        }
+        return cases;
+    }
+
+    @Override
+    public LegalCase findCaseWithProjectTeamMembersAndTimesheets(Long caseId) {
+        LegalCase legalCase = entityManager.find(LegalCase.class, caseId);
+        Hibernate.initialize(legalCase.getProjectTeam());
+        Hibernate.initialize(legalCase.getTimesheets());
         return legalCase;
     }
 }

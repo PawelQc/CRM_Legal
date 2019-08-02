@@ -5,6 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import pl.qceyco.app.legalcase.LegalCase;
+import pl.qceyco.app.legalcase.LegalCaseRepository;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -17,9 +19,16 @@ import java.util.List;
 public class TimesheetWeekController {
 
     private final TimesheetWeekRepository timesheetWeekRepository;
+    private final LegalCaseRepository legalCaseRepository;
 
-    public TimesheetWeekController(TimesheetWeekRepository timesheetWeekRepository) {
+    public TimesheetWeekController(TimesheetWeekRepository timesheetWeekRepository, LegalCaseRepository legalCaseRepository) {
         this.timesheetWeekRepository = timesheetWeekRepository;
+        this.legalCaseRepository = legalCaseRepository;
+    }
+
+    @ModelAttribute("legalCases")
+    public List<LegalCase> populateCases() {
+        return legalCaseRepository.findAllCasesWithProjectTeamMembersAndTimesheets();
     }
 
     @ModelAttribute("timesheets")
@@ -34,8 +43,14 @@ public class TimesheetWeekController {
         return "timesheets/timesheetsList";
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String showAddForm(Model model, @RequestParam(required = false) String mode, @RequestParam(required = false) String mondaySelect) {
+    @RequestMapping(value = "/choose-case", method = RequestMethod.GET)
+    public String chooseCase() {
+        return "timesheets/timesheetCaseChoiceList";
+    }
+
+    @RequestMapping(value = "/add/{caseId}", method = RequestMethod.GET)
+    public String showAddForm(@PathVariable Long caseId, Model model, @RequestParam(required = false)
+            String mode, @RequestParam(required = false) String mondaySelect) {
         LocalDate monday = LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.MONDAY));
         if (mondaySelect != null) {
             monday = LocalDate.parse(mondaySelect);
@@ -52,21 +67,27 @@ public class TimesheetWeekController {
         return "timesheets/timesheetAdd";
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String processAddForm(@ModelAttribute @Validated TimesheetWeek timesheetWeek, BindingResult result) {
+    @RequestMapping(value = "/add/{caseId}", method = RequestMethod.POST)
+    public String processAddForm(@PathVariable Long caseId, @ModelAttribute @Validated TimesheetWeek timesheetWeek, BindingResult result) {
         if (result.hasErrors()) {
             return "timesheets/timesheetAdd";
         }
         //TODO dzięki +1 nie ma błędnego zapisu(prawdopodobnie problem z różnymi strefami czasowymi)
         timesheetWeek.setDateMonday(timesheetWeek.getDateMonday().plusDays(1));
         timesheetWeekRepository.save(timesheetWeek);
-        return "redirect:list";
+        LegalCase legalCase = legalCaseRepository.findCaseWithProjectTeamMembersAndTimesheets(caseId);
+        legalCase.getTimesheets().add(timesheetWeek);
+        legalCaseRepository.save(legalCase);
+        return "redirect:../list";
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public String delete(@PathVariable Long id) {
-        timesheetWeekRepository.deleteById(id);
-        return "redirect:../list";
+    @RequestMapping(value = "/delete/{timeId}/{caseId}", method = RequestMethod.GET)
+    public String delete(@PathVariable Long timeId, @PathVariable Long caseId) {
+        LegalCase legalCase = legalCaseRepository.findCaseWithProjectTeamMembersAndTimesheets(caseId);
+        legalCase.getTimesheets().remove(timesheetWeekRepository.findFirstById(timeId));
+        legalCaseRepository.save(legalCase);
+        timesheetWeekRepository.deleteById(timeId);
+        return "redirect:/timesheet/list";
     }
 
 

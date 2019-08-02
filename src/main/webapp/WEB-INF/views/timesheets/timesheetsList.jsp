@@ -8,42 +8,48 @@
 <body>
 <%@ include file="/fragments/header.jspf" %>
 
-<h3>Timesheets</h3>
+<h3>Timesheets - all</h3>
 
-<a href="/timesheet/add">Add</a>
+<a href="/timesheet/choose-case">Add</a>
 
-<table border="1">
-    <tr>
-        <th>No</th>
-        <th>Monday</th>
-        <th>MonHours</th>
-        <th>TueHours</th>
-        <th>WedHours</th>
-        <th>ThHours</th>
-        <th>FriHours</th>
-        <th>SatHours</th>
-        <th>SunHours</th>
-        <th>Action</th>
-    </tr>
-    <c:forEach var="timesheet" items="${timesheets}" varStatus="count">
+
+<c:forEach items="${legalCases}" var="legalCase">
+    <h4> Case: ${legalCase.signature}</h4>
+    <table border="1">
         <tr>
-            <td>${count.count}</td>
-            <td>${timesheet.dateMonday}</td>
-            <td>${timesheet.mondayHours}</td>
-            <td>${timesheet.tuesdayHours}</td>
-            <td>${timesheet.wednesdayHours}</td>
-            <td>${timesheet.thursdayHours}</td>
-            <td>${timesheet.fridayHours}</td>
-            <td>${timesheet.saturdayHours}</td>
-            <td>${timesheet.sundayHours}</td>
-            <td>
-                <a href="/timesheet/update/${timesheet.id}">Update</a>
-                <a href="http://localhost:8080/timesheet/delete/${timesheet.id}"
-                   onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
-            </td>
+            <th>No</th>
+            <th>Monday</th>
+            <th>MonHours</th>
+            <th>TueHours</th>
+            <th>WedHours</th>
+            <th>ThHours</th>
+            <th>FriHours</th>
+            <th>SatHours</th>
+            <th>SunHours</th>
+            <th>Action</th>
         </tr>
-    </c:forEach>
-</table>
+        <c:forEach var="timesheet" items="${legalCase.timesheets}" varStatus="count">
+            <tr>
+                <td>${count.count}</td>
+                <td>${timesheet.dateMonday}</td>
+                <td>${timesheet.mondayHours}</td>
+                <td>${timesheet.tuesdayHours}</td>
+                <td>${timesheet.wednesdayHours}</td>
+                <td>${timesheet.thursdayHours}</td>
+                <td>${timesheet.fridayHours}</td>
+                <td>${timesheet.saturdayHours}</td>
+                <td>${timesheet.sundayHours}</td>
+                <td>
+                    <a href="/timesheet/update/${timesheet.id}">Update</a>
+                    <a href="http://localhost:8080/timesheet/delete/${timesheet.id}/${legalCase.id}"
+                       onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
+
+</c:forEach>
+
 
 </body>
 </html>

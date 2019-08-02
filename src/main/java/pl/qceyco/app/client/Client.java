@@ -4,7 +4,7 @@ import pl.qceyco.app.client.additionalInfo.AdditionalInfoClient;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "xxx_client")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Client {
     //TODO czy klasa musi abstrakcyjna? jak jest abstrakcyjna - jest problem przy dodawaniu clienta w legalcase
@@ -12,6 +12,7 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    //TODO czy klucz musi być auto? jak jest identity pojawia się błąd
 
     @OneToOne
     @JoinColumn(name = "additional_info_id")
