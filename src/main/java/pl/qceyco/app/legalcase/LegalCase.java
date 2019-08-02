@@ -45,6 +45,7 @@ public class LegalCase {
     @NotNull
     private Client client;
 
+
     public Long getId() {
         return id;
     }

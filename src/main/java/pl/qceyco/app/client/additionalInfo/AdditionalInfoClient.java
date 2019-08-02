@@ -18,11 +18,6 @@ public class AdditionalInfoClient {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-   /* @ManyToOne
-    @JoinColumn(name = "assigned_employee_id")
-    @NotNull
-    private Employee assignedEmployee;*/
-
     @Column(name = "tax_id_no", unique = true)
     @NIP
     @NotBlank

@@ -49,13 +49,6 @@
 
     <br/><br/>
 
-    <%--<label for="assignedEmployeeId">Assigned lawyer:</label>
-    <form:select path="assignedEmployee.id" items="${employees}" itemLabel="lastName" itemValue="id"
-                 id="assignedEmployeeId"/>
-    <form:errors path="assignedEmployee.id" element="div"/>
-
-    <br/><br/>--%>
-
     <input type="submit" value="Save">
 </form:form>
 </body>
