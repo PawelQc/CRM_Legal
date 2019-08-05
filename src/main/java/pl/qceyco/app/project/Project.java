@@ -1,4 +1,4 @@
-package pl.qceyco.app.legalcase;
+package pl.qceyco.app.project;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "cases")
-public class LegalCase {
+@Table(name = "projects")
+public class Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,15 +40,15 @@ public class LegalCase {
     private Client client;
 
     @ManyToMany
-    @JoinTable(name = "case_employee",
-            joinColumns = @JoinColumn(name = "case_id"),
+    @JoinTable(name = "project_employee",
+            joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "employee_id"))
     @NotEmpty
     private List<Employee> projectTeam = new ArrayList<>();
 
     @ManyToMany
-    @JoinTable(name = "case_timesheet",
-            joinColumns = @JoinColumn(name = "case_id"),
+    @JoinTable(name = "project_timesheet",
+            joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "timesheet_id"))
     private List<TimesheetWeek> timesheets = new ArrayList<>();
 
@@ -111,7 +111,7 @@ public class LegalCase {
 
     @Override
     public String toString() {
-        return "LegalCase{" +
+        return "Project: {" +
                 "id=" + id +
                 ", signature='" + signature + '\'' +
                 ", name='" + name + '\'' +

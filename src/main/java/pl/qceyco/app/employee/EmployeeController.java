@@ -1,5 +1,6 @@
 package pl.qceyco.app.employee;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.qceyco.app.employee.additinalInfo.AdditionalInfoEmployeeRepository;
+import pl.qceyco.app.project.ProjectRepository;
 
 import java.util.List;
 
@@ -17,12 +19,14 @@ import java.util.List;
 
 public class EmployeeController {
 
+    private final ProjectRepository projectRepository;
     private final AdditionalInfoEmployeeRepository additionalInfoEmployeeRepository;
     private final EmployeeRepository employeeRepository;
 
-    public EmployeeController(EmployeeRepository employeeRepository, AdditionalInfoEmployeeRepository additionalInfoEmployeeRepository) {
+    public EmployeeController(EmployeeRepository employeeRepository, AdditionalInfoEmployeeRepository additionalInfoEmployeeRepository, ProjectRepository projectRepository) {
         this.employeeRepository = employeeRepository;
         this.additionalInfoEmployeeRepository = additionalInfoEmployeeRepository;
+        this.projectRepository = projectRepository;
     }
 
     @ModelAttribute("employees")
@@ -53,7 +57,11 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public String delete(@PathVariable Long id) {
+    public String delete(@PathVariable Long id, Model model) {
+        if (projectRepository.findAllByEmployeeId(id).size() >= 1) {
+            model.addAttribute("deleteErrorProjectExists", "Cannot delete this employee - delete related project first!");
+            return "employees/employeesList";
+        }
         Employee employeeToDelete = employeeRepository.findFirstById(id);
         employeeRepository.deleteById(id);
         if (employeeToDelete.getAdditionalInfo() != null) {

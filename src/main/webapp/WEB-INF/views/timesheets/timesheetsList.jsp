@@ -10,11 +10,11 @@
 
 <h3>Timesheets - all</h3>
 
-<a href="/timesheet/choose-case">Add</a>
+<a href="/timesheet/choose-project">Add</a>
 
 
-<c:forEach items="${legalCases}" var="legalCase">
-    <h4> Case: ${legalCase.signature}</h4>
+<c:forEach items="${projects}" var="project">
+    <h4> Project: ${project.signature}</h4>
     <table border="1">
         <tr>
             <th>No</th>
@@ -28,7 +28,7 @@
             <th>SunHours</th>
             <th>Action</th>
         </tr>
-        <c:forEach var="timesheet" items="${legalCase.timesheets}" varStatus="count">
+        <c:forEach var="timesheet" items="${project.timesheets}" varStatus="count">
             <tr>
                 <td>${count.count}</td>
                 <td>${timesheet.dateMonday}</td>
@@ -41,7 +41,7 @@
                 <td>${timesheet.sundayHours}</td>
                 <td>
                     <a href="/timesheet/update/${timesheet.id}">Update</a>
-                    <a href="http://localhost:8080/timesheet/delete/${timesheet.id}/${legalCase.id}"
+                    <a href="http://localhost:8080/timesheet/delete/${timesheet.id}/${project.id}"
                        onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
                 </td>
             </tr>

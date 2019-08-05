@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <header>
     <a href="/" style="padding-right: 20px">Home</a>
-    <a href="/legal-cases/list" style="padding-right: 20px">Cases</a>
+    <a href="/projects/list" style="padding-right: 20px">Projects</a>
     <a href="/clients/list" style="padding-right: 20px">Clients</a>
     <a href="/employees/list" style="padding-right: 20px">Employees</a>
     <a href="/timesheet/list" style="padding-right: 20px">Timesheets</a>

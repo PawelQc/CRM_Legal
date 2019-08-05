@@ -9,7 +9,7 @@
 
 <%@ include file="/fragments/header.jspf" %>
 
-<form:form method="post" modelAttribute="legalCase">
+<form:form method="post" modelAttribute="project">
     <label for="signatureId">Signature:</label>
     <form:input type="text" path="signature" id="signatureId"/>
     <form:errors path="signature" element="div"/>
@@ -24,12 +24,13 @@
 
     <label for="clientId">Client:</label>
     <form:select path="client.id">
-        <form:option value="-" label="--Please select a client--" id="clientId"/>
+        <form:option value="${null}" label="--Please select a client--" id="clientId"/>
         <c:forEach items="${clients}" var="client">
             <form:option value="${client.id}" label="${client.toString()}" id="clientId"/>
         </c:forEach>
     </form:select>
-    <form:errors path="projectTeam"/>
+    <form:errors path="client.id"/>
+    <div>${errorClientChoice}</div>
 
     <br/><br/>
 
@@ -45,7 +46,7 @@
             <form:option value="${lawyer.id}" label="${lawyer.lastName}" id="teamId"/>
         </c:forEach>
     </form:select>
-    <form:errors path="projectTeam"/>
+    <form:errors path="projectTeam" element="div"/>
 
     <br/><br/>
 

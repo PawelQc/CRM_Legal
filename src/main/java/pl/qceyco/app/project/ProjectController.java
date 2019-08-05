@@ -1,4 +1,4 @@
-package pl.qceyco.app.legalcase;
+package pl.qceyco.app.project;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,18 +16,18 @@ import pl.qceyco.app.employee.EmployeeRepository;
 import java.util.List;
 
 @Controller
-@RequestMapping("/legal-cases")
+@RequestMapping("/projects")
 
-public class LegalCaseController {
+public class ProjectController {
 
     private final ClientsAllRepository clientsAllRepository;
     private final EmployeeRepository employeeRepository;
-    private final LegalCaseRepository legalCaseRepository;
+    private final ProjectRepository projectRepository;
 
-    public LegalCaseController(ClientsAllRepository clientsAllRepository, EmployeeRepository employeeRepository, LegalCaseRepository legalCaseRepository) {
+    public ProjectController(ClientsAllRepository clientsAllRepository, EmployeeRepository employeeRepository, ProjectRepository projectRepository) {
         this.clientsAllRepository = clientsAllRepository;
         this.employeeRepository = employeeRepository;
-        this.legalCaseRepository = legalCaseRepository;
+        this.projectRepository = projectRepository;
     }
 
     @ModelAttribute("clients")
@@ -40,56 +40,64 @@ public class LegalCaseController {
         return employeeRepository.findAll();
     }
 
-    @ModelAttribute("legalCases")
-    public List<LegalCase> populateLegalCases() {
-        return legalCaseRepository.findAllCasesWithProjectTeamMembers();
+    @ModelAttribute("projects")
+    public List<Project> populateProjects() {
+        return projectRepository.findAllWithProjectTeamMembers();
     }
 
     //////////////////////
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String showAllCases() {
-        return "legalCases/casesList";
+    public String showAllProjects() {
+        return "projects/projectsList";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String showAddForm(Model model) {
-        model.addAttribute("legalCase", new LegalCase());
-        return "legalCases/caseAdd";
+        model.addAttribute("project", new Project());
+        return "projects/projectAdd";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String processAddForm(@ModelAttribute @Validated LegalCase legalCase, BindingResult result) {
+    public String processAddForm(@ModelAttribute @Validated Project project, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "legalCases/caseAdd";
+            return "projects/projectAdd";
         }
-        legalCaseRepository.save(legalCase);
+        if (project.getClient().getId() == null) {
+            model.addAttribute("errorClientChoice", "Please choose the client");
+            return "projects/projectAdd";
+        }
+        projectRepository.save(project);
         return "redirect:list";
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable Long id) {
-        legalCaseRepository.deleteById(id);
+        projectRepository.deleteById(id);
         return "redirect:../list";
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String showUpdateForm(@PathVariable Long id, Model model) {
-        LegalCase legalCase = legalCaseRepository.findCaseWithProjectTeamMembers(id);
-        if (legalCase == null) {
+        Project project = projectRepository.findFirstByIdWithProjectTeamMembers(id);
+        if (project == null) {
             model.addAttribute("error", "Update Error");
             return "error";
         }
-        model.addAttribute("legalCase", legalCase);
-        return "legalCases/caseUpdate";
+        model.addAttribute("project", project);
+        return "projects/projectUpdate";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String processUpdateForm(@ModelAttribute @Validated LegalCase legalCase, BindingResult result) {
+    public String processUpdateForm(@ModelAttribute @Validated Project project, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "legalCases/caseUpdate";
+            return "projects/projectUpdate";
         }
-        legalCaseRepository.save(legalCase);
+        if (project.getClient().getId() == null) {
+            model.addAttribute("errorClientChoice", "Please choose the client");
+            return "projects/projectUpdate";
+        }
+        projectRepository.save(project);
         return "redirect:list";
     }
 

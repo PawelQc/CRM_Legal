@@ -38,6 +38,7 @@
             </td>
         </tr>
     </c:forEach>
+    <h4>${deleteErrorProjectExists}</h4>
 </table>
 
 </body>

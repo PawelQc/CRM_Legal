@@ -8,36 +8,30 @@
 <body>
 <%@ include file="/fragments/header.jspf" %>
 
-<h3>Cases</h3>
-
-<a href="/legal-cases/add">Add</a>
+<h3>Projects: </h3>
 
 <table border="1">
     <tr>
         <th>No</th>
         <th>Signature</th>
         <th>Name</th>
-        <th>Description</th>
-        <th>Team</th>
+        <th>Team (allowed to add time)</th>
         <th>Client</th>
         <th>Action</th>
     </tr>
-    <c:forEach var="legalCase" items="${legalCases}" varStatus="count">
+    <c:forEach var="project" items="${projects}" varStatus="count">
         <tr>
             <td>${count.count}</td>
-            <td>${legalCase.signature}</td>
-            <td>${legalCase.name}</td>
-            <td>${legalCase.description}</td>
+            <td>${project.signature}</td>
+            <td>${project.name}</td>
             <td>
-                <c:forEach items="${legalCase.projectTeam}" var="lawyer">
+                <c:forEach items="${project.projectTeam}" var="lawyer">
                     ${lawyer.lastName}
                 </c:forEach>
             </td>
-            <td>${legalCase.client.toString()}</td>
+            <td>${project.client.toString()}</td>
             <td>
-                <a href="/legal-cases/update/${legalCase.id}">Update</a>
-                <a href="http://localhost:8080/legal-cases/delete/${legalCase.id}"
-                   onclick="return confirm('Are you sure you want to delete this case?');">Delete</a>
+                <a href="/timesheet/add/${project.id}">Add timesheet</a>
             </td>
         </tr>
     </c:forEach>
