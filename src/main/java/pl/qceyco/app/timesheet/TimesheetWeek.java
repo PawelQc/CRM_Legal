@@ -129,13 +129,13 @@ public class TimesheetWeek {
         return "TimesheetWeek{" +
                 "id=" + id +
                 ", dateMonday=" + dateMonday +
-                ", mondayMinutes=" + mondayHours +
-                ", tuesdayMinutes=" + tuesdayHours +
-                ", wednesdayMinutes=" + wednesdayHours +
-                ", thursdayMinutes=" + thursdayHours +
-                ", fridayMinutes=" + fridayHours +
-                ", saturdayMinutes=" + saturdayHours +
-                ", sundayMinutes=" + sundayHours +
+                ", mondayHours=" + mondayHours +
+                ", tuesdayHours=" + tuesdayHours +
+                ", wednesdayHours=" + wednesdayHours +
+                ", thursdayHours=" + thursdayHours +
+                ", fridayHours=" + fridayHours +
+                ", saturdayHours=" + saturdayHours +
+                ", sundayHours=" + sundayHours +
                 '}';
     }
 

@@ -3,10 +3,13 @@ package pl.qceyco.app.employee;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import pl.qceyco.app.employee.additinalInfo.AdditionalInfoEmployee;
+import pl.qceyco.app.timesheet.TimesheetWeek;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "employees")
@@ -44,6 +47,12 @@ public class Employee {
     @OneToOne
     @JoinColumn(name = "additional_info_id")
     private AdditionalInfoEmployee additionalInfo;
+
+    /*@ManyToMany
+    @JoinTable(name = "employee_timesheet",
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "timesheet_id"))
+    private List<TimesheetWeek> timesheets = new ArrayList<>();*/
 
     public Long getId() {
         return id;
@@ -101,6 +110,14 @@ public class Employee {
         this.additionalInfo = additionalInfo;
     }
 
+   /* public List<TimesheetWeek> getTimesheets() {
+        return timesheets;
+    }
+
+    public void setTimesheets(List<TimesheetWeek> timesheets) {
+        this.timesheets = timesheets;
+    }*/
+
     @Override
     public String toString() {
         return "Employee{" +
@@ -111,6 +128,7 @@ public class Employee {
                 ", password='" + password + '\'' +
                 ", isAdmin=" + isAdmin +
                 ", additionalInfo=" + additionalInfo +
+//                ", timesheets=" + timesheets +
                 '}';
     }
 }
