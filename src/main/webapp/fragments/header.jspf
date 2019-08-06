@@ -5,6 +5,7 @@
     <a href="/clients/list" style="padding-right: 20px">Clients</a>
     <a href="/employees/list" style="padding-right: 20px">Employees</a>
     <a href="/timesheet/list" style="padding-right: 20px">Timesheets</a>
+    <a href="/timesheets/list" style="padding-right: 20px">TimesheetsNEW</a>
 
     <br> <br>
 </header>

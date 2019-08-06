@@ -15,15 +15,15 @@ public class TimesheetReferenceUnit {
     private Long id;
 
     @OneToOne
-//    @Column(name = "timesheet_week_id")
+    @JoinColumn(name = "timesheet_week_id")
     private TimesheetWeek timesheetWeek;
 
     @OneToOne
-//    @Column(name = "employee_id")
+    @JoinColumn(name = "employee_id")
     private Employee employee;
 
     @OneToOne
-//    @Column(name = "project_id")
+    @JoinColumn(name = "project_id")
     private Project project;
 
     public Long getId() {
