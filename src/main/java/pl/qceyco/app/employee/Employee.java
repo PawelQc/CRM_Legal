@@ -3,13 +3,10 @@ package pl.qceyco.app.employee;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import pl.qceyco.app.employee.additinalInfo.AdditionalInfoEmployee;
-import pl.qceyco.app.timesheet.TimesheetWeek;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "employees")

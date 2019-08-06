@@ -4,7 +4,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import pl.qceyco.app.client.Client;
 import pl.qceyco.app.employee.Employee;
-import pl.qceyco.app.timesheet.TimesheetWeek;
+import pl.qceyco.app.timesheet.week.TimesheetWeek;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -15,6 +15,8 @@ import java.util.List;
 @Entity
 @Table(name = "projects")
 public class Project {
+
+    //todo usunąć relację z timesheetweek
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

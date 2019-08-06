@@ -1,4 +1,4 @@
-package pl.qceyco.app.timesheet;
+package pl.qceyco.app.timesheet.week;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
