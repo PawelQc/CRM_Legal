@@ -34,7 +34,6 @@
     </label>
 </form>
 
-
 <table border="1">
     <tr>
         <th>No</th>
