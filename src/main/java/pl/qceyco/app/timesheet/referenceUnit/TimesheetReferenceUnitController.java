@@ -143,7 +143,13 @@ public class TimesheetReferenceUnitController {
         return "timesheetsNEW/timesheetsListOfGivenProject";
     }
 
-    //TODO DOKOŃCZ SORTOWANIE
+    @RequestMapping(value = "/sort-by-employee", method = RequestMethod.POST)
+    public String showTimesheetsByEmployeeId(@RequestParam Long employeeId, Model model) {
+        List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByEmployeeIdOrderByProjectId(employeeId);
+        model.addAttribute("timesheets", timesheets);
+        return "timesheetsNEW/timesheetsListOfGivenEmployee";
+    }
+
 
 
 }

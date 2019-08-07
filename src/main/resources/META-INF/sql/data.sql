@@ -36,6 +36,52 @@ INSERT INTO project_employee VALUES (4, 2)
 INSERT INTO project_employee VALUES (4, 3)
 INSERT INTO project_employee VALUES (4, 5)
 
+INSERT INTO timesheet_week VALUES (null, "2019-08-05", 4, 5, null, null, 3, 7, 2)
+INSERT INTO timesheet_week VALUES (null, "2019-08-05", 4, 3, null, null, 5, 1, 6)
+INSERT INTO timesheet_week VALUES (null, "2019-08-05", 1, 3, null, null, 3, 7, 4)
+INSERT INTO timesheet_week VALUES (null, "2019-08-05", 7, 5, null, null, 5, 1, 4)
+INSERT INTO timesheet_week VALUES (null, "2019-08-05", 1, 3, null, null, 3, 6, 8)
+INSERT INTO timesheet_week VALUES (null, "2019-08-05", 7, 5, null, null, 5, 2, 1)
+INSERT INTO timesheet_week VALUES (null, "2019-08-05", 3, 2, null, null, 3, 7, 2)
+INSERT INTO timesheet_week VALUES (null, "2019-08-05", 5, 6, null, null, 5, 1, 6)
+INSERT INTO timesheet_week VALUES (null, "2019-08-05", 4, 3, null, null, 2, 4, 3)
+INSERT INTO timesheet_week VALUES (null, "2019-08-05", 4, 5, null, null, 6, 4, 5)
+INSERT INTO timesheet_week VALUES (null, "2019-08-12", 4, 5, null, null, 6, 4, 5)
+INSERT INTO timesheet_week VALUES (null, "2019-08-12", 4, 3, null, null, 2, 4, 3)
+INSERT INTO timesheet_week VALUES (null, "2019-08-12", 4, 5, null, null, 6, 4, 5)
+INSERT INTO timesheet_week VALUES (null, "2019-08-12", 4, 3, null, null, 2, 4, 3)
+INSERT INTO timesheet_week VALUES (null, "2019-08-12", 4, 5, null, null, 6, 4, 5)
+INSERT INTO timesheet_week VALUES (null, "2019-08-12", 4, 3, null, null, 2, 4, 3)
+INSERT INTO timesheet_week VALUES (null, "2019-08-12", 4, 5, null, null, 6, 4, 5)
+INSERT INTO timesheet_week VALUES (null, "2019-08-12", 4, 3, null, null, 2, 4, 3)
+INSERT INTO timesheet_week VALUES (null, "2019-08-12", 4, 5, null, null, 6, 4, 5)
+INSERT INTO timesheet_week VALUES (null, "2019-08-12", 4, 3, null, null, 2, 4, 3)
+
+INSERT INTO timesheet_reference_unit VALUES (null, 1, 1, 1)
+INSERT INTO timesheet_reference_unit VALUES (null, 1, 2, 2)
+INSERT INTO timesheet_reference_unit VALUES (null, 2, 1, 3)
+INSERT INTO timesheet_reference_unit VALUES (null, 2, 2, 4)
+INSERT INTO timesheet_reference_unit VALUES (null, 3, 3, 5)
+INSERT INTO timesheet_reference_unit VALUES (null, 3, 4, 6)
+INSERT INTO timesheet_reference_unit VALUES (null, 4, 3, 7)
+INSERT INTO timesheet_reference_unit VALUES (null, 4, 4, 8)
+INSERT INTO timesheet_reference_unit VALUES (null, 5, 3, 9)
+INSERT INTO timesheet_reference_unit VALUES (null, 5, 4, 10)
+INSERT INTO timesheet_reference_unit VALUES (null, 5, 1, 11)
+INSERT INTO timesheet_reference_unit VALUES (null, 5, 2, 12)
+INSERT INTO timesheet_reference_unit VALUES (null, 4, 3, 13)
+INSERT INTO timesheet_reference_unit VALUES (null, 4, 4, 14)
+INSERT INTO timesheet_reference_unit VALUES (null, 3, 1, 15)
+INSERT INTO timesheet_reference_unit VALUES (null, 3, 2, 16)
+INSERT INTO timesheet_reference_unit VALUES (null, 2, 3, 17)
+INSERT INTO timesheet_reference_unit VALUES (null, 2, 4, 18)
+INSERT INTO timesheet_reference_unit VALUES (null, 1, 2, 19)
+INSERT INTO timesheet_reference_unit VALUES (null, 1, 3, 20)
+
+
+
+
+
 
 
 

@@ -8,31 +8,7 @@
 <body>
 <%@ include file="/fragments/header.jspf" %>
 
-<h3>Timesheets - recently added</h3>
-
-<a href="/timesheets/choose-project">Add</a>
-
-<form action="/timesheets/sort-by-project" method="post">
-    <label><h4>Sort by project</h4>
-        <select name="projectId">
-            <c:forEach items="${projects}" var="project">
-                <option value="${project.id}">${project.signature}</option>
-            </c:forEach>
-        </select> <br><br>
-        <input type="submit" value="Sort">
-    </label>
-</form>
-
-<form action="/timesheets/sort-by-employee" method="post">
-    <label><h4>Sort by employee</h4>
-        <select name="employeeId">
-            <c:forEach items="${employees}" var="employee">
-                <option value="${employee.id}">${employee.firstName} ${employee.lastName}</option>
-            </c:forEach>
-        </select> <br><br>
-        <input type="submit" value="Sort">
-    </label>
-</form>
+<h3>Timesheets - sorted by employee</h3>
 
 
 <table border="1">
@@ -48,9 +24,8 @@
         <th>SunHours</th>
         <th>Project</th>
         <th>Employee</th>
-        <th>Action</th>
     </tr>
-    <c:forEach var="TSrefUnit" items="${timesheetReferenceUnits}" varStatus="count">
+    <c:forEach var="TSrefUnit" items="${timesheets}" varStatus="count">
         <tr>
             <td>${count.count}</td>
             <td>${TSrefUnit.timesheetWeek.dateMonday}</td>
@@ -63,11 +38,6 @@
             <td>${TSrefUnit.timesheetWeek.sundayHours}</td>
             <td>${TSrefUnit.project.signature}</td>
             <td>${TSrefUnit.employee.lastName}</td>
-            <td>
-                <a href="/timesheets/update/${TSrefUnit.timesheetWeek.id}">Update</a>
-                <a href="http://localhost:8080/timesheets/delete/${TSrefUnit.id}/${TSrefUnit.timesheetWeek.id}"
-                   onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
-            </td>
         </tr>
     </c:forEach>
 </table>
