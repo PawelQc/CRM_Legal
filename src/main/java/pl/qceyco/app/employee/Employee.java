@@ -3,10 +3,13 @@ package pl.qceyco.app.employee;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import pl.qceyco.app.employee.additinalInfo.AdditionalInfoEmployee;
+import pl.qceyco.app.secureapp.other.Authority;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "employees")
@@ -26,7 +29,7 @@ public class Employee {
     @NotBlank
     private String lastName;
 
-    @Column(name = "email_login", length = 100, unique = true)
+    @Column(name = "email_login", length = 100, unique = true, nullable = false)
     @Size(min = 3, max = 100)
     @Email
     @NotBlank
@@ -45,6 +48,13 @@ public class Employee {
     @OneToOne
     @JoinColumn(name = "additional_info_id")
     private AdditionalInfoEmployee additionalInfo;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "employee_authority",
+            joinColumns = { @JoinColumn(name = "employee_id") },
+            inverseJoinColumns = { @JoinColumn(name = "authority_id") })
+    private Set<Authority> authorities = new HashSet<>();
+
 
     /*@ManyToMany
     @JoinTable(name = "employee_timesheet",
@@ -108,7 +118,15 @@ public class Employee {
         this.additionalInfo = additionalInfo;
     }
 
-   /* public List<TimesheetWeek> getTimesheets() {
+    public Set<Authority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(Set<Authority> authorities) {
+        this.authorities = authorities;
+    }
+
+    /* public List<TimesheetWeek> getTimesheets() {
         return timesheets;
     }
 
@@ -126,7 +144,7 @@ public class Employee {
                 ", password='" + password + '\'' +
                 ", isAdmin=" + isAdmin +
                 ", additionalInfo=" + additionalInfo +
-//                ", timesheets=" + timesheets +
+                ", authorities=" + authorities +
                 '}';
     }
 }

@@ -13,11 +13,21 @@ INSERT INTO additional_info_employees VALUES (null, 300, 60, "765456987", 12000)
 INSERT INTO additional_info_employees VALUES (null, 200, 40, "546768987", 9000)
 INSERT INTO additional_info_employees VALUES (null, 600, 400, "654765876", 80000)
 
-INSERT INTO employees VALUES (null, "adam.kowalski@PKlegal.pl", "Adam", 0, "Kowalski", "12341234", 1)
-INSERT INTO employees VALUES (null, "k.janicki@PKlegal.pl", "Krzysztof", 0, "Janicki", "12341234", 2)
-INSERT INTO employees VALUES (null, "patryk.zubrzycki@PKlegal.pl", "Patryk", 0, "Zubrzycki", "12341234", 3)
-INSERT INTO employees VALUES (null, "pawel.janiak@PKlegal.pl", "Pawel", 0, "Janiak", "12341234", 4)
-INSERT INTO employees VALUES (null, "zenon.krzywiski@PKlegal.pl", "Zenon", 1, "Krzywiski", "12341234", 5)
+INSERT INTO employees VALUES (null, "adam.kowalski@PKlegal.pl", "Adam", 0, "Kowalski", "$2y$12$XTHyapw7mdysjE5L6YrDoOM12lJ9QOvmo6QAl8SUCyYKvmQ8PGjG.", 1)
+INSERT INTO employees VALUES (null, "k.janicki@PKlegal.pl", "Krzysztof", 0, "Janicki", "$2y$12$onC6y0E6eTR94/sPyRDdoOKyapcoTxBLPb3Xu1u8ptdach6RR8tw.", 2)
+INSERT INTO employees VALUES (null, "patryk.zubrzycki@PKlegal.pl", "Patryk", 0, "Zubrzycki", "$2y$12$zitV..WfiRzCwJeh6oOc0eYc0qVQiGaE15A5apUxULB8wRrwYIsf.", 3)
+INSERT INTO employees VALUES (null, "pawel.janiak@PKlegal.pl", "Pawel", 0, "Janiak", "$2y$12$FKG1gIHfbgdP4912tkrumON/E5kBHX6H9Th1SchERxk2lRmpwfpb2", 4)
+INSERT INTO employees VALUES (null, "zenon.krzywiski@PKlegal.pl", "Zenon", 1, "Krzywiski", "$2y$12$guDWIMgb5BVxbTZzmukPIeNhbWV76wJVRMRNhhawdrU7Fiqe8x01S", 5)
+
+---------------------------
+
+INSERT INTO authority VALUES (null, 'ROLE_ADMIN');
+INSERT INTO authority VALUES (null, 'ROLE_USER');
+
+INSERT INTO employee_authority VALUES (1, 1);
+INSERT INTO employee_authority VALUES (2, 2);
+
+----------------------------
 
 INSERT INTO projects VALUES (null, "divorce of the client with his spouse; client demands alimony from his wife", "divorce", "2019/06/fam", 1000)
 INSERT INTO projects VALUES (null, "client's wish is to sue his former employer for damages incurred during his employment time", "damages", "2017/01/civ", 1000)

@@ -2,6 +2,7 @@ package pl.qceyco.app.config;
 
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+import pl.qceyco.app.secureapp.telusko.WebSecurityConfig;
 
 import javax.servlet.Filter;
 
@@ -30,3 +31,4 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
         return new Filter[]{characterEncodingFilter};
     }
 }
+

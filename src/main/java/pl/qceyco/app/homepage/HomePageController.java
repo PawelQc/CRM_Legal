@@ -12,15 +12,15 @@ public class HomePageController {
         return "homePage";
     }
 
-    @RequestMapping("/login")
+   /* @RequestMapping("/login")
     public String loginPage() {
-        return "login";
+        return "telusko/login";
     }
 
     @RequestMapping("/logout-success")
     public String logoutPage() {
-        return "logout";
-    }
+        return "telusko/logout";
+    }*/
 }
 
 
