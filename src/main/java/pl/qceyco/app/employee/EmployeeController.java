@@ -1,6 +1,6 @@
 package pl.qceyco.app.employee;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -52,6 +52,7 @@ public class EmployeeController {
         if (result.hasErrors()) {
             return "employees/employeeAdd";
         }
+        employee.setPassword(BCrypt.hashpw(employee.getPassword(), BCrypt.gensalt()));
         employeeRepository.save(employee);
         return "redirect:list";
     }
@@ -87,6 +88,7 @@ public class EmployeeController {
         if (result.hasErrors()) {
             return "employees/employeeUpdate";
         }
+        employee.setPassword(BCrypt.hashpw(employee.getPassword(), BCrypt.gensalt()));
         employeeRepository.save(employee);
         return "redirect:list";
     }

@@ -32,8 +32,9 @@ public class Employee {
     @NotBlank
     private String emailLogin;
 
-    @Column(name = "password", length = 20)
-    @Size(min = 8, max = 20)
+    @Column(name = "password", length = 100)
+    @Size(min = 8)
+    //TODO zrób własny walidator - bo pokazuje max dlugosc = max liczba
     @NotBlank
     private String password;
 
