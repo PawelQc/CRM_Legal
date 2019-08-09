@@ -1,4 +1,4 @@
-package pl.qceyco.app.secureapp.telusko;
+package pl.qceyco.app.secureapp;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -1,4 +1,4 @@
-package pl.qceyco.app.secureapp.other;
+package pl.qceyco.app.secureapp;
 
 import javax.persistence.*;
 
@@ -34,5 +34,13 @@ public class Authority {
 
     public void setName(AuthorityType name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Authority{" +
+                "id=" + id +
+                ", name=" + name +
+                '}';
     }
 }

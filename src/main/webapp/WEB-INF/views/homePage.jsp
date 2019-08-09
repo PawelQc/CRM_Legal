@@ -10,7 +10,8 @@
 <%@ include file="/fragments/header.jspf" %>
 
 
-start
+<h4>Start page - access without logging</h4>
+<h4>For full access - please <a href="/login">login</a> </h4>
 
 </body>
 </html>

@@ -1,4 +1,4 @@
-package pl.qceyco.app.secureapp.other;
+package pl.qceyco.app.secureapp;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import pl.qceyco.app.employee.Employee;
-import pl.qceyco.app.secureapp.telusko.UserPrincipal;
 
 import javax.servlet.http.HttpSession;
 

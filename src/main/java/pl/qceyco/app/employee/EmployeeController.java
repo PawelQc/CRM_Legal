@@ -1,6 +1,7 @@
 package pl.qceyco.app.employee;
 
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,22 +12,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.qceyco.app.employee.additinalInfo.AdditionalInfoEmployeeRepository;
 import pl.qceyco.app.project.ProjectRepository;
+import pl.qceyco.app.secureapp.Authority;
+import pl.qceyco.app.secureapp.AuthorityRepository;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/employees")
 
 public class EmployeeController {
 
+    private final AuthorityRepository authorityRepository;
     private final ProjectRepository projectRepository;
     private final AdditionalInfoEmployeeRepository additionalInfoEmployeeRepository;
     private final EmployeeRepository employeeRepository;
 
-    public EmployeeController(EmployeeRepository employeeRepository, AdditionalInfoEmployeeRepository additionalInfoEmployeeRepository, ProjectRepository projectRepository) {
+    public EmployeeController(EmployeeRepository employeeRepository, AdditionalInfoEmployeeRepository additionalInfoEmployeeRepository, ProjectRepository projectRepository, AuthorityRepository authorityRepository) {
         this.employeeRepository = employeeRepository;
         this.additionalInfoEmployeeRepository = additionalInfoEmployeeRepository;
         this.projectRepository = projectRepository;
+        this.authorityRepository = authorityRepository;
     }
 
     @ModelAttribute("employees")
@@ -53,6 +59,17 @@ public class EmployeeController {
             return "employees/employeeAdd";
         }
         employee.setPassword(BCrypt.hashpw(employee.getPassword(), BCrypt.gensalt()));
+        Authority authority = null;
+        if (employee.getAdmin() == true) {
+            authority = authorityRepository.findFirstById(1);
+        }
+        else {
+            authority = authorityRepository.findFirstById(2);
+        }
+        Set<Authority>employeeAuthorities = employee.getAuthorities();
+        employeeAuthorities.add(authority);
+        employee.setAuthorities(employeeAuthorities);
+        //todo jest błąd przy zapisywaniu ze wskazaniem authority
         employeeRepository.save(employee);
         return "redirect:list";
     }
@@ -89,6 +106,16 @@ public class EmployeeController {
             return "employees/employeeUpdate";
         }
         employee.setPassword(BCrypt.hashpw(employee.getPassword(), BCrypt.gensalt()));
+        Authority authority = null;
+        if (employee.getAdmin() == true) {
+            authority = authorityRepository.findFirstById(1);
+        }
+        else {
+            authority = authorityRepository.findFirstById(2);
+        }
+        Set<Authority>employeeAuthorities = employee.getAuthorities();
+        employeeAuthorities.add(authority);
+        employee.setAuthorities(employeeAuthorities);
         employeeRepository.save(employee);
         return "redirect:list";
     }

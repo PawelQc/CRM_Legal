@@ -1,4 +1,4 @@
-package pl.qceyco.app.secureapp.other;
+package pl.qceyco.app.secureapp;
 
 
 public enum  AuthorityType {

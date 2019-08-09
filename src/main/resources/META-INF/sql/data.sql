@@ -13,11 +13,11 @@ INSERT INTO additional_info_employees VALUES (null, 300, 60, "765456987", 12000)
 INSERT INTO additional_info_employees VALUES (null, 200, 40, "546768987", 9000)
 INSERT INTO additional_info_employees VALUES (null, 600, 400, "654765876", 80000)
 
-INSERT INTO employees VALUES (null, "adam.kowalski@PKlegal.pl", "Adam", 0, "Kowalski", "$2a$10$LusF4zmyfIfHTvA8KKSLEO.lrY8Y6LX4UHo99uqV0.sS2D5EJZAPi", 1)
+INSERT INTO employees VALUES (null, "adam.kowalski@PKlegal.pl", "Adam", 1, "Kowalski", "$2a$10$LusF4zmyfIfHTvA8KKSLEO.lrY8Y6LX4UHo99uqV0.sS2D5EJZAPi", 1)
 INSERT INTO employees VALUES (null, "k.janicki@PKlegal.pl", "Krzysztof", 0, "Janicki", "$2a$10$fgAg6NLP7JIHjiyOl5.Z0uNArcKjrthwOFEYsqMkWU3K.DScXtZi6", 2)
 INSERT INTO employees VALUES (null, "patryk.zubrzycki@PKlegal.pl", "Patryk", 0, "Zubrzycki", "$2a$10$3Zt7i.Zwjr0bahsObyu0vuVJENxQWEPYvqciZExZM4ki1NpCodyMe", 3)
 INSERT INTO employees VALUES (null, "pawel.janiak@PKlegal.pl", "Pawel", 0, "Janiak", "$2a$10$4JUnbHe/sW1o8NOUYt9dRuzL8wQitlHZOjoIQtfwjZRK9nIHVxpr6", 4)
-INSERT INTO employees VALUES (null, "zenon.krzywiski@PKlegal.pl", "Zenon", 1, "Krzywiski", "$2a$10$6NTqm.zz3H6wTlPbgR7lU.xGq0W.C9Ir5WgDZpADnSlANGi8yOCwW", 5)
+INSERT INTO employees VALUES (null, "zenon.krzywiski@PKlegal.pl", "Zenon", 0, "Krzywiski", "$2a$10$6NTqm.zz3H6wTlPbgR7lU.xGq0W.C9Ir5WgDZpADnSlANGi8yOCwW", 5)
 
 ---------------------------
 
