@@ -3,7 +3,6 @@ package pl.qceyco.app.secureapp;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -47,6 +46,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests().antMatchers("/").permitAll()
                 .and()
                 .authorizeRequests().antMatchers("/login").permitAll()
+                //TEN PROBLEM ZAŁATWIĆ POPRZEZ PODANIE 2 RÓŻNYCH WIDOKÓW
+                /*.authorizeRequests().antMatchers("/employees/list").hasAnyRole("ADMIN", "USER")
+                .and()
+                .authorizeRequests().antMatchers("/clients/list").hasAnyRole("ADMIN", "USER")
+                .and()
+                .authorizeRequests().antMatchers("/projects/list").hasAnyRole("ADMIN", "USER")
+                .and()
+                .authorizeRequests().antMatchers("/clients/**").hasRole("ADMIN")
+                .and()
+                .authorizeRequests().antMatchers("/employees/**").hasRole("ADMIN")
+                .and()
+                .authorizeRequests().antMatchers("/projects/**").hasRole("ADMIN")*/
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -58,27 +69,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/logout-success").permitAll();
     }
-
-
-
-  /*  todo nie modyfikować konfiguracji springa - zrobić to na końcu projektu
-
-                .authorizeRequests().antMatchers("/login").permitAll()
-                .and()
-                .authorizeRequests().antMatchers("/employees/list").hasAnyRole("ADMIN", "USER")
-                .and()
-                .authorizeRequests().antMatchers("/clients/list").hasAnyRole("ADMIN", "USER")
-                .and()
-                .authorizeRequests().antMatchers("/projects/list").hasAnyRole("ADMIN", "USER")
-                .and()
-                .authorizeRequests().antMatchers("/clients/**").hasRole("ADMIN")
-                .and()
-                .authorizeRequests().antMatchers("/employees/**").hasRole("ADMIN")
-                .and()
-                .authorizeRequests().antMatchers("/projects/**").hasRole("ADMIN");
-
-    }*/
-
 
 }
 
