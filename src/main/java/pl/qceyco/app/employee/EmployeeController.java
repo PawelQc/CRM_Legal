@@ -1,7 +1,6 @@
 package pl.qceyco.app.employee;
 
 import org.mindrot.jbcrypt.BCrypt;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -69,7 +68,6 @@ public class EmployeeController {
         Set<Authority>employeeAuthorities = employee.getAuthorities();
         employeeAuthorities.add(authority);
         employee.setAuthorities(employeeAuthorities);
-        //todo jest błąd przy zapisywaniu ze wskazaniem authority
         employeeRepository.save(employee);
         return "redirect:list";
     }

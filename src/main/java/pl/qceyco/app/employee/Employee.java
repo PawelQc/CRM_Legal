@@ -49,10 +49,10 @@ public class Employee {
     @JoinColumn(name = "additional_info_id")
     private AdditionalInfoEmployee additionalInfo;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "employee_authority",
-            joinColumns = { @JoinColumn(name = "employee_id") },
-            inverseJoinColumns = { @JoinColumn(name = "authority_id") })
+            joinColumns = {@JoinColumn(name = "employee_id")},
+            inverseJoinColumns = {@JoinColumn(name = "authority_id")})
     private Set<Authority> authorities = new HashSet<>();
 
 
