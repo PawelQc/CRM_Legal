@@ -69,6 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/logout-success").permitAll();
     }
+    //todo ustalić jak spring security trzyma (pod jakim kluczem) dane zalogowanej osoby - w ten sposób dostanę się do infomracji jakie ma osoba uprawnienia
 
 }
 
