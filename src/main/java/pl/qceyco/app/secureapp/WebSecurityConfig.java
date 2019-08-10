@@ -3,6 +3,7 @@ package pl.qceyco.app.secureapp;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @ComponentScan(basePackages = "pl.qceyco")
@@ -40,26 +42,42 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-        //todo najpierw bardziej szczegółowe uprawnienia - potem bardziej ogólne
         http
+                .csrf().disable()
                 .authorizeRequests().antMatchers("/").permitAll()
+                .and()
+                .authorizeRequests().antMatchers("/login").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login").permitAll()
+                .successForwardUrl("/login-success")
+                .and()
+                .logout().invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/logout-success").permitAll();
+    }
+
+
+
+  /*  todo nie modyfikować konfiguracji springa - zrobić to na końcu projektu
+
+                .authorizeRequests().antMatchers("/login").permitAll()
                 .and()
                 .authorizeRequests().antMatchers("/employees/list").hasAnyRole("ADMIN", "USER")
                 .and()
-                .authorizeRequests().antMatchers("/clients/list").hasRole("ADMIN")
+                .authorizeRequests().antMatchers("/clients/list").hasAnyRole("ADMIN", "USER")
                 .and()
-                .authorizeRequests().antMatchers("/login").permitAll()
+                .authorizeRequests().antMatchers("/projects/list").hasAnyRole("ADMIN", "USER")
                 .and()
-                .formLogin().loginPage("/login").usernameParameter("username").passwordParameter("password").permitAll()
-                .loginProcessingUrl("/doLogin")
-                .successForwardUrl("/postLogin")
-                .failureUrl("/loginFailed")
+                .authorizeRequests().antMatchers("/clients/**").hasRole("ADMIN")
                 .and()
-                .logout().logoutUrl("/doLogout").logoutSuccessUrl("/logout").permitAll()
+                .authorizeRequests().antMatchers("/employees/**").hasRole("ADMIN")
                 .and()
-                .csrf().disable();
-    }
+                .authorizeRequests().antMatchers("/projects/**").hasRole("ADMIN");
+
+    }*/
 
 
 }

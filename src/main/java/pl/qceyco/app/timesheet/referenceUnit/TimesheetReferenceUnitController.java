@@ -93,7 +93,6 @@ public class TimesheetReferenceUnitController {
         if (result.hasErrors()) {
             return "timesheetsNEW/timesheetAdd";
         }
-        //TODO dzięki +1 nie ma błędnego zapisu(prawdopodobnie problem z różnymi strefami czasowymi)
         timesheetWeek.setDateMonday(timesheetWeek.getDateMonday().plusDays(1));
         timesheetWeekRepository.save(timesheetWeek);
         Employee employee = employeeRepository.findFirstById(employeeId);
@@ -130,7 +129,6 @@ public class TimesheetReferenceUnitController {
         if (result.hasErrors()) {
             return "timesheetsNEW/timesheetUpdate";
         }
-        //TODO dzięki +1 nie ma błędnego zapisu(prawdopodobnie problem z różnymi strefami czasowymi)
         timesheetWeek.setDateMonday(timesheetWeek.getDateMonday().plusDays(1));
         timesheetWeekRepository.save(timesheetWeek);
         return "redirect:list";

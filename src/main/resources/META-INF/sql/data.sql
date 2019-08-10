@@ -2,7 +2,6 @@ INSERT INTO additional_info_clients VALUES (null, "ul. Alberta 3/43, 01-577 Wars
 INSERT INTO additional_info_clients VALUES (null, "ul. Krecia 2, 01-343 Warszawa", "86106000058780488477816280", "tarcz.and@onet.pl", 480, "8943064667", "564432123")
 INSERT INTO additional_info_clients VALUES (null, "ul. Zamszy 7, 01-434 Warszawa", "59150017356396376097274923", "info.polexport@polex.pl", 700, "1219027734", "512098876")
 
---TODO client ma id.auto -->jak nadam id od 1 to mogą się powtórzyć (przy dodawaniu nalicza od 1) -->można tu jakoś zaradzić?
 INSERT INTO clients_natural_person VALUES (1000, 1, "Janusz", "Kulczyk")
 INSERT INTO clients_natural_person VALUES (1001, 2, "Andrzej", "Tarczynski")
 INSERT INTO clients_legal_person VALUES (1002, 3, "PolExport sp. z o.o.")

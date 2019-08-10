@@ -12,15 +12,6 @@ public class HomePageController {
         return "homePage";
     }
 
-   /* @RequestMapping("/login")
-    public String loginPage() {
-        return "telusko/login";
-    }
-
-    @RequestMapping("/logout-success")
-    public String logoutPage() {
-        return "telusko/logout";
-    }*/
 }
 
 

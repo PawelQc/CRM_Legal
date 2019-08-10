@@ -103,6 +103,7 @@ public class EmployeeController {
         if (result.hasErrors()) {
             return "employees/employeeUpdate";
         }
+        //todo przy update pobiera hasło w formie hashu - zmień formularz update - hasło update zrób oddzielnie + sprawdz czy sie zgadza z poprzednim
         employee.setPassword(BCrypt.hashpw(employee.getPassword(), BCrypt.gensalt()));
         Authority authority = null;
         if (employee.getAdmin() == true) {

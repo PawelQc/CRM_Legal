@@ -72,7 +72,6 @@ public class TimesheetWeekController {
         if (result.hasErrors()) {
             return "timesheets/timesheetAdd";
         }
-        //TODO dzięki +1 nie ma błędnego zapisu(prawdopodobnie problem z różnymi strefami czasowymi)
         timesheetWeek.setDateMonday(timesheetWeek.getDateMonday().plusDays(1));
         timesheetWeekRepository.save(timesheetWeek);
         Project project = projectRepository.findFirstByIdWithProjectTeamMembersAndTimesheets(projectId);
@@ -107,7 +106,6 @@ public class TimesheetWeekController {
         if (result.hasErrors()) {
             return "timesheets/timesheetUpdate";
         }
-        //TODO dzięki +1 nie ma błędnego zapisu(prawdopodobnie problem z różnymi strefami czasowymi)
         timesheetWeek.setDateMonday(timesheetWeek.getDateMonday().plusDays(1));
         timesheetWeekRepository.save(timesheetWeek);
         return "redirect:list";
