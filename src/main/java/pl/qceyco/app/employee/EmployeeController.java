@@ -4,7 +4,6 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +13,8 @@ import pl.qceyco.app.project.ProjectRepository;
 import pl.qceyco.app.secureapp.Authority;
 import pl.qceyco.app.secureapp.AuthorityRepository;
 
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Set;
 
@@ -27,7 +28,8 @@ public class EmployeeController {
     private final AdditionalInfoEmployeeRepository additionalInfoEmployeeRepository;
     private final EmployeeRepository employeeRepository;
 
-    public EmployeeController(EmployeeRepository employeeRepository, AdditionalInfoEmployeeRepository additionalInfoEmployeeRepository, ProjectRepository projectRepository, AuthorityRepository authorityRepository) {
+    public EmployeeController(EmployeeRepository employeeRepository, AdditionalInfoEmployeeRepository additionalInfoEmployeeRepository,
+                              ProjectRepository projectRepository, AuthorityRepository authorityRepository) {
         this.employeeRepository = employeeRepository;
         this.additionalInfoEmployeeRepository = additionalInfoEmployeeRepository;
         this.projectRepository = projectRepository;
@@ -42,32 +44,28 @@ public class EmployeeController {
     //////////////////////
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String showAllEmployees() {
-        return "employees/employeesList";
+    public String showAllEmployees(HttpSession session) {
+        Employee employee = (Employee) session.getAttribute("loggedInUser");
+        if (employee.getAdmin() == true) {
+            return "admin/employees/employeesList";
+        } else {
+            return "user/employees/employeesList";
+        }
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String showAddForm(Model model) {
         model.addAttribute("employee", new Employee());
-        return "employees/employeeAdd";
+        return "admin/employees/employeeAdd";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String processAddForm(@ModelAttribute @Validated Employee employee, BindingResult result) {
+    public String processAddForm(@ModelAttribute @Valid Employee employee, BindingResult result) {
         if (result.hasErrors()) {
-            return "employees/employeeAdd";
+            return "admin/employees/employeeAdd";
         }
         employee.setPassword(BCrypt.hashpw(employee.getPassword(), BCrypt.gensalt()));
-        Authority authority = null;
-        if (employee.getAdmin() == true) {
-            authority = authorityRepository.findFirstById(1);
-        }
-        else {
-            authority = authorityRepository.findFirstById(2);
-        }
-        Set<Authority>employeeAuthorities = employee.getAuthorities();
-        employeeAuthorities.add(authority);
-        employee.setAuthorities(employeeAuthorities);
+        setAuthority(employee);
         employeeRepository.save(employee);
         return "redirect:list";
     }
@@ -76,7 +74,7 @@ public class EmployeeController {
     public String delete(@PathVariable Long id, Model model) {
         if (projectRepository.findAllByEmployeeId(id).size() >= 1) {
             model.addAttribute("deleteErrorProjectExists", "Cannot delete this employee - delete related project first!");
-            return "employees/employeesList";
+            return "admin/employees/employeesList";
         }
         Employee employeeToDelete = employeeRepository.findFirstById(id);
         employeeRepository.deleteById(id);
@@ -95,28 +93,31 @@ public class EmployeeController {
             return "error";
         }
         model.addAttribute("employee", employee);
-        return "employees/employeeUpdate";
+        return "admin/employees/employeeUpdate";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String processUpdateForm(@ModelAttribute @Validated Employee employee, BindingResult result) {
+    public String processUpdateForm(@ModelAttribute @Valid Employee employee, BindingResult result) {
         if (result.hasErrors()) {
-            return "employees/employeeUpdate";
+            return "admin/employees/employeeUpdate";
         }
         //todo przy update pobiera hasło w formie hashu - zmień formularz update - hasło update zrób oddzielnie + sprawdz czy sie zgadza z poprzednim
         employee.setPassword(BCrypt.hashpw(employee.getPassword(), BCrypt.gensalt()));
+        setAuthority(employee);
+        employeeRepository.save(employee);
+        return "redirect:list";
+    }
+
+    private void setAuthority(@Valid @ModelAttribute Employee employee) {
         Authority authority = null;
         if (employee.getAdmin() == true) {
             authority = authorityRepository.findFirstById(1);
-        }
-        else {
+        } else {
             authority = authorityRepository.findFirstById(2);
         }
-        Set<Authority>employeeAuthorities = employee.getAuthorities();
+        Set<Authority> employeeAuthorities = employee.getAuthorities();
         employeeAuthorities.add(authority);
         employee.setAuthorities(employeeAuthorities);
-        employeeRepository.save(employee);
-        return "redirect:list";
     }
 
 

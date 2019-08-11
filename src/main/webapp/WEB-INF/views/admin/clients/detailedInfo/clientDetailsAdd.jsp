@@ -9,7 +9,7 @@
 
 <h4>No client detailed information - please fill the form:</h4>
 
-<%@ include file="/fragments/header.jspf" %>
+<%@ include file="/fragments/headerAdmin.jspf" %>
 
 <form:form method="post" modelAttribute="additionalInfoClient">
 

@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<%@ include file="/fragments/header.jspf" %>
+<%@ include file="/fragments/headerAdmin.jspf" %>
 
 <h4>Adding new client - please choose client's legal status:</h4>
 <ul>

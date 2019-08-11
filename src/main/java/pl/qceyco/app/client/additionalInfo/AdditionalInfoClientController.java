@@ -3,10 +3,13 @@ package pl.qceyco.app.client.additionalInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.qceyco.app.client.Client;
 import pl.qceyco.app.client.ClientsAllRepository;
+import pl.qceyco.app.employee.Employee;
+
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/clients/additional-info")
@@ -22,13 +25,18 @@ public class AdditionalInfoClientController {
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String showDetails(@RequestParam Long clientId, @RequestParam(required = false) Long additionalInfoId, Model model) {
+    public String showDetails(@RequestParam Long clientId, @RequestParam(required = false) Long additionalInfoId, Model model, HttpSession session) {
         if (additionalInfoId == null) {
             return "redirect:/clients/additional-info/add/" + clientId;
         }
         AdditionalInfoClient additionalInfoClient = additionalInfoClientRepository.findFirstById(additionalInfoId);
         model.addAttribute("additionalInfoClient", additionalInfoClient);
-        return "clients/detailedInfo/clientDetailsList";
+        Employee employee = (Employee) session.getAttribute("loggedInUser");
+        if (employee.getAdmin() == true) {
+            return "admin/clients/detailedInfo/clientDetailsList";
+        } else {
+            return "user/clients/detailedInfo/clientDetailsList";
+        }
     }
 
     @RequestMapping(value = "/add/{clientId}", method = RequestMethod.GET)
@@ -36,13 +44,13 @@ public class AdditionalInfoClientController {
         Client client = clientsAllRepository.findFirstById(clientId);
         model.addAttribute("client", client);
         model.addAttribute("additionalInfoClient", new AdditionalInfoClient());
-        return "clients/detailedInfo/clientDetailsAdd";
+        return "admin/clients/detailedInfo/clientDetailsAdd";
     }
 
     @RequestMapping(value = "/add/{clientId}", method = RequestMethod.POST)
-    public String processAddForm(@PathVariable Long clientId, @ModelAttribute @Validated AdditionalInfoClient additionalInfoClient, BindingResult result) {
+    public String processAddForm(@PathVariable Long clientId, @ModelAttribute @Valid AdditionalInfoClient additionalInfoClient, BindingResult result) {
         if (result.hasErrors()) {
-            return "clients/detailedInfo/clientDetailsAdd";
+            return "admin/clients/detailedInfo/clientDetailsAdd";
         }
         additionalInfoClientRepository.save(additionalInfoClient);
         Client client = clientsAllRepository.findFirstById(clientId);
@@ -59,13 +67,13 @@ public class AdditionalInfoClientController {
             return "error";
         }
         model.addAttribute("additionalInfoClient", additionalInfoClient);
-        return "clients/detailedInfo/clientDetailsUpdate";
+        return "admin/clients/detailedInfo/clientDetailsUpdate";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String processUpdateForm(@ModelAttribute @Validated AdditionalInfoClient additionalInfoClient, BindingResult result) {
+    public String processUpdateForm(@ModelAttribute @Valid AdditionalInfoClient additionalInfoClient, BindingResult result) {
         if (result.hasErrors()) {
-            return "clients/detailedInfo/clientDetailsUpdate";
+            return "admin/clients/detailedInfo/clientDetailsUpdate";
         }
         additionalInfoClientRepository.save(additionalInfoClient);
         return "redirect:/clients/list";

@@ -3,11 +3,12 @@ package pl.qceyco.app.client.legalPerson;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/clients/legal-person")
@@ -23,13 +24,13 @@ public class ClientLegalPersonController {
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String showAddForm(Model model) {
         model.addAttribute("clientLegalPerson", new ClientLegalPerson());
-        return "clients/legalPerson/clientLegalPersonAdd";
+        return "admin/clients/legalPerson/clientLegalPersonAdd";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String processAddForm(@ModelAttribute @Validated ClientLegalPerson clientLegalPerson, BindingResult result) {
+    public String processAddForm(@ModelAttribute @Valid ClientLegalPerson clientLegalPerson, BindingResult result) {
         if (result.hasErrors()) {
-            return "clients/legalPerson/clientLegalPersonAdd";
+            return "admin/clients/legalPerson/clientLegalPersonAdd";
         }
         clientLegalPersonRepository.save(clientLegalPerson);
         return "redirect:/clients/list";
@@ -43,13 +44,13 @@ public class ClientLegalPersonController {
             return "error";
         }
         model.addAttribute("clientLegalPerson", clientLegalPerson);
-        return "clients/legalPerson/clientLegalPersonUpdate";
+        return "admin/clients/legalPerson/clientLegalPersonUpdate";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String processUpdateForm(@ModelAttribute @Validated ClientLegalPerson clientLegalPerson, BindingResult result) {
+    public String processUpdateForm(@ModelAttribute @Valid ClientLegalPerson clientLegalPerson, BindingResult result) {
         if (result.hasErrors()) {
-            return "clients/legalPerson/clientLegalPersonUpdate";
+            return "admin/clients/legalPerson/clientLegalPersonUpdate";
         }
         clientLegalPersonRepository.save(clientLegalPerson);
         return "redirect:/clients/list";

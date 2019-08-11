@@ -3,12 +3,12 @@ package pl.qceyco.app.employee.additinalInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import pl.qceyco.app.client.Client;
-import pl.qceyco.app.client.additionalInfo.AdditionalInfoClient;
 import pl.qceyco.app.employee.Employee;
 import pl.qceyco.app.employee.EmployeeRepository;
+
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/employees/additional-info")
@@ -25,13 +25,19 @@ public class AdditionalInfoEmployeeController {
 
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String showDetails(@RequestParam Long employeeId, @RequestParam(required = false) Long additionalInfoId, Model model) {
+    public String showDetails(@RequestParam Long employeeId, @RequestParam(required = false) Long additionalInfoId,
+                              Model model, HttpSession session) {
         if (additionalInfoId == null) {
             return "redirect:/employees/additional-info/add/" + employeeId;
         }
         AdditionalInfoEmployee additionalInfoEmployee = additionalInfoEmployeeRepository.findFirstById(additionalInfoId);
         model.addAttribute("additionalInfoEmployee", additionalInfoEmployee);
-        return "employees/detailedInfo/employeeDetailsList";
+        Employee employee = (Employee) session.getAttribute("loggedInUser");
+        if (employee.getAdmin() == true) {
+            return "admin/employees/detailedInfo/employeeDetailsList";
+        } else {
+            return "user/employees/detailedInfo/employeeDetailsList";
+        }
     }
 
     @RequestMapping(value = "/add/{employeeId}", method = RequestMethod.GET)
@@ -39,13 +45,13 @@ public class AdditionalInfoEmployeeController {
         Employee employee = employeeRepository.findFirstById(employeeId);
         model.addAttribute("employee", employee);
         model.addAttribute("additionalInfoEmployee", new AdditionalInfoEmployee());
-        return "employees/detailedInfo/employeeDetailsAdd";
+        return "admin/employees/detailedInfo/employeeDetailsAdd";
     }
 
     @RequestMapping(value = "/add/{employeeId}", method = RequestMethod.POST)
-    public String processAddForm(@PathVariable Long employeeId, @ModelAttribute @Validated AdditionalInfoEmployee additionalInfoEmployee, BindingResult result) {
+    public String processAddForm(@PathVariable Long employeeId, @ModelAttribute @Valid AdditionalInfoEmployee additionalInfoEmployee, BindingResult result) {
         if (result.hasErrors()) {
-            return "employees/detailedInfo/employeeDetailsAdd";
+            return "admin/employees/detailedInfo/employeeDetailsAdd";
         }
         additionalInfoEmployeeRepository.save(additionalInfoEmployee);
         Employee employee = employeeRepository.findFirstById(employeeId);
@@ -62,13 +68,13 @@ public class AdditionalInfoEmployeeController {
             return "error";
         }
         model.addAttribute("additionalInfoEmployee", additionalInfoEmployee);
-        return "employees/detailedInfo/employeeDetailsUpdate";
+        return "admin/employees/detailedInfo/employeeDetailsUpdate";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String processUpdateForm(@ModelAttribute @Validated AdditionalInfoEmployee additionalInfoEmployee, BindingResult result) {
+    public String processUpdateForm(@ModelAttribute @Valid AdditionalInfoEmployee additionalInfoEmployee, BindingResult result) {
         if (result.hasErrors()) {
-            return "employees/detailedInfo/employeeDetailsUpdate";
+            return "admin/employees/detailedInfo/employeeDetailsUpdate";
         }
         additionalInfoEmployeeRepository.save(additionalInfoEmployee);
         return "redirect:/employees/list";

@@ -5,11 +5,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import pl.qceyco.app.employee.Employee;
 
-import javax.servlet.http.HttpSession;
-
 @Controller
+@SessionAttributes("loggedInUser")
 public class LoginController {
 
     @RequestMapping("/login")
@@ -18,20 +18,22 @@ public class LoginController {
     }
 
     @RequestMapping("/login-success")
-    public String loginSuccess(Model model, HttpSession session) {
+    public String loginSuccess(Model model) {
         UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
         validatePrinciple(authentication.getPrincipal());
         Employee loggedInUser = ((UserPrincipal) authentication.getPrincipal()).getUserDetails();
-
-//todo - loggeninuser==>zalogowany uzytkownaik!! na tej podstawie będę weryfikował w widokach - dodaj tę infomację do sesji/ewentualnie całego usera
-        return "loginSuccess";
+        model.addAttribute("loggedInUser", loggedInUser);
+        if (loggedInUser.getAdmin() == true) {
+            return "admin/loginSuccessAdmin";
+        } else {
+            return "user/loginSuccessUser";
+        }
     }
 
     @RequestMapping("/logout-success")
     public String logoutPage() {
         return "logout";
     }
-
 
     private void validatePrinciple(Object principal) {
         if (!(principal instanceof UserPrincipal)) {
@@ -40,3 +42,5 @@ public class LoginController {
     }
 
 }
+
+

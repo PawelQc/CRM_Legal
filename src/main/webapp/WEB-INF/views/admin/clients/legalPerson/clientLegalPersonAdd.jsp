@@ -6,16 +6,11 @@
     <title>Title</title>
 </head>
 <body>
-<%@ include file="/fragments/header.jspf" %>
+<%@ include file="/fragments/headerAdmin.jspf" %>
 
-<h4>Update client - legal person (basic info)</h4>
+<h4>Add client - legal person (basic info)</h4>
 
-<form:form method="post" modelAttribute="clientLegalPerson" action="/clients/legal-person/update">
-    <form:hidden path="id"/>
-
-    <c:if test="${not empty clientLegalPerson.additionalInfo}">
-        <form:hidden path="additionalInfo.id"/>
-    </c:if>
+<form:form method="post" modelAttribute="clientLegalPerson">
 
     <label for="companyNameId">Company name:</label>
     <form:input type="text" path="companyName" id="companyNameId"/>
@@ -23,7 +18,7 @@
 
     <br/><br/>
 
-    <input type="submit" value="Update">
+    <input type="submit" value="Save">
 </form:form>
 </body>
 </html>

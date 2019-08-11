@@ -6,9 +6,15 @@
     <title>Title</title>
 </head>
 <body>
-<%@ include file="/fragments/header.jspf" %>
+<%@ include file="/fragments/headerAdmin.jspf" %>
 
-<form:form method="post" modelAttribute="employee">
+<form:form method="post" modelAttribute="employee" action="/employees/update">
+
+    <form:hidden path="id" value="${employee.id}"/>
+
+    <c:if test="${not empty employee.additionalInfo}">
+        <form:hidden path="additionalInfo.id"/>
+    </c:if>
 
     <label for="firstNameId">First name:</label>
     <form:input type="text" path="firstName" id="firstNameId"/>

@@ -1,6 +1,5 @@
 package pl.qceyco.app.client;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -8,8 +7,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.qceyco.app.client.additionalInfo.AdditionalInfoClientRepository;
+import pl.qceyco.app.employee.Employee;
 import pl.qceyco.app.project.ProjectRepository;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -35,20 +36,25 @@ public class ClientsAllController {
     //////////////////////
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String showAllClients() {
-        return "clients/clientsList";
+    public String showAllClients(HttpSession session) {
+        Employee employee = (Employee) session.getAttribute("loggedInUser");
+        if (employee.getAdmin() == true) {
+            return "admin/clients/clientsList";
+        } else {
+            return "user/clients/clientsList";
+        }
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String showChoiceOfLegalStatusForm() {
-        return "clients/legalStatusChoice/clientChooseLegalStatus";
+        return "admin/clients/clientChooseLegalStatus";
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable Long id, Model model) {
         if (projectRepository.findFirstByClientId(id) != null) {
             model.addAttribute("deleteErrorProjectExists", "Cannot delete this client - delete related project first!");
-            return "clients/clientsList";
+            return "admin/clients/clientsList";
         }
         Client clientToDelete = clientsAllRepository.findFirstById(id);
         clientsAllRepository.deleteById(id);

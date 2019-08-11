@@ -29,6 +29,9 @@ public class Employee {
     @NotBlank
     private String lastName;
 
+    @Transient
+    private String nameDisplay;
+
     @Column(name = "email_login", length = 100, unique = true, nullable = false)
     @Size(min = 3, max = 100)
     @Email
@@ -84,6 +87,10 @@ public class Employee {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getNameDisplay() {
+        return firstName + " " + lastName;
     }
 
     public String getEmailLogin() {

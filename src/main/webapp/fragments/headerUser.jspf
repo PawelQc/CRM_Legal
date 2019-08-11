@@ -1,11 +1,19 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <header>
-    <a href="/" style="padding-right: 20px">Start</a>
+    <a href="/home" style="padding-right: 20px">Home</a>
     <a href="/projects/list" style="padding-right: 20px">Projects</a>
     <a href="/clients/list" style="padding-right: 20px">Clients</a>
     <a href="/employees/list" style="padding-right: 20px">Employees</a>
     <a href="/timesheet/list" style="padding-right: 20px">Timesheets-by projects</a>
     <a href="/timesheets/list" style="padding-right: 20px">Timesheets (correct functionality)</a>
-    <a href="/login" style="padding-right: 20px">LOGIN</a>
-    <a href="/logout" style="padding-right: 20px">LOGOUT</a>
+    <c:choose>
+        <c:when test="${not empty loggedInUser}">
+            <a href="/logout" style="padding-right: 20px">LOGOUT</a>
+        </c:when>
+        <c:otherwise>
+            <a href="/login" style="padding-right: 20px">LOGIN</a>
+        </c:otherwise>
+    </c:choose>
     <br> <br>
 </header>

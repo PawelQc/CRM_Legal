@@ -6,7 +6,7 @@
     <title>Title</title>
 </head>
 <body>
-<%@ include file="/fragments/header.jspf" %>
+<%@ include file="/fragments/headerAdmin.jspf" %>
 
 <h3>Employee - details</h3>
 

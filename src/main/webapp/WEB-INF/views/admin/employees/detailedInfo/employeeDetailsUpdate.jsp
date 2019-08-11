@@ -6,7 +6,7 @@
     <title>Title</title>
 </head>
 <body>
-<%@ include file="/fragments/header.jspf" %>
+<%@ include file="/fragments/headerAdmin.jspf" %>
 
 <form:form method="post" modelAttribute="additionalInfoEmployee" action="/employees/additional-info/update">
     <form:hidden path="id"/>
