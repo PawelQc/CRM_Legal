@@ -46,18 +46,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests().antMatchers("/").permitAll()
                 .and()
                 .authorizeRequests().antMatchers("/login").permitAll()
-                //TEN PROBLEM ZAŁATWIĆ POPRZEZ PODANIE 2 RÓŻNYCH WIDOKÓW
-                /*.authorizeRequests().antMatchers("/employees/list").hasAnyRole("ADMIN", "USER")
-                .and()
-                .authorizeRequests().antMatchers("/clients/list").hasAnyRole("ADMIN", "USER")
-                .and()
-                .authorizeRequests().antMatchers("/projects/list").hasAnyRole("ADMIN", "USER")
-                .and()
-                .authorizeRequests().antMatchers("/clients/**").hasRole("ADMIN")
-                .and()
-                .authorizeRequests().antMatchers("/employees/**").hasRole("ADMIN")
-                .and()
-                .authorizeRequests().antMatchers("/projects/**").hasRole("ADMIN")*/
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -69,7 +57,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/logout-success").permitAll();
     }
-    //todo ustalić jak spring security trzyma (pod jakim kluczem) dane zalogowanej osoby - w ten sposób dostanę się do infomracji jakie ma osoba uprawnienia
 
 }
 

@@ -8,7 +8,7 @@
     <title>Title</title>
 </head>
 <body>
-<%@ include file="/fragments/headerUser.jspf" %>
+<%@ include file="/fragments/header.jspf" %>
 
 <h3>List of all clients</h3>
 

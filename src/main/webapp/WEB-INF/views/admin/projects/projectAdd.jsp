@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<%@ include file="/fragments/headerAdmin.jspf" %>
+<%@ include file="/fragments/header.jspf" %>
 
 <form:form method="post" modelAttribute="project">
     <label for="signatureId">Signature:</label>

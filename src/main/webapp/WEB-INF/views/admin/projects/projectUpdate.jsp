@@ -7,9 +7,9 @@
 </head>
 <body>
 
-<%@ include file="/fragments/headerAdmin.jspf" %>
+<%@ include file="/fragments/header.jspf" %>
 
-<form:form method="post" modelAttribute="project" action="/projects/update">>
+<form:form method="post" modelAttribute="project" action="/projects/update">
 
     <form:hidden path="id" value="${project.id}"/>
 

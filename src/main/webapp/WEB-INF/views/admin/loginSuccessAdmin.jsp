@@ -7,7 +7,7 @@
     <title>Title</title>
 </head>
 <body>
-<%@ include file="/fragments/headerAdmin.jspf" %>
+<%@ include file="/fragments/header.jspf" %>
 
 <h4>Successful logging!</h4>
 

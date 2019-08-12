@@ -21,7 +21,7 @@
     <table border="1">
 
         <tr>
-            <td rowspan="2"> <a href="/timesheet/add/${projectId}?mode=prev&mondaySelect=${timesheetWeek.dateMonday}"/> < </td>
+            <td rowspan="2"> <a href="/timesheets/add/${projectId}?mode=prev&mondaySelect=${timesheetWeek.dateMonday}"/> < </td>
             <th>${timesheetWeek.dateMonday}</th>
             <th>${timesheetWeek.dateMonday.plusDays(1)}</th>
             <th>${timesheetWeek.dateMonday.plusDays(2)}</th>
@@ -29,7 +29,7 @@
             <th>${timesheetWeek.dateMonday.plusDays(4)}</th>
             <th>${timesheetWeek.dateMonday.plusDays(5)}</th>
             <th>${timesheetWeek.dateMonday.plusDays(6)}</th>
-            <td rowspan="2"> <a href="/timesheet/add/${projectId}?mode=next&mondaySelect=${timesheetWeek.dateMonday}"/> > </td>
+            <td rowspan="2"> <a href="/timesheets/add/${projectId}?mode=next&mondaySelect=${timesheetWeek.dateMonday}"/> > </td>
         </tr>
         <tr>
             <td>

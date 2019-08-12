@@ -6,7 +6,7 @@
     <title>Title</title>
 </head>
 <body>
-<%@ include file="/fragments/headerAdmin.jspf" %>
+<%@ include file="/fragments/header.jspf" %>
 
 <h4>Update client - natural person (basic info)</h4>
 

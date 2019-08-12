@@ -7,7 +7,7 @@
     <title>Title</title>
 </head>
 <body>
-<%@ include file="/fragments/headerUser.jspf" %>
+<%@ include file="/fragments/header.jspf" %>
 
 <h4>home page</h4>
 

@@ -9,7 +9,7 @@
 
 <h4>Update form - client detailed information:</h4>
 
-<%@ include file="/fragments/headerAdmin.jspf" %>
+<%@ include file="/fragments/header.jspf" %>
 
 <form:form method="post" modelAttribute="additionalInfoClient" action="/clients/additional-info/update">
     <form:hidden path="id"/>

@@ -1,10 +1,8 @@
 package pl.qceyco.app.timesheet.referenceUnit;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.qceyco.app.employee.Employee;
 import pl.qceyco.app.employee.EmployeeRepository;
@@ -13,6 +11,8 @@ import pl.qceyco.app.project.ProjectRepository;
 import pl.qceyco.app.timesheet.week.TimesheetWeek;
 import pl.qceyco.app.timesheet.week.TimesheetWeekRepository;
 
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
@@ -45,7 +45,7 @@ public class TimesheetReferenceUnitController {
         return employeeRepository.findAll();
     }
 
-    @ModelAttribute("timesheetReferenceUnits")
+    @ModelAttribute("timesheetReferenceUnitsAll")
     public List<TimesheetReferenceUnit> populateTimesheetReferenceUnits() {
         return timesheetReferenceUnitRepository.findAll();
     }
@@ -53,25 +53,34 @@ public class TimesheetReferenceUnitController {
     ///////////////////////
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String showAllTimesheets() {
-        return "timesheetsNEW/timesheetsList";
+    public String showAllTimesheets(HttpSession session, Model model) {
+        Employee employee = (Employee) session.getAttribute("loggedInUser");
+        if (employee.getAdmin() == true) {
+            return "admin/timesheets/timesheetsList";
+        } else {
+            List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByEmployeeId(employee.getId());
+            model.addAttribute("timesheetReferenceUnitsUser", timesheets);
+            List<Project> projectsWhereEmployeeParticipates = projectRepository.findAllByEmployeeId(employee.getId());
+            model.addAttribute("projectsWhereEmployeeParticipates", projectsWhereEmployeeParticipates);
+            return "user/timesheets/timesheetsList";
+        }
     }
 
     @RequestMapping(value = "/choose-project", method = RequestMethod.GET)
-    public String chooseProject() {
-        return "timesheetsNEW/timesheetProjectChoiceList";
+    public String chooseProject(HttpSession session, Model model) {
+        Employee employee = (Employee) session.getAttribute("loggedInUser");
+        if (employee.getAdmin() == true) {
+            return "admin/timesheets/timesheetProjectChoiceList";
+        } else {
+            List<Project> projectsWhereEmployeeParticipates = projectRepository.findAllByEmployeeId(employee.getId());
+            model.addAttribute("projectsWhereEmployeeParticipates", projectsWhereEmployeeParticipates);
+            return "user/timesheets/timesheetProjectChoiceList";
+        }
     }
 
-    @RequestMapping(value = "/choose-employee/{projectId}", method = RequestMethod.GET)
-    public String chooseEmployee(@PathVariable Long projectId, Model model) {
-        Project project = projectRepository.findFirstByIdWithProjectTeamMembers(projectId);
-        model.addAttribute("project", project);
-        return "timesheetsNEW/timesheetEmployeeChoiceList";
-    }
-
-    @RequestMapping(value = "/add/{projectId}/{employeeId}", method = RequestMethod.GET)
-    public String showAddForm(@PathVariable Long projectId, @PathVariable Long employeeId, Model model, @RequestParam(required = false)
-            String mode, @RequestParam(required = false) String mondaySelect) {
+    @RequestMapping(value = "/add/{projectId}", method = RequestMethod.GET)
+    public String showAddForm(@PathVariable Long projectId, Model model, @RequestParam(required = false) String mode,
+                              @RequestParam(required = false) String mondaySelect) {
         LocalDate monday = LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.MONDAY));
         if (mondaySelect != null) {
             monday = LocalDate.parse(mondaySelect);
@@ -85,21 +94,22 @@ public class TimesheetReferenceUnitController {
         TimesheetWeek timesheetWeek = new TimesheetWeek();
         timesheetWeek.setDateMonday(monday);
         model.addAttribute("timesheetWeek", timesheetWeek);
-        return "timesheetsNEW/timesheetAdd";
+        return "timesheets/timesheetAdd";
     }
 
-    @RequestMapping(value = "/add/{projectId}/{employeeId}", method = RequestMethod.POST)
-    public String processAddForm(@PathVariable Long projectId, @PathVariable Long employeeId, @ModelAttribute @Validated TimesheetWeek timesheetWeek, BindingResult result) {
+    @RequestMapping(value = "/add/{projectId}", method = RequestMethod.POST)
+    public String processAddForm(@PathVariable Long projectId, @ModelAttribute @Valid TimesheetWeek timesheetWeek,
+                                 BindingResult result, HttpSession session) {
         if (result.hasErrors()) {
-            return "timesheetsNEW/timesheetAdd";
+            return "timesheets/timesheetAdd";
         }
         timesheetWeek.setDateMonday(timesheetWeek.getDateMonday().plusDays(1));
         timesheetWeekRepository.save(timesheetWeek);
-        Employee employee = employeeRepository.findFirstById(employeeId);
+        Employee loggedInUser = (Employee) session.getAttribute("loggedInUser");
         Project project = projectRepository.findFirstByIdWithProjectTeamMembers(projectId);
         TimesheetReferenceUnit timesheetReferenceUnit = new TimesheetReferenceUnit();
         timesheetReferenceUnit.setTimesheetWeek(timesheetWeek);
-        timesheetReferenceUnit.setEmployee(employee);
+        timesheetReferenceUnit.setEmployee(loggedInUser);
         timesheetReferenceUnit.setProject(project);
         timesheetReferenceUnitRepository.save(timesheetReferenceUnit);
         return "redirect:/timesheets/list";
@@ -121,13 +131,13 @@ public class TimesheetReferenceUnitController {
             return "error";
         }
         model.addAttribute("timesheetWeek", timesheetWeek);
-        return "timesheetsNEW/timesheetUpdate";
+        return "timesheets/timesheetUpdate";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String processUpdateForm(@ModelAttribute @Validated TimesheetWeek timesheetWeek, BindingResult result) {
+    public String processUpdateForm(@ModelAttribute @Valid TimesheetWeek timesheetWeek, BindingResult result) {
         if (result.hasErrors()) {
-            return "timesheetsNEW/timesheetUpdate";
+            return "timesheets/timesheetUpdate";
         }
         timesheetWeek.setDateMonday(timesheetWeek.getDateMonday().plusDays(1));
         timesheetWeekRepository.save(timesheetWeek);
@@ -135,19 +145,26 @@ public class TimesheetReferenceUnitController {
     }
 
     @RequestMapping(value = "/sort-by-project", method = RequestMethod.POST)
-    public String showTimesheetsByProjectId(@RequestParam Long projectId, Model model) {
-        List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByProjectIdOrderByEmployeeId(projectId);
-        model.addAttribute("timesheets", timesheets);
-        return "timesheetsNEW/timesheetsListOfGivenProject";
+    public String showTimesheetsByProjectId(@RequestParam Long projectId, Model model, HttpSession session) {
+        Employee loggedInUser = (Employee) session.getAttribute("loggedInUser");
+        if (loggedInUser.getAdmin() == true) {
+            List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByProjectIdOrderByEmployeeId(projectId);
+            model.addAttribute("timesheets", timesheets);
+            return "admin/timesheets/timesheetsListOfGivenProject";
+        } else {
+            List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByProjectIdAndEmployeeId(projectId, loggedInUser.getId());
+            model.addAttribute("timesheets", timesheets);
+            return "user/timesheets/timesheetsListOfGivenProject";
+        }
+
     }
 
     @RequestMapping(value = "/sort-by-employee", method = RequestMethod.POST)
     public String showTimesheetsByEmployeeId(@RequestParam Long employeeId, Model model) {
         List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByEmployeeIdOrderByProjectId(employeeId);
         model.addAttribute("timesheets", timesheets);
-        return "timesheetsNEW/timesheetsListOfGivenEmployee";
+        return "admin/timesheets/timesheetsListOfGivenEmployee";
     }
-
 
 
 }

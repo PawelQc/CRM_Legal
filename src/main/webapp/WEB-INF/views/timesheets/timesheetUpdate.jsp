@@ -11,7 +11,7 @@
 
 <h4>Edit timesheet (indicate time in full hours)</h4>
 
-<form:form method="post" modelAttribute="timesheetWeek" action="/timesheet/update">
+<form:form method="post" modelAttribute="timesheetWeek" action="/timesheets/update">
     <form:hidden path="dateMonday"/>
     <form:hidden path="id"/>
     <table border="1">

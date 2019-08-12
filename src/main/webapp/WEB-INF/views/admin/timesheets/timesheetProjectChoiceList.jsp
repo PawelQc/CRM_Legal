@@ -31,7 +31,7 @@
             </td>
             <td>${project.client.toString()}</td>
             <td>
-                <a href="/timesheets/choose-employee/${project.id}">Proceed</a>
+                <a href="/timesheets/add/${project.id}">Add timesheet</a>
             </td>
         </tr>
     </c:forEach>

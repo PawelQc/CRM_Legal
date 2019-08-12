@@ -8,22 +8,24 @@
 <body>
 <%@ include file="/fragments/header.jspf" %>
 
-<h3>Employees on the project: </h3>
+<h3>Projects: </h3>
 
 <table border="1">
     <tr>
         <th>No</th>
-        <th>First name</th>
-        <th>Last name</th>
+        <th>Signature</th>
+        <th>Name</th>
+        <th>Client</th>
         <th>Action</th>
     </tr>
-    <c:forEach var="employee" items="${project.projectTeam}" varStatus="count">
+    <c:forEach var="project" items="${projectsWhereEmployeeParticipates}" varStatus="count">
         <tr>
             <td>${count.count}</td>
-            <td>${employee.firstName}</td>
-            <td>${employee.lastName}</td>
+            <td>${project.signature}</td>
+            <td>${project.name}</td>
+            <td>${project.client.toString()}</td>
             <td>
-                <a href="/timesheets/add/${project.id}/${employee.id}">Add timesheet</a>
+                <a href="/timesheets/add/${project.id}">Add timesheet</a>
             </td>
         </tr>
     </c:forEach>

@@ -10,7 +10,11 @@ public interface TimesheetReferenceUnitRepository extends JpaRepository<Timeshee
 
     List<TimesheetReferenceUnit> findAllByEmployeeIdOrderByProjectId(Long employeeId);
 
+    List<TimesheetReferenceUnit> findAllByEmployeeId(Long employeeId);
+
     List<TimesheetReferenceUnit> findAllByProjectIdOrderByEmployeeId(Long projectId);
+
+    List<TimesheetReferenceUnit> findAllByProjectIdAndEmployeeId(Long projectId, Long employeeId);
 
 
 }
