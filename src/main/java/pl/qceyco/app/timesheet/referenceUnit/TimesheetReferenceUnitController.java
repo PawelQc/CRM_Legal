@@ -55,18 +55,8 @@ public class TimesheetReferenceUnitController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String showAllTimesheets(@RequestParam(required = false) String mode, @RequestParam(required = false) String mondaySelect,
                                     HttpSession session, Model model) {
-        LocalDate nextMonday = LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.MONDAY));
-        if (mondaySelect != null) {
-            nextMonday = LocalDate.parse(mondaySelect);
-        }
-        if ("prev".equals(mode)) {
-            nextMonday = nextMonday.minusDays(28);
-        }
-        if ("next".equals(mode)) {
-            nextMonday = nextMonday.plusDays(28);
-        }
+        LocalDate nextMonday = getMondayDate(mode, mondaySelect, 28);
         model.addAttribute("nextMonday", nextMonday);
-
         Employee employee = (Employee) session.getAttribute("loggedInUser");
         if (employee.getAdmin() == true) {
             return "admin/timesheets/timesheetsList";
@@ -94,16 +84,7 @@ public class TimesheetReferenceUnitController {
     @RequestMapping(value = "/add/{projectId}", method = RequestMethod.GET)
     public String showAddForm(@PathVariable Long projectId, Model model, @RequestParam(required = false) String mode,
                               @RequestParam(required = false) String mondaySelect) {
-        LocalDate nextMonday = LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.MONDAY));
-        if (mondaySelect != null) {
-            nextMonday = LocalDate.parse(mondaySelect);
-        }
-        if ("prev".equals(mode)) {
-            nextMonday = nextMonday.minusDays(7);
-        }
-        if ("next".equals(mode)) {
-            nextMonday = nextMonday.plusDays(7);
-        }
+        LocalDate nextMonday = getMondayDate(mode, mondaySelect, 7);
         TimesheetWeek timesheetWeek = new TimesheetWeek();
         timesheetWeek.setDateMonday(nextMonday);
         model.addAttribute("timesheetWeek", timesheetWeek);
@@ -157,27 +138,49 @@ public class TimesheetReferenceUnitController {
         return "redirect:list";
     }
 
-    @RequestMapping(value = "/sort-by-project", method = RequestMethod.POST)
-    public String showTimesheetsByProjectId(@RequestParam Long projectId, Model model, HttpSession session) {
+    @RequestMapping(value = "/sort-by-project", method = {RequestMethod.POST, RequestMethod.GET})
+    public String showTimesheetsByProjectId(@RequestParam Long projectId, @RequestParam(required = false) String mode, @RequestParam(required = false) String mondaySelect,
+                                            Model model, HttpSession session) {
         Employee loggedInUser = (Employee) session.getAttribute("loggedInUser");
         if (loggedInUser.getAdmin() == true) {
             List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByProjectIdOrderByEmployeeId(projectId);
-            model.addAttribute("timesheets", timesheets);
+            model.addAttribute("projectId", projectId);
+            model.addAttribute("timesheetsChosenProject", timesheets);
+            LocalDate nextMonday = getMondayDate(mode, mondaySelect, 28);
+            model.addAttribute("nextMonday", nextMonday);
             return "admin/timesheets/timesheetsListOfGivenProject";
         } else {
             List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByProjectIdAndEmployeeId(projectId, loggedInUser.getId());
             model.addAttribute("timesheets", timesheets);
             return "user/timesheets/timesheetsListOfGivenProject";
         }
-
     }
 
-    @RequestMapping(value = "/sort-by-employee", method = RequestMethod.POST)
-    public String showTimesheetsByEmployeeId(@RequestParam Long employeeId, Model model) {
-        List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByEmployeeIdOrderByProjectId(employeeId);
-        model.addAttribute("timesheets", timesheets);
+    @RequestMapping(value = "/sort-by-employee", method = {RequestMethod.POST, RequestMethod.GET})
+    public String showTimesheetsByEmployeeId(@RequestParam Long employeeId, Model model, @RequestParam(required = false) String mode, @RequestParam(required = false) String mondaySelect) {
+        List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByEmployeeId(employeeId);
+        model.addAttribute("employeeId", employeeId);
+        model.addAttribute("timesheetsChosenUser", timesheets);
+        LocalDate nextMonday = getMondayDate(mode, mondaySelect, 28);
+        model.addAttribute("nextMonday", nextMonday);
         return "admin/timesheets/timesheetsListOfGivenEmployee";
+    }
+
+    private LocalDate getMondayDate(@RequestParam(required = false) String mode, @RequestParam(required = false) String mondaySelect, int i) {
+        LocalDate nextMonday = LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.MONDAY));
+        if (mondaySelect != null) {
+            nextMonday = LocalDate.parse(mondaySelect);
+        }
+        if ("prev".equals(mode)) {
+            nextMonday = nextMonday.minusDays(i);
+        }
+        if ("next".equals(mode)) {
+            nextMonday = nextMonday.plusDays(i);
+        }
+        return nextMonday;
     }
 
 
 }
+
+

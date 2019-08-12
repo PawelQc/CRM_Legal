@@ -9,26 +9,20 @@
 <%@ include file="/fragments/header.jspf" %>
 
 <h3>Timesheets - sorted by project</h3>
+<h4>Project signature: ${timesheets.get(0).project.signature}</h4>
 
-
-<table border="1">
-    <tr>
-        <th>No</th>
-        <th>Monday</th>
-        <th>MonHours</th>
-        <th>TueHours</th>
-        <th>WedHours</th>
-        <th>ThHours</th>
-        <th>FriHours</th>
-        <th>SatHours</th>
-        <th>SunHours</th>
-        <th>Project</th>
-        <th>Employee</th>
-    </tr>
-    <c:forEach var="TSrefUnit" items="${timesheets}" varStatus="count">
+<c:forEach var="TSrefUnit" items="${timesheets}" >
+    <table border="1">
         <tr>
-            <td>${count.count}</td>
-            <td>${TSrefUnit.timesheetWeek.dateMonday}</td>
+            <th>${TSrefUnit.timesheetWeek.dateMonday}</th>
+            <th>${TSrefUnit.timesheetWeek.dateMonday.plusDays(1)}</th>
+            <th>${TSrefUnit.timesheetWeek.dateMonday.plusDays(2)}</th>
+            <th>${TSrefUnit.timesheetWeek.dateMonday.plusDays(3)}</th>
+            <th>${TSrefUnit.timesheetWeek.dateMonday.plusDays(4)}</th>
+            <th>${TSrefUnit.timesheetWeek.dateMonday.plusDays(5)}</th>
+            <th>${TSrefUnit.timesheetWeek.dateMonday.plusDays(6)}</th>
+        </tr>
+        <tr>
             <td>${TSrefUnit.timesheetWeek.mondayHours}</td>
             <td>${TSrefUnit.timesheetWeek.tuesdayHours}</td>
             <td>${TSrefUnit.timesheetWeek.wednesdayHours}</td>
@@ -36,12 +30,10 @@
             <td>${TSrefUnit.timesheetWeek.fridayHours}</td>
             <td>${TSrefUnit.timesheetWeek.saturdayHours}</td>
             <td>${TSrefUnit.timesheetWeek.sundayHours}</td>
-            <td>${TSrefUnit.project.signature}</td>
-            <td>${TSrefUnit.employee.lastName}</td>
         </tr>
-    </c:forEach>
-</table>
-
+    </table>
+    <br>
+</c:forEach>
 
 </body>
 </html>

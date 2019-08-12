@@ -4,7 +4,6 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import pl.qceyco.app.client.Client;
 import pl.qceyco.app.employee.Employee;
-import pl.qceyco.app.timesheet.week.TimesheetWeek;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -15,8 +14,6 @@ import java.util.List;
 @Entity
 @Table(name = "projects")
 public class Project {
-
-    //todo usunąć relację z timesheetweek
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,13 +44,6 @@ public class Project {
             inverseJoinColumns = @JoinColumn(name = "employee_id"))
     @NotEmpty
     private List<Employee> projectTeam = new ArrayList<>();
-
-    @ManyToMany
-    @JoinTable(name = "project_timesheet",
-            joinColumns = @JoinColumn(name = "project_id"),
-            inverseJoinColumns = @JoinColumn(name = "timesheet_id"))
-    private List<TimesheetWeek> timesheets = new ArrayList<>();
-
 
     public Long getId() {
         return id;
@@ -103,14 +93,6 @@ public class Project {
         this.client = client;
     }
 
-    public List<TimesheetWeek> getTimesheets() {
-        return timesheets;
-    }
-
-    public void setTimesheets(List<TimesheetWeek> timesheets) {
-        this.timesheets = timesheets;
-    }
-
     @Override
     public String toString() {
         return "Project: {" +
@@ -120,7 +102,6 @@ public class Project {
                 ", description='" + description + '\'' +
                 ", client=" + client +
                 ", projectTeam=" + projectTeam +
-                ", timesheets=" + timesheets +
                 '}';
     }
 }

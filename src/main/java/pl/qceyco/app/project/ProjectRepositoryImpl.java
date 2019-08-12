@@ -33,23 +33,6 @@ public class ProjectRepositoryImpl implements ProjectRepositoryCustom {
         return project;
     }
 
-    @Override
-    public List<Project> findAllWithProjectTeamMembersAndTimesheets() {
-        Query query = entityManager.createQuery("SELECT p FROM Project p");
-        List<Project> projects = query.getResultList();
-        for (Project p : projects) {
-            Hibernate.initialize(p.getProjectTeam());
-            Hibernate.initialize(p.getTimesheets());
-        }
-        return projects;
-    }
 
-    @Override
-    public Project findFirstByIdWithProjectTeamMembersAndTimesheets(Long projectId) {
-        Project project = entityManager.find(Project.class, projectId);
-        Hibernate.initialize(project.getProjectTeam());
-        Hibernate.initialize(project.getTimesheets());
-        return project;
-    }
 
 }

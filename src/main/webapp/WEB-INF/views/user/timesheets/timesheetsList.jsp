@@ -33,7 +33,6 @@
     </tr>
     <tr>
         <th>Project</th>
-        <th>Employee</th>
         <th>${nextMonday.minusDays(21)}</th>
         <th>${nextMonday.minusDays(20)}</th>
         <th>${nextMonday.minusDays(19)}</th>
@@ -47,7 +46,6 @@
         <c:if test="${TSrefUnit.timesheetWeek.dateMonday.equals(nextMonday.minusDays(21))}">
             <tr>
                 <td>${TSrefUnit.project.signature}</td>
-                <td>${TSrefUnit.employee.lastName}</td>
                 <td>${TSrefUnit.timesheetWeek.mondayHours}</td>
                 <td>${TSrefUnit.timesheetWeek.tuesdayHours}</td>
                 <td>${TSrefUnit.timesheetWeek.wednesdayHours}</td>
@@ -71,7 +69,6 @@
     </tr>
     <tr>
         <th>Project</th>
-        <th>Employee</th>
         <th>${nextMonday.minusDays(14)}</th>
         <th>${nextMonday.minusDays(13)}</th>
         <th>${nextMonday.minusDays(12)}</th>
@@ -85,7 +82,6 @@
         <c:if test="${TSrefUnit.timesheetWeek.dateMonday.equals(nextMonday.minusDays(14))}">
             <tr>
                 <td>${TSrefUnit.project.signature}</td>
-                <td>${TSrefUnit.employee.lastName}</td>
                 <td>${TSrefUnit.timesheetWeek.mondayHours}</td>
                 <td>${TSrefUnit.timesheetWeek.tuesdayHours}</td>
                 <td>${TSrefUnit.timesheetWeek.wednesdayHours}</td>
@@ -110,7 +106,6 @@
     </tr>
     <tr>
         <th>Project</th>
-        <th>Employee</th>
         <th>${nextMonday.minusDays(7)}</th>
         <th>${nextMonday.minusDays(6)}</th>
         <th>${nextMonday.minusDays(5)}</th>
@@ -124,7 +119,6 @@
         <c:if test="${TSrefUnit.timesheetWeek.dateMonday.equals(nextMonday.minusDays(7))}">
             <tr>
                 <td>${TSrefUnit.project.signature}</td>
-                <td>${TSrefUnit.employee.lastName}</td>
                 <td>${TSrefUnit.timesheetWeek.mondayHours}</td>
                 <td>${TSrefUnit.timesheetWeek.tuesdayHours}</td>
                 <td>${TSrefUnit.timesheetWeek.wednesdayHours}</td>
@@ -148,7 +142,6 @@
     </tr>
     <tr>
         <th>Project</th>
-        <th>Employee</th>
         <th>${nextMonday}</th>
         <th>${nextMonday.plusDays(1)}</th>
         <th>${nextMonday.plusDays(2)}</th>
@@ -162,7 +155,6 @@
         <c:if test="${TSrefUnit.timesheetWeek.dateMonday.equals(nextMonday)}">
             <tr>
                 <td>${TSrefUnit.project.signature}</td>
-                <td>${TSrefUnit.employee.lastName}</td>
                 <td>${TSrefUnit.timesheetWeek.mondayHours}</td>
                 <td>${TSrefUnit.timesheetWeek.tuesdayHours}</td>
                 <td>${TSrefUnit.timesheetWeek.wednesdayHours}</td>

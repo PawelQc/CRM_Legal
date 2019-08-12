@@ -8,8 +8,4 @@ public interface ProjectRepositoryCustom {
 
     Project findFirstByIdWithProjectTeamMembers(Long caseId);
 
-    List<Project> findAllWithProjectTeamMembersAndTimesheets();
-
-    Project findFirstByIdWithProjectTeamMembersAndTimesheets(Long caseId);
-
 }
