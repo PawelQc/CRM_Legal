@@ -8,7 +8,7 @@
     <a href="/timesheets/list" style="padding-right: 20px">Timesheets</a>
 
     <c:if test="${loggedInUser.getAdmin()}">
-        <a href="/reports/list" style="padding-right: 20px">Reports</a>
+        <a href="/reports/options" style="padding-right: 20px">Reports</a>
     </c:if>
 
     <c:choose>
