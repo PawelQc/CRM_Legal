@@ -53,7 +53,20 @@ public class TimesheetReferenceUnitController {
     ///////////////////////
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String showAllTimesheets(HttpSession session, Model model) {
+    public String showAllTimesheets(@RequestParam(required = false) String mode, @RequestParam(required = false) String mondaySelect,
+                                    HttpSession session, Model model) {
+        LocalDate nextMonday = LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.MONDAY));
+        if (mondaySelect != null) {
+            nextMonday = LocalDate.parse(mondaySelect);
+        }
+        if ("prev".equals(mode)) {
+            nextMonday = nextMonday.minusDays(28);
+        }
+        if ("next".equals(mode)) {
+            nextMonday = nextMonday.plusDays(28);
+        }
+        model.addAttribute("nextMonday", nextMonday);
+
         Employee employee = (Employee) session.getAttribute("loggedInUser");
         if (employee.getAdmin() == true) {
             return "admin/timesheets/timesheetsList";
@@ -81,18 +94,18 @@ public class TimesheetReferenceUnitController {
     @RequestMapping(value = "/add/{projectId}", method = RequestMethod.GET)
     public String showAddForm(@PathVariable Long projectId, Model model, @RequestParam(required = false) String mode,
                               @RequestParam(required = false) String mondaySelect) {
-        LocalDate monday = LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.MONDAY));
+        LocalDate nextMonday = LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.MONDAY));
         if (mondaySelect != null) {
-            monday = LocalDate.parse(mondaySelect);
+            nextMonday = LocalDate.parse(mondaySelect);
         }
         if ("prev".equals(mode)) {
-            monday = monday.minusDays(7);
+            nextMonday = nextMonday.minusDays(7);
         }
         if ("next".equals(mode)) {
-            monday = monday.plusDays(7);
+            nextMonday = nextMonday.plusDays(7);
         }
         TimesheetWeek timesheetWeek = new TimesheetWeek();
-        timesheetWeek.setDateMonday(monday);
+        timesheetWeek.setDateMonday(nextMonday);
         model.addAttribute("timesheetWeek", timesheetWeek);
         return "timesheets/timesheetAdd";
     }
