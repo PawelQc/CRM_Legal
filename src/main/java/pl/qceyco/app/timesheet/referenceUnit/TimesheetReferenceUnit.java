@@ -69,4 +69,15 @@ public class TimesheetReferenceUnit {
                 ", project=" + project +
                 '}';
     }
+
+    public Integer countWeekHours() {
+        return timesheetWeek.getMondayHours() +
+                timesheetWeek.getTuesdayHours() +
+                timesheetWeek.getWednesdayHours() +
+                timesheetWeek.getThursdayHours() +
+                timesheetWeek.getFridayHours() +
+                timesheetWeek.getSaturdayHours() +
+                timesheetWeek.getSundayHours();
+    }
+
 }

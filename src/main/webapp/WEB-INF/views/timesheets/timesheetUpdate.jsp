@@ -27,37 +27,37 @@
         <tr>
             <td>
                 <label for="mondayMinutesId">Time in hours (1-24):</label>
-                <form:input type="number" path="mondayHours" id="mondayMinutesId" step="1" min="1" max="24"/>
+                <form:input type="number" path="mondayHours" id="mondayMinutesId" step="1" min="0" max="24"/>
                 <form:errors path="mondayHours"/>
             </td>
             <td>
                 <label for="tuesdayMinutesId">Time in hours (1-24):</label>
-                <form:input type="number" path="tuesdayHours" id="tuesdayMinutesId" step="1" min="1" max="24"/>
+                <form:input type="number" path="tuesdayHours" id="tuesdayMinutesId" step="1" min="0" max="24"/>
                 <form:errors path="tuesdayHours"/>
             </td>
             <td>
                 <label for="wednesdayMinutesId">Time in hours (1-24):</label>
-                <form:input type="number" path="wednesdayHours" id="wednesdayMinutesId" step="1" min="1" max="24"/>
+                <form:input type="number" path="wednesdayHours" id="wednesdayMinutesId" step="1" min="0" max="24"/>
                 <form:errors path="wednesdayHours"/>
             </td>
             <td>
                 <label for="thursdayMinutesId">Time in hours (1-24):</label>
-                <form:input type="number" path="thursdayHours" id="thursdayMinutesId" step="1" min="1" max="24"/>
+                <form:input type="number" path="thursdayHours" id="thursdayMinutesId" step="1" min="0" max="24"/>
                 <form:errors path="thursdayHours"/>
             </td>
             <td>
                 <label for="fridayMinutesId">Time in hours (1-24):</label>
-                <form:input type="number" path="fridayHours" id="fridayMinutesId" step="1" min="1" max="24"/>
+                <form:input type="number" path="fridayHours" id="fridayMinutesId" step="1" min="0" max="24"/>
                 <form:errors path="fridayHours"/>
             </td>
             <td>
                 <label for="saturdayMinutesId">Time in hours (1-24):</label>
-                <form:input type="number" path="saturdayHours" id="saturdayMinutesId" step="1" min="1" max="24"/>
+                <form:input type="number" path="saturdayHours" id="saturdayMinutesId" step="1" min="0" max="24"/>
                 <form:errors path="saturdayHours"/>
             </td>
             <td>
                 <label for="sundayMinutesId">Time in hours (1-24):</label>
-                <form:input type="number" path="sundayHours" id="sundayMinutesId" step="1" min="1" max="24"/>
+                <form:input type="number" path="sundayHours" id="sundayMinutesId" step="1" min="0" max="24"/>
                 <form:errors path="sundayHours"/>
             </td>
         </tr>

@@ -101,7 +101,6 @@ public class Project {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", client=" + client +
-                ", projectTeam=" + projectTeam +
                 '}';
     }
 }

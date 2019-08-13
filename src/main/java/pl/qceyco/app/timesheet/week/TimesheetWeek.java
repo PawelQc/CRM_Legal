@@ -18,37 +18,37 @@ public class TimesheetWeek {
     private LocalDate dateMonday;
 
     @Column(name = "monday_hours")
-    @Min(1)
+    @Min(0)
     @Max(24)
     private Integer mondayHours;
 
     @Column(name = "tuesday_hours")
-    @Min(1)
+    @Min(0)
     @Max(24)
     private Integer tuesdayHours;
 
     @Column(name = "wednesday_hours")
-    @Min(1)
+    @Min(0)
     @Max(24)
     private Integer wednesdayHours;
 
     @Column(name = "thursday_hours")
-    @Min(1)
+    @Min(0)
     @Max(24)
     private Integer thursdayHours;
 
     @Column(name = "friday_hours")
-    @Min(1)
+    @Min(0)
     @Max(24)
     private Integer fridayHours;
 
     @Column(name = "saturday_hours")
-    @Min(1)
+    @Min(0)
     @Max(24)
     private Integer saturdayHours;
 
     @Column(name = "sunday_hours")
-    @Min(1)
+    @Min(0)
     @Max(24)
     private Integer sundayHours;
 
@@ -73,6 +73,9 @@ public class TimesheetWeek {
     }
 
     public void setMondayHours(Integer mondayHours) {
+        if (mondayHours == null) {
+            mondayHours = 0;
+        }
         this.mondayHours = mondayHours;
     }
 
@@ -81,6 +84,9 @@ public class TimesheetWeek {
     }
 
     public void setTuesdayHours(Integer tuesdayHours) {
+        if (tuesdayHours == null) {
+            tuesdayHours = 0;
+        }
         this.tuesdayHours = tuesdayHours;
     }
 
@@ -89,6 +95,9 @@ public class TimesheetWeek {
     }
 
     public void setWednesdayHours(Integer wednesdayHours) {
+        if (wednesdayHours == null) {
+            wednesdayHours = 0;
+        }
         this.wednesdayHours = wednesdayHours;
     }
 
@@ -97,6 +106,9 @@ public class TimesheetWeek {
     }
 
     public void setThursdayHours(Integer thursdayHours) {
+        if (thursdayHours == null) {
+            thursdayHours = 0;
+        }
         this.thursdayHours = thursdayHours;
     }
 
@@ -105,6 +117,9 @@ public class TimesheetWeek {
     }
 
     public void setFridayHours(Integer fridayHours) {
+        if (fridayHours == null) {
+            fridayHours = 0;
+        }
         this.fridayHours = fridayHours;
     }
 
@@ -113,6 +128,9 @@ public class TimesheetWeek {
     }
 
     public void setSaturdayHours(Integer saturdayHours) {
+        if (saturdayHours == null) {
+            saturdayHours = 0;
+        }
         this.saturdayHours = saturdayHours;
     }
 
@@ -121,6 +139,9 @@ public class TimesheetWeek {
     }
 
     public void setSundayHours(Integer sundayHours) {
+        if (sundayHours == null) {
+            sundayHours = 0;
+        }
         this.sundayHours = sundayHours;
     }
 
