@@ -15,6 +15,9 @@
     <li>
         <a href="/reports/monthly-employee-report/form">monthly employee report</a>
     </li>
+    <li>
+        <a href="/reports/project-report/form">project profitability report</a>
+    </li>
 </ul>
 
 

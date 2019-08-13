@@ -34,6 +34,12 @@
 
     <br/><br/>
 
+    <label for="capOnRemunerationId">Cap on remuneration:</label>
+    <form:input type="number" min="0" path="capOnRemuneration" id="capOnRemunerationId"/>
+    <form:errors path="capOnRemuneration" element="div"/>
+
+    <br/><br/>
+
     <label for="descriptionId">Description:</label>
     <form:textarea path="description" id="descriptionId"/>
     <form:errors path="description" element="div"/>

@@ -17,6 +17,7 @@
         <th>No</th>
         <th>Signature</th>
         <th>Name</th>
+        <th>Remuneration cap</th>
         <th>Description</th>
         <th>Team</th>
         <th>Client</th>
@@ -27,6 +28,7 @@
             <td>${count.count}</td>
             <td>${project.signature}</td>
             <td>${project.name}</td>
+            <td>${project.capOnRemuneration}</td>
             <td>${project.description}</td>
             <td>
                 <c:forEach items="${project.projectTeam}" var="lawyer">

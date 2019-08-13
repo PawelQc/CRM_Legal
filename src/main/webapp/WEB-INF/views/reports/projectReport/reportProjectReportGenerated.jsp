@@ -8,34 +8,26 @@
 <body>
 <%@ include file="/fragments/header.jspf" %>
 
-<h3>Monthly employee report for: ${reportedEmployee.nameDisplay} in time interval: ${selectedMonday}
-    - ${selectedMonday.plusDays(27)}</h3>
+<h3>Project profitability report for: ${project.signature}</h3>
 
 <table border="1">
     <tr>
-        <th>Billable hours</th>
-        <td>${amountOfBillableHours}</td>
-    </tr>
-    <tr>
-        <th>Non billable hours</th>
-        <td>${amountOfNonBillableHours}</td>
-    </tr>
-    <tr>
-        <th>Work time utilization level</th>
-        <td>${workTimeUtilizationLevel}%</td>
-    </tr>
-    <tr>
-        <th>Is monthly target achieved? (${reportedEmployee.additionalInfo.targetBudget})</th>
-        <td>${isMonthlyTargetAchieved}</td>
+        <th>Total man-hours</th>
+        <td>${amountOfHours}</td>
     </tr>
     <tr>
         <th>Value of rendered services</th>
-        <td>${valueOfRenderedServices} PLN</td>
+        <td>${potentialValueOfRenderedServices} PLN</td>
     </tr>
     <tr>
-        <th>Bonus amount</th>
-        <td>${bonusAmount} PLN</td>
+        <th>Cap on remuneration</th>
+        <td>${project.capOnRemuneration} PLN</td>
     </tr>
+    <tr>
+        <th>Is project profitable?</th>
+        <td>${isProjectProfitable}</td>
+    </tr>
+
 </table>
 
 </body>

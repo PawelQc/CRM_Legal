@@ -6,6 +6,7 @@ import pl.qceyco.app.client.Client;
 import pl.qceyco.app.employee.Employee;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
@@ -37,6 +38,11 @@ public class Project {
     @ManyToOne
     @NotNull
     private Client client;
+
+    @Column(name = "cap_on_remuneration")
+    @Min(0)
+    @NotNull
+    private Integer capOnRemuneration;
 
     @ManyToMany
     @JoinTable(name = "project_employee",
@@ -93,14 +99,23 @@ public class Project {
         this.client = client;
     }
 
+    public Integer getCapOnRemuneration() {
+        return capOnRemuneration;
+    }
+
+    public void setCapOnRemuneration(Integer capOnRemuneration) {
+        this.capOnRemuneration = capOnRemuneration;
+    }
+
     @Override
     public String toString() {
-        return "Project: {" +
+        return "Project{" +
                 "id=" + id +
                 ", signature='" + signature + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", client=" + client +
+                ", capOnRemuneration=" + capOnRemuneration +
                 '}';
     }
 }

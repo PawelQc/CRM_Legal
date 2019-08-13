@@ -120,8 +120,23 @@ public class ReportsController {
             model.addAttribute("errorNotSufficientData", "Error: Indicate all data requested in order to generate a report!");
             return "reports/projectReport/reportProjectReportForm";
         }
-
-
+        Project project = projectRepository.findFirstByIdWithProjectTeamMembers(projectId);
+        Integer amountOfHours = 0;
+        List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByProjectIdOrderByEmployeeId(projectId);
+        for (TimesheetReferenceUnit t : timesheets) {
+            amountOfHours += t.countWeekHours();
+        }
+        Integer clientDefaultHourlyRate = project.getClient().getAdditionalInfo().getHourlyRateIsCharged();
+        Integer potentialValueOfRenderedServices = amountOfHours * clientDefaultHourlyRate;
+        Integer capOnRemuneration = project.getCapOnRemuneration();
+        boolean isProjectProfitable = true;
+        if (potentialValueOfRenderedServices > capOnRemuneration) {
+            isProjectProfitable = false;
+        }
+        model.addAttribute("amountOfHours", amountOfHours);
+        model.addAttribute("project", project);
+        model.addAttribute("potentialValueOfRenderedServices", potentialValueOfRenderedServices);
+        model.addAttribute("isProjectProfitable", isProjectProfitable);
         return "reports/projectReport/reportProjectReportGenerated";
     }
 
@@ -138,6 +153,8 @@ public class ReportsController {
         workTimeUtilizationLevelD = Math.floor(workTimeUtilizationLevelD);
         return (Integer) (int) workTimeUtilizationLevelD;
     }
+
+    //todo projekty do wyboru - tylko billowalne
 
 
 }

@@ -28,11 +28,11 @@ INSERT INTO employee_authority VALUES (3, 2);
 INSERT INTO employee_authority VALUES (4, 2);
 INSERT INTO employee_authority VALUES (5, 2);
 
-INSERT INTO projects VALUES (null, "divorce of the client with his spouse; client demands alimony from his wife", "divorce", "2019/06/fam", 1000)
-INSERT INTO projects VALUES (null, "client's wish is to sue his former employer for damages incurred during his employment time", "damages", "2017/01/civ", 1000)
-INSERT INTO projects VALUES (null, "client is investigated by the tax office due to tax arrears in fiscal year 2018", "tax dispute", "2019/07/tax", 1001)
-INSERT INTO projects VALUES (null, "merger of the parent company with its subsidiary in Cyprus", "merger", "2018/08/com", 1002)
-INSERT INTO projects VALUES (null, "non billable actvities - private development etc.", "private development", "PD/nonBillable", 1003)
+INSERT INTO projects VALUES (null, 100000, "divorce of the client with his spouse; client demands alimony from his wife", "divorce", "2019/06/fam", 1000)
+INSERT INTO projects VALUES (null, 50000, "client's wish is to sue his former employer for damages incurred during his employment time", "damages", "2017/01/civ", 1000)
+INSERT INTO projects VALUES (null, 200000, "client is investigated by the tax office due to tax arrears in fiscal year 2018", "tax dispute", "2019/07/tax", 1001)
+INSERT INTO projects VALUES (null, 250000, "merger of the parent company with its subsidiary in Cyprus", "merger", "2018/08/com", 1002)
+INSERT INTO projects VALUES (null, 0, "non billable actvities - private development etc.", "private development", "PD/nonBillable", 1003)
 
 INSERT INTO project_employee VALUES (1, 1)
 INSERT INTO project_employee VALUES (1, 2)
