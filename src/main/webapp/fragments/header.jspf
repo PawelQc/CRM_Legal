@@ -11,6 +11,8 @@
         <a href="/reports/options" style="padding-right: 20px">Reports</a>
     </c:if>
 
+    <a href="/user/info" style="padding-right: 20px">User</a>
+
     <c:choose>
         <c:when test="${not empty loggedInUser}">
             <a href="/logout" style="padding-right: 20px">LOGOUT</a>

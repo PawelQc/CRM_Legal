@@ -34,11 +34,11 @@
                 <a href="/employees/update/${employee.id}">Update</a>
                 <a href="/employees/additional-info/list?employeeId=${employee.id}&additionalInfoId=${employee.additionalInfo.id}">Details</a>
                 <a href="http://localhost:8080/employees/delete/${employee.id}"
-                   onclick="return confirm('Are you sure you want to delete this employee?');">Delete</a>
+                   onclick="return confirm('Are you sure you want to delete this employee? All his timesheets will be deleted!');">Delete</a>
             </td>
         </tr>
     </c:forEach>
-    <h4>${deleteErrorProjectExists}</h4>
+    <h4>${deleteErrorProjectExists}</h4> <h4>${deleteErrorAdmin}</h4>
 </table>
 
 </body>

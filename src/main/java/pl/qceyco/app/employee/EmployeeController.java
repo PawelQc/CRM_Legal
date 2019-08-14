@@ -12,6 +12,9 @@ import pl.qceyco.app.employee.additinalInfo.AdditionalInfoEmployeeRepository;
 import pl.qceyco.app.project.ProjectRepository;
 import pl.qceyco.app.secureapp.Authority;
 import pl.qceyco.app.secureapp.AuthorityRepository;
+import pl.qceyco.app.timesheet.referenceUnit.TimesheetReferenceUnit;
+import pl.qceyco.app.timesheet.referenceUnit.TimesheetReferenceUnitRepository;
+import pl.qceyco.app.timesheet.week.TimesheetWeekRepository;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -27,13 +30,18 @@ public class EmployeeController {
     private final ProjectRepository projectRepository;
     private final AdditionalInfoEmployeeRepository additionalInfoEmployeeRepository;
     private final EmployeeRepository employeeRepository;
+    private final TimesheetReferenceUnitRepository timesheetReferenceUnitRepository;
+    private final TimesheetWeekRepository timesheetWeekRepository;
 
     public EmployeeController(EmployeeRepository employeeRepository, AdditionalInfoEmployeeRepository additionalInfoEmployeeRepository,
-                              ProjectRepository projectRepository, AuthorityRepository authorityRepository) {
+                              ProjectRepository projectRepository, AuthorityRepository authorityRepository,
+                              TimesheetReferenceUnitRepository timesheetReferenceUnitRepository, TimesheetWeekRepository timesheetWeekRepository) {
         this.employeeRepository = employeeRepository;
         this.additionalInfoEmployeeRepository = additionalInfoEmployeeRepository;
         this.projectRepository = projectRepository;
         this.authorityRepository = authorityRepository;
+        this.timesheetReferenceUnitRepository = timesheetReferenceUnitRepository;
+        this.timesheetWeekRepository = timesheetWeekRepository;
     }
 
     @ModelAttribute("employees")
@@ -70,14 +78,26 @@ public class EmployeeController {
         return "redirect:list";
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public String delete(@PathVariable Long id, Model model) {
-        if (projectRepository.findAllByEmployeeId(id).size() >= 1) {
-            model.addAttribute("deleteErrorProjectExists", "Cannot delete this employee - delete related project first!");
+    @RequestMapping(value = "/delete/{employeeId}", method = RequestMethod.GET)
+    public String delete(@PathVariable Long employeeId, Model model, HttpSession session) {
+        Employee loggedInUser = (Employee) session.getAttribute("loggedInUser");
+        if (loggedInUser.getId() == employeeId) {
+            model.addAttribute("deleteErrorAdmin", "Cannot delete admin account!");
             return "admin/employees/employeesList";
         }
-        Employee employeeToDelete = employeeRepository.findFirstById(id);
-        employeeRepository.deleteById(id);
+        if (projectRepository.findAllByEmployeeId(employeeId).size() >= 1) {
+            model.addAttribute("deleteErrorProjectExists", "Cannot delete this employee - delete or update related project first!");
+            return "admin/employees/employeesList";
+        }
+        Employee employeeToDelete = employeeRepository.findFirstById(employeeId);
+        List<TimesheetReferenceUnit> employeesTimesheets = timesheetReferenceUnitRepository.findAllByEmployeeId(employeeToDelete.getId());
+        if (employeesTimesheets.size() > 0) {
+            for (TimesheetReferenceUnit t : employeesTimesheets) {
+                timesheetReferenceUnitRepository.delete(t);
+                timesheetWeekRepository.deleteById(t.getTimesheetWeek().getId());
+            }
+        }
+        employeeRepository.deleteById(employeeId);
         if (employeeToDelete.getAdditionalInfo() != null) {
             Long infoId = employeeToDelete.getAdditionalInfo().getId();
             additionalInfoEmployeeRepository.deleteById(infoId);

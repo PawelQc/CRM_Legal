@@ -2,6 +2,7 @@ package pl.qceyco.app.timesheet.referenceUnit;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import pl.qceyco.app.timesheet.week.TimesheetWeek;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -84,14 +84,14 @@ public class ReportsController {
         Integer amountOfNonBillableHours = 0;
         Integer amountOfBillableHours = 0;
         for (TimesheetReferenceUnit t : timesheets) {
-            if (t.getProject().getClient().getId() == 1003L) { //id of Kancelaria = non billable projects    //todo alternatywnie wprowadz pole isBillable
+            if (!t.getProject().getBillable()) {
                 amountOfNonBillableHours += t.countWeekHours();
             }
-            if (t.getProject().getClient().getId() != 1003L) {
+            if (t.getProject().getBillable()) {
                 amountOfBillableHours += t.countWeekHours();
             }
         }
-        Integer workTimeUtilizationLevel = getWorkTimeUtilisationLevel(amountOfNonBillableHours, amountOfBillableHours);
+        Integer workTimeUtilizationLevel = getWorkTimeUtilisationLevelAsInt(amountOfNonBillableHours, amountOfBillableHours);
         Employee reportedEmployee = employeeRepository.findFirstById(employeeId);
         Integer targetBudget = reportedEmployee.getAdditionalInfo().getTargetBudget();
         Integer hourlyRate = reportedEmployee.getAdditionalInfo().getHourlyRateChargingClients();
@@ -100,17 +100,11 @@ public class ReportsController {
         double bonusAmountD = 0.0;
         if (valueOfRenderedServices > targetBudget) {
             isMonthlyTargetAchieved = true;
-            bonusAmountD = 0.1 * (valueOfRenderedServices - targetBudget);        //todo alternatywnie wprowadź pole - bonusAmount
+            bonusAmountD = (reportedEmployee.getAdditionalInfo().getBonus() * (valueOfRenderedServices - targetBudget)) / 100;
         }
-        Integer bonusAmount = getBonusAmount(bonusAmountD);
-        model.addAttribute("valueOfRenderedServices", valueOfRenderedServices);
-        model.addAttribute("reportedEmployee", reportedEmployee);
-        model.addAttribute("selectedMonday", selectedMonday);
-        model.addAttribute("amountOfBillableHours", amountOfBillableHours);
-        model.addAttribute("amountOfNonBillableHours", amountOfNonBillableHours);
-        model.addAttribute("workTimeUtilizationLevel", workTimeUtilizationLevel);
-        model.addAttribute("isMonthlyTargetAchieved", isMonthlyTargetAchieved);
-        model.addAttribute("bonusAmount", bonusAmount);
+        Integer bonusAmount = getBonusAmountAsInt(bonusAmountD);
+        addModelAttributesEmployeeReport(model, selectedMonday, amountOfNonBillableHours, amountOfBillableHours, workTimeUtilizationLevel,
+                reportedEmployee, valueOfRenderedServices, isMonthlyTargetAchieved, bonusAmount);
         return "reports/employeeReport/reportEmployeeReportGenerated";
     }
 
@@ -133,19 +127,18 @@ public class ReportsController {
         if (potentialValueOfRenderedServices > capOnRemuneration) {
             isProjectProfitable = false;
         }
-        model.addAttribute("amountOfHours", amountOfHours);
-        model.addAttribute("project", project);
-        model.addAttribute("potentialValueOfRenderedServices", potentialValueOfRenderedServices);
-        model.addAttribute("isProjectProfitable", isProjectProfitable);
+        addModelAttributesProjectReport(model, project, amountOfHours, potentialValueOfRenderedServices, isProjectProfitable);
         return "reports/projectReport/reportProjectReportGenerated";
     }
 
-    private Integer getBonusAmount(double bonusAmountD) {
+////////////////////////////////////////
+
+    private Integer getBonusAmountAsInt(double bonusAmountD) {
         bonusAmountD = Math.floor(bonusAmountD);
         return (Integer) (int) bonusAmountD;
     }
 
-    private Integer getWorkTimeUtilisationLevel(Integer amountOfNonBillableHours, Integer amountOfBillableHours) {
+    private Integer getWorkTimeUtilisationLevelAsInt(Integer amountOfNonBillableHours, Integer amountOfBillableHours) {
         double workTimeUtilizationLevelD = (double) amountOfBillableHours / (amountOfBillableHours + amountOfNonBillableHours) * 100;
         if (Double.isNaN(workTimeUtilizationLevelD)) {
             workTimeUtilizationLevelD = 0;
@@ -154,7 +147,23 @@ public class ReportsController {
         return (Integer) (int) workTimeUtilizationLevelD;
     }
 
+    private void addModelAttributesEmployeeReport(Model model, LocalDate selectedMonday, Integer amountOfNonBillableHours, Integer amountOfBillableHours, Integer workTimeUtilizationLevel, Employee reportedEmployee, Integer valueOfRenderedServices, boolean isMonthlyTargetAchieved, Integer bonusAmount) {
+        model.addAttribute("valueOfRenderedServices", valueOfRenderedServices);
+        model.addAttribute("reportedEmployee", reportedEmployee);
+        model.addAttribute("selectedMonday", selectedMonday);
+        model.addAttribute("amountOfBillableHours", amountOfBillableHours);
+        model.addAttribute("amountOfNonBillableHours", amountOfNonBillableHours);
+        model.addAttribute("workTimeUtilizationLevel", workTimeUtilizationLevel);
+        model.addAttribute("isMonthlyTargetAchieved", isMonthlyTargetAchieved);
+        model.addAttribute("bonusAmount", bonusAmount);
+    }
 
+    private void addModelAttributesProjectReport(Model model, Project project, Integer amountOfHours, Integer potentialValueOfRenderedServices, boolean isProjectProfitable) {
+        model.addAttribute("amountOfHours", amountOfHours);
+        model.addAttribute("project", project);
+        model.addAttribute("potentialValueOfRenderedServices", potentialValueOfRenderedServices);
+        model.addAttribute("isProjectProfitable", isProjectProfitable);
+    }
 
 }
 

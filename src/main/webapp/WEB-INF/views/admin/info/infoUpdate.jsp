@@ -8,7 +8,7 @@
 <body>
 <%@ include file="/fragments/header.jspf" %>
 
-<form:form method="post" modelAttribute="additionalInfoEmployee" action="/employees/additional-info/update">
+<form:form method="post" modelAttribute="additionalInfoEmployee" action="/user/info/update">
     <form:hidden path="id"/>
 
     <label for="hourlyRateReceivingSalaryId">Salary in PLN (hourly rate): </label>
@@ -40,7 +40,6 @@
     <form:errors path="phoneNumber" element="div"/>
 
     <br/><br/>
-
 
     <input type="submit" value="Save">
 </form:form>

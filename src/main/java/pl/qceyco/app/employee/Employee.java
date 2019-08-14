@@ -3,6 +3,7 @@ package pl.qceyco.app.employee;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import pl.qceyco.app.employee.additinalInfo.AdditionalInfoEmployee;
+import pl.qceyco.app.employee.validators.Password;
 import pl.qceyco.app.secureapp.Authority;
 
 import javax.persistence.*;
@@ -34,13 +35,13 @@ public class Employee {
 
     @Column(name = "email_login", length = 100, unique = true, nullable = false)
     @Size(min = 3, max = 100)
+  //  @UniqueEmail //todo problem z walidatorem: javax.validation.ValidationException: HV000028: Unexpected exception during isValid call. Nullpointer
     @Email
     @NotBlank
     private String emailLogin;
 
-    @Column(name = "password", length = 100)
-    @Size(min = 8)
-    //TODO zrób własny walidator - bo pokazuje max dlugosc = max liczba
+    @Column(name = "password", length = 60)
+    @Password(min = 8, max = 60)
     @NotBlank
     private String password;
 
@@ -57,13 +58,6 @@ public class Employee {
             joinColumns = {@JoinColumn(name = "employee_id")},
             inverseJoinColumns = {@JoinColumn(name = "authority_id")})
     private Set<Authority> authorities = new HashSet<>();
-
-
-    /*@ManyToMany
-    @JoinTable(name = "employee_timesheet",
-            joinColumns = @JoinColumn(name = "employee_id"),
-            inverseJoinColumns = @JoinColumn(name = "timesheet_id"))
-    private List<TimesheetWeek> timesheets = new ArrayList<>();*/
 
     public Long getId() {
         return id;
@@ -133,13 +127,7 @@ public class Employee {
         this.authorities = authorities;
     }
 
-    /* public List<TimesheetWeek> getTimesheets() {
-        return timesheets;
-    }
 
-    public void setTimesheets(List<TimesheetWeek> timesheets) {
-        this.timesheets = timesheets;
-    }*/
 
     @Override
     public String toString() {

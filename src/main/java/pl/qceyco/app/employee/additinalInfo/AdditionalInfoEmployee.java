@@ -34,6 +34,11 @@ public class AdditionalInfoEmployee {
     @NotNull
     private Integer targetBudget;
 
+    @Min(0)
+    @Max(100)
+    @NotNull
+    private Integer bonus;
+
     @Column(name = "phone_number", length = 15)
     @Size(min = 5, max = 15)
     @NotBlank
@@ -78,6 +83,14 @@ public class AdditionalInfoEmployee {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public Integer getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(Integer bonus) {
+        this.bonus = bonus;
     }
 
     @Override
