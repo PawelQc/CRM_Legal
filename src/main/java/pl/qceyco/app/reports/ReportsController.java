@@ -37,7 +37,7 @@ public class ReportsController {
 
     @ModelAttribute("projects")
     public List<Project> populateProjects() {
-        return projectRepository.findAllWithProjectTeamMembers();
+        return projectRepository.findAllByIsBillableIsTrue();
     }
 
     @ModelAttribute("employees")
@@ -154,7 +154,6 @@ public class ReportsController {
         return (Integer) (int) workTimeUtilizationLevelD;
     }
 
-    //todo projekty do wyboru - tylko billowalne
 
 
 }

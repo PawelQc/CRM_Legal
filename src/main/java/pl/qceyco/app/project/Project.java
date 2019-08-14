@@ -44,6 +44,10 @@ public class Project {
     @NotNull
     private Integer capOnRemuneration;
 
+    @Column(name = "is_billable")
+    @NotNull
+    private Boolean isBillable;
+
     @ManyToMany
     @JoinTable(name = "project_employee",
             joinColumns = @JoinColumn(name = "project_id"),
@@ -107,6 +111,14 @@ public class Project {
         this.capOnRemuneration = capOnRemuneration;
     }
 
+    public Boolean getBillable() {
+        return isBillable;
+    }
+
+    public void setBillable(Boolean billable) {
+        isBillable = billable;
+    }
+
     @Override
     public String toString() {
         return "Project{" +
@@ -116,6 +128,7 @@ public class Project {
                 ", description='" + description + '\'' +
                 ", client=" + client +
                 ", capOnRemuneration=" + capOnRemuneration +
+                ", isBillable=" + isBillable +
                 '}';
     }
 }

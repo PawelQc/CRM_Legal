@@ -56,6 +56,12 @@
 
     <br/><br/>
 
+    <label for="isBillableId">Is project billable?</label>
+    <form:checkbox path="billable" id="isBillableId"/>
+    <form:errors path="billable" element="div"/>
+
+    <br/><br/>
+
     <input type="submit" value="Save">
 </form:form>
 </body>

@@ -14,5 +14,6 @@ public interface ProjectRepository extends JpaRepository<Project, Long>, Project
     @Query("SELECT p FROM Project p JOIN p.projectTeam t where t.id = ?1")
     List<Project> findAllByEmployeeId(Long employeeId);
 
+    List<Project> findAllByIsBillableIsTrue();
 
 }
