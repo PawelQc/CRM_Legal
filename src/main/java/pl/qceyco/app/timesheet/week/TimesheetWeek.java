@@ -1,8 +1,11 @@
 package pl.qceyco.app.timesheet.week;
 
+import pl.qceyco.app.timesheet.commentary.Commentary;
+
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -51,6 +54,10 @@ public class TimesheetWeek {
     @Min(0)
     @Max(24)
     private Integer sundayHours;
+
+    @OneToOne
+    @JoinColumn(name = "commentary_id")
+    private Commentary commentary;
 
     public Long getId() {
         return id;
@@ -145,6 +152,14 @@ public class TimesheetWeek {
         this.sundayHours = sundayHours;
     }
 
+    public Commentary getCommentary() {
+        return commentary;
+    }
+
+    public void setCommentary(Commentary commentary) {
+        this.commentary = commentary;
+    }
+
     @Override
     public String toString() {
         return "TimesheetWeek{" +
@@ -157,6 +172,7 @@ public class TimesheetWeek {
                 ", fridayHours=" + fridayHours +
                 ", saturdayHours=" + saturdayHours +
                 ", sundayHours=" + sundayHours +
+                ", commentary=" + commentary +
                 '}';
     }
 
