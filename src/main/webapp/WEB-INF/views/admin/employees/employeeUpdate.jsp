@@ -11,6 +11,7 @@
 <form:form method="post" modelAttribute="employee" action="/employees/update">
 
     <form:hidden path="id" value="${employee.id}"/>
+    <form:hidden path="password" value="${employee.password}"/>
 
     <c:if test="${not empty employee.additionalInfo}">
         <form:hidden path="additionalInfo.id"/>
@@ -31,12 +32,6 @@
     <label for="emailLoginId">Email (login):</label>
     <form:input type="text" path="emailLogin" id="emailLoginId"/>
     <form:errors path="emailLogin" element="div"/>
-
-    <br/><br/>
-
-    <label for="passwordId">Password:</label>
-    <form:input type="password" path="password" id="passwordId"/>
-    <form:errors path="password" element="div"/>
 
     <br/><br/>
 

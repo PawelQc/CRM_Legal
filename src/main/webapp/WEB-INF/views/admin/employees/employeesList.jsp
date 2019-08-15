@@ -32,6 +32,7 @@
             <td>${employee.admin}</td>
             <td>
                 <a href="/employees/update/${employee.id}">Update</a>
+                <a href="/employees/update-password/${employee.id}">Change password</a>
                 <a href="/employees/additional-info/list?employeeId=${employee.id}&additionalInfoId=${employee.additionalInfo.id}">Details</a>
                 <a href="http://localhost:8080/employees/delete/${employee.id}"
                    onclick="return confirm('Are you sure you want to delete this employee? All his timesheets will be deleted!');">Delete</a>

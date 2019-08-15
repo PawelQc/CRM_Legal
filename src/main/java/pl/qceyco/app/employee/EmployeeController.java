@@ -1,13 +1,11 @@
 package pl.qceyco.app.employee;
 
+import org.apache.commons.lang3.StringUtils;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import pl.qceyco.app.employee.additinalInfo.AdditionalInfoEmployeeRepository;
 import pl.qceyco.app.project.ProjectRepository;
 import pl.qceyco.app.secureapp.Authority;
@@ -121,12 +119,36 @@ public class EmployeeController {
         if (result.hasErrors()) {
             return "admin/employees/employeeUpdate";
         }
-        //todo przy update pobiera hasło w formie hashu - zmień formularz update - hasło update zrób oddzielnie + sprawdz czy sie zgadza z poprzednim
-        employee.setPassword(BCrypt.hashpw(employee.getPassword(), BCrypt.gensalt()));
         setAuthority(employee);
         employeeRepository.save(employee);
         return "redirect:list";
     }
+
+    @RequestMapping(value = "/update-password/{employeeId}", method = RequestMethod.GET)
+    public String showUpdatePasswordForm(@PathVariable Long employeeId, Model model) {
+        Employee employee = employeeRepository.findFirstById(employeeId);
+        if (employee == null) {
+            model.addAttribute("error", "Update Error");
+            return "error";
+        }
+        model.addAttribute("employee", employee);
+        return "admin/employees/employeeUpdatePassword";
+    }
+
+    @RequestMapping(value = "/update-password/{employeeId}", method = RequestMethod.POST)
+    public String processUpdatePasswordForm(@PathVariable Long employeeId, @RequestParam String password, Model model) {
+        Employee employee = employeeRepository.findFirstById(employeeId);
+        if (StringUtils.isBlank(password) || password.length() < 8 || password.length() > 60) {
+            model.addAttribute("employee", employee);
+            model.addAttribute("errorPasswordInput", "Enter a new password: must be between 8 and 60 characters!");
+            return "admin/employees/employeeUpdatePassword";
+        }
+        employee.setPassword(password);
+        employee.setPassword(BCrypt.hashpw(employee.getPassword(), BCrypt.gensalt()));
+        employeeRepository.save(employee);
+        return "redirect:../list";
+    }
+
 
     private void setAuthority(@Valid @ModelAttribute Employee employee) {
         Authority authority = null;
