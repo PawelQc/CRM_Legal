@@ -4,6 +4,7 @@
 <html>
 <head>
     <title>Title</title>
+    <%@ include file="/fragments/head.jspf" %>
 </head>
 <body>
 
@@ -119,5 +120,7 @@
     <br>
     <input type="submit" value="Update">
 </form:form>
+
+<%@ include file="/fragments/footer.jspf" %>
 </body>
 </html>

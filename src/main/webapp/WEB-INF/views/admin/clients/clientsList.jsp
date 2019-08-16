@@ -6,6 +6,7 @@
 <html>
 <head>
     <title>Title</title>
+    <%@ include file="/fragments/head.jspf" %>
 </head>
 <body>
 <%@ include file="/fragments/header.jspf" %>
@@ -53,8 +54,8 @@
         </tr>
     </c:forEach>
     <h4>${deleteErrorProjectExists}</h4>
-
 </table>
 
+<%@ include file="/fragments/footer.jspf" %>
 </body>
 </html>

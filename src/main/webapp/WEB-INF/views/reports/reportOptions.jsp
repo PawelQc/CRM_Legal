@@ -5,6 +5,7 @@
 <html>
 <head>
     <title>Title</title>
+    <%@ include file="/fragments/head.jspf" %>
 </head>
 <body>
 <%@ include file="/fragments/header.jspf" %>
@@ -20,6 +21,6 @@
     </li>
 </ul>
 
-
+<%@ include file="/fragments/footer.jspf" %>
 </body>
 </html>

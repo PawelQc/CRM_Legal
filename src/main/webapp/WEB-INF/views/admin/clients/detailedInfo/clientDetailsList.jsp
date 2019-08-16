@@ -5,6 +5,8 @@
 <html>
 <head>
     <title>Title</title>
+    <%@ include file="/fragments/head.jspf" %>
+
 </head>
 <body>
 <%@ include file="/fragments/header.jspf" %>
@@ -39,5 +41,6 @@
 </table>
 <a href="/clients/additional-info/update/${additionalInfoClient.id}">Update</a>
 
+<%@ include file="/fragments/footer.jspf" %>
 </body>
 </html>

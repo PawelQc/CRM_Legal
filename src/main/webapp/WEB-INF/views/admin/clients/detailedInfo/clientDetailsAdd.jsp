@@ -4,8 +4,11 @@
 <html>
 <head>
     <title>Title</title>
+    <%@ include file="/fragments/head.jspf" %>
+
 </head>
 <body>
+<%@ include file="/fragments/header.jspf" %>
 
 <h4>No client detailed information - please fill the form:</h4>
 
@@ -51,5 +54,7 @@
 
     <input type="submit" value="Save">
 </form:form>
+
+<%@ include file="/fragments/footer.jspf" %>
 </body>
 </html>

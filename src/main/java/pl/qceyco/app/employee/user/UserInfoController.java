@@ -1,4 +1,4 @@
-package pl.qceyco.app.user;
+package pl.qceyco.app.employee.user;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

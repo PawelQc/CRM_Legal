@@ -4,13 +4,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Insert title here</title>
+    <title>Title</title>
+    <%@ include file="/fragments/head.jspf" %>
 </head>
 <body>
+<%@ include file="/fragments/header.jspf" %>
 
 <h4>Successful logout!!!</h4>
 <h4>For full access - please <a href="/login">login</a></h4>
 
+<%@ include file="/fragments/footer.jspf" %>
 </body>
 </html>

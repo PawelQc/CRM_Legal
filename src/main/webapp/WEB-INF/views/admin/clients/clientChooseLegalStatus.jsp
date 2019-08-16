@@ -4,6 +4,7 @@
 <html>
 <head>
     <title>Title</title>
+    <%@ include file="/fragments/head.jspf" %>
 </head>
 <body>
 
@@ -18,5 +19,7 @@
         <a href="/clients/natural-person/add">natural person</a>
     </li>
 </ul>
+
+<%@ include file="/fragments/footer.jspf" %>
 </body>
 </html>

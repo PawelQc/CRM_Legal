@@ -5,10 +5,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Insert title here</title>
+    <title>Title</title>
+    <%@ include file="/fragments/head.jspf" %>
 </head>
 <body>
+<%@ include file="/fragments/header.jspf" %>
+
 <h1>Login</h1>
 ${SPRING_SECURITY_LAST_EXCEPTION.message}
 <form action="login" method='POST'>
@@ -27,5 +29,7 @@ ${SPRING_SECURITY_LAST_EXCEPTION.message}
         </tr>
     </table>
 </form>
+
+<%@ include file="/fragments/footer.jspf" %>
 </body>
 </html>

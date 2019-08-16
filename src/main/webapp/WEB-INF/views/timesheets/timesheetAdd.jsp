@@ -4,6 +4,7 @@
 <html>
 <head>
     <title>Title</title>
+    <%@ include file="/fragments/head.jspf" %>
     <style>
         a {
             text-decoration: none;
@@ -128,5 +129,7 @@
     <br>
     <input type="submit" value="Save">
 </form:form>
+
+<%@ include file="/fragments/footer.jspf" %>
 </body>
 </html>

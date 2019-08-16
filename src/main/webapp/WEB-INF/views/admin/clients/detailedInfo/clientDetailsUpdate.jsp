@@ -4,12 +4,13 @@
 <html>
 <head>
     <title>Title</title>
+    <%@ include file="/fragments/head.jspf" %>
+
 </head>
 <body>
+<%@ include file="/fragments/header.jspf" %>
 
 <h4>Update form - client detailed information:</h4>
-
-<%@ include file="/fragments/header.jspf" %>
 
 <form:form method="post" modelAttribute="additionalInfoClient" action="/clients/additional-info/update">
     <form:hidden path="id"/>
@@ -52,5 +53,7 @@
 
     <input type="submit" value="Update">
 </form:form>
+
+<%@ include file="/fragments/footer.jspf" %>
 </body>
 </html>

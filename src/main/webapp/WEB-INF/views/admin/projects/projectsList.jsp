@@ -4,6 +4,7 @@
 <html>
 <head>
     <title>Title</title>
+    <%@ include file="/fragments/head.jspf" %>
 </head>
 <body>
 <%@ include file="/fragments/header.jspf" %>
@@ -45,5 +46,6 @@
     </c:forEach>
 </table>
 
+<%@ include file="/fragments/footer.jspf" %>
 </body>
 </html>
