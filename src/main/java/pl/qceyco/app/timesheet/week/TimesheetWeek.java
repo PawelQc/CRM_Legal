@@ -55,7 +55,7 @@ public class TimesheetWeek {
     @Max(24)
     private Integer sundayHours;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "commentary_id")
     private Commentary commentary;
 

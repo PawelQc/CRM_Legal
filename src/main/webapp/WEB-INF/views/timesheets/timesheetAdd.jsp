@@ -74,60 +74,58 @@
     </table>
     <br> <br>
 
-<%--    todo dopracuj atrybuty textarea https://www.w3schools.com/tags/tag_textarea.asp--%>
-
     <table border="1">
         <tr>
             <th>Description of work done on ${timesheetWeek.dateMonday}</th>
             <td>
-                <form:textarea path="commentary.mondayCommentary"/>
+                <form:textarea path="commentary.mondayCommentary" cols="135" rows="5" maxlength="650"/>
                 <form:errors path="commentary.mondayCommentary" element="div"/>
             </td>
         </tr>
         <tr>
             <th>Description of work done on ${timesheetWeek.dateMonday.plusDays(1)}</th>
             <td>
-                <form:textarea path="commentary.tuesdayCommentary"/>
+                <form:textarea path="commentary.tuesdayCommentary" cols="135" rows="5" maxlength="650"/>
                 <form:errors path="commentary.tuesdayCommentary" element="div"/>
             </td>
         </tr>
         <tr>
             <th>Description of work done on ${timesheetWeek.dateMonday.plusDays(2)}</th>
             <td>
-                <form:textarea path="commentary.wednesdayCommentary"/>
+                <form:textarea path="commentary.wednesdayCommentary" cols="135" rows="5" maxlength="650"/>
                 <form:errors path="commentary.wednesdayCommentary" element="div"/>
             </td>
         </tr>
         <tr>
             <th>Description of work done on ${timesheetWeek.dateMonday.plusDays(3)}</th>
             <td>
-                <form:textarea path="commentary.thursdayCommentary"/>
+                <form:textarea path="commentary.thursdayCommentary" cols="135" rows="5" maxlength="650"/>
                 <form:errors path="commentary.thursdayCommentary" element="div"/>
             </td>
         </tr>
         <tr>
             <th>Description of work done on ${timesheetWeek.dateMonday.plusDays(4)}</th>
             <td>
-                <form:textarea path="commentary.fridayCommentary"/>
+                <form:textarea path="commentary.fridayCommentary" cols="135" rows="5" maxlength="650"/>
                 <form:errors path="commentary.fridayCommentary" element="div"/>
             </td>
         </tr>
         <tr>
             <th>Description of work done on ${timesheetWeek.dateMonday.plusDays(5)}</th>
             <td>
-                <form:textarea path="commentary.saturdayCommentary"/>
+                <form:textarea path="commentary.saturdayCommentary" cols="135" rows="5" maxlength="650"/>
                 <form:errors path="commentary.saturdayCommentary" element="div"/>
             </td>
         </tr>
         <tr>
             <th>Description of work done on ${timesheetWeek.dateMonday.plusDays(6)}</th>
             <td>
-                <form:textarea path="commentary.sundayCommentary"/>
+                <form:textarea path="commentary.sundayCommentary" cols="135" rows="5" maxlength="650"/>
                 <form:errors path="commentary.sundayCommentary" element="div"/>
             </td>
         </tr>
     </table>
-    <br><br>
+    <br>
     <input type="submit" value="Save">
 </form:form>
 </body>

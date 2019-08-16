@@ -54,6 +54,7 @@
                 <td>${TSrefUnit.timesheetWeek.saturdayHours}</td>
                 <td>${TSrefUnit.timesheetWeek.sundayHours}</td>
                 <td>
+                    <a href="/timesheets/details/${TSrefUnit.timesheetWeek.id}">Details</a>
                     <a href="/timesheets/update/${TSrefUnit.timesheetWeek.id}">Update</a>
                     <a href="http://localhost:8080/timesheets/delete/${TSrefUnit.id}/${TSrefUnit.timesheetWeek.id}"
                        onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
@@ -90,6 +91,7 @@
                 <td>${TSrefUnit.timesheetWeek.saturdayHours}</td>
                 <td>${TSrefUnit.timesheetWeek.sundayHours}</td>
                 <td>
+                    <a href="/timesheets/details/${TSrefUnit.timesheetWeek.id}">Details</a>
                     <a href="/timesheets/update/${TSrefUnit.timesheetWeek.id}">Update</a>
                     <a href="http://localhost:8080/timesheets/delete/${TSrefUnit.id}/${TSrefUnit.timesheetWeek.id}"
                        onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
@@ -127,6 +129,7 @@
                 <td>${TSrefUnit.timesheetWeek.saturdayHours}</td>
                 <td>${TSrefUnit.timesheetWeek.sundayHours}</td>
                 <td>
+                    <a href="/timesheets/details/${TSrefUnit.timesheetWeek.id}">Details</a>
                     <a href="/timesheets/update/${TSrefUnit.timesheetWeek.id}">Update</a>
                     <a href="http://localhost:8080/timesheets/delete/${TSrefUnit.id}/${TSrefUnit.timesheetWeek.id}"
                        onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
@@ -163,6 +166,7 @@
                 <td>${TSrefUnit.timesheetWeek.saturdayHours}</td>
                 <td>${TSrefUnit.timesheetWeek.sundayHours}</td>
                 <td>
+                    <a href="/timesheets/details/${TSrefUnit.timesheetWeek.id}">Details</a>
                     <a href="/timesheets/update/${TSrefUnit.timesheetWeek.id}">Update</a>
                     <a href="http://localhost:8080/timesheets/delete/${TSrefUnit.id}/${TSrefUnit.timesheetWeek.id}"
                        onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>

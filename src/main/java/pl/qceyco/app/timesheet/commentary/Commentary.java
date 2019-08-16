@@ -11,32 +11,32 @@ public class Commentary {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "monday_commentary", length = 500)
-    @Size(max = 500)
+    @Column(name = "monday_commentary", length = 650)
+    @Size(max = 650)
     private String mondayCommentary;
 
-    @Column(name = "tuesday_commentary", length = 500)
-    @Size(max = 500)
+    @Column(name = "tuesday_commentary", length = 650)
+    @Size(max = 650)
     private String tuesdayCommentary;
 
-    @Column(name = "wednesday_commentary", length = 500)
-    @Size(max = 500)
+    @Column(name = "wednesday_commentary", length = 650)
+    @Size(max = 650)
     private String wednesdayCommentary;
 
-    @Column(name = "thursday_commentary", length = 500)
-    @Size(max = 500)
+    @Column(name = "thursday_commentary", length = 650)
+    @Size(max = 650)
     private String thursdayCommentary;
 
-    @Column(name = "friday_commentary", length = 500)
-    @Size(max = 500)
+    @Column(name = "friday_commentary", length = 650)
+    @Size(max = 650)
     private String fridayCommentary;
 
-    @Column(name = "saturday_commentary", length = 500)
-    @Size(max = 500)
+    @Column(name = "saturday_commentary", length = 650)
+    @Size(max = 650)
     private String saturdayCommentary;
 
-    @Column(name = "sunday_commentary", length = 500)
-    @Size(max = 500)
+    @Column(name = "sunday_commentary", length = 650)
+    @Size(max = 650)
     private String sundayCommentary;
 
     public Long getId() {

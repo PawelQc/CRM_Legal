@@ -1,5 +1,6 @@
 package pl.qceyco.app.timesheet.referenceUnit;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -8,6 +9,8 @@ import pl.qceyco.app.employee.Employee;
 import pl.qceyco.app.employee.EmployeeRepository;
 import pl.qceyco.app.project.Project;
 import pl.qceyco.app.project.ProjectRepository;
+import pl.qceyco.app.timesheet.commentary.Commentary;
+import pl.qceyco.app.timesheet.commentary.CommentaryRepository;
 import pl.qceyco.app.timesheet.week.TimesheetWeek;
 import pl.qceyco.app.timesheet.week.TimesheetWeekRepository;
 
@@ -27,12 +30,14 @@ public class TimesheetReferenceUnitController {
     private final ProjectRepository projectRepository;
     private final EmployeeRepository employeeRepository;
     private final TimesheetWeekRepository timesheetWeekRepository;
+    private final CommentaryRepository commentaryRepository;
 
-    public TimesheetReferenceUnitController(TimesheetReferenceUnitRepository timesheetReferenceUnitRepository, ProjectRepository projectRepository, EmployeeRepository employeeRepository, TimesheetWeekRepository timesheetWeekRepository) {
+    public TimesheetReferenceUnitController(TimesheetReferenceUnitRepository timesheetReferenceUnitRepository, ProjectRepository projectRepository, EmployeeRepository employeeRepository, TimesheetWeekRepository timesheetWeekRepository, CommentaryRepository commentaryRepository) {
         this.timesheetReferenceUnitRepository = timesheetReferenceUnitRepository;
         this.projectRepository = projectRepository;
         this.employeeRepository = employeeRepository;
         this.timesheetWeekRepository = timesheetWeekRepository;
+        this.commentaryRepository = commentaryRepository;
     }
 
     @ModelAttribute("projects")
@@ -69,6 +74,14 @@ public class TimesheetReferenceUnitController {
         }
     }
 
+    @RequestMapping(value = "/details/{tsRefUId}", method = RequestMethod.GET)
+    public String showATimesheetDetails(@PathVariable Long tsRefUId, HttpSession session, Model model) {
+        TimesheetReferenceUnit timesheetReferenceUnit = timesheetReferenceUnitRepository.findFirstById(tsRefUId);
+        model.addAttribute("timesheetDetails", timesheetReferenceUnit);
+        return "timesheets/timesheetDetailsList";
+    }
+
+
     @RequestMapping(value = "/choose-project", method = RequestMethod.GET)
     public String chooseProject(HttpSession session, Model model) {
         Employee employee = (Employee) session.getAttribute("loggedInUser");
@@ -86,6 +99,9 @@ public class TimesheetReferenceUnitController {
                               @RequestParam(required = false) String mondaySelect) {
         LocalDate nextMonday = getMondayDate(mode, mondaySelect, 7);
         TimesheetWeek timesheetWeek = new TimesheetWeek();
+       /* Commentary commentary = new Commentary();
+        commentaryRepository.save(commentary);
+        timesheetWeek.setCommentary(commentary);*/
         timesheetWeek.setDateMonday(nextMonday);
         model.addAttribute("timesheetWeek", timesheetWeek);
         return "timesheets/timesheetAdd";
@@ -97,6 +113,7 @@ public class TimesheetReferenceUnitController {
         if (result.hasErrors()) {
             return "timesheets/timesheetAdd";
         }
+//        Commentary commentary = commentaryRepository.findFirstById(timesheetWeek.getCommentary().getId())
         timesheetWeek.setDateMonday(timesheetWeek.getDateMonday().plusDays(1));
         timesheetWeekRepository.save(timesheetWeek);
         Employee loggedInUser = (Employee) session.getAttribute("loggedInUser");

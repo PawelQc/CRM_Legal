@@ -26,8 +26,6 @@ public class TimesheetReferenceUnit {
     @JoinColumn(name = "project_id")
     private Project project;
 
-    //todo dodać możliwość dodawania komentarza do ts?
-
     public Long getId() {
         return id;
     }
