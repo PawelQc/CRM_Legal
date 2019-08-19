@@ -11,7 +11,7 @@
 
 <div class="container">
     <h1 class="text-center">Employees</h1>
-    <a href="/employees/add" class="btn btn-success rounded-0 text-light m-1">Add</a>
+    <a href="/employees/add" class="btn btn-success rounded-0 text-light m-1">Add employee</a>
     <table class="table table-hover">
         <tr>
             <th>No</th>

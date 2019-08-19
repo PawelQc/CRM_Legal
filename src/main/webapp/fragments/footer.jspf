@@ -1,5 +1,7 @@
-<div class="navbar text-center">
+<div class="navbar navbar-static-bottom text-center">
     <footer>
         <h4> Contact information: <a href="mailto:qceyco@legal-crm.com"> qceyco@legal-crm.com</a></h4>
     </footer>
 </div>
+
+<%--todo popraw footer--%>

@@ -3,46 +3,50 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Add employee</title>
     <%@ include file="/fragments/head.jspf" %>
 </head>
 <body>
 <%@ include file="/fragments/header.jspf" %>
 
-<form:form method="post" modelAttribute="employee">
+<div class="container">
+    <h1 class="text-center">Add employee (basic info)</h1>
 
-    <label for="firstNameId">First name:</label>
-    <form:input type="text" path="firstName" id="firstNameId"/>
-    <form:errors path="firstName" element="div"/>
+    <form:form method="post" modelAttribute="employee">
 
-    <br/><br/>
+        <div class="form-group">
+            <label for="firstNameId">First name:</label>
+            <form:input type="text" path="firstName" id="firstNameId" class="form-control"/>
+            <form:errors path="firstName" element="div" cssClass="text-warning"/>
+        </div>
 
-    <label for="lastNameId">Last name:</label>
-    <form:input type="text" path="lastName" id="lastNameId"/>
-    <form:errors path="lastName" element="div"/>
+        <div class="form-group">
+            <label for="lastNameId">Last name:</label>
+            <form:input type="text" path="lastName" id="lastNameId" class="form-control"/>
+            <form:errors path="lastName" element="div" cssClass="text-warning"/>
+        </div>
 
-    <br/><br/>
+        <div class="form-group">
+            <label for="emailLoginId">Email (login):</label>
+            <form:input type="text" path="emailLogin" id="emailLoginId" class="form-control"/>
+            <form:errors path="emailLogin" element="div" cssClass="text-warning"/>
+        </div>
 
-    <label for="emailLoginId">Email (login):</label>
-    <form:input type="text" path="emailLogin" id="emailLoginId"/>
-    <form:errors path="emailLogin" element="div"/>
+        <div class="form-group">
+            <label for="passwordId">Password:</label>
+            <form:input type="password" path="password" id="passwordId" class="form-control"/>
+            <form:errors path="password" element="div" cssClass="text-warning"/>
+        </div>
 
-    <br/><br/>
+        <div class="form-group">
+            <label for="isAdminId">Grant admin access?</label>
+            <form:checkbox path="admin" id="isAdminId" class="form-control"/>
+            <form:errors path="admin" element="div" cssClass="text-warning"/>
+        </div>
 
-    <label for="passwordId">Password:</label>
-    <form:input type="password" path="password" id="passwordId"/>
-    <form:errors path="password" element="div"/>
-
-    <br/><br/>
-
-    <label for="isAdminId">Grant admin access?</label>
-    <form:checkbox path="admin" id="isAdminId"/>
-    <form:errors path="admin" element="div"/>
-
-    <br/><br/>
-
-    <input type="submit" value="Save">
-</form:form>
+        <input type="submit" value="Save">
+    </form:form>
+</div>
 
 <%@ include file="/fragments/footer.jspf" %>
 </body>

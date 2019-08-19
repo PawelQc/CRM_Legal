@@ -3,56 +3,55 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Update client info</title>
     <%@ include file="/fragments/head.jspf" %>
-
 </head>
 <body>
 <%@ include file="/fragments/header.jspf" %>
 
-<h4>Update form - client detailed information:</h4>
+<div class="container">
+    <h1 class="text-center">Update form: detailed information about ${client.nameDisplay}</h1>
+    <form:form method="post" modelAttribute="additionalInfoClient" action="/clients/additional-info/update">
+        <form:hidden path="id"/>
+        <div class="form-group">
+            <label for="nipId">NIP:</label>
+            <form:input type="number" path="nip" id="nipId" class="form-control"/>
+            <form:errors path="nip" element="div" cssClass="text-warning"/>
+        </div>
 
-<form:form method="post" modelAttribute="additionalInfoClient" action="/clients/additional-info/update">
-    <form:hidden path="id"/>
+        <div class="form-group">
+            <label for="addressId">Address:</label>
+            <form:input type="text" path="address" id="addressId" class="form-control"/>
+            <form:errors path="address" element="div" cssClass="text-warning"/>
+        </div>
 
-    <label for="nipId">NIP no:</label>
-    <form:input type="number" path="nip" id="nipId"/>
-    <form:errors path="nip" element="div"/>
+        <div class="form-group">
+            <label for="emailId">Email:</label>
+            <form:input type="text" path="email" id="emailId" class="form-control"/>
+            <form:errors path="email" element="div" cssClass="text-warning"/>
+        </div>
 
-    <br/><br/>
+        <div class="form-group">
+            <label for="phoneId">Phone no:</label>
+            <form:input type="number" path="phoneNumber" id="phoneId" class="form-control"/>
+            <form:errors path="phoneNumber" element="div" cssClass="text-warning"/>
+        </div>
 
-    <label for="addressId">Address:</label>
-    <form:input type="text" path="address" id="addressId"/>
-    <form:errors path="address" element="div"/>
+        <div class="form-group">
+            <label for="bankAccountId">Bank account no:</label>
+            <form:input type="number" path="bankAccount" id="bankAccountId" class="form-control"/>
+            <form:errors path="bankAccount" element="div" cssClass="text-warning"/>
+        </div>
 
-    <br/><br/>
+        <div class="form-group">
+            <label for="hourlyRateId">Hourly rate:</label>
+            <form:input type="number" path="hourlyRateIsCharged" id="hourlyRateId" class="form-control"/>
+            <form:errors path="hourlyRateIsCharged" element="div" cssClass="text-warning"/>
+        </div>
 
-    <label for="emailId">Email:</label>
-    <form:input type="text" path="email" id="emailId"/>
-    <form:errors path="email" element="div"/>
-
-    <br/><br/>
-
-    <label for="phoneId">Phone no:</label>
-    <form:input type="number" path="phoneNumber" id="phoneId"/>
-    <form:errors path="phoneNumber" element="div"/>
-
-    <br/><br/>
-
-    <label for="bankAccountId">Bank account no:</label>
-    <form:input type="number" path="bankAccount" id="bankAccountId"/>
-    <form:errors path="bankAccount" element="div"/>
-
-    <br/><br/>
-
-    <label for="hourlyRateId">Hourly rate:</label>
-    <form:input type="number" path="hourlyRateIsCharged" id="hourlyRateId"/>
-    <form:errors path="hourlyRateIsCharged" element="div"/>
-
-    <br/><br/>
-
-    <input type="submit" value="Update">
-</form:form>
+        <input type="submit" value="Save">
+    </form:form>
+</div>
 
 <%@ include file="/fragments/footer.jspf" %>
 </body>

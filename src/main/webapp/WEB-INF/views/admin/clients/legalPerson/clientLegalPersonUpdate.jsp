@@ -9,23 +9,21 @@
 <body>
 <%@ include file="/fragments/header.jspf" %>
 
-<h4>Update client - legal person (basic info)</h4>
-
-<form:form method="post" modelAttribute="clientLegalPerson" action="/clients/legal-person/update">
-    <form:hidden path="id"/>
-
-    <c:if test="${not empty clientLegalPerson.additionalInfo}">
-        <form:hidden path="additionalInfo.id"/>
-    </c:if>
-
-    <label for="companyNameId">Company name:</label>
-    <form:input type="text" path="companyName" id="companyNameId"/>
-    <form:errors path="companyName" element="div"/>
-
-    <br/><br/>
-
-    <input type="submit" value="Update">
-</form:form>
+<div class="container">
+    <h1 class="text-center">Update client: legal person (basic info)</h1>
+    <form:form method="post" modelAttribute="clientLegalPerson" action="/clients/legal-person/update">
+        <form:hidden path="id"/>
+        <c:if test="${not empty clientLegalPerson.additionalInfo}">
+            <form:hidden path="additionalInfo.id"/>
+        </c:if>
+        <div class="form-group">
+            <label for="companyNameId">Company name:</label>
+            <form:input type="text" path="companyName" id="companyNameId" class="form-control"/>
+            <form:errors path="companyName" element="div" cssClass="text-warning"/>
+        </div>
+        <input type="submit" value="Update">
+    </form:form>
+</div>
 
 <%@ include file="/fragments/footer.jspf" %>
 </body>

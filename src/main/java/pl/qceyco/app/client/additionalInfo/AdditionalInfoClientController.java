@@ -68,6 +68,8 @@ public class AdditionalInfoClientController {
             model.addAttribute("error", "Update Error");
             return "error";
         }
+        Client client = clientsAllRepository.findFirstByAdditionalInfo_Id(infoId);
+        model.addAttribute("client", client);
         model.addAttribute("additionalInfoClient", additionalInfoClient);
         return "admin/clients/detailedInfo/clientDetailsUpdate";
     }

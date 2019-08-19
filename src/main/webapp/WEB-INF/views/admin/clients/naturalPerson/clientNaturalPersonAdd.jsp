@@ -9,24 +9,22 @@
 <body>
 <%@ include file="/fragments/header.jspf" %>
 
-<h4>Add client - natural person (basic info)</h4>
-
-<form:form method="post" modelAttribute="clientNaturalPerson">
-
-    <label for="firstNameId">First name:</label>
-    <form:input type="text" path="firstName" id="firstNameId"/>
-    <form:errors path="firstName" element="div"/>
-
-    <br/><br/>
-
-    <label for="lastNameId">Last name:</label>
-    <form:input type="text" path="lastName" id="lastNameId"/>
-    <form:errors path="lastName" element="div"/>
-
-    <br/><br/>
-
-    <input type="submit" value="Save">
-</form:form>
+<div class="container">
+    <h1 class="text-center">Add client: natural person (basic info)</h1>
+    <form:form method="post" modelAttribute="clientNaturalPerson">
+        <div class="form-group">
+            <label for="firstNameId">First name:</label>
+            <form:input type="text" path="firstName" id="firstNameId" class="form-control"/>
+            <form:errors path="firstName" element="div"/>
+        </div>
+        <div class="form-group">
+            <label for="lastNameId">Last name:</label>
+            <form:input type="text" path="lastName" id="lastNameId" class="form-control"/>
+            <form:errors path="lastName" element="div"/>
+        </div>
+        <input type="submit" value="Save">
+    </form:form>
+</div>
 
 <%@ include file="/fragments/footer.jspf" %>
 </body>

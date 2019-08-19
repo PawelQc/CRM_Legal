@@ -8,18 +8,17 @@
 </head>
 <body>
 <%@ include file="/fragments/header.jspf" %>
-
-<h3>Changing password of employee ${employee.nameDisplay}</h3>
-
-${errorPasswordInput}
-<form action="/employees/update-password/${employee.id}" method="post">
-    <label><h4>Enter a new password</h4>
-        <input type="password" name="password">
-    </label>
-    <br> <br>
-    <input type="submit" value="Update">
-</form>
-
+<div class="container">
+    <h1 class="text-center">Changing password of ${employee.nameDisplay}</h1>
+    <h4 class="text-warning"> ${errorPasswordInput}</h4>
+    <form action="/employees/update-password/${employee.id}" method="post">
+        <div class="form-group">
+            <label for="passwordId">Enter a new password:</label>
+            <input type="password" name="password" class="form-control" id="passwordId">
+        </div>
+        <input type="submit" value="Update">
+    </form>
+</div>
 <%@ include file="/fragments/footer.jspf" %>
 </body>
 </html>
