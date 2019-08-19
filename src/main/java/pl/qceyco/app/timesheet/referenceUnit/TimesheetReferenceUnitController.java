@@ -1,6 +1,5 @@
 package pl.qceyco.app.timesheet.referenceUnit;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,7 +8,6 @@ import pl.qceyco.app.employee.Employee;
 import pl.qceyco.app.employee.EmployeeRepository;
 import pl.qceyco.app.project.Project;
 import pl.qceyco.app.project.ProjectRepository;
-import pl.qceyco.app.timesheet.commentary.Commentary;
 import pl.qceyco.app.timesheet.commentary.CommentaryRepository;
 import pl.qceyco.app.timesheet.week.TimesheetWeek;
 import pl.qceyco.app.timesheet.week.TimesheetWeekRepository;
@@ -59,7 +57,8 @@ public class TimesheetReferenceUnitController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String showAllTimesheets(@RequestParam(required = false) String mode, @RequestParam(required = false) String mondaySelect,
-                                    HttpSession session, Model model) {
+                                    @RequestParam(required = false) String errorNoTimesheets, HttpSession session, Model model) {
+        model.addAttribute("errorNoTimesheets", errorNoTimesheets);
         LocalDate nextMonday = getMondayDate(mode, mondaySelect, 28);
         model.addAttribute("nextMonday", nextMonday);
         Employee employee = (Employee) session.getAttribute("loggedInUser");
@@ -99,9 +98,6 @@ public class TimesheetReferenceUnitController {
                               @RequestParam(required = false) String mondaySelect) {
         LocalDate nextMonday = getMondayDate(mode, mondaySelect, 7);
         TimesheetWeek timesheetWeek = new TimesheetWeek();
-       /* Commentary commentary = new Commentary();
-        commentaryRepository.save(commentary);
-        timesheetWeek.setCommentary(commentary);*/
         timesheetWeek.setDateMonday(nextMonday);
         model.addAttribute("timesheetWeek", timesheetWeek);
         return "timesheets/timesheetAdd";
@@ -161,6 +157,10 @@ public class TimesheetReferenceUnitController {
         Employee loggedInUser = (Employee) session.getAttribute("loggedInUser");
         if (loggedInUser.getAdmin() == true) {
             List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByProjectIdOrderByEmployeeId(projectId);
+            if (timesheets.size() == 0) {
+                model.addAttribute("errorNoTimesheets", "Error: There are no timesheets to display!");
+                return "redirect:/timesheets/list";
+            }
             model.addAttribute("projectId", projectId);
             model.addAttribute("timesheetsChosenProject", timesheets);
             LocalDate nextMonday = getMondayDate(mode, mondaySelect, 28);
@@ -168,6 +168,10 @@ public class TimesheetReferenceUnitController {
             return "admin/timesheets/timesheetsListOfGivenProject";
         } else {
             List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByProjectIdAndEmployeeId(projectId, loggedInUser.getId());
+            if (timesheets.size() == 0) {
+                model.addAttribute("errorNoTimesheets", "Error: There are no timesheets to display!");
+                return "redirect:/timesheets/list";
+            }
             model.addAttribute("timesheets", timesheets);
             return "user/timesheets/timesheetsListOfGivenProject";
         }
@@ -176,6 +180,10 @@ public class TimesheetReferenceUnitController {
     @RequestMapping(value = "/sort-by-employee", method = {RequestMethod.POST, RequestMethod.GET})
     public String showTimesheetsByEmployeeId(@RequestParam Long employeeId, Model model, @RequestParam(required = false) String mode, @RequestParam(required = false) String mondaySelect) {
         List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByEmployeeId(employeeId);
+        if (timesheets.size() == 0) {
+            model.addAttribute("errorNoTimesheets", "Error: There are no timesheets to display!");
+            return "redirect:/timesheets/list";
+        }
         model.addAttribute("employeeId", employeeId);
         model.addAttribute("timesheetsChosenUser", timesheets);
         LocalDate nextMonday = getMondayDate(mode, mondaySelect, 28);
