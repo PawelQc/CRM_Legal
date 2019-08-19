@@ -4,43 +4,43 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <title>Client details</title>
     <%@ include file="/fragments/head.jspf" %>
-
 </head>
 <body>
 <%@ include file="/fragments/header.jspf" %>
 
-<h3>Client - details</h3>
-
-<table border="1">
-    <tr>
-        <th>NIP no</th>
-        <td>${additionalInfoClient.nip}</td>
-    </tr>
-    <tr>
-        <th>Address</th>
-        <td>${additionalInfoClient.address}</td>
-    </tr>
-    <tr>
-        <th>Email</th>
-        <td>${additionalInfoClient.email}</td>
-    </tr>
-    <tr>
-        <th>Phone no</th>
-        <td>${additionalInfoClient.phoneNumber}</td>
-    </tr>
-    <tr>
-        <th>Charged per hour (PLN)</th>
-        <td>${additionalInfoClient.hourlyRateIsCharged}</td>
-    </tr>
-    <tr>
-        <th>Bank account no</th>
-        <td>${additionalInfoClient.bankAccount}</td>
-    </tr>
-</table>
-<a href="/clients/additional-info/update/${additionalInfoClient.id}">Update</a>
-
+<div class="container">
+    <h1 class="text-center">Client: ${client.nameDisplay}</h1>
+    <a href="/clients/additional-info/update/${additionalInfoClient.id}"
+       class="btn btn-warning rounded-0 text-light m-1">Update</a>
+    <table class="table table-hover">
+        <tr>
+            <th>NIP</th>
+            <td>${additionalInfoClient.nip}</td>
+        </tr>
+        <tr>
+            <th>Address</th>
+            <td>${additionalInfoClient.address}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>${additionalInfoClient.email}</td>
+        </tr>
+        <tr>
+            <th>Phone no</th>
+            <td>${additionalInfoClient.phoneNumber}</td>
+        </tr>
+        <tr>
+            <th>Charged per hour (PLN)</th>
+            <td>${additionalInfoClient.hourlyRateIsCharged}</td>
+        </tr>
+        <tr>
+            <th>Bank account no</th>
+            <td>${additionalInfoClient.bankAccount}</td>
+        </tr>
+    </table>
+</div>
 <%@ include file="/fragments/footer.jspf" %>
 </body>
 </html>

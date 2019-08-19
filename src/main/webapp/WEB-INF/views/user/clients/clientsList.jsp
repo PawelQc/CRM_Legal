@@ -5,44 +5,44 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <title>Clients</title>
     <%@ include file="/fragments/head.jspf" %>
 </head>
 <body>
 <%@ include file="/fragments/header.jspf" %>
 
-<h3>List of all clients</h3>
-
-<table border="1">
-    <tr>
-        <th>No</th>
-        <th>Company name</th>
-        <th>First name</th>
-        <th>Last name</th>
-        <th>Action</th>
-    </tr>
-    <c:forEach var="client" items="${clients}" varStatus="count">
+<div class="container">
+    <h1 class="text-center">Clients</h1>
+    <table class="table table-hover">
         <tr>
-            <td>${count.count}</td>
-            <td>
-                <c:catch var="exception">${client.companyName}</c:catch>
-                <c:if test="${not empty exception}"> - </c:if>
-            </td>
-            <td>
-                <c:catch var="exception">${client.firstName}</c:catch>
-                <c:if test="${not empty exception}"> - </c:if>
-            </td>
-            <td>
-                <c:catch var="exception">${client.lastName}</c:catch>
-                <c:if test="${not empty exception}"> - </c:if>
-            </td>
-            <td>
-                <a href="/clients/additional-info/list?clientId=${client.id}&additionalInfoId=${client.additionalInfo.id}">Details</a>
-            </td>
+            <th>No</th>
+            <th>Company name</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Action</th>
         </tr>
-    </c:forEach>
-</table>
-
+        <c:forEach var="client" items="${clients}" varStatus="count">
+            <tr>
+                <td>${count.count}</td>
+                <td>
+                    <c:catch var="exception">${client.companyName}</c:catch>
+                    <c:if test="${not empty exception}"> - </c:if>
+                </td>
+                <td>
+                    <c:catch var="exception">${client.firstName}</c:catch>
+                    <c:if test="${not empty exception}"> - </c:if>
+                </td>
+                <td>
+                    <c:catch var="exception">${client.lastName}</c:catch>
+                    <c:if test="${not empty exception}"> - </c:if>
+                </td>
+                <td>
+                    <a href="/clients/additional-info/list?clientId=${client.id}&additionalInfoId=${client.additionalInfo.id}"
+                       class="btn btn-info rounded-0 text-light m-1">Details</a></td>
+            </tr>
+        </c:forEach>
+    </table>
+</div>
 <%@ include file="/fragments/footer.jspf" %>
 </body>
 </html>

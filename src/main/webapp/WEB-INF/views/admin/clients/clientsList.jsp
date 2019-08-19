@@ -5,7 +5,7 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <title>Clients</title>
     <%@ include file="/fragments/head.jspf" %>
 </head>
 <body>
@@ -53,11 +53,10 @@
                     <a href="http://localhost:8080/clients/delete/${client.id}"
                        class="btn btn-danger rounded-0 text-light m-1"
                        onclick="return confirm('Are you sure you want to delete this client?'); ">Delete</a>
-
                 </td>
             </tr>
         </c:forEach>
-        <h4>${deleteErrorProjectExists}</h4>
+        <h4 class="text-warning">${deleteErrorProjectExists}</h4>
     </table>
 </div>
 <%@ include file="/fragments/footer.jspf" %>

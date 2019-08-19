@@ -4,32 +4,34 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <title>Client details</title>
     <%@ include file="/fragments/head.jspf" %>
 </head>
 <body>
 <%@ include file="/fragments/header.jspf" %>
 
-<h3>Client - details</h3>
+<div class="container">
+    <h1 class="text-center">Client: ${client.nameDisplay}</h1>
 
-<table border="1">
-    <tr>
-        <th>NIP no</th>
-        <td>${additionalInfoClient.nip}</td>
-    </tr>
-    <tr>
-        <th>Address</th>
-        <td>${additionalInfoClient.address}</td>
-    </tr>
-    <tr>
-        <th>Email</th>
-        <td>${additionalInfoClient.email}</td>
-    </tr>
-    <tr>
-        <th>Phone no</th>
-        <td>${additionalInfoClient.phoneNumber}</td>
-    </tr>
-</table>
+    <table class="table table-hover">
+        <tr>
+            <th>NIP</th>
+            <td>${additionalInfoClient.nip}</td>
+        </tr>
+        <tr>
+            <th>Address</th>
+            <td>${additionalInfoClient.address}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>${additionalInfoClient.email}</td>
+        </tr>
+        <tr>
+            <th>Phone no</th>
+            <td>${additionalInfoClient.phoneNumber}</td>
+        </tr>
+    </table>
+</div>
 
 <%@ include file="/fragments/footer.jspf" %>
 </body>

@@ -30,10 +30,12 @@ public class AdditionalInfoEmployeeController {
         if (additionalInfoId == null) {
             return "redirect:/employees/additional-info/add/" + employeeId;
         }
+        Employee employee = employeeRepository.findFirstById(employeeId);
+        model.addAttribute("employee", employee);
         AdditionalInfoEmployee additionalInfoEmployee = additionalInfoEmployeeRepository.findFirstById(additionalInfoId);
         model.addAttribute("additionalInfoEmployee", additionalInfoEmployee);
-        Employee employee = (Employee) session.getAttribute("loggedInUser");
-        if (employee.getAdmin() == true) {
+        Employee loggedInUser = (Employee) session.getAttribute("loggedInUser");
+        if (loggedInUser.getAdmin() == true) {
             return "admin/employees/detailedInfo/employeeDetailsList";
         } else {
             return "user/employees/detailedInfo/employeeDetailsList";

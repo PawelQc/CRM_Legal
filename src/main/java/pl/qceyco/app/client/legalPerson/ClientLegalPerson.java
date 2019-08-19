@@ -6,6 +6,7 @@ import pl.qceyco.app.client.Client;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -17,12 +18,19 @@ public class ClientLegalPerson extends Client {
     @NotBlank
     private String companyName;
 
+    @Transient
+    private String nameDisplay;
+
     public String getCompanyName() {
         return companyName;
     }
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
+    }
+
+    public String getNameDisplay() {
+        return companyName;
     }
 
     @Override

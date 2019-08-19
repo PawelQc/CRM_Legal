@@ -10,9 +10,10 @@
 <body>
 <%@ include file="/fragments/header.jspf" %>
 
-<h4>Successful logout!!!</h4>
-<h4>For full access - please <a href="/login">login</a></h4>
-
+<div class="container">
+    <h4>Successful logout!!!</h4>
+    <h4>For full access - please <a href="/login">login</a></h4>
+</div>
 <%@ include file="/fragments/footer.jspf" %>
 </body>
 </html>

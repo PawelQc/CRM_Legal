@@ -29,8 +29,10 @@ public class AdditionalInfoClientController {
         if (additionalInfoId == null) {
             return "redirect:/clients/additional-info/add/" + clientId;
         }
+        Client client = clientsAllRepository.findFirstById(clientId);
         AdditionalInfoClient additionalInfoClient = additionalInfoClientRepository.findFirstById(additionalInfoId);
         model.addAttribute("additionalInfoClient", additionalInfoClient);
+        model.addAttribute("client", client);
         Employee employee = (Employee) session.getAttribute("loggedInUser");
         if (employee.getAdmin() == true) {
             return "admin/clients/detailedInfo/clientDetailsList";

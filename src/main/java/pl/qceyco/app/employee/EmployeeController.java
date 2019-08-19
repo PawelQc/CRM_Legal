@@ -80,7 +80,7 @@ public class EmployeeController {
     public String delete(@PathVariable Long employeeId, Model model, HttpSession session) {
         Employee loggedInUser = (Employee) session.getAttribute("loggedInUser");
         if (loggedInUser.getId() == employeeId) {
-            model.addAttribute("deleteErrorAdmin", "Cannot delete admin account!");
+            model.addAttribute("deleteErrorIsAdmin", "Cannot delete admin account!");
             return "admin/employees/employeesList";
         }
         if (projectRepository.findAllByEmployeeId(employeeId).size() >= 1) {

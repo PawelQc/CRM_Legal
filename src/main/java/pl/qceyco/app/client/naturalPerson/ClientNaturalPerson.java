@@ -7,6 +7,7 @@ import pl.qceyco.app.client.additionalInfo.AdditionalInfoClient;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -23,6 +24,9 @@ public class ClientNaturalPerson extends Client {
     @NotBlank
     private String lastName;
 
+    @Transient
+    private String nameDisplay;
+
     public String getFirstName() {
         return firstName;
     }
@@ -37,6 +41,10 @@ public class ClientNaturalPerson extends Client {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getNameDisplay() {
+        return firstName + " " + lastName;
     }
 
     @Override
