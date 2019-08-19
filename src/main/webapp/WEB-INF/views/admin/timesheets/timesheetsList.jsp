@@ -35,11 +35,11 @@
         </form>
     </div>
     <br>
-    <a href="/timesheets/choose-project" class="btn btn-success rounded-0 text-light m-1" style="display: inline-block"> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Add &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+    <a href="/timesheets/choose-project" class="btn btn-success rounded-0 text-light m-1" style="display: inline-block; width: 90px">Add</a>
     <br> <br>
 
-    <a href="/timesheets/list?mode=prev&mondaySelect=${nextMonday}" class="btn btn-info rounded-0 text-light m-1">< Previous</a>
-    <a href="/timesheets/list?mode=next&mondaySelect=${nextMonday}" class="btn btn-info rounded-0 text-light m-1">&nbsp&nbsp&nbsp Next >&nbsp&nbsp&nbsp&nbsp </a>
+    <a href="/timesheets/list?mode=prev&mondaySelect=${nextMonday}" class="btn btn-info rounded-0 text-light m-1" style="width: 90px">< Previous</a>
+    <a href="/timesheets/list?mode=next&mondaySelect=${nextMonday}" class="btn btn-info rounded-0 text-light m-1">Next ></a>
     <table class="table table-hover table">
         <tr>
             <th colspan="10">Timesheet for: ${nextMonday.minusDays(21)} - ${nextMonday.minusDays(15)}</th>

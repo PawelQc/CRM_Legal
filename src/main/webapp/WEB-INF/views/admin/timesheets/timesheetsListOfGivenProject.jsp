@@ -11,8 +11,6 @@
 
 <h3>Timesheets added within chosen 4 weeks to the project: ${timesheetsChosenProject.get(0).project.signature}</h3>
 
-<%--todo jak zrobić żeby jak tabela jest pusta wyświetlić tylko 1 raz że nie ma rekordów??--%>
-
 <a href="/timesheets/sort-by-project?projectId=${projectId}&mode=prev&mondaySelect=${nextMonday}">Previous 4 weeks</a>
 <a href="/timesheets/sort-by-project?projectId=${projectId}&mode=next&mondaySelect=${nextMonday}">Next 4 weeks</a>
 <table border="1">

@@ -11,8 +11,6 @@
 
 <h3>Timesheets added within chosen 4 weeks by user: ${timesheetsChosenUser.get(0).employee.nameDisplay}</h3>
 
-<%--todo jak zrobić żeby jak tabela jest pusta wyświetlić tylko 1 raz że nie ma rekordów??--%>
-
 <a href="/timesheets/sort-by-employee?employeeId=${employeeId}&mode=prev&mondaySelect=${nextMonday}">Previous 4 weeks</a>
 <a href="/timesheets/sort-by-employee?employeeId=${employeeId}&mode=next&mondaySelect=${nextMonday}">Next 4 weeks</a>
 <table border="1">

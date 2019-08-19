@@ -24,8 +24,6 @@
     </label>
 </form>
 
-<%--todo jak zrobić żeby jak tabela jest pusta wyświetlić tylko 1 raz że nie ma rekordów??--%>
-
 <a href="/timesheets/list?mode=prev&mondaySelect=${nextMonday}">Previous 4 weeks</a>
 <a href="/timesheets/list?mode=next&mondaySelect=${nextMonday}">Next 4 weeks</a>
 <table border="1">
