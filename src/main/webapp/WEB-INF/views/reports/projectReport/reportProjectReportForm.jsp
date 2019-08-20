@@ -9,22 +9,23 @@
 <body>
 <%@ include file="/fragments/header.jspf" %>
 
-<h3>Project profitability report</h3>
-<h4>Choose a project to generate a report</h4>
+<div class="container">
+    <h1 class="text-center">Project profitability report</h1>
+    <h4 class="text-center">Choose a project to generate a report</h4>
+    <p class="text-warning">${errorNotSufficientData}</p>
 
-<h4>${errorNotSufficientData}</h4>
-
-<form action="/reports/project-report/process" method="post">
-    <label><h4>Select project</h4>
-        <select name="projectId">
-            <c:forEach items="${projects}" var="project">
-                <option value="${project.id}">${project.signature}</option>
-            </c:forEach>
-        </select> <br><br>
-    </label>
-
-    <input type="submit" value="Generate report">
-</form>
+    <form action="/reports/project-report/process" method="post">
+        <div class="form-group">
+            <label for="projectId">Select project:</label>
+            <select name="projectId" class="form-control">
+                <c:forEach items="${projects}" var="project">
+                    <option value="${project.id}" id="projectId">${project.signature}</option>
+                </c:forEach>
+            </select>
+        </div>
+        <input type="submit" value="Generate report">
+    </form>
+</div>
 
 <%@ include file="/fragments/footer.jspf" %>
 </body>

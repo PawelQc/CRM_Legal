@@ -4,23 +4,26 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <title>Report choice</title>
     <%@ include file="/fragments/head.jspf" %>
 </head>
 <body>
 <%@ include file="/fragments/header.jspf" %>
 
-<h3>Generate report</h3>
-
-<ul>
-    <li>
-        <a href="/reports/monthly-employee-report/form">monthly employee report</a>
-    </li>
-    <li>
-        <a href="/reports/project-report/form">project profitability report</a>
-    </li>
-</ul>
-
+<div class="container">
+    <h1 class="text-center">Choose report</h1>
+    <br>
+    <div style="text-align: center">
+        <a href="/reports/monthly-employee-report/form" class="btn btn-success rounded-0 text-light m-1"
+           style="width: 250px">
+            <h4>monthly employee report</h4>
+        </a>
+        <br><br>
+        <a href="/reports/project-report/form" class="btn btn-info rounded-0 text-light m-1" style="width: 250px">
+            <h4>project profitability report</h4>
+        </a>
+    </div>
+</div>
 <%@ include file="/fragments/footer.jspf" %>
 </body>
 </html>
