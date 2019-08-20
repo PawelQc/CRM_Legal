@@ -3,14 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Error</title>
     <%@ include file="/fragments/head.jspf" %>
 </head>
 <body>
 <%@ include file="/fragments/header.jspf" %>
 
-${error}
-
+<div class="container">
+    <h4 class="text-center">${error}</h4>
+</div>
 <%@ include file="/fragments/footer.jspf" %>
 </body>
 </html>

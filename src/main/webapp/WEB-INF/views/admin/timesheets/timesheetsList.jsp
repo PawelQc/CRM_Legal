@@ -8,6 +8,7 @@
 </head>
 <body>
 <%@ include file="/fragments/header.jspf" %>
+
 <div class="container">
     <h1 class="text-center">Timesheets added within given 4 weeks</h1>
     <h4 class="text-warning">${errorNoTimesheets}</h4>
@@ -45,9 +46,11 @@
        style="width: 90px">< Previous</a>
     <a href="/timesheets/list?mode=next&mondaySelect=${nextMonday}" class="btn btn-info rounded-0 text-light m-1"
        style="width: 90px; float: right">Next ></a>
+
     <table class="table table-hover table">
         <tr>
-            <th colspan="10"><h4 class="text-center">Timesheet for: ${nextMonday.minusDays(21)} - ${nextMonday.minusDays(15)}</h4></th>
+            <th colspan="10"><h4 class="text-center">Timesheet for: ${nextMonday.minusDays(21)}
+                - ${nextMonday.minusDays(15)}</h4></th>
         </tr>
         <tr>
             <th>Project</th>
@@ -86,10 +89,11 @@
             </c:if>
         </c:forEach>
     </table>
-    <br>
+
     <table class="table table-hover">
         <tr>
-            <th colspan="10"><h4 class="text-center">Timesheet for: ${nextMonday.minusDays(14)} - ${nextMonday.minusDays(8)}</h4></th>
+            <th colspan="10"><h4 class="text-center">Timesheet for: ${nextMonday.minusDays(14)}
+                - ${nextMonday.minusDays(8)}</h4></th>
         </tr>
         <tr>
             <th>Project</th>
@@ -128,11 +132,11 @@
             </c:if>
         </c:forEach>
     </table>
-    <br>
 
     <table class="table table-hover">
         <tr>
-            <th colspan="10"><h4 class="text-center">Timesheet for: ${nextMonday.minusDays(7)} - ${nextMonday.minusDays(1)}</h4></th>
+            <th colspan="10"><h4 class="text-center">Timesheet for: ${nextMonday.minusDays(7)}
+                - ${nextMonday.minusDays(1)}</h4></th>
         </tr>
         <tr>
             <th>Project</th>
@@ -171,10 +175,11 @@
             </c:if>
         </c:forEach>
     </table>
-    <br>
+
     <table class="table table-hover">
         <tr>
-            <th colspan="10"><h4 class="text-center">Timesheet for: ${nextMonday} - ${nextMonday.plusDays(6)}</h4></th>
+            <th colspan="10"><h4 class="text-center">Timesheet for: ${nextMonday} - ${nextMonday.plusDays(6)}</h4>
+            </th>
         </tr>
         <tr>
             <th>Project</th>
@@ -214,7 +219,6 @@
         </c:forEach>
     </table>
 </div>
-
 <%@ include file="/fragments/footer.jspf" %>
 </body>
 </html>

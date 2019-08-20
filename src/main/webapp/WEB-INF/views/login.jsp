@@ -4,7 +4,7 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <title>Login</title>
     <%@ include file="/fragments/head.jspf" %>
 </head>
 <body>

@@ -1,7 +1,4 @@
-<div class="navbar navbar-static-bottom text-center">
-    <footer>
-        <h4> Contact information: <a href="mailto:qceyco@legal-crm.com"> qceyco@legal-crm.com</a></h4>
-    </footer>
-</div>
-
-<%--todo popraw footer--%>
+<footer>
+    <h4 style="text-align: center"> Copyright &copy 2019 Qceyco</h4>
+    <h4 style="text-align: center"> Contact information: <a href="mailto:qceyco@legal-crm.com"> qceyco@legal-crm.com</a></h4>
+</footer>

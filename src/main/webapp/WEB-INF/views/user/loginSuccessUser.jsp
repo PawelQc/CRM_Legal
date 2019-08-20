@@ -4,15 +4,15 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <title>Login success</title>
     <%@ include file="/fragments/head.jspf" %>
 </head>
 <body>
 <%@ include file="/fragments/header.jspf" %>
+<div class="container">
+    <h2 class="text-center">Successful logging as user: ${loggedInUser.nameDisplay}</h2>
+</div>
 
-<h4>Successful logging!</h4>
-
-${loggedInUser.nameDisplay}
 
 <%@ include file="/fragments/footer.jspf" %>
 </body>

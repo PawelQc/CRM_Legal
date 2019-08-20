@@ -26,6 +26,27 @@
     .fa-anchor, .fa-coffee {
         font-size: 200px
     }
+
+    html {
+        position: relative;
+        min-height: 100%;
+    }
+
+    body {
+        margin: 0 0 100px;
+    }
+
+    footer {
+        background-color: red;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 70px;
+        width: 100%;
+        overflow: hidden;
+        color: white;
+    }
+
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
