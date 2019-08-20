@@ -15,12 +15,12 @@
         <div class="form-group">
             <label for="firstNameId">First name:</label>
             <form:input type="text" path="firstName" id="firstNameId" class="form-control"/>
-            <form:errors path="firstName" element="div"/>
+            <form:errors path="firstName" element="div" cssClass="text-warning"/>
         </div>
         <div class="form-group">
             <label for="lastNameId">Last name:</label>
             <form:input type="text" path="lastName" id="lastNameId" class="form-control"/>
-            <form:errors path="lastName" element="div"/>
+            <form:errors path="lastName" element="div" cssClass="text-warning"/>
         </div>
         <input type="submit" value="Save">
     </form:form>

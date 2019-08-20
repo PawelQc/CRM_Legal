@@ -27,6 +27,10 @@
             <td>${additionalInfoEmployee.targetBudget}</td>
         </tr>
         <tr>
+            <th>Bonus rate</th>
+            <td>${additionalInfoEmployee.bonus}%</td>
+        </tr>
+        <tr>
             <th>Phone no</th>
             <td>${additionalInfoEmployee.phoneNumber}</td>
         </tr>

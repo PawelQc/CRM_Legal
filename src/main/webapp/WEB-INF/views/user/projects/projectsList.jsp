@@ -19,6 +19,7 @@
             <th>Description</th>
             <th>Team</th>
             <th>Client</th>
+            <th>Remuneration limit</th>
         </tr>
         <c:forEach var="project" items="${projects}" varStatus="count">
             <tr>
@@ -27,11 +28,14 @@
                 <td>${project.name}</td>
                 <td>${project.description}</td>
                 <td>
-                    <c:forEach items="${project.projectTeam}" var="lawyer">
-                        ${lawyer.lastName}
-                    </c:forEach>
+                    <ul>
+                        <c:forEach items="${project.projectTeam}" var="lawyer">
+                            <li>${lawyer.lastName}</li>
+                        </c:forEach>
+                    </ul>
                 </td>
                 <td>${project.client.nameDisplay}</td>
+                <td>${project.capOnRemuneration}</td>
             </tr>
         </c:forEach>
     </table>

@@ -69,6 +69,8 @@ public class AdditionalInfoEmployeeController {
             model.addAttribute("error", "Update Error");
             return "error";
         }
+        Employee employee = employeeRepository.findFirstByAdditionalInfo_Id(infoId);
+        model.addAttribute("employee", employee);
         model.addAttribute("additionalInfoEmployee", additionalInfoEmployee);
         return "admin/employees/detailedInfo/employeeDetailsUpdate";
     }

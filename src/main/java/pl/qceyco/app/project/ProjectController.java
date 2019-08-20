@@ -81,6 +81,7 @@ public class ProjectController {
     public String delete(@PathVariable Long id) {
         projectRepository.deleteById(id);
         return "redirect:../list";
+        //todo błąd przy usuwaniu
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)

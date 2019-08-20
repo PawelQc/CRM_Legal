@@ -9,9 +9,9 @@
 <body>
 <%@ include file="/fragments/header.jspf" %>
 
-<div class="container">
+<div style="width: 95%; margin-left:auto; margin-right:auto;">
     <h1 class="text-center">Projects</h1>
-    <a href="/projects/add" class="btn btn-success rounded-0 text-light m-1">Add</a>
+    <a href="/projects/add" class="btn btn-success rounded-0 text-light m-1">Add project</a>
     <table class="table table-hover">
         <tr>
             <th>No</th>
@@ -20,7 +20,7 @@
             <th>Description</th>
             <th>Team</th>
             <th>Client</th>
-            <th>Remuneration cap</th>
+            <th>Remuneration limit</th>
             <th>Action</th>
         </tr>
         <c:forEach var="project" items="${projects}" varStatus="count">
@@ -30,9 +30,11 @@
                 <td>${project.name}</td>
                 <td>${project.description}</td>
                 <td>
-                    <c:forEach items="${project.projectTeam}" var="lawyer">
-                        ${lawyer.lastName}
-                    </c:forEach>
+                    <ul>
+                        <c:forEach items="${project.projectTeam}" var="lawyer">
+                            <li>${lawyer.lastName}</li>
+                        </c:forEach>
+                    </ul>
                 </td>
                 <td>${project.client.nameDisplay}</td>
                 <td>${project.capOnRemuneration}</td>

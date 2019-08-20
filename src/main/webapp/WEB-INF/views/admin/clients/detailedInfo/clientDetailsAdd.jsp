@@ -13,7 +13,6 @@
 <div class="container">
     <h1 class="text-center">No detailed information about ${client.nameDisplay}: fill the form</h1>
     <form:form method="post" modelAttribute="additionalInfoClient">
-
         <div class="form-group">
             <label for="nipId">NIP:</label>
             <form:input type="number" path="nip" id="nipId" class="form-control"/>
