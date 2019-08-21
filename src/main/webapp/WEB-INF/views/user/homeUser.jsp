@@ -4,7 +4,7 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <title>Home</title>
     <%@ include file="/fragments/head.jspf" %>
 </head>
 <body>
@@ -12,11 +12,11 @@
 
 <h4>home page</h4>
 
-<p>some content</p>
-<p>some content</p>
-<p>some content</p>
-<p>some content</p>
-<p>some content</p>
+<%--todo na stronie info: do jakich projektów jest dodany uzytkownik, ostatnio dodane timesheety, info o utylizacji za ostatni miesiac, info czy budzet za ostatni miesiac zostal zrobiony, ilosc godzin nabitych od poczatku miesiaca--%>
+
+<%--todo strona admina jw + info dot wszystkich pracownikow--%>
+
+<%--todo dodac mozliwosc blokowania uzytkownika przez admina?--%>
 
 <%@ include file="/fragments/footer.jspf" %>
 </body>

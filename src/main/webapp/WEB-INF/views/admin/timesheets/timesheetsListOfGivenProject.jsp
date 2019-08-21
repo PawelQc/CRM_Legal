@@ -16,7 +16,7 @@
     <a href="/timesheets/sort-by-project?projectId=${projectId}&mode=next&mondaySelect=${nextMonday}"
        class="btn btn-info rounded-0 text-light m-1" style="width: 90px; float: right">Next ></a>
 
-    <table class="table table-hover table">
+    <table class="table table-hover table-condensed">
         <tr>
             <th colspan="10"><h4 class="text-center">Timesheet for: ${nextMonday.minusDays(21)}
                 - ${nextMonday.minusDays(15)}</h4></th>
@@ -44,9 +44,9 @@
                     <td>${TSrefUnit.timesheetWeek.saturdayHours}</td>
                     <td>${TSrefUnit.timesheetWeek.sundayHours}</td>
                     <td>
-                        <a href="/timesheets/details/${TSrefUnit.timesheetWeek.id}"
+                        <a href="/timesheets/details/${TSrefUnit.timesheetWeek.id}" target="_blank"
                            class="btn btn-info rounded-0 text-light m-1">Details</a>
-                        <a href="/timesheets/update/${TSrefUnit.timesheetWeek.id}"
+                        <a href="/timesheets/update/${TSrefUnit.timesheetWeek.id}" target="_blank"
                            class="btn btn-warning rounded-0 text-light m-1">Update</a>
                         <a href="http://localhost:8080/timesheets/delete/${TSrefUnit.id}/${TSrefUnit.timesheetWeek.id}"
                            class="btn btn-danger rounded-0 text-light m-1"
@@ -58,7 +58,7 @@
     </table>
     <br>
 
-    <table class="table table-hover table">
+    <table class="table table-hover table-condensed">
         <tr>
             <th colspan="10"><h4 class="text-center">Timesheet for: ${nextMonday.minusDays(14)}
                 - ${nextMonday.minusDays(8)}</h4></th>
@@ -86,9 +86,9 @@
                     <td>${TSrefUnit.timesheetWeek.saturdayHours}</td>
                     <td>${TSrefUnit.timesheetWeek.sundayHours}</td>
                     <td>
-                        <a href="/timesheets/details/${TSrefUnit.timesheetWeek.id}"
+                        <a href="/timesheets/details/${TSrefUnit.timesheetWeek.id}" target="_blank"
                            class="btn btn-info rounded-0 text-light m-1">Details</a>
-                        <a href="/timesheets/update/${TSrefUnit.timesheetWeek.id}"
+                        <a href="/timesheets/update/${TSrefUnit.timesheetWeek.id}" target="_blank"
                            class="btn btn-warning rounded-0 text-light m-1">Update</a>
                         <a href="http://localhost:8080/timesheets/delete/${TSrefUnit.id}/${TSrefUnit.timesheetWeek.id}"
                            class="btn btn-danger rounded-0 text-light m-1"
@@ -100,7 +100,7 @@
     </table>
     <br>
 
-    <table class="table table-hover table">
+    <table class="table table-hover table-condensed">
         <tr>
             <th colspan="10"><h4 class="text-center">Timesheet for: ${nextMonday.minusDays(7)}
                 - ${nextMonday.minusDays(1)}</h4></th>
@@ -128,9 +128,9 @@
                     <td>${TSrefUnit.timesheetWeek.saturdayHours}</td>
                     <td>${TSrefUnit.timesheetWeek.sundayHours}</td>
                     <td>
-                        <a href="/timesheets/details/${TSrefUnit.timesheetWeek.id}"
+                        <a href="/timesheets/details/${TSrefUnit.timesheetWeek.id}" target="_blank"
                            class="btn btn-info rounded-0 text-light m-1">Details</a>
-                        <a href="/timesheets/update/${TSrefUnit.timesheetWeek.id}"
+                        <a href="/timesheets/update/${TSrefUnit.timesheetWeek.id}" target="_blank"
                            class="btn btn-warning rounded-0 text-light m-1">Update</a>
                         <a href="http://localhost:8080/timesheets/delete/${TSrefUnit.id}/${TSrefUnit.timesheetWeek.id}"
                            class="btn btn-danger rounded-0 text-light m-1"
@@ -141,7 +141,7 @@
         </c:forEach>
     </table>
     <br>
-    <table class="table table-hover table">
+    <table class="table table-hover table-condensed">
         <tr>
             <th colspan="10"><h4 class="text-center">Timesheet for: ${nextMonday} - ${nextMonday.plusDays(6)}</h4></th>
         </tr>
@@ -168,9 +168,9 @@
                     <td>${TSrefUnit.timesheetWeek.saturdayHours}</td>
                     <td>${TSrefUnit.timesheetWeek.sundayHours}</td>
                     <td>
-                        <a href="/timesheets/details/${TSrefUnit.timesheetWeek.id}"
+                        <a href="/timesheets/details/${TSrefUnit.timesheetWeek.id}" target="_blank"
                            class="btn btn-info rounded-0 text-light m-1">Details</a>
-                        <a href="/timesheets/update/${TSrefUnit.timesheetWeek.id}"
+                        <a href="/timesheets/update/${TSrefUnit.timesheetWeek.id}" target="_blank"
                            class="btn btn-warning rounded-0 text-light m-1">Update</a>
                         <a href="http://localhost:8080/timesheets/delete/${TSrefUnit.id}/${TSrefUnit.timesheetWeek.id}"
                            class="btn btn-danger rounded-0 text-light m-1"

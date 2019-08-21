@@ -212,5 +212,3 @@ public class ReportsController {
     }
 
 }
-
-//todo previev fv dla klienta

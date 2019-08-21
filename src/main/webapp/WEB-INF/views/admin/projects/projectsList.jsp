@@ -9,15 +9,15 @@
 <body>
 <%@ include file="/fragments/header.jspf" %>
 
-<div style="width: 95%; margin-left:auto; margin-right:auto;">
+<div class="container">
     <h1 class="text-center">Projects</h1>
     <a href="/projects/add" class="btn btn-success rounded-0 text-light m-1">Add project</a>
-    <table class="table table-hover">
+    <table class="table table-hover table-condensed">
         <tr>
             <th>No</th>
             <th>Signature</th>
             <th>Name</th>
-            <th>Description</th>
+            <th style="width: 270px">Description</th>
             <th>Team</th>
             <th>Client</th>
             <th>Remuneration limit</th>
@@ -28,7 +28,7 @@
                 <td>${count.count}</td>
                 <td>${project.signature}</td>
                 <td>${project.name}</td>
-                <td>${project.description}</td>
+                <td style="width: 270px">${project.description}</td>
                 <td>
                     <ul>
                         <c:forEach items="${project.projectTeam}" var="lawyer">

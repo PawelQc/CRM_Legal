@@ -13,7 +13,7 @@
     <h1 class="text-center">Timesheets of project: ${timesheets.get(0).project.signature}</h1>
 
     <c:forEach var="TSrefUnit" items="${timesheets}">
-        <table class="table table-hover table">
+        <table class="table table-hover table-condensed">
             <tr>
                 <th>${TSrefUnit.timesheetWeek.dateMonday}</th>
                 <th>${TSrefUnit.timesheetWeek.dateMonday.plusDays(1)}</th>
@@ -33,11 +33,11 @@
                 <td>${TSrefUnit.timesheetWeek.saturdayHours}</td>
                 <td>${TSrefUnit.timesheetWeek.sundayHours}</td>
                 <td>
-                    <a href="/timesheets/details/${TSrefUnit.timesheetWeek.id}"
+                    <a href="/timesheets/details/${TSrefUnit.timesheetWeek.id}" target="_blank"
                        class="btn btn-info rounded-0 text-light m-1">Details</a>
                     <a href="/timesheets/update/${TSrefUnit.timesheetWeek.id}"
                        class="btn btn-warning rounded-0 text-light m-1">Update</a>
-                    <a href="http://localhost:8080/timesheets/delete/${TSrefUnit.id}/${TSrefUnit.timesheetWeek.id}"
+                    <a href="http://localhost:8080/timesheets/delete/${TSrefUnit.id}"
                        class="btn btn-danger rounded-0 text-light m-1"
                        onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
                 </td>

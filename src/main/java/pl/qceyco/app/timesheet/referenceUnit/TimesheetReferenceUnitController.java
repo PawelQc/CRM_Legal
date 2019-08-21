@@ -100,6 +100,8 @@ public class TimesheetReferenceUnitController {
         TimesheetWeek timesheetWeek = new TimesheetWeek();
         timesheetWeek.setDateMonday(nextMonday);
         model.addAttribute("timesheetWeek", timesheetWeek);
+        Project project = projectRepository.findFirstById(projectId);
+        model.addAttribute("project", project);
         return "timesheets/timesheetAdd";
     }
 

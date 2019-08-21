@@ -15,10 +15,10 @@
 <%@ include file="/fragments/header.jspf" %>
 
 <div class="container">
-    <h1 class="text-center">Add timesheet</h1>
+    <h1 class="text-center">Add timesheet to project: ${project.signature}</h1>
     <h4 class="text-warning" style="display: inline-block">${errorSimilarTsExists}</h4>
     <c:if test="${not empty timesheetSimilarInDB}">
-        <a href="/timesheets/details/${timesheetSimilarInDB.timesheetWeek.id}"
+        <a href="/timesheets/details/${timesheetSimilarInDB.timesheetWeek.id}" target="_blank"
            class="btn btn-danger rounded-0 text-light m-1">check</a> <br> <br>
     </c:if>
 
