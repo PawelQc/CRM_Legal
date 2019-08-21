@@ -17,7 +17,7 @@ public @interface Password {
 
     int max();
 
-    String message() default "Password should be minimum 8 and maximum 60 characters";
+    String message() default "password should be minimum 8 and maximum 60 characters";
 
     Class<?>[] groups() default {};
 

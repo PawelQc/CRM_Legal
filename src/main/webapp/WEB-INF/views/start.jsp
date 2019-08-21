@@ -12,7 +12,7 @@
 
 <header class="w3-container w3-red w3-center" style="padding:128px 16px">
     <h1 class="w3-margin w3-jumbo">Legal CRM - Welcome</h1>
-    <h3>Full access requires user authentication </h3>
+    <h3>Full access requires user authentication </h3> <br>
     <a href="/login" class="btn btn-warning btn-lg rounded-0 text-light m-1">LOGIN</a>
 </header>
 

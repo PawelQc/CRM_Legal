@@ -9,10 +9,15 @@
 </head>
 <body>
 <%@ include file="/fragments/header.jspf" %>
+
+<br>
+<br>
+<br>
+<br>
+
 <div class="container">
     <h2 class="text-center">Successful logging as user: ${loggedInUser.nameDisplay}</h2>
 </div>
-
 
 <%@ include file="/fragments/footer.jspf" %>
 </body>

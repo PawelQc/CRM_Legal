@@ -35,7 +35,6 @@ public class Employee {
 
     @Column(name = "email_login", length = 100, unique = true, nullable = false)
     @Size(min = 3, max = 100)
-  //  @UniqueEmail //todo problem z walidatorem: javax.validation.ValidationException: HV000028: Unexpected exception during isValid call. Nullpointer
     @Email
     @NotBlank
     private String emailLogin;

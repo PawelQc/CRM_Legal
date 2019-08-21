@@ -18,49 +18,49 @@
 
     <table class="table table-hover">
         <tr>
-            <th>Date</th>
+            <th style="width: 130px">Date</th>
             <th>Hours</th>
             <th>Work description</th>
         </tr>
         <tr>
-            <td>${timesheetDetails.timesheetWeek.dateMonday}</td>
+            <td style="width: 130px">${timesheetDetails.timesheetWeek.dateMonday}</td>
             <td>${timesheetDetails.timesheetWeek.mondayHours}</td>
             <td>${timesheetDetails.timesheetWeek.commentary.mondayCommentary}</td>
         </tr>
         <tr>
-            <td>${timesheetDetails.timesheetWeek.dateMonday.plusDays(1)}</td>
+            <td style="width: 130px">${timesheetDetails.timesheetWeek.dateMonday.plusDays(1)}</td>
             <td>${timesheetDetails.timesheetWeek.tuesdayHours}</td>
             <td>${timesheetDetails.timesheetWeek.commentary.tuesdayCommentary}</td>
         </tr>
         <tr>
-            <td>${timesheetDetails.timesheetWeek.dateMonday.plusDays(2)}</td>
+            <td style="width: 130px">${timesheetDetails.timesheetWeek.dateMonday.plusDays(2)}</td>
             <td>${timesheetDetails.timesheetWeek.wednesdayHours}</td>
             <td>${timesheetDetails.timesheetWeek.commentary.wednesdayCommentary}</td>
         </tr>
         <tr>
-            <td>${timesheetDetails.timesheetWeek.dateMonday.plusDays(3)}</td>
+            <td style="width: 130px">${timesheetDetails.timesheetWeek.dateMonday.plusDays(3)}</td>
             <td>${timesheetDetails.timesheetWeek.thursdayHours}</td>
             <td>${timesheetDetails.timesheetWeek.commentary.thursdayCommentary}</td>
         </tr>
         <tr>
-            <td>${timesheetDetails.timesheetWeek.dateMonday.plusDays(4)}</td>
+            <td style="width: 130px">${timesheetDetails.timesheetWeek.dateMonday.plusDays(4)}</td>
             <td>${timesheetDetails.timesheetWeek.fridayHours}</td>
             <td>${timesheetDetails.timesheetWeek.commentary.fridayCommentary}</td>
         </tr>
         <tr>
-            <td>${timesheetDetails.timesheetWeek.dateMonday.plusDays(5)}</td>
+            <td style="width: 130px">${timesheetDetails.timesheetWeek.dateMonday.plusDays(5)}</td>
             <td>${timesheetDetails.timesheetWeek.saturdayHours}</td>
             <td>${timesheetDetails.timesheetWeek.commentary.saturdayCommentary}</td>
         </tr>
         <tr>
-            <td>${timesheetDetails.timesheetWeek.dateMonday.plusDays(6)}</td>
+            <td style="width: 130px">${timesheetDetails.timesheetWeek.dateMonday.plusDays(6)}</td>
             <td>${timesheetDetails.timesheetWeek.sundayHours}</td>
             <td>${timesheetDetails.timesheetWeek.commentary.sundayCommentary}</td>
         </tr>
     </table>
     <div style="text-align: center">
         <a href="/timesheets/update/${timesheetDetails.timesheetWeek.id}"
-           class="btn btn-warning rounded-0 text-light m-1">Update</a>
+           class="btn btn-warning rounded-0 text-light m-1" style="margin-right: 10px">Update</a>
         <a href="http://localhost:8080/timesheets/delete/${timesheetDetails.id}/${timesheetDetails.timesheetWeek.id}"
            class="btn btn-danger rounded-0 text-light m-1"
            onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>

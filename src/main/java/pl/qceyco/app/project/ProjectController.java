@@ -1,5 +1,6 @@
 package pl.qceyco.app.project;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,6 +12,8 @@ import pl.qceyco.app.client.Client;
 import pl.qceyco.app.client.ClientsAllRepository;
 import pl.qceyco.app.employee.Employee;
 import pl.qceyco.app.employee.EmployeeRepository;
+import pl.qceyco.app.timesheet.referenceUnit.TimesheetReferenceUnit;
+import pl.qceyco.app.timesheet.referenceUnit.TimesheetReferenceUnitRepository;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -24,11 +27,13 @@ public class ProjectController {
     private final ClientsAllRepository clientsAllRepository;
     private final EmployeeRepository employeeRepository;
     private final ProjectRepository projectRepository;
+    private final TimesheetReferenceUnitRepository timesheetReferenceUnitRepository;
 
-    public ProjectController(ClientsAllRepository clientsAllRepository, EmployeeRepository employeeRepository, ProjectRepository projectRepository) {
+    public ProjectController(ClientsAllRepository clientsAllRepository, EmployeeRepository employeeRepository, ProjectRepository projectRepository, TimesheetReferenceUnitRepository timesheetReferenceUnitRepository) {
         this.clientsAllRepository = clientsAllRepository;
         this.employeeRepository = employeeRepository;
         this.projectRepository = projectRepository;
+        this.timesheetReferenceUnitRepository = timesheetReferenceUnitRepository;
     }
 
     @ModelAttribute("clients")
@@ -77,11 +82,14 @@ public class ProjectController {
         return "redirect:list";
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public String delete(@PathVariable Long id) {
-        projectRepository.deleteById(id);
+    @RequestMapping(value = "/delete/{projectId}", method = RequestMethod.GET)
+    public String delete(@PathVariable Long projectId) {
+        List <TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByProjectId(projectId);
+        for (TimesheetReferenceUnit t : timesheets) {
+            timesheetReferenceUnitRepository.delete(t);
+        }
+        projectRepository.deleteById(projectId);
         return "redirect:../list";
-        //todo błąd przy usuwaniu
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)

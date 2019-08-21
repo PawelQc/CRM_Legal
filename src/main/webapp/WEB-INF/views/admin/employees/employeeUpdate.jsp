@@ -33,6 +33,7 @@
             <label for="emailLoginId">Email (login):</label>
             <form:input type="text" path="emailLogin" id="emailLoginId" class="form-control"/>
             <form:errors path="emailLogin" element="div" cssClass="text-warning"/>
+            <div class="text-warning">${errorNoUniqueEmail}</div>
         </div>
 
         <div class="form-group">

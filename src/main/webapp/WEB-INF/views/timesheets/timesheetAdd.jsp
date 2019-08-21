@@ -16,6 +16,12 @@
 
 <div class="container">
     <h1 class="text-center">Add timesheet</h1>
+    <h4 class="text-warning" style="display: inline-block">${errorSimilarTsExists}</h4>
+    <c:if test="${not empty timesheetSimilarInDB}">
+        <a href="/timesheets/details/${timesheetSimilarInDB.timesheetWeek.id}"
+           class="btn btn-danger rounded-0 text-light m-1">check</a> <br> <br>
+    </c:if>
+
     <form:form method="post" modelAttribute="timesheetWeek">
         <form:hidden path="dateMonday"/>
         <table class="table table-hover">

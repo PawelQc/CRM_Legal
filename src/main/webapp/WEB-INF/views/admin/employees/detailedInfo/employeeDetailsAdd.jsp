@@ -14,27 +14,27 @@
     <form:form method="post" modelAttribute="additionalInfoEmployee">
         <div class="form-group">
             <label for="hourlyRateReceivingSalaryId">Salary in PLN (hourly rate): </label>
-            <form:input type="number" path="hourlyRateReceivingSalary" id="hourlyRateReceivingSalaryId" min="1"
+            <form:input type="number" path="hourlyRateReceivingSalary" id="hourlyRateReceivingSalaryId" min="1" max="100000"
                         class="form-control"/>
             <form:errors path="hourlyRateReceivingSalary" element="div" cssClass="text-warning"/>
         </div>
 
         <div class="form-group">
             <label for="hourlyRateChargingClientsId">Charge rate in PLN (hourly rate): </label>
-            <form:input type="number" path="hourlyRateChargingClients" id="hourlyRateChargingClientsId" min="1"
+            <form:input type="number" path="hourlyRateChargingClients" id="hourlyRateChargingClientsId" min="1" max="100000"
                         class="form-control"/>
             <form:errors path="hourlyRateChargingClients" element="div" cssClass="text-warning"/>
         </div>
 
         <div class="form-group">
             <label for="targetBudgetId">Target budget in PLN (per month) </label>
-            <form:input type="number" path="targetBudget" id="targetBudgetId" min="1" class="form-control"/>
+            <form:input type="number" path="targetBudget" id="targetBudgetId" min="1" max="1000000" class="form-control"/>
             <form:errors path="targetBudget" element="div" cssClass="text-warning"/>
         </div>
 
         <div class="form-group">
             <label for="bonusId">Bonus rate (%) </label>
-            <form:input type="number" path="bonus" id="bonusId" min="0" class="form-control"/>
+            <form:input type="number" path="bonus" id="bonusId" min="0" max="100" class="form-control"/>
             <form:errors path="bonus" element="div" cssClass="text-warning"/>
         </div>
 

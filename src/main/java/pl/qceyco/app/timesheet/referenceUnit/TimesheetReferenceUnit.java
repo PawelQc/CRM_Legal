@@ -14,7 +14,7 @@ public class TimesheetReferenceUnit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "timesheet_week_id")
     private TimesheetWeek timesheetWeek;
 

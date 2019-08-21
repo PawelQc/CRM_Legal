@@ -9,9 +9,15 @@
 <body>
 <%@ include file="/fragments/header.jspf" %>
 
+<br>
+<br>
+<br>
+<br>
+
 <div class="container">
     <h2 class="text-center">Successful logout! </h2>
 </div>
+
 <%@ include file="/fragments/footer.jspf" %>
 </body>
 </html>

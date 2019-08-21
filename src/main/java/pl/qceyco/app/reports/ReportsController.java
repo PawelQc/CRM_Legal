@@ -98,7 +98,7 @@ public class ReportsController {
         Integer valueOfRenderedServices = hourlyRate * amountOfBillableHours;
         boolean isMonthlyTargetAchieved = false;
         double bonusAmountD = 0.0;
-        if (valueOfRenderedServices > targetBudget) {
+        if (valueOfRenderedServices >= targetBudget) {
             isMonthlyTargetAchieved = true;
             bonusAmountD = (reportedEmployee.getAdditionalInfo().getBonus() * (valueOfRenderedServices - targetBudget)) / 100;
         }
@@ -167,4 +167,4 @@ public class ReportsController {
 
 }
 
-
+//todo previev fv dla klienta

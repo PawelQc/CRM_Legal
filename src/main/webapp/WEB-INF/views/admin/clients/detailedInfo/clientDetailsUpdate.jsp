@@ -45,7 +45,7 @@
 
         <div class="form-group">
             <label for="hourlyRateId">Hourly rate:</label>
-            <form:input type="number" path="hourlyRateIsCharged" id="hourlyRateId" class="form-control"/>
+            <form:input type="number" path="hourlyRateIsCharged" id="hourlyRateId" class="form-control" min="1" max="100000"/>
             <form:errors path="hourlyRateIsCharged" element="div" cssClass="text-warning"/>
         </div>
 

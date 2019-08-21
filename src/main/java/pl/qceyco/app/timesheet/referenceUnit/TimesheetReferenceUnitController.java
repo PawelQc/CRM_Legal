@@ -105,30 +105,24 @@ public class TimesheetReferenceUnitController {
 
     @RequestMapping(value = "/add/{projectId}", method = RequestMethod.POST)
     public String processAddForm(@PathVariable Long projectId, @ModelAttribute @Valid TimesheetWeek timesheetWeek,
-                                 BindingResult result, HttpSession session) {
+                                 BindingResult result, HttpSession session, Model model) {
         if (result.hasErrors()) {
             return "timesheets/timesheetAdd";
         }
-//        Commentary commentary = commentaryRepository.findFirstById(timesheetWeek.getCommentary().getId())
-        timesheetWeek.setDateMonday(timesheetWeek.getDateMonday().plusDays(1));
-        timesheetWeekRepository.save(timesheetWeek);
         Employee loggedInUser = (Employee) session.getAttribute("loggedInUser");
-        Project project = projectRepository.findFirstByIdWithProjectTeamMembers(projectId);
-        TimesheetReferenceUnit timesheetReferenceUnit = new TimesheetReferenceUnit();
-        timesheetReferenceUnit.setTimesheetWeek(timesheetWeek);
-        timesheetReferenceUnit.setEmployee(loggedInUser);
-        timesheetReferenceUnit.setProject(project);
+        if (similarTimesheetExists(projectId, timesheetWeek, model, loggedInUser)) {
+            return "timesheets/timesheetAdd";
+        }
+        TimesheetReferenceUnit timesheetReferenceUnit = setTimesheetReferenceUnitValue(projectId, timesheetWeek, loggedInUser);
         timesheetReferenceUnitRepository.save(timesheetReferenceUnit);
         return "redirect:/timesheets/list";
     }
 
-    @RequestMapping(value = "/delete/{tsRefUId}/{tsWeekId}", method = RequestMethod.GET)
-    public String delete(@PathVariable Long tsRefUId, @PathVariable Long tsWeekId) {
+    @RequestMapping(value = "/delete/{tsRefUId}", method = RequestMethod.GET)
+    public String delete(@PathVariable Long tsRefUId) {
         timesheetReferenceUnitRepository.deleteById(tsRefUId);
-        timesheetWeekRepository.deleteById(tsWeekId);
         return "redirect:/timesheets/list";
     }
-
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String showUpdateForm(@PathVariable Long id, Model model) {
@@ -205,6 +199,27 @@ public class TimesheetReferenceUnitController {
         return nextMonday;
     }
 
+    private TimesheetReferenceUnit setTimesheetReferenceUnitValue(@PathVariable Long projectId, @Valid @ModelAttribute TimesheetWeek timesheetWeek, Employee loggedInUser) {
+        timesheetWeek.setDateMonday(timesheetWeek.getDateMonday().plusDays(1));
+        timesheetWeekRepository.save(timesheetWeek);
+        Project project = projectRepository.findFirstByIdWithProjectTeamMembers(projectId);
+        TimesheetReferenceUnit timesheetReferenceUnit = new TimesheetReferenceUnit();
+        timesheetReferenceUnit.setTimesheetWeek(timesheetWeek);
+        timesheetReferenceUnit.setEmployee(loggedInUser);
+        timesheetReferenceUnit.setProject(project);
+        return timesheetReferenceUnit;
+    }
+
+    private boolean similarTimesheetExists(@PathVariable Long projectId, @Valid @ModelAttribute TimesheetWeek timesheetWeek, Model model, Employee loggedInUser) {
+        TimesheetReferenceUnit timesheetSimilarInDB = timesheetReferenceUnitRepository
+                .findFirstByEmployeeIdAndProjectIdForSpecificWeek(loggedInUser.getId(), projectId, timesheetWeek.getDateMonday(), timesheetWeek.getDateMonday().plusDays(1));
+        if (timesheetSimilarInDB != null) {
+            model.addAttribute("errorSimilarTsExists", "Error: there is already existing timesheet for this project and date!");
+            model.addAttribute("timesheetSimilarInDB", timesheetSimilarInDB);
+            return true;
+        }
+        return false;
+    }
 
 }
 

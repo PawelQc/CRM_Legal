@@ -66,8 +66,12 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String processAddForm(@ModelAttribute @Valid Employee employee, BindingResult result) {
+    public String processAddForm(@ModelAttribute @Valid Employee employee, BindingResult result, Model model) {
         if (result.hasErrors()) {
+            return "admin/employees/employeeAdd";
+        }
+        if (!isEmailUnique(employee.getEmailLogin())) {
+            model.addAttribute("errorNoUniqueEmail", "this email is already in use");
             return "admin/employees/employeeAdd";
         }
         employee.setPassword(BCrypt.hashpw(employee.getPassword(), BCrypt.gensalt()));
@@ -87,21 +91,10 @@ public class EmployeeController {
             model.addAttribute("deleteErrorProjectExists", "Cannot delete this employee - delete or update related project first!");
             return "admin/employees/employeesList";
         }
-        Employee employeeToDelete = employeeRepository.findFirstById(employeeId);
-        List<TimesheetReferenceUnit> employeesTimesheets = timesheetReferenceUnitRepository.findAllByEmployeeId(employeeToDelete.getId());
-        if (employeesTimesheets.size() > 0) {
-            for (TimesheetReferenceUnit t : employeesTimesheets) {
-                timesheetReferenceUnitRepository.delete(t);
-                timesheetWeekRepository.deleteById(t.getTimesheetWeek().getId());
-            }
-        }
-        employeeRepository.deleteById(employeeId);
-        if (employeeToDelete.getAdditionalInfo() != null) {
-            Long infoId = employeeToDelete.getAdditionalInfo().getId();
-            additionalInfoEmployeeRepository.deleteById(infoId);
-        }
+        deleteEmployee(employeeId);
         return "redirect:../list";
     }
+
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String showUpdateForm(@PathVariable Long id, Model model) {
@@ -115,8 +108,12 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String processUpdateForm(@ModelAttribute @Valid Employee employee, BindingResult result) {
+    public String processUpdateForm(@ModelAttribute @Valid Employee employee, BindingResult result, Model model) {
         if (result.hasErrors()) {
+            return "admin/employees/employeeUpdate";
+        }
+        if (!isEmailUnique(employee.getEmailLogin())) {
+            model.addAttribute("errorNoUniqueEmail", "this email is already in use");
             return "admin/employees/employeeUpdate";
         }
         setAuthority(employee);
@@ -162,5 +159,32 @@ public class EmployeeController {
         employee.setAuthorities(employeeAuthorities);
     }
 
+    private boolean isEmailUnique(String userEmail) {
+        List<Employee> employees = employeeRepository.findAll();
+        boolean result = true;
+        for (Employee e : employees) {
+            if (e.getEmailLogin().equals(userEmail)) {
+                result = false;
+                break;
+            }
+        }
+        return result;
+    }
+
+    private void deleteEmployee(@PathVariable Long employeeId) {
+        Employee employeeToDelete = employeeRepository.findFirstById(employeeId);
+        List<TimesheetReferenceUnit> employeesTimesheets = timesheetReferenceUnitRepository.findAllByEmployeeId(employeeToDelete.getId());
+        if (employeesTimesheets.size() > 0) {
+            for (TimesheetReferenceUnit t : employeesTimesheets) {
+                timesheetReferenceUnitRepository.delete(t);
+                timesheetWeekRepository.deleteById(t.getTimesheetWeek().getId());
+            }
+        }
+        employeeRepository.deleteById(employeeId);
+        if (employeeToDelete.getAdditionalInfo() != null) {
+            Long infoId = employeeToDelete.getAdditionalInfo().getId();
+            additionalInfoEmployeeRepository.deleteById(infoId);
+        }
+    }
 
 }

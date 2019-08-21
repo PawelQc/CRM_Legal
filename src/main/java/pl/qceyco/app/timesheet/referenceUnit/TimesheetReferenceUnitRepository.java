@@ -10,7 +10,7 @@ public interface TimesheetReferenceUnitRepository extends JpaRepository<Timeshee
 
     TimesheetReferenceUnit findFirstById(Long id);
 
-    List<TimesheetReferenceUnit> findAllByEmployeeIdOrderByProjectId(Long employeeId);
+    List<TimesheetReferenceUnit> findAllByProjectId(Long projectId);
 
     List<TimesheetReferenceUnit> findAllByEmployeeId(Long employeeId);
 
@@ -22,5 +22,10 @@ public interface TimesheetReferenceUnitRepository extends JpaRepository<Timeshee
     @Query("SELECT t FROM TimesheetReferenceUnit t JOIN t.timesheetWeek w where t.employee.id = ?1 and w.dateMonday between ?2 and ?3")
     List<TimesheetReferenceUnit> findAllByEmployeeIdIn4Weeks(Long employeeId, LocalDate start, LocalDate end);
 
+    @Query("SELECT t FROM TimesheetReferenceUnit t JOIN t.timesheetWeek w where t.employee.id = ?1 and t.project.id = ?2 and w.dateMonday between ?3 and ?4")
+    TimesheetReferenceUnit findFirstByEmployeeIdAndProjectIdForSpecificWeek(Long employeeId, Long projectId, LocalDate start, LocalDate end);
+
+
 
 }
+

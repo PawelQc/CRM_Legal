@@ -9,7 +9,7 @@
 <body>
 <%@ include file="/fragments/header.jspf" %>
 <div class="container">
-    <h1 class="text-center">Timesheets added within given 4 weeks</h1>
+    <h1 class="text-center">Timesheets added between ${nextMonday.minusDays(21)} - ${nextMonday.plusDays(6)}</h1>
     <h4 class="text-warning">${errorNoTimesheets}</h4>
 
     <div style="text-align: center">
@@ -67,7 +67,7 @@
                            class="btn btn-info rounded-0 text-light m-1">Details</a>
                         <a href="/timesheets/update/${TSrefUnit.timesheetWeek.id}"
                            class="btn btn-warning rounded-0 text-light m-1">Update</a>
-                        <a href="http://localhost:8080/timesheets/delete/${TSrefUnit.id}/${TSrefUnit.timesheetWeek.id}"
+                        <a href="http://localhost:8080/timesheets/delete/${TSrefUnit.id}"
                            class="btn btn-danger rounded-0 text-light m-1"
                            onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
                     </td>
@@ -109,7 +109,7 @@
                            class="btn btn-info rounded-0 text-light m-1">Details</a>
                         <a href="/timesheets/update/${TSrefUnit.timesheetWeek.id}"
                            class="btn btn-warning rounded-0 text-light m-1">Update</a>
-                        <a href="http://localhost:8080/timesheets/delete/${TSrefUnit.id}/${TSrefUnit.timesheetWeek.id}"
+                        <a href="http://localhost:8080/timesheets/delete/${TSrefUnit.id}"
                            class="btn btn-danger rounded-0 text-light m-1"
                            onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
                     </td>
@@ -151,7 +151,7 @@
                            class="btn btn-info rounded-0 text-light m-1">Details</a>
                         <a href="/timesheets/update/${TSrefUnit.timesheetWeek.id}"
                            class="btn btn-warning rounded-0 text-light m-1">Update</a>
-                        <a href="http://localhost:8080/timesheets/delete/${TSrefUnit.id}/${TSrefUnit.timesheetWeek.id}"
+                        <a href="http://localhost:8080/timesheets/delete/${TSrefUnit.id}"
                            class="btn btn-danger rounded-0 text-light m-1"
                            onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
                     </td>
@@ -192,7 +192,7 @@
                            class="btn btn-info rounded-0 text-light m-1">Details</a>
                         <a href="/timesheets/update/${TSrefUnit.timesheetWeek.id}"
                            class="btn btn-warning rounded-0 text-light m-1">Update</a>
-                        <a href="http://localhost:8080/timesheets/delete/${TSrefUnit.id}/${TSrefUnit.timesheetWeek.id}"
+                        <a href="http://localhost:8080/timesheets/delete/${TSrefUnit.id}"
                            class="btn btn-danger rounded-0 text-light m-1"
                            onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
                     </td>
