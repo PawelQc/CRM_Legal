@@ -16,4 +16,6 @@ public interface ProjectRepository extends JpaRepository<Project, Long>, Project
 
     List<Project> findAllByIsBillableIsTrue();
 
+    List<Project> findAllByClientId(Long clientId);
+
 }

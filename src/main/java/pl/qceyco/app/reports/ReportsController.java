@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import pl.qceyco.app.client.Client;
+import pl.qceyco.app.client.ClientsAllRepository;
+import pl.qceyco.app.client.legalPerson.ClientLegalPerson;
+import pl.qceyco.app.client.legalPerson.ClientLegalPersonRepository;
 import pl.qceyco.app.employee.Employee;
 import pl.qceyco.app.employee.EmployeeRepository;
 import pl.qceyco.app.project.Project;
@@ -28,11 +32,15 @@ public class ReportsController {
     private final TimesheetReferenceUnitRepository timesheetReferenceUnitRepository;
     private final ProjectRepository projectRepository;
     private final EmployeeRepository employeeRepository;
+    private final ClientsAllRepository clientsAllRepository;
+    private final ClientLegalPersonRepository clientLegalPersonRepository;
 
-    public ReportsController(TimesheetReferenceUnitRepository timesheetReferenceUnitRepository, ProjectRepository projectRepository, EmployeeRepository employeeRepository) {
+    public ReportsController(TimesheetReferenceUnitRepository timesheetReferenceUnitRepository, ProjectRepository projectRepository, EmployeeRepository employeeRepository, ClientsAllRepository clientsAllRepository, ClientLegalPersonRepository clientLegalPersonRepository) {
         this.timesheetReferenceUnitRepository = timesheetReferenceUnitRepository;
         this.projectRepository = projectRepository;
         this.employeeRepository = employeeRepository;
+        this.clientsAllRepository = clientsAllRepository;
+        this.clientLegalPersonRepository = clientLegalPersonRepository;
     }
 
     @ModelAttribute("projects")
@@ -43,6 +51,11 @@ public class ReportsController {
     @ModelAttribute("employees")
     public List<Employee> populateEmployees() {
         return employeeRepository.findAll();
+    }
+
+    @ModelAttribute("clients")
+    public List<Client> populateClients() {
+        return clientsAllRepository.findAll();
     }
 
     @ModelAttribute("timesheetReferenceUnitsAll")
@@ -65,6 +78,11 @@ public class ReportsController {
     @RequestMapping(value = "/project-report/form", method = RequestMethod.GET)
     public String showProjectReportForm() {
         return "reports/projectReport/reportProjectReportForm";
+    }
+
+    @RequestMapping(value = "/invoice-preview/form", method = RequestMethod.GET)
+    public String showInvoicePreviewForm() {
+        return "reports/invoicePreview/invoicePreviewForm";
     }
 
     @RequestMapping(value = "/monthly-employee-report/process", method = RequestMethod.POST)
@@ -129,6 +147,34 @@ public class ReportsController {
         }
         addModelAttributesProjectReport(model, project, amountOfHours, potentialValueOfRenderedServices, isProjectProfitable);
         return "reports/projectReport/reportProjectReportGenerated";
+    }
+
+    @RequestMapping(value = "/invoice-preview/process", method = RequestMethod.POST)
+    public String processInvoicePreview(@RequestParam Long clientId, @RequestParam String startDate, Model model) {
+        if (clientId == null || StringUtils.isBlank(startDate)) {
+            model.addAttribute("errorNotSufficientData", "Error: Indicate all data requested in order to generate an invoice preview!");
+            return "reports/invoicePreview/invoicePreviewForm";
+        }
+        LocalDate selectedMonday = LocalDate.parse(startDate);
+        LocalDate firstMondayInMonth = selectedMonday.with(firstInMonth(DayOfWeek.MONDAY));
+        if (!selectedMonday.equals(firstMondayInMonth)) {
+            model.addAttribute("errorInvalidData", "Error: Selected date is not a first Monday of a month!");
+            return "reports/invoicePreview/invoicePreviewForm";
+        }
+        LocalDate endDate = selectedMonday.plusDays(27);
+        List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByClientIn4Weeks(clientId, selectedMonday, endDate);
+        List<Project> projectsOfClient = projectRepository.findAllByClientId(clientId);
+        Client client = clientsAllRepository.findFirstById(clientId);
+        Integer amountOfHours = 0;
+        for (TimesheetReferenceUnit t : timesheets) {
+            amountOfHours += t.countWeekHours();
+        }
+        model.addAttribute("selectedMonday", selectedMonday);
+        model.addAttribute("timesheets", timesheets);
+        model.addAttribute("projectsOfClient", projectsOfClient);
+        model.addAttribute("client", client);
+        model.addAttribute("amountOfHours", amountOfHours);
+        return "reports/invoicePreview/invoicePreviewGenerated";
     }
 
 ////////////////////////////////////////

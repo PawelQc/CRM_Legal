@@ -47,7 +47,8 @@
     <a href="/timesheets/list?mode=next&mondaySelect=${nextMonday}" class="btn btn-info rounded-0 text-light m-1"
        style="width: 90px; float: right">Next ></a>
 
-    <table class="table table-hover table">
+<%-- todo popraw tabele na condensed + hover--%>
+    <table class="table table-condensed">
         <tr>
             <th colspan="10"><h4 class="text-center">Timesheet for: ${nextMonday.minusDays(21)}
                 - ${nextMonday.minusDays(15)}</h4></th>
@@ -90,7 +91,7 @@
         </c:forEach>
     </table>
 
-    <table class="table table-hover">
+    <table class="table table-condensed">
         <tr>
             <th colspan="10"><h4 class="text-center">Timesheet for: ${nextMonday.minusDays(14)}
                 - ${nextMonday.minusDays(8)}</h4></th>
@@ -133,7 +134,7 @@
         </c:forEach>
     </table>
 
-    <table class="table table-hover">
+    <table class="table table-condensed">
         <tr>
             <th colspan="10"><h4 class="text-center">Timesheet for: ${nextMonday.minusDays(7)}
                 - ${nextMonday.minusDays(1)}</h4></th>
@@ -176,7 +177,7 @@
         </c:forEach>
     </table>
 
-    <table class="table table-hover">
+    <table class="table table-condensed table-hover">
         <tr>
             <th colspan="10"><h4 class="text-center">Timesheet for: ${nextMonday} - ${nextMonday.plusDays(6)}</h4>
             </th>

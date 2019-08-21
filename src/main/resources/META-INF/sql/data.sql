@@ -1,11 +1,12 @@
 INSERT INTO additional_info_clients VALUES (null, "ul. Alberta 3/43, 01-577 Warszawa", "77249000056420077578477743", "kulczyk.j@gmail.com", 550, "9318235090", "879876543")
 INSERT INTO additional_info_clients VALUES (null, "ul. Krecia 2, 01-343 Warszawa", "86106000058780488477816280", "tarcz.and@onet.pl", 480, "8943064667", "564432123")
 INSERT INTO additional_info_clients VALUES (null, "ul. Zamszy 7, 01-434 Warszawa", "59150017356396376097274923", "info.polexport@polex.pl", 700, "1219027734", "512098876")
+INSERT INTO additional_info_clients VALUES (null, "ul. Sienna 39, 01-101 Warszawa", "56124067132770425575384752", "info@PKlegal.pl", 500, "7991032682", "542765432")
 
 INSERT INTO clients_natural_person VALUES (1000, 1, "Janusz", "Kulczyk")
 INSERT INTO clients_natural_person VALUES (1001, 2, "Andrzej", "Tarczynski")
 INSERT INTO clients_legal_person VALUES (1002, 3, "PolExport sp. z o.o.")
-INSERT INTO clients_legal_person VALUES (1003, null , "Kancelaria")
+INSERT INTO clients_legal_person VALUES (1003, 4 , "Kancelaria")
 
 INSERT INTO additional_info_employees VALUES (null, 10, 500, 300, "546434654", 60000)
 INSERT INTO additional_info_employees VALUES (null, 8, 400, 100, "634567987", 20000)

@@ -61,7 +61,7 @@
     <div style="text-align: center">
         <a href="/timesheets/update/${timesheetDetails.timesheetWeek.id}"
            class="btn btn-warning rounded-0 text-light m-1" style="margin-right: 10px">Update</a>
-        <a href="http://localhost:8080/timesheets/delete/${timesheetDetails.id}/${timesheetDetails.timesheetWeek.id}"
+        <a href="http://localhost:8080/timesheets/delete/${timesheetDetails.id}"
            class="btn btn-danger rounded-0 text-light m-1"
            onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
     </div>

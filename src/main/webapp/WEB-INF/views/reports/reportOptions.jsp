@@ -22,6 +22,10 @@
         <a href="/reports/project-report/form" class="btn btn-info rounded-0 text-light m-1" style="width: 250px">
             <h4>project profitability report</h4>
         </a>
+        <br><br>
+        <a href="/reports/invoice-preview/form" class="btn btn-warning rounded-0 text-light m-1" style="width: 250px">
+            <h4>generate invoice preview</h4>
+        </a>
     </div>
 </div>
 <%@ include file="/fragments/footer.jspf" %>
