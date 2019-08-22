@@ -41,7 +41,6 @@ public class ChartsController {
         this.employeeRepository = employeeRepository;
     }
 
-
     @RequestMapping(value = "/charts", method = RequestMethod.GET)
     public void handleReports(HttpServletResponse response) {
         response.setContentType("image/jpeg");
@@ -50,7 +49,6 @@ public class ChartsController {
             LocalDate endDate = thisMonthFirstMonday.plusDays(27);
             List<Project> projects = projectRepository.findAll();
             DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-
             for (Project p : projects) {
                 Integer hours = 0;
                 List<TimesheetReferenceUnit> projectTimesheets = timesheetReferenceUnitRepository.findAllByProjectIn4Weeks(p.getId(), thisMonthFirstMonday, endDate);
@@ -59,21 +57,15 @@ public class ChartsController {
                 }
                 dataset.setValue(hours, "Hours", p.getSignature());
             }
-
             JFreeChart chart = ChartFactory.createBarChart("Work hours on projects: " + thisMonthFirstMonday.toString() + " - " + endDate.toString(),
                     "Projects", "Hours", dataset, PlotOrientation.VERTICAL,
                     false, true, false);
             try {
                 ChartUtilities.writeChartAsJPEG(out, chart, 1200, 720);
             } catch (IOException e) {
-                System.err.println("Problem occurred creating chart.");
             }
         } catch (IOException e) {
-            System.err.println("Problem occurred creating chart.");
         }
-
-
-//        return "chart";
     }
 
 
