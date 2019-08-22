@@ -15,13 +15,16 @@ import pl.qceyco.app.project.ProjectRepository;
 import pl.qceyco.app.timesheet.referenceUnit.TimesheetReferenceUnit;
 import pl.qceyco.app.timesheet.referenceUnit.TimesheetReferenceUnitRepository;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import static java.time.temporal.TemporalAdjusters.firstInMonth;
 
@@ -40,33 +43,37 @@ public class ChartsController {
 
 
     @RequestMapping(value = "/charts", method = RequestMethod.GET)
-    public String showStartPage() {
+    public void handleReports(HttpServletResponse response) {
+        response.setContentType("image/jpeg");
+        try (OutputStream out = response.getOutputStream()) {
+            LocalDate thisMonthFirstMonday = LocalDate.now().with(firstInMonth(DayOfWeek.MONDAY));
+            LocalDate endDate = thisMonthFirstMonday.plusDays(27);
+            List<Project> projects = projectRepository.findAll();
+            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-        LocalDate thisMonthFirstMonday = LocalDate.now().with(firstInMonth(DayOfWeek.MONDAY));
-        LocalDate endDate = thisMonthFirstMonday.plusDays(27);
-        List<Project> projects = projectRepository.findAll();
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-
-        for (Project p : projects) {
-            Integer hours = 0;
-            List<TimesheetReferenceUnit> projectTimesheets = timesheetReferenceUnitRepository.findAllByProjectIn4Weeks(p.getId(), thisMonthFirstMonday, endDate);
-            for (TimesheetReferenceUnit t : projectTimesheets) {
-                hours += t.countWeekHours();
+            for (Project p : projects) {
+                Integer hours = 0;
+                List<TimesheetReferenceUnit> projectTimesheets = timesheetReferenceUnitRepository.findAllByProjectIn4Weeks(p.getId(), thisMonthFirstMonday, endDate);
+                for (TimesheetReferenceUnit t : projectTimesheets) {
+                    hours += t.countWeekHours();
+                }
+                dataset.setValue(hours, "Hours", p.getSignature());
             }
-            dataset.setValue(hours, "Hours", p.getSignature());
-        }
 
-        JFreeChart chart = ChartFactory.createBarChart("Work hours on projects",
-                "Projects", "Hours", dataset, PlotOrientation.VERTICAL,
-                false, true, false);
-        try {
-            ChartUtilities.saveChartAsJPEG(new File("/home/pawelqc/Pulpit/charts/chart.jpg"), chart, 1000, 600);
+            JFreeChart chart = ChartFactory.createBarChart("Work hours on projects: " + thisMonthFirstMonday.toString() + " - " + endDate.toString(),
+                    "Projects", "Hours", dataset, PlotOrientation.VERTICAL,
+                    false, true, false);
+            try {
+                ChartUtilities.writeChartAsJPEG(out, chart, 1200, 720);
+            } catch (IOException e) {
+                System.err.println("Problem occurred creating chart.");
+            }
         } catch (IOException e) {
             System.err.println("Problem occurred creating chart.");
         }
 
 
-        return "chart";
+//        return "chart";
     }
 
 

@@ -4,15 +4,14 @@
 
 <html>
 <head>
-    <title>Login success</title>
+    <title>Chart</title>
     <%@ include file="/fragments/head.jspf" %>
 </head>
 <body>
 <%@ include file="/fragments/header.jspf" %>
-
-<%--<img src="/Pulpit/charts/chart.jpg" style="width:500px;height:600px">--%>
-<img src="/Pulpit/pobrane.jpeg" style="width:500px;height:600px">
-
+<div class="container" style="margin-top: 80px">
+    <img src="/img/chart.jpeg" style="width:1200px;height:720px">
+</div>
 
 <%@ include file="/fragments/footer.jspf" %>
 </body>
