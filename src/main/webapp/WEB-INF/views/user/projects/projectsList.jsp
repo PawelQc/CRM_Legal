@@ -11,7 +11,7 @@
 
 <div class="container">
     <h1 class="text-center">Projects</h1>
-    <table class="table table-hover">
+    <table class="table table-hover table-condensed">
         <tr>
             <th>No</th>
             <th>Signature</th>
