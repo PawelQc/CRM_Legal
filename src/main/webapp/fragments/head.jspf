@@ -2,13 +2,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <%--todo problem z załączeniem css z folderu resources - z linku działa a chcę z pliku--%>
-<%--<link href="<c:url value="/resources/css/main.css" />" rel="stylesheet">--%>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<%--Twój CSS zawsze musi być ostatni--%>
+<link href="/css/main.css" rel="stylesheet">
 <style>
     body {
         padding-bottom: 50px;
