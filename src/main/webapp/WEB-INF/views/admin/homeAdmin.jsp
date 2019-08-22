@@ -57,8 +57,8 @@
 <div class="container">
     <table class="table table-condensed table-hover">
         <tr>
-            <th colspan="10"><h4 class="text-center">Recent timesheets: ${previousMonday}
-                - ${previousMonday.plusDays(6)}</h4></th>
+            <th colspan="10"><h3 class="text-center">Recent timesheets: ${previousMonday}
+                - ${previousMonday.plusDays(6)}</h3></th>
         </tr>
         <tr>
             <th>Employee</th>
