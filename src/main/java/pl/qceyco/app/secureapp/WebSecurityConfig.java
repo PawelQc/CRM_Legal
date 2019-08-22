@@ -59,12 +59,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/logout-success").permitAll();
     }
 
-    // zabrakło przepuszczenia wszystkiego z katalogu webapp/css przez Spring Security
-    // dopisz pozostałe katalogi np. JS i obrazki
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-                .antMatchers("/css/**");
+                .antMatchers("/css/**")
+                .antMatchers("/img/**");
     }
 
 }

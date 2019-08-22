@@ -37,7 +37,6 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         return viewResolver;
     }
 
-    // zabrakło przepuszczenia CSS/JS/pics przez viewResolver
     @Override
     public void configureDefaultServletHandling(
             DefaultServletHandlerConfigurer configurer) {
