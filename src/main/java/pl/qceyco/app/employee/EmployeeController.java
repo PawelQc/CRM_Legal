@@ -177,7 +177,6 @@ public class EmployeeController {
         if (employeesTimesheets.size() > 0) {
             for (TimesheetReferenceUnit t : employeesTimesheets) {
                 timesheetReferenceUnitRepository.delete(t);
-                timesheetWeekRepository.deleteById(t.getTimesheetWeek().getId());
             }
         }
         employeeRepository.deleteById(employeeId);

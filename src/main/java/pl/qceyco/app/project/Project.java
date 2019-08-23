@@ -1,11 +1,11 @@
 package pl.qceyco.app.project;
 
-import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import pl.qceyco.app.client.Client;
 import pl.qceyco.app.employee.Employee;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -22,17 +22,14 @@ public class Project {
 
     @Column(length = 20)
     @Size(min = 4, max = 20)
-    @NotBlank
     private String signature;
 
     @Column(length = 50)
     @Size(min = 5, max = 50)
-    @NotBlank
     private String name;
 
     @Column(length = 200)
     @Size(min = 5, max = 200)
-    @NotBlank
     private String description;
 
     @ManyToOne
@@ -41,6 +38,7 @@ public class Project {
 
     @Column(name = "cap_on_remuneration")
     @Min(0)
+    @Max(100000000)
     @NotNull
     private Integer capOnRemuneration;
 

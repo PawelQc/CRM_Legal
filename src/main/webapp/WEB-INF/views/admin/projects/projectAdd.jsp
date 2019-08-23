@@ -40,7 +40,7 @@
 
         <div class="form-group">
             <label for="capOnRemunerationId">Cap on remuneration:</label>
-            <form:input type="number" min="0" path="capOnRemuneration" id="capOnRemunerationId" class="form-control"/>
+            <form:input type="number" min="0" max="100000000" path="capOnRemuneration" id="capOnRemunerationId" class="form-control"/>
             <form:errors path="capOnRemuneration" element="div" cssClass="text-warning"/>
         </div>
 

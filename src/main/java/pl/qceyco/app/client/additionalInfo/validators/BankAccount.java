@@ -1,4 +1,4 @@
-package pl.qceyco.app.employee.validators;
+package pl.qceyco.app.client.additionalInfo.validators;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -8,16 +8,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 
-@Constraint(validatedBy = PasswordValidator.class)
+@Constraint(validatedBy = BankAccountValidator.class)
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Password {
+public @interface BankAccount {
 
-    int min();
-
-    int max();
-
-    String message() default "password must be minimum 8 and maximum 60 characters";
+    String message() default "incorrect bank account length - should be 26 digits";
 
     Class<?>[] groups() default {};
 

@@ -1,6 +1,5 @@
 package pl.qceyco.app.client.legalPerson;
 
-import org.hibernate.validator.constraints.NotBlank;
 import pl.qceyco.app.client.Client;
 
 import javax.persistence.Column;
@@ -15,7 +14,6 @@ public class ClientLegalPerson extends Client {
 
     @Column(name = "company_name", length = 100)
     @Size(min = 2, max = 100)
-    @NotBlank
     private String companyName;
 
     @Transient
@@ -35,6 +33,8 @@ public class ClientLegalPerson extends Client {
 
     @Override
     public String toString() {
-        return "Legal person: " + companyName;
+        return "ClientLegalPerson{" +
+                "companyName='" + companyName + '\'' +
+                '}';
     }
 }

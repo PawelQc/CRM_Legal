@@ -75,7 +75,7 @@ public class ProjectController {
             return "admin/projects/projectAdd";
         }
         if (project.getClient().getId() == null) {
-            model.addAttribute("errorClientChoice", "Please choose the client");
+            model.addAttribute("errorClientChoice", "choose a client");
             return "admin/projects/projectAdd";
         }
         projectRepository.save(project);
@@ -109,7 +109,7 @@ public class ProjectController {
             return "admin/projects/projectUpdate";
         }
         if (project.getClient().getId() == null) {
-            model.addAttribute("errorClientChoice", "Please choose the client");
+            model.addAttribute("errorClientChoice", "choose a client");
             return "admin/projects/projectUpdate";
         }
         projectRepository.save(project);

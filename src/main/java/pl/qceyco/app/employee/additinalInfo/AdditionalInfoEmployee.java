@@ -1,7 +1,5 @@
 package pl.qceyco.app.employee.additinalInfo;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -41,7 +39,6 @@ public class AdditionalInfoEmployee {
 
     @Column(name = "phone_number", length = 15)
     @Size(min = 5, max = 15)
-    @NotBlank
     private String phoneNumber;
 
 

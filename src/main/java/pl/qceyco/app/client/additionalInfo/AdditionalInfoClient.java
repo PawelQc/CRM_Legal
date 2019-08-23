@@ -1,8 +1,8 @@
 package pl.qceyco.app.client.additionalInfo;
 
 import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.pl.NIP;
+import pl.qceyco.app.client.additionalInfo.validators.BankAccount;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -20,28 +20,23 @@ public class AdditionalInfoClient {
 
     @Column(name = "tax_id_no", unique = true)
     @NIP
-    @NotBlank
     private String nip;
 
     @Column(length = 150)
     @Size(min = 5, max = 150)
-    @NotBlank
     private String address;
 
     @Column(length = 100, unique = true)
     @Size(min = 3, max = 100)
     @Email
-    @NotBlank
     private String email;
 
     @Column(name = "phone_number", length = 15)
     @Size(min = 5, max = 15)
-    @NotBlank
     private String phoneNumber;
 
     @Column(name = "bank_account", length = 26)
-    @Size(min = 26, max = 26)
-    @NotBlank
+    @BankAccount
     private String bankAccount;
 
     @Column(name = "hourly_rate_charge_PLN")

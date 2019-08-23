@@ -1,7 +1,6 @@
 package pl.qceyco.app.employee;
 
 import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
 import pl.qceyco.app.employee.additinalInfo.AdditionalInfoEmployee;
 import pl.qceyco.app.employee.validators.Password;
 import pl.qceyco.app.secureapp.Authority;
@@ -22,12 +21,10 @@ public class Employee {
 
     @Column(name = "first_name", length = 50)
     @Size(min = 2, max = 50)
-    @NotBlank
     private String firstName;
 
     @Column(name = "last_name", length = 50)
     @Size(min = 2, max = 50)
-    @NotBlank
     private String lastName;
 
     @Transient
@@ -36,12 +33,10 @@ public class Employee {
     @Column(name = "email_login", length = 100, unique = true, nullable = false)
     @Size(min = 3, max = 100)
     @Email
-    @NotBlank
     private String emailLogin;
 
     @Column(name = "password", length = 60)
     @Password(min = 8, max = 60)
-    @NotBlank
     private String password;
 
     @NotNull
@@ -125,8 +120,6 @@ public class Employee {
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
     }
-
-
 
     @Override
     public String toString() {
