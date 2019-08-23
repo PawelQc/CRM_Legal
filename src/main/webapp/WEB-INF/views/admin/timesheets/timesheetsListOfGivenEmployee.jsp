@@ -56,7 +56,6 @@
             </c:if>
         </c:forEach>
     </table>
-    <br>
 
     <table class="table table-hover table-condensed">
         <tr>
@@ -98,7 +97,6 @@
             </c:if>
         </c:forEach>
     </table>
-    <br>
 
     <table class="table table-hover table-condensed">
         <tr>
@@ -140,7 +138,6 @@
             </c:if>
         </c:forEach>
     </table>
-    <br>
 
     <table class="table table-hover table-condensed">
         <tr>
@@ -182,7 +179,6 @@
         </c:forEach>
     </table>
 </div>
-<br>
 
 <%@ include file="/fragments/footer.jspf" %>
 </body>

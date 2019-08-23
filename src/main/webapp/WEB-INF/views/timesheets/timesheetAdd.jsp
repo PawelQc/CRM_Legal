@@ -5,11 +5,6 @@
 <head>
     <title>Add timesheet</title>
     <%@ include file="/fragments/head.jspf" %>
-    <style>
-        a {
-            text-decoration: none;
-        }
-    </style>
 </head>
 <body>
 <%@ include file="/fragments/header.jspf" %>

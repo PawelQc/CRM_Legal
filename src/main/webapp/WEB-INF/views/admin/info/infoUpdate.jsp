@@ -17,16 +17,14 @@
         <div class="form-group">
             <label for="hourlyRateReceivingSalaryId">Salary in PLN (hourly rate): </label>
             <form:input type="number" path="hourlyRateReceivingSalary" id="hourlyRateReceivingSalaryId" min="1"
-                        max="100000"
-                        class="form-control"/>
+                        max="100000" class="form-control"/>
             <form:errors path="hourlyRateReceivingSalary" element="div" cssClass="text-warning"/>
         </div>
 
         <div class="form-group">
             <label for="hourlyRateChargingClientsId">Charge rate in PLN (hourly rate): </label>
             <form:input type="number" path="hourlyRateChargingClients" id="hourlyRateChargingClientsId" min="1"
-                        max="100000"
-                        class="form-control"/>
+                        max="100000" class="form-control"/>
             <form:errors path="hourlyRateChargingClients" element="div" cssClass="text-warning"/>
         </div>
 

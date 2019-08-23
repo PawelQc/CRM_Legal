@@ -13,7 +13,6 @@
     <h1 class="text-center">Add project</h1>
 
     <form:form method="post" modelAttribute="project">
-
         <div class="form-group">
             <label for="signatureId">Signature:</label>
             <form:input type="text" path="signature" id="signatureId" class="form-control"/>
@@ -40,7 +39,8 @@
 
         <div class="form-group">
             <label for="capOnRemunerationId">Cap on remuneration:</label>
-            <form:input type="number" min="0" max="100000000" path="capOnRemuneration" id="capOnRemunerationId" class="form-control"/>
+            <form:input type="number" min="0" max="100000000" path="capOnRemuneration" id="capOnRemunerationId"
+                        class="form-control"/>
             <form:errors path="capOnRemuneration" element="div" cssClass="text-warning"/>
         </div>
 
