@@ -135,13 +135,8 @@ public class HomePageController {
             JFreeChart chart = ChartFactory.createBarChart("Work hours on projects: " + thisMonthFirstMonday.toString() + " - " + endDate.toString(),
                     "Projects", "Hours", dataset, PlotOrientation.VERTICAL,
                     false, true, false);
-            chart.setBackgroundPaint(Color.yellow);
-            CategoryPlot p = chart.getCategoryPlot();
-            p.setBackgroundPaint(Color.black);
-            try {
-                ChartUtilities.writeChartAsJPEG(out, chart, 1200, 720);
-            } catch (IOException e) {
-            }
+            setChartView(chart);
+            generateChart(out, chart);
         } catch (IOException e) {
         }
     }
@@ -161,10 +156,7 @@ public class HomePageController {
             JFreeChart chart = ChartFactory.createPieChart("Total hours on projects: " + thisMonthFirstMonday.toString() + " - " + endDate.toString(), dataset,
                     true, true, false);
             chart.setBackgroundPaint(Color.yellow);
-            try {
-                ChartUtilities.writeChartAsJPEG(out, chart, 1200, 720);
-            } catch (IOException e) {
-            }
+            generateChart(out, chart);
         } catch (IOException e) {
         }
     }
@@ -198,13 +190,8 @@ public class HomePageController {
             fillDatasetWithData(employeesAndNonBillableHours, dataset, "Non-billable");
             JFreeChart chart = ChartFactory.createBarChart3D("Comparison between employees - billable vs non-billable hours for: " + thisMonthFirstMonday.toString() + " - " + endDate.toString(),
                     "Employees", "Hours", dataset, PlotOrientation.VERTICAL, true, true, false);
-            chart.setBackgroundPaint(Color.yellow);
-            CategoryPlot p = chart.getCategoryPlot();
-            p.setBackgroundPaint(Color.black);
-            try {
-                ChartUtilities.writeChartAsJPEG(out, chart, 1200, 720);
-            } catch (IOException e) {
-            }
+            setChartView(chart);
+            generateChart(out, chart);
         } catch (IOException e) {
         }
     }
@@ -237,13 +224,8 @@ public class HomePageController {
             fillDatasetWithData(employeesAndUtilisation, dataset, "Work time utilisation in % (billable vs whole work time)");
             JFreeChart chart = ChartFactory.createBarChart3D("Comparison between employees - work time utilisation for: " + thisMonthFirstMonday.toString() + " - " + endDate.toString(),
                     "Employees", "%", dataset, PlotOrientation.VERTICAL, true, true, false);
-            chart.setBackgroundPaint(Color.yellow);
-            CategoryPlot p = chart.getCategoryPlot();
-            p.setBackgroundPaint(Color.black);
-            try {
-                ChartUtilities.writeChartAsJPEG(out, chart, 1200, 720);
-            } catch (IOException e) {
-            }
+            setChartView(chart);
+            generateChart(out, chart);
         } catch (IOException e) {
         }
     }
@@ -296,6 +278,19 @@ public class HomePageController {
             String key = entry.getKey();
             Integer value = entry.getValue();
             dataset.setValue(value, description, key);
+        }
+    }
+
+    private void setChartView(JFreeChart chart) {
+        chart.setBackgroundPaint(Color.yellow);
+        CategoryPlot p = chart.getCategoryPlot();
+        p.setBackgroundPaint(Color.black);
+    }
+
+    private void generateChart(OutputStream out, JFreeChart chart) {
+        try {
+            ChartUtilities.writeChartAsJPEG(out, chart, 1200, 720);
+        } catch (IOException e) {
         }
     }
 

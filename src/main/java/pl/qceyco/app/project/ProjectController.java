@@ -1,6 +1,5 @@
 package pl.qceyco.app.project;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,7 +28,8 @@ public class ProjectController {
     private final ProjectRepository projectRepository;
     private final TimesheetReferenceUnitRepository timesheetReferenceUnitRepository;
 
-    public ProjectController(ClientsAllRepository clientsAllRepository, EmployeeRepository employeeRepository, ProjectRepository projectRepository, TimesheetReferenceUnitRepository timesheetReferenceUnitRepository) {
+    public ProjectController(ClientsAllRepository clientsAllRepository, EmployeeRepository employeeRepository, ProjectRepository projectRepository,
+                             TimesheetReferenceUnitRepository timesheetReferenceUnitRepository) {
         this.clientsAllRepository = clientsAllRepository;
         this.employeeRepository = employeeRepository;
         this.projectRepository = projectRepository;
@@ -56,7 +56,7 @@ public class ProjectController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String showAllProjects(HttpSession session) {
         Employee employee = (Employee) session.getAttribute("loggedInUser");
-        if (employee.getAdmin() == true) {
+        if (employee.getAdmin()) {
             return "admin/projects/projectsList";
         } else {
             return "user/projects/projectsList";
@@ -84,7 +84,7 @@ public class ProjectController {
 
     @RequestMapping(value = "/delete/{projectId}", method = RequestMethod.GET)
     public String delete(@PathVariable Long projectId) {
-        List <TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByProjectId(projectId);
+        List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByProjectId(projectId);
         for (TimesheetReferenceUnit t : timesheets) {
             timesheetReferenceUnitRepository.delete(t);
         }

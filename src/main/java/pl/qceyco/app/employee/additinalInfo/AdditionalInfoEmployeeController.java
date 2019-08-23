@@ -23,7 +23,6 @@ public class AdditionalInfoEmployeeController {
         this.employeeRepository = employeeRepository;
     }
 
-
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String showDetails(@RequestParam Long employeeId, @RequestParam(required = false) Long additionalInfoId,
                               Model model, HttpSession session) {
@@ -35,7 +34,7 @@ public class AdditionalInfoEmployeeController {
         AdditionalInfoEmployee additionalInfoEmployee = additionalInfoEmployeeRepository.findFirstById(additionalInfoId);
         model.addAttribute("additionalInfoEmployee", additionalInfoEmployee);
         Employee loggedInUser = (Employee) session.getAttribute("loggedInUser");
-        if (loggedInUser.getAdmin() == true) {
+        if (loggedInUser.getAdmin()) {
             return "admin/employees/detailedInfo/employeeDetailsList";
         } else {
             return "user/employees/detailedInfo/employeeDetailsList";

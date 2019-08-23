@@ -97,7 +97,9 @@ public class AdditionalInfoEmployee {
                 ", hourlyRateReceivingSalary=" + hourlyRateReceivingSalary +
                 ", hourlyRateChargingClients=" + hourlyRateChargingClients +
                 ", targetBudget=" + targetBudget +
+                ", bonus=" + bonus +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
+
 }

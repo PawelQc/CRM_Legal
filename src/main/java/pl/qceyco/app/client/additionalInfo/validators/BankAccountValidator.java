@@ -1,9 +1,7 @@
 package pl.qceyco.app.client.additionalInfo.validators;
 
-
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-
 
 public class BankAccountValidator implements ConstraintValidator<BankAccount, String> {
 

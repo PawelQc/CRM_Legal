@@ -30,7 +30,8 @@ public class TimesheetReferenceUnitController {
     private final TimesheetWeekRepository timesheetWeekRepository;
     private final CommentaryRepository commentaryRepository;
 
-    public TimesheetReferenceUnitController(TimesheetReferenceUnitRepository timesheetReferenceUnitRepository, ProjectRepository projectRepository, EmployeeRepository employeeRepository, TimesheetWeekRepository timesheetWeekRepository, CommentaryRepository commentaryRepository) {
+    public TimesheetReferenceUnitController(TimesheetReferenceUnitRepository timesheetReferenceUnitRepository, ProjectRepository projectRepository,
+                                            EmployeeRepository employeeRepository, TimesheetWeekRepository timesheetWeekRepository, CommentaryRepository commentaryRepository) {
         this.timesheetReferenceUnitRepository = timesheetReferenceUnitRepository;
         this.projectRepository = projectRepository;
         this.employeeRepository = employeeRepository;
@@ -62,7 +63,7 @@ public class TimesheetReferenceUnitController {
         LocalDate nextMonday = getMondayDate(mode, mondaySelect, 28);
         model.addAttribute("nextMonday", nextMonday);
         Employee employee = (Employee) session.getAttribute("loggedInUser");
-        if (employee.getAdmin() == true) {
+        if (employee.getAdmin()) {
             return "admin/timesheets/timesheetsList";
         } else {
             List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByEmployeeId(employee.getId());
@@ -80,11 +81,10 @@ public class TimesheetReferenceUnitController {
         return "timesheets/timesheetDetailsList";
     }
 
-
     @RequestMapping(value = "/choose-project", method = RequestMethod.GET)
     public String chooseProject(HttpSession session, Model model) {
         Employee employee = (Employee) session.getAttribute("loggedInUser");
-        if (employee.getAdmin() == true) {
+        if (employee.getAdmin()) {
             return "admin/timesheets/timesheetProjectChoiceList";
         } else {
             List<Project> projectsWhereEmployeeParticipates = projectRepository.findAllByEmployeeId(employee.getId());
@@ -131,10 +131,7 @@ public class TimesheetReferenceUnitController {
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String showUpdateForm(@PathVariable Long id, Model model) {
         TimesheetWeek timesheetWeek = timesheetWeekRepository.findFirstById(id);
-        if (timesheetWeek == null) {
-            model.addAttribute("error", "Update Error");
-            return "error";
-        }
+        if (checkIfRecordExist(model, timesheetWeek == null, "error", "Update Error")) return "error";
         model.addAttribute("timesheetWeek", timesheetWeek);
         return "timesheets/timesheetUpdate";
     }
@@ -153,12 +150,10 @@ public class TimesheetReferenceUnitController {
     public String showTimesheetsByProjectId(@RequestParam Long projectId, @RequestParam(required = false) String mode, @RequestParam(required = false) String mondaySelect,
                                             Model model, HttpSession session) {
         Employee loggedInUser = (Employee) session.getAttribute("loggedInUser");
-        if (loggedInUser.getAdmin() == true) {
+        if (loggedInUser.getAdmin()) {
             List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByProjectIdOrderByEmployeeId(projectId);
-            if (timesheets.size() == 0) {
-                model.addAttribute("errorNoTimesheets", "Error: There are no timesheets to display!");
+            if (checkIfRecordExist(model, timesheets.size() == 0, "errorNoTimesheets", "Error: There are no timesheets to display!"))
                 return "redirect:/timesheets/list";
-            }
             model.addAttribute("projectId", projectId);
             model.addAttribute("timesheetsChosenProject", timesheets);
             LocalDate nextMonday = getMondayDate(mode, mondaySelect, 28);
@@ -166,10 +161,8 @@ public class TimesheetReferenceUnitController {
             return "admin/timesheets/timesheetsListOfGivenProject";
         } else {
             List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByProjectIdAndEmployeeId(projectId, loggedInUser.getId());
-            if (timesheets.size() == 0) {
-                model.addAttribute("errorNoTimesheets", "Error: There are no timesheets to display!");
+            if (checkIfRecordExist(model, timesheets.size() == 0, "errorNoTimesheets", "Error: There are no timesheets to display!"))
                 return "redirect:/timesheets/list";
-            }
             model.addAttribute("timesheets", timesheets);
             return "user/timesheets/timesheetsListOfGivenProject";
         }
@@ -178,10 +171,8 @@ public class TimesheetReferenceUnitController {
     @RequestMapping(value = "/sort-by-employee", method = {RequestMethod.POST, RequestMethod.GET})
     public String showTimesheetsByEmployeeId(@RequestParam Long employeeId, Model model, @RequestParam(required = false) String mode, @RequestParam(required = false) String mondaySelect) {
         List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByEmployeeId(employeeId);
-        if (timesheets.size() == 0) {
-            model.addAttribute("errorNoTimesheets", "Error: There are no timesheets to display!");
+        if (checkIfRecordExist(model, timesheets.size() == 0, "errorNoTimesheets", "Error: There are no timesheets to display!"))
             return "redirect:/timesheets/list";
-        }
         model.addAttribute("employeeId", employeeId);
         model.addAttribute("timesheetsChosenUser", timesheets);
         LocalDate nextMonday = getMondayDate(mode, mondaySelect, 28);
@@ -222,6 +213,14 @@ public class TimesheetReferenceUnitController {
         if (timesheetSimilarInDB != null) {
             model.addAttribute("errorSimilarTsExists", "Error: there is already existing timesheet for this project and date!");
             model.addAttribute("timesheetSimilarInDB", timesheetSimilarInDB);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean checkIfRecordExist(Model model, boolean condition, String errorNoTimesheets, String info) {
+        if (condition) {
+            model.addAttribute(errorNoTimesheets, info);
             return true;
         }
         return false;

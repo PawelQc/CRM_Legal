@@ -36,6 +36,5 @@ public interface TimesheetReferenceUnitRepository extends JpaRepository<Timeshee
     @Query("SELECT t FROM TimesheetReferenceUnit t JOIN t.timesheetWeek w where w.dateMonday between ?1 and ?2 order by t.employee.id")
     List<TimesheetReferenceUnit> findAllInRecentWeek(LocalDate start, LocalDate end);
 
-
 }
 

@@ -35,7 +35,8 @@ public class ReportsController {
     private final ClientsAllRepository clientsAllRepository;
     private final ClientLegalPersonRepository clientLegalPersonRepository;
 
-    public ReportsController(TimesheetReferenceUnitRepository timesheetReferenceUnitRepository, ProjectRepository projectRepository, EmployeeRepository employeeRepository, ClientsAllRepository clientsAllRepository, ClientLegalPersonRepository clientLegalPersonRepository) {
+    public ReportsController(TimesheetReferenceUnitRepository timesheetReferenceUnitRepository, ProjectRepository projectRepository,
+                             EmployeeRepository employeeRepository, ClientsAllRepository clientsAllRepository, ClientLegalPersonRepository clientLegalPersonRepository) {
         this.timesheetReferenceUnitRepository = timesheetReferenceUnitRepository;
         this.projectRepository = projectRepository;
         this.employeeRepository = employeeRepository;
@@ -169,11 +170,7 @@ public class ReportsController {
         for (TimesheetReferenceUnit t : timesheets) {
             amountOfHours += t.countWeekHours();
         }
-        model.addAttribute("selectedMonday", selectedMonday);
-        model.addAttribute("timesheets", timesheets);
-        model.addAttribute("projectsOfClient", projectsOfClient);
-        model.addAttribute("client", client);
-        model.addAttribute("amountOfHours", amountOfHours);
+        addModelAttributesInvoicePreview(model, selectedMonday, timesheets, projectsOfClient, client, amountOfHours);
         return "reports/invoicePreview/invoicePreviewGenerated";
     }
 
@@ -209,6 +206,14 @@ public class ReportsController {
         model.addAttribute("project", project);
         model.addAttribute("potentialValueOfRenderedServices", potentialValueOfRenderedServices);
         model.addAttribute("isProjectProfitable", isProjectProfitable);
+    }
+
+    private void addModelAttributesInvoicePreview(Model model, LocalDate selectedMonday, List<TimesheetReferenceUnit> timesheets, List<Project> projectsOfClient, Client client, Integer amountOfHours) {
+        model.addAttribute("selectedMonday", selectedMonday);
+        model.addAttribute("timesheets", timesheets);
+        model.addAttribute("projectsOfClient", projectsOfClient);
+        model.addAttribute("client", client);
+        model.addAttribute("amountOfHours", amountOfHours);
     }
 
 }

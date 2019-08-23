@@ -52,7 +52,7 @@ public class EmployeeController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String showAllEmployees(HttpSession session) {
         Employee employee = (Employee) session.getAttribute("loggedInUser");
-        if (employee.getAdmin() == true) {
+        if (employee.getAdmin()) {
             return "admin/employees/employeesList";
         } else {
             return "user/employees/employeesList";
