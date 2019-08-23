@@ -113,6 +113,8 @@ public class TimesheetReferenceUnitController {
         }
         Employee loggedInUser = (Employee) session.getAttribute("loggedInUser");
         if (similarTimesheetExists(projectId, timesheetWeek, model, loggedInUser)) {
+            Project project = projectRepository.findFirstById(projectId);
+            model.addAttribute("project", project);
             return "timesheets/timesheetAdd";
         }
         TimesheetReferenceUnit timesheetReferenceUnit = setTimesheetReferenceUnitValue(projectId, timesheetWeek, loggedInUser);
