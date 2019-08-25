@@ -30,7 +30,7 @@
             <td>${workTimeUtilizationLevel}%</td>
         </tr>
         <tr>
-            <th>Was monthly target achieved? (${reportedEmployee.additionalInfo.targetBudget} PLN)</th>
+            <th>Was monthly target achieved? (${loggedInUser.additionalInfo.targetBudget} PLN)</th>
             <td>${isMonthlyTargetAchieved}</td>
         </tr>
         <tr>
