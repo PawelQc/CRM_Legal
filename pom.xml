@@ -8,6 +8,7 @@
     <artifactId>CRM_Legal</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+<!-- //////   to bylo u Kuby//////-->
 <!--    <build>-->
 <!--        <plugins>-->
 <!--            <plugin>-->
@@ -29,15 +30,15 @@
         <failOnMissingWebXml>false</failOnMissingWebXml>
     </properties>
 
- <!--   <distributionManagement>
+    <distributionManagement>
         <repository>
             <uniqueVersion>false</uniqueVersion>
             <id>corp1</id>
             <name>Corporate Repository</name>
-            <url>file:///home/myfolder/.m2</url>
+            <url>file:///home/pawelqc/.m2</url>
             <layout>default</layout>
         </repository>
-    </distributionManagement>-->
+    </distributionManagement>
 
     <dependencies>
 
