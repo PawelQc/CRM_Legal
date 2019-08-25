@@ -10,7 +10,8 @@
             <property name="javax.persistence.jdbc.user" value="bd1a61f676cd85"/>
             <property name="javax.persistence.jdbc.password" value="ee1731b2"/>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+<!--            todo do zmiany?-->
+            <property name="javax.persistence.schema-generation.database.action" value="none"/>
 
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.show_sql" value="true"/>
