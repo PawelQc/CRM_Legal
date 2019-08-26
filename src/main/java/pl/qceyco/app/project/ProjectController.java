@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.qceyco.app.client.Client;
-import pl.qceyco.app.client.ClientsAllRepository;
+import pl.qceyco.app.client.ClientRepository;
 import pl.qceyco.app.employee.Employee;
 import pl.qceyco.app.employee.EmployeeRepository;
 import pl.qceyco.app.timesheet.referenceUnit.TimesheetReferenceUnit;
@@ -23,14 +23,14 @@ import java.util.List;
 
 public class ProjectController {
 
-    private final ClientsAllRepository clientsAllRepository;
+    private final ClientRepository clientRepository;
     private final EmployeeRepository employeeRepository;
     private final ProjectRepository projectRepository;
     private final TimesheetReferenceUnitRepository timesheetReferenceUnitRepository;
 
-    public ProjectController(ClientsAllRepository clientsAllRepository, EmployeeRepository employeeRepository, ProjectRepository projectRepository,
+    public ProjectController(ClientRepository clientRepository, EmployeeRepository employeeRepository, ProjectRepository projectRepository,
                              TimesheetReferenceUnitRepository timesheetReferenceUnitRepository) {
-        this.clientsAllRepository = clientsAllRepository;
+        this.clientRepository = clientRepository;
         this.employeeRepository = employeeRepository;
         this.projectRepository = projectRepository;
         this.timesheetReferenceUnitRepository = timesheetReferenceUnitRepository;
@@ -38,7 +38,7 @@ public class ProjectController {
 
     @ModelAttribute("clients")
     public List<Client> populateClients() {
-        return clientsAllRepository.findAll();
+        return clientRepository.findAll();
     }
 
     @ModelAttribute("employees")

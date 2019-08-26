@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.qceyco.app.client.Client;
-import pl.qceyco.app.client.ClientsAllRepository;
-import pl.qceyco.app.client.legalPerson.ClientLegalPerson;
+import pl.qceyco.app.client.ClientRepository;
 import pl.qceyco.app.client.legalPerson.ClientLegalPersonRepository;
 import pl.qceyco.app.employee.Employee;
 import pl.qceyco.app.employee.EmployeeRepository;
@@ -32,15 +31,15 @@ public class ReportsController {
     private final TimesheetReferenceUnitRepository timesheetReferenceUnitRepository;
     private final ProjectRepository projectRepository;
     private final EmployeeRepository employeeRepository;
-    private final ClientsAllRepository clientsAllRepository;
+    private final ClientRepository clientRepository;
     private final ClientLegalPersonRepository clientLegalPersonRepository;
 
     public ReportsController(TimesheetReferenceUnitRepository timesheetReferenceUnitRepository, ProjectRepository projectRepository,
-                             EmployeeRepository employeeRepository, ClientsAllRepository clientsAllRepository, ClientLegalPersonRepository clientLegalPersonRepository) {
+                             EmployeeRepository employeeRepository, ClientRepository clientRepository, ClientLegalPersonRepository clientLegalPersonRepository) {
         this.timesheetReferenceUnitRepository = timesheetReferenceUnitRepository;
         this.projectRepository = projectRepository;
         this.employeeRepository = employeeRepository;
-        this.clientsAllRepository = clientsAllRepository;
+        this.clientRepository = clientRepository;
         this.clientLegalPersonRepository = clientLegalPersonRepository;
     }
 
@@ -56,7 +55,7 @@ public class ReportsController {
 
     @ModelAttribute("clients")
     public List<Client> populateClients() {
-        return clientsAllRepository.findAll();
+        return clientRepository.findAll();
     }
 
     @ModelAttribute("timesheetReferenceUnitsAll")
@@ -165,7 +164,7 @@ public class ReportsController {
         LocalDate endDate = selectedMonday.plusDays(27);
         List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByClientIn4Weeks(clientId, selectedMonday, endDate);
         List<Project> projectsOfClient = projectRepository.findAllByClientId(clientId);
-        Client client = clientsAllRepository.findFirstById(clientId);
+        Client client = clientRepository.findFirstById(clientId);
         Integer amountOfHours = 0;
         for (TimesheetReferenceUnit t : timesheets) {
             amountOfHours += t.countWeekHours();
