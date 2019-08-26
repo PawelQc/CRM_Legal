@@ -141,7 +141,7 @@ public class TimesheetReferenceUnitController {
         if (result.hasErrors()) {
             return "timesheets/timesheetUpdate";
         }
-        timesheetWeek.setDateMonday(timesheetWeek.getDateMonday().plusDays(1));
+        timesheetWeek.setDateMonday(timesheetWeek.getDateMonday());
         timesheetWeekRepository.save(timesheetWeek);
         return "redirect:list";
     }
@@ -197,7 +197,7 @@ public class TimesheetReferenceUnitController {
     }
 
     private TimesheetReferenceUnit setTimesheetReferenceUnitValue(@PathVariable Long projectId, @Valid @ModelAttribute TimesheetWeek timesheetWeek, Employee loggedInUser) {
-        timesheetWeek.setDateMonday(timesheetWeek.getDateMonday().plusDays(1));
+        timesheetWeek.setDateMonday(timesheetWeek.getDateMonday());
         timesheetWeekRepository.save(timesheetWeek);
         Project project = projectRepository.findFirstByIdWithProjectTeamMembers(projectId);
         TimesheetReferenceUnit timesheetReferenceUnit = new TimesheetReferenceUnit();
