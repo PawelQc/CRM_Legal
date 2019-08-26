@@ -1,56 +1,27 @@
 package pl.qceyco.app.employee;
 
-import org.apache.commons.lang3.StringUtils;
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.qceyco.app.employee.additinalInfo.AdditionalInfoEmployeeRepository;
-import pl.qceyco.app.project.ProjectRepository;
-import pl.qceyco.app.secureApp.Authority;
-import pl.qceyco.app.secureApp.AuthorityRepository;
-import pl.qceyco.app.timesheet.referenceUnit.TimesheetReferenceUnit;
-import pl.qceyco.app.timesheet.referenceUnit.TimesheetReferenceUnitRepository;
-import pl.qceyco.app.timesheet.week.TimesheetWeekRepository;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/employees")
 
 public class EmployeeController {
 
-    private final AuthorityRepository authorityRepository;
-    private final ProjectRepository projectRepository;
-    private final AdditionalInfoEmployeeRepository additionalInfoEmployeeRepository;
-    private final EmployeeRepository employeeRepository;
-    private final TimesheetReferenceUnitRepository timesheetReferenceUnitRepository;
-    private final TimesheetWeekRepository timesheetWeekRepository;
+    private final EmployeeService employeeService;
 
-    public EmployeeController(EmployeeRepository employeeRepository, AdditionalInfoEmployeeRepository additionalInfoEmployeeRepository,
-                              ProjectRepository projectRepository, AuthorityRepository authorityRepository,
-                              TimesheetReferenceUnitRepository timesheetReferenceUnitRepository, TimesheetWeekRepository timesheetWeekRepository) {
-        this.employeeRepository = employeeRepository;
-        this.additionalInfoEmployeeRepository = additionalInfoEmployeeRepository;
-        this.projectRepository = projectRepository;
-        this.authorityRepository = authorityRepository;
-        this.timesheetReferenceUnitRepository = timesheetReferenceUnitRepository;
-        this.timesheetWeekRepository = timesheetWeekRepository;
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
-
-    @ModelAttribute("employees")
-    public List<Employee> populateEmployees() {
-        return employeeRepository.findAll();
-    }
-
-    //////////////////////
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String showAllEmployees(HttpSession session) {
+    public String showAllEmployees(HttpSession session, Model model) {
         Employee employee = (Employee) session.getAttribute("loggedInUser");
         if (employee.getAdmin()) {
             return "admin/employees/employeesList";
@@ -70,35 +41,35 @@ public class EmployeeController {
         if (result.hasErrors()) {
             return "admin/employees/employeeAdd";
         }
-        if (!isEmailUnique(employee.getEmailLogin())) {
+        if (!employeeService.emailIsUniqueAdd(employee.getEmailLogin())) {
             model.addAttribute("errorNoUniqueEmail", "this email is already in use");
             return "admin/employees/employeeAdd";
         }
-        employee.setPassword(BCrypt.hashpw(employee.getPassword(), BCrypt.gensalt()));
-        setAuthority(employee);
-        employeeRepository.save(employee);
+        employeeService.encryptPassword(employee);
+        employeeService.setAuthority(employee);
+        employeeService.save(employee);
         return "redirect:list";
     }
 
     @RequestMapping(value = "/delete/{employeeId}", method = RequestMethod.GET)
     public String delete(@PathVariable Long employeeId, Model model, HttpSession session) {
-        Employee loggedInUser = (Employee) session.getAttribute("loggedInUser");
-        if (loggedInUser.getId() == employeeId) {
+        Employee employee = employeeService.getEmployeeById(employeeId);
+        if (employee.getAdmin()) {
             model.addAttribute("deleteErrorIsAdmin", "Cannot delete admin account!");
             return "admin/employees/employeesList";
         }
-        if (projectRepository.findAllByEmployeeId(employeeId).size() >= 1) {
-            model.addAttribute("deleteErrorProjectExists", "Cannot delete this employee - delete or update related project first!");
+        if (employeeService.getAllProjectsWhereEmployeeParticipates(employeeId).size() > 0) {
+            model.addAttribute("deleteErrorProjectExists", "Cannot delete this employee" +
+                    " - delete or update related project first!");
             return "admin/employees/employeesList";
         }
-        deleteEmployee(employeeId);
+        employeeService.delete(employeeId);
         return "redirect:../list";
     }
 
-
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
-    public String showUpdateForm(@PathVariable Long id, Model model) {
-        Employee employee = employeeRepository.findFirstById(id);
+    @RequestMapping(value = "/update/{employeeId}", method = RequestMethod.GET)
+    public String showUpdateForm(@PathVariable Long employeeId, Model model) {
+        Employee employee = employeeService.getEmployeeById(employeeId);
         if (employee == null) {
             model.addAttribute("error", "Update Error");
             return "error";
@@ -108,22 +79,23 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String processUpdateForm(@ModelAttribute @Valid Employee employee, BindingResult result, Model model) {
+    public String processUpdateForm(@RequestParam(required = false) String previousEmail, @ModelAttribute @Valid Employee employee,
+                                    BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "admin/employees/employeeUpdate";
         }
-        if (!isEmailUnique(employee.getEmailLogin())) {
+        if (!employeeService.emailIsUniqueUpdate(employee.getEmailLogin(), previousEmail)) {
             model.addAttribute("errorNoUniqueEmail", "this email is already in use");
             return "admin/employees/employeeUpdate";
         }
-        setAuthority(employee);
-        employeeRepository.save(employee);
+        employeeService.setAuthority(employee);
+        employeeService.save(employee);
         return "redirect:list";
     }
 
     @RequestMapping(value = "/update-password/{employeeId}", method = RequestMethod.GET)
     public String showUpdatePasswordForm(@PathVariable Long employeeId, Model model) {
-        Employee employee = employeeRepository.findFirstById(employeeId);
+        Employee employee = employeeService.getEmployeeById(employeeId);
         if (employee == null) {
             model.addAttribute("error", "Update Error");
             return "error";
@@ -134,57 +106,21 @@ public class EmployeeController {
 
     @RequestMapping(value = "/update-password/{employeeId}", method = RequestMethod.POST)
     public String processUpdatePasswordForm(@PathVariable Long employeeId, @RequestParam String password, Model model) {
-        Employee employee = employeeRepository.findFirstById(employeeId);
-        if (StringUtils.isBlank(password) || password.length() < 8 || password.length() > 60) {
+        Employee employee = employeeService.getEmployeeById(employeeId);
+        if (employeeService.passwordFailedValidation(password)) {
             model.addAttribute("employee", employee);
             model.addAttribute("errorPasswordInput", "Enter a new password: must be between 8 and 60 characters!");
             return "admin/employees/employeeUpdatePassword";
         }
         employee.setPassword(password);
-        employee.setPassword(BCrypt.hashpw(employee.getPassword(), BCrypt.gensalt()));
-        employeeRepository.save(employee);
+        employeeService.encryptPassword(employee);
+        employeeService.save(employee);
         return "redirect:../list";
     }
 
-////////////////////////////////////////////
-
-    private void setAuthority(@Valid @ModelAttribute Employee employee) {
-        Authority authority = null;
-        if (employee.getAdmin() == true) {
-            authority = authorityRepository.findFirstById(1);
-        } else {
-            authority = authorityRepository.findFirstById(2);
-        }
-        Set<Authority> employeeAuthorities = employee.getAuthorities();
-        employeeAuthorities.add(authority);
-        employee.setAuthorities(employeeAuthorities);
-    }
-
-    private boolean isEmailUnique(String userEmail) {
-        List<Employee> employees = employeeRepository.findAll();
-        boolean result = true;
-        for (Employee e : employees) {
-            if (e.getEmailLogin().equals(userEmail)) {
-                result = false;
-                break;
-            }
-        }
-        return result;
-    }
-
-    private void deleteEmployee(@PathVariable Long employeeId) {
-        Employee employeeToDelete = employeeRepository.findFirstById(employeeId);
-        List<TimesheetReferenceUnit> employeesTimesheets = timesheetReferenceUnitRepository.findAllByEmployeeId(employeeToDelete.getId());
-        if (employeesTimesheets.size() > 0) {
-            for (TimesheetReferenceUnit t : employeesTimesheets) {
-                timesheetReferenceUnitRepository.delete(t);
-            }
-        }
-        employeeRepository.deleteById(employeeId);
-        if (employeeToDelete.getAdditionalInfo() != null) {
-            Long infoId = employeeToDelete.getAdditionalInfo().getId();
-            additionalInfoEmployeeRepository.deleteById(infoId);
-        }
+    @ModelAttribute("employees")
+    public List<Employee> populateEmployees() {
+        return employeeService.getAllEmployees();
     }
 
 }

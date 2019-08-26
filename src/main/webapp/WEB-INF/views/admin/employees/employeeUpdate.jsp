@@ -11,7 +11,7 @@
 
 <div class="container">
     <h1 class="text-center">Update employee (basic info): ${employee.nameDisplay}</h1>
-    <form:form method="post" modelAttribute="employee" action="/employees/update">
+    <form:form method="post" modelAttribute="employee" action="/employees/update?previousEmail=${employee.emailLogin}">
         <form:hidden path="id" value="${employee.id}"/>
         <form:hidden path="password" value="${employee.password}"/>
         <c:if test="${not empty employee.additionalInfo}">

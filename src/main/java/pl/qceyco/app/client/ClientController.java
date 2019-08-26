@@ -2,6 +2,7 @@ package pl.qceyco.app.client;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,8 +24,6 @@ public class ClientController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String showAllClients(HttpSession session, Model model) {
-        List<Client> clients = clientService.getAllClients();
-        model.addAttribute("clients", clients);
         Employee employee = (Employee) session.getAttribute("loggedInUser");
         if (employee.getAdmin()) {
             return "admin/clients/clientsList";
@@ -46,6 +45,11 @@ public class ClientController {
         }
         clientService.deleteClient(clientId);
         return "redirect:../list";
+    }
+
+    @ModelAttribute("clients")
+    public List<Client> populateClients() {
+        return clientService.getAllClients();
     }
 
 
