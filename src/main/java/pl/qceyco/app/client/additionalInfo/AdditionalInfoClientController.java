@@ -5,7 +5,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.qceyco.app.client.Client;
-import pl.qceyco.app.client.ClientRepository;
 import pl.qceyco.app.employee.Employee;
 
 import javax.servlet.http.HttpSession;
@@ -16,12 +15,10 @@ import javax.validation.Valid;
 
 public class AdditionalInfoClientController {
 
-    private final AdditionalInfoClientRepository additionalInfoClientRepository;
-    private final ClientRepository clientRepository;
+    private final AdditionalInfoClientService additionalInfoClientService;
 
-    public AdditionalInfoClientController(AdditionalInfoClientRepository additionalInfoClientRepository, ClientRepository clientRepository) {
-        this.additionalInfoClientRepository = additionalInfoClientRepository;
-        this.clientRepository = clientRepository;
+    public AdditionalInfoClientController(AdditionalInfoClientService additionalInfoClientService) {
+        this.additionalInfoClientService = additionalInfoClientService;
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -29,8 +26,8 @@ public class AdditionalInfoClientController {
         if (additionalInfoId == null) {
             return "redirect:/clients/additional-info/add/" + clientId;
         }
-        Client client = clientRepository.findFirstById(clientId);
-        AdditionalInfoClient additionalInfoClient = additionalInfoClientRepository.findFirstById(additionalInfoId);
+        Client client = additionalInfoClientService.getClientById(clientId);
+        AdditionalInfoClient additionalInfoClient = additionalInfoClientService.getAdditionalInfoById(additionalInfoId);
         model.addAttribute("additionalInfoClient", additionalInfoClient);
         model.addAttribute("client", client);
         Employee employee = (Employee) session.getAttribute("loggedInUser");
@@ -43,7 +40,7 @@ public class AdditionalInfoClientController {
 
     @RequestMapping(value = "/add/{clientId}", method = RequestMethod.GET)
     public String showAddForm(@PathVariable Long clientId, Model model) {
-        Client client = clientRepository.findFirstById(clientId);
+        Client client = additionalInfoClientService.getClientById(clientId);
         model.addAttribute("client", client);
         model.addAttribute("additionalInfoClient", new AdditionalInfoClient());
         return "admin/clients/detailedInfo/clientDetailsAdd";
@@ -54,21 +51,18 @@ public class AdditionalInfoClientController {
         if (result.hasErrors()) {
             return "admin/clients/detailedInfo/clientDetailsAdd";
         }
-        additionalInfoClientRepository.save(additionalInfoClient);
-        Client client = clientRepository.findFirstById(clientId);
-        client.setAdditionalInfo(additionalInfoClient);
-        clientRepository.save(client);
+        additionalInfoClientService.saveAdd(clientId, additionalInfoClient);
         return "redirect:/clients/list";
     }
 
     @RequestMapping(value = "/update/{infoId}", method = RequestMethod.GET)
     public String showUpdateForm(@PathVariable Long infoId, Model model) {
-        AdditionalInfoClient additionalInfoClient = additionalInfoClientRepository.findFirstById(infoId);
+        AdditionalInfoClient additionalInfoClient = additionalInfoClientService.getAdditionalInfoById(infoId);
         if (additionalInfoClient == null) {
             model.addAttribute("error", "Update Error");
             return "error";
         }
-        Client client = clientRepository.findFirstByAdditionalInfo_Id(infoId);
+        Client client = additionalInfoClientService.getClientByInfoId(infoId);
         model.addAttribute("client", client);
         model.addAttribute("additionalInfoClient", additionalInfoClient);
         return "admin/clients/detailedInfo/clientDetailsUpdate";
@@ -79,7 +73,7 @@ public class AdditionalInfoClientController {
         if (result.hasErrors()) {
             return "admin/clients/detailedInfo/clientDetailsUpdate";
         }
-        additionalInfoClientRepository.save(additionalInfoClient);
+        additionalInfoClientService.saveUpdate(additionalInfoClient);
         return "redirect:/clients/list";
     }
 
