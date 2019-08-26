@@ -1,4 +1,4 @@
-package pl.qceyco.app.secureapp;
+package pl.qceyco.app.secureApp;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

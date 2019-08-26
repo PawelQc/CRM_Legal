@@ -1,4 +1,4 @@
-package pl.qceyco.app.secureapp;
+package pl.qceyco.app.secureApp;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 
