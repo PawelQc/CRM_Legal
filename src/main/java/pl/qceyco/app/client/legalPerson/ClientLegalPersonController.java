@@ -15,10 +15,10 @@ import javax.validation.Valid;
 
 public class ClientLegalPersonController {
 
-    private final ClientLegalPersonRepository clientLegalPersonRepository;
+    private final ClientLegalPersonService clientLegalPersonService;
 
-    public ClientLegalPersonController(ClientLegalPersonRepository clientLegalPersonRepository) {
-        this.clientLegalPersonRepository = clientLegalPersonRepository;
+    public ClientLegalPersonController(ClientLegalPersonService clientLegalPersonService) {
+        this.clientLegalPersonService = clientLegalPersonService;
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -32,13 +32,13 @@ public class ClientLegalPersonController {
         if (result.hasErrors()) {
             return "admin/clients/legalPerson/clientLegalPersonAdd";
         }
-        clientLegalPersonRepository.save(clientLegalPerson);
+        clientLegalPersonService.save(clientLegalPerson);
         return "redirect:/clients/list";
     }
 
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
-    public String showUpdateForm(@PathVariable Long id, Model model) {
-        ClientLegalPerson clientLegalPerson = clientLegalPersonRepository.findFirstById(id);
+    @RequestMapping(value = "/update/{clientId}", method = RequestMethod.GET)
+    public String showUpdateForm(@PathVariable Long clientId, Model model) {
+        ClientLegalPerson clientLegalPerson = clientLegalPersonService.findClientById(clientId);
         if (clientLegalPerson == null) {
             model.addAttribute("error", "Update Error");
             return "error";
@@ -52,7 +52,7 @@ public class ClientLegalPersonController {
         if (result.hasErrors()) {
             return "admin/clients/legalPerson/clientLegalPersonUpdate";
         }
-        clientLegalPersonRepository.save(clientLegalPerson);
+        clientLegalPersonService.save(clientLegalPerson);
         return "redirect:/clients/list";
     }
 

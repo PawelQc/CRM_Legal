@@ -15,10 +15,10 @@ import javax.validation.Valid;
 
 public class ClientNaturalPersonController {
 
-    private final ClientNaturalPersonRepository clientNaturalPersonRepository;
+    private final ClientNaturalPersonService clientNaturalPersonService;
 
-    public ClientNaturalPersonController(ClientNaturalPersonRepository clientNaturalPersonRepository) {
-        this.clientNaturalPersonRepository = clientNaturalPersonRepository;
+    public ClientNaturalPersonController(ClientNaturalPersonService clientNaturalPersonService) {
+        this.clientNaturalPersonService = clientNaturalPersonService;
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -32,13 +32,13 @@ public class ClientNaturalPersonController {
         if (result.hasErrors()) {
             return "admin/clients/naturalPerson/clientNaturalPersonAdd";
         }
-        clientNaturalPersonRepository.save(clientNaturalPerson);
+        clientNaturalPersonService.save(clientNaturalPerson);
         return "redirect:/clients/list";
     }
 
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
-    public String showUpdateForm(@PathVariable Long id, Model model) {
-        ClientNaturalPerson clientNaturalPerson = clientNaturalPersonRepository.findFirstById(id);
+    @RequestMapping(value = "/update/{clientId}", method = RequestMethod.GET)
+    public String showUpdateForm(@PathVariable Long clientId, Model model) {
+        ClientNaturalPerson clientNaturalPerson = clientNaturalPersonService.findClientById(clientId);
         if (clientNaturalPerson == null) {
             model.addAttribute("error", "Update Error");
             return "error";
@@ -52,9 +52,8 @@ public class ClientNaturalPersonController {
         if (result.hasErrors()) {
             return "admin/clients/naturalPerson/clientNaturalPersonUpdate";
         }
-        clientNaturalPersonRepository.save(clientNaturalPerson);
+        clientNaturalPersonService.save(clientNaturalPerson);
         return "redirect:/clients/list";
     }
-
 
 }
