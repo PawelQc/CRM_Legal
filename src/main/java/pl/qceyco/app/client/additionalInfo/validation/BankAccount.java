@@ -1,4 +1,4 @@
-package pl.qceyco.app.client.additionalInfo.validators;
+package pl.qceyco.app.client.additionalInfo.validation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

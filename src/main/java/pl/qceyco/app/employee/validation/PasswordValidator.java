@@ -1,4 +1,4 @@
-package pl.qceyco.app.employee.validators;
+package pl.qceyco.app.employee.validation;
 
 
 import javax.validation.ConstraintValidator;

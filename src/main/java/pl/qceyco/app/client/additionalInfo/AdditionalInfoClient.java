@@ -2,7 +2,7 @@ package pl.qceyco.app.client.additionalInfo;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.pl.NIP;
-import pl.qceyco.app.client.additionalInfo.validators.BankAccount;
+import pl.qceyco.app.client.additionalInfo.validation.BankAccount;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
