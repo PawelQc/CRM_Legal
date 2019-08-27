@@ -15,8 +15,8 @@ import pl.qceyco.app.employee.Employee;
 import pl.qceyco.app.employee.EmployeeRepository;
 import pl.qceyco.app.project.Project;
 import pl.qceyco.app.project.ProjectRepository;
-import pl.qceyco.app.timesheet.referenceUnit.TimesheetReferenceUnit;
-import pl.qceyco.app.timesheet.referenceUnit.TimesheetReferenceUnitRepository;
+import pl.qceyco.app.timesheet.unit.TimesheetUnit;
+import pl.qceyco.app.timesheet.unit.TimesheetUnitRepository;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -36,12 +36,12 @@ import static java.time.temporal.TemporalAdjusters.firstInMonth;
 public class HomePageController {
 
     private final ProjectRepository projectRepository;
-    private final TimesheetReferenceUnitRepository timesheetReferenceUnitRepository;
+    private final TimesheetUnitRepository timesheetUnitRepository;
     private final EmployeeRepository employeeRepository;
 
-    public HomePageController(ProjectRepository projectRepository, TimesheetReferenceUnitRepository timesheetReferenceUnitRepository, EmployeeRepository employeeRepository) {
+    public HomePageController(ProjectRepository projectRepository, TimesheetUnitRepository timesheetUnitRepository, EmployeeRepository employeeRepository) {
         this.projectRepository = projectRepository;
-        this.timesheetReferenceUnitRepository = timesheetReferenceUnitRepository;
+        this.timesheetUnitRepository = timesheetUnitRepository;
         this.employeeRepository = employeeRepository;
     }
 
@@ -66,10 +66,10 @@ public class HomePageController {
             List<Employee> employees = employeeRepository.findAll();
             Map<String, Integer> employeesAndUtilisation = new HashMap<>();
             for (Employee e : employees) {
-                List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByEmployeeIdIn4Weeks(e.getId(), thisMonthFirstMonday, endDate);
+                List<TimesheetUnit> timesheets = timesheetUnitRepository.findAllByEmployeeIdIn4Weeks(e.getId(), thisMonthFirstMonday, endDate);
                 Integer amountOfNonBillableHours = 0;
                 Integer amountOfBillableHours = 0;
-                for (TimesheetReferenceUnit t : timesheets) {
+                for (TimesheetUnit t : timesheets) {
                     if (!t.getProject().getBillable()) {
                         amountOfNonBillableHours += t.countWeekHours();
                     }
@@ -82,21 +82,21 @@ public class HomePageController {
             }
 
             LocalDate previousMonday = LocalDate.now().with(TemporalAdjusters.previous(DayOfWeek.MONDAY)).minusDays(7);
-            List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllInRecentWeek(previousMonday, previousMonday.plusDays(1));
+            List<TimesheetUnit> timesheets = timesheetUnitRepository.findAllInRecentWeek(previousMonday, previousMonday.plusDays(1));
             adminHomeSetAttributes(model, thisMonthFirstMonday, projectsAndHours, employeesAndUtilisation, previousMonday, timesheets);
             return "admin/homeAdmin";
 
         } else {
             Long userId = loggedInUser.getId();
             List<Project> projectsOfUser = projectRepository.findAllByEmployeeId(userId);
-            TimesheetReferenceUnit recentTimesheet = timesheetReferenceUnitRepository.findFirstByEmployeeIdOrderByIdDesc(userId);
+            TimesheetUnit recentTimesheet = timesheetUnitRepository.findFirstByEmployeeIdOrderByIdDesc(userId);
             LocalDate previousMonthFirstMonday = LocalDate.now().minusMonths(1).with(firstInMonth(DayOfWeek.MONDAY));
             LocalDate endDate = previousMonthFirstMonday.plusDays(27);
 
-            List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByEmployeeIdIn4Weeks(userId, previousMonthFirstMonday, endDate);
+            List<TimesheetUnit> timesheets = timesheetUnitRepository.findAllByEmployeeIdIn4Weeks(userId, previousMonthFirstMonday, endDate);
             Integer amountOfNonBillableHours = 0;
             Integer amountOfBillableHours = 0;
-            for (TimesheetReferenceUnit t : timesheets) {
+            for (TimesheetUnit t : timesheets) {
                 if (!t.getProject().getBillable()) {
                     amountOfNonBillableHours += t.countWeekHours();
                 }
@@ -171,10 +171,10 @@ public class HomePageController {
             Map<String, Integer> employeesAndBillableHours = new HashMap<>();
             Map<String, Integer> employeesAndNonBillableHours = new HashMap<>();
             for (Employee e : employees) {
-                List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByEmployeeIdIn4Weeks(e.getId(), thisMonthFirstMonday, endDate);
+                List<TimesheetUnit> timesheets = timesheetUnitRepository.findAllByEmployeeIdIn4Weeks(e.getId(), thisMonthFirstMonday, endDate);
                 Integer amountOfNonBillableHours = 0;
                 Integer amountOfBillableHours = 0;
-                for (TimesheetReferenceUnit t : timesheets) {
+                for (TimesheetUnit t : timesheets) {
                     if (!t.getProject().getBillable()) {
                         amountOfNonBillableHours += t.countWeekHours();
                     }
@@ -206,10 +206,10 @@ public class HomePageController {
             List<Employee> employees = employeeRepository.findAll();
             Map<String, Integer> employeesAndUtilisation = new HashMap<>();
             for (Employee e : employees) {
-                List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByEmployeeIdIn4Weeks(e.getId(), thisMonthFirstMonday, endDate);
+                List<TimesheetUnit> timesheets = timesheetUnitRepository.findAllByEmployeeIdIn4Weeks(e.getId(), thisMonthFirstMonday, endDate);
                 Integer amountOfNonBillableHours = 0;
                 Integer amountOfBillableHours = 0;
-                for (TimesheetReferenceUnit t : timesheets) {
+                for (TimesheetUnit t : timesheets) {
                     if (!t.getProject().getBillable()) {
                         amountOfNonBillableHours += t.countWeekHours();
                     }
@@ -230,7 +230,7 @@ public class HomePageController {
         }
     }
 
-    private void userHomeSetAttributes(Model model, List<Project> projectsOfUser, TimesheetReferenceUnit recentTimesheet, LocalDate previousMonthFirstMonday, Integer amountOfNonBillableHours, Integer amountOfBillableHours, Integer workTimeUtilizationLevel, Integer valueOfRenderedServices, boolean isMonthlyTargetAchieved, Integer bonusAmount) {
+    private void userHomeSetAttributes(Model model, List<Project> projectsOfUser, TimesheetUnit recentTimesheet, LocalDate previousMonthFirstMonday, Integer amountOfNonBillableHours, Integer amountOfBillableHours, Integer workTimeUtilizationLevel, Integer valueOfRenderedServices, boolean isMonthlyTargetAchieved, Integer bonusAmount) {
         model.addAttribute("valueOfRenderedServices", valueOfRenderedServices);
         model.addAttribute("previousMonthFirstMonday", previousMonthFirstMonday);
         model.addAttribute("amountOfBillableHours", amountOfBillableHours);
@@ -242,7 +242,7 @@ public class HomePageController {
         model.addAttribute("recentTimesheet", recentTimesheet);
     }
 
-    private void adminHomeSetAttributes(Model model, LocalDate thisMonthFirstMonday, Map<String, Integer> projectsAndHours, Map<String, Integer> employeesAndUtilisation, LocalDate previousMonday, List<TimesheetReferenceUnit> timesheets) {
+    private void adminHomeSetAttributes(Model model, LocalDate thisMonthFirstMonday, Map<String, Integer> projectsAndHours, Map<String, Integer> employeesAndUtilisation, LocalDate previousMonday, List<TimesheetUnit> timesheets) {
         model.addAttribute("projectsAndHours", projectsAndHours);
         model.addAttribute("employeesAndUtilisation", employeesAndUtilisation);
         model.addAttribute("timesheets", timesheets);
@@ -252,8 +252,8 @@ public class HomePageController {
 
     private Integer getProjectHours(LocalDate thisMonthFirstMonday, LocalDate endDate, Project p) {
         Integer hours = 0;
-        List<TimesheetReferenceUnit> projectTimesheets = timesheetReferenceUnitRepository.findAllByProjectIn4Weeks(p.getId(), thisMonthFirstMonday, endDate);
-        for (TimesheetReferenceUnit t : projectTimesheets) {
+        List<TimesheetUnit> projectTimesheets = timesheetUnitRepository.findAllByProjectIn4Weeks(p.getId(), thisMonthFirstMonday, endDate);
+        for (TimesheetUnit t : projectTimesheets) {
             hours += t.countWeekHours();
         }
         return hours;

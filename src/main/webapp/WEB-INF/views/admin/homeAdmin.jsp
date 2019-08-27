@@ -84,15 +84,15 @@
             <tr>
                 <td>${TSrefUnit.employee.nameDisplay}</td>
                 <td>${TSrefUnit.project.signature}</td>
-                <td>${TSrefUnit.timesheetWeek.mondayHours}</td>
-                <td>${TSrefUnit.timesheetWeek.tuesdayHours}</td>
-                <td>${TSrefUnit.timesheetWeek.wednesdayHours}</td>
-                <td>${TSrefUnit.timesheetWeek.thursdayHours}</td>
-                <td>${TSrefUnit.timesheetWeek.fridayHours}</td>
-                <td>${TSrefUnit.timesheetWeek.saturdayHours}</td>
-                <td>${TSrefUnit.timesheetWeek.sundayHours}</td>
+                <td>${TSrefUnit.workWeek.mondayHours}</td>
+                <td>${TSrefUnit.workWeek.tuesdayHours}</td>
+                <td>${TSrefUnit.workWeek.wednesdayHours}</td>
+                <td>${TSrefUnit.workWeek.thursdayHours}</td>
+                <td>${TSrefUnit.workWeek.fridayHours}</td>
+                <td>${TSrefUnit.workWeek.saturdayHours}</td>
+                <td>${TSrefUnit.workWeek.sundayHours}</td>
                 <td>
-                    <a href="/timesheets/details/${TSrefUnit.timesheetWeek.id}" target="_blank"
+                    <a href="/timesheets/details/${TSrefUnit.workWeek.id}" target="_blank"
                        class="btn btn-info rounded-0 text-light m-1">Details</a>
                 </td>
             </tr>

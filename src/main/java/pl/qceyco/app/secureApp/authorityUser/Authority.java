@@ -1,4 +1,4 @@
-package pl.qceyco.app.secureApp;
+package pl.qceyco.app.secureApp.authorityUser;
 
 import javax.persistence.*;
 

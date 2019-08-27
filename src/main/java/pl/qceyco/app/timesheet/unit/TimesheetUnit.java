@@ -1,14 +1,14 @@
-package pl.qceyco.app.timesheet.referenceUnit;
+package pl.qceyco.app.timesheet.unit;
 
 import pl.qceyco.app.employee.Employee;
 import pl.qceyco.app.project.Project;
-import pl.qceyco.app.timesheet.week.TimesheetWeek;
+import pl.qceyco.app.timesheet.workWeek.WorkWeek;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "timesheet_reference_unit")
-public class TimesheetReferenceUnit {
+@Table(name = "timesheet_unit")
+public class TimesheetUnit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +16,7 @@ public class TimesheetReferenceUnit {
 
     @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "timesheet_week_id")
-    private TimesheetWeek timesheetWeek;
+    private WorkWeek workWeek;
 
     @OneToOne
     @JoinColumn(name = "employee_id")
@@ -34,12 +34,12 @@ public class TimesheetReferenceUnit {
         this.id = id;
     }
 
-    public TimesheetWeek getTimesheetWeek() {
-        return timesheetWeek;
+    public WorkWeek getWorkWeek() {
+        return workWeek;
     }
 
-    public void setTimesheetWeek(TimesheetWeek timesheetWeek) {
-        this.timesheetWeek = timesheetWeek;
+    public void setWorkWeek(WorkWeek workWeek) {
+        this.workWeek = workWeek;
     }
 
     public Employee getEmployee() {
@@ -62,20 +62,20 @@ public class TimesheetReferenceUnit {
     public String toString() {
         return "TimesheetReferenceUnit{" +
                 "id=" + id +
-                ", timesheetWeek=" + timesheetWeek +
+                ", timesheetWeek=" + workWeek +
                 ", employee=" + employee +
                 ", project=" + project +
                 '}';
     }
 
     public Integer countWeekHours() {
-        return timesheetWeek.getMondayHours() +
-                timesheetWeek.getTuesdayHours() +
-                timesheetWeek.getWednesdayHours() +
-                timesheetWeek.getThursdayHours() +
-                timesheetWeek.getFridayHours() +
-                timesheetWeek.getSaturdayHours() +
-                timesheetWeek.getSundayHours();
+        return workWeek.getMondayHours() +
+                workWeek.getTuesdayHours() +
+                workWeek.getWednesdayHours() +
+                workWeek.getThursdayHours() +
+                workWeek.getFridayHours() +
+                workWeek.getSaturdayHours() +
+                workWeek.getSundayHours();
     }
 
 }

@@ -14,19 +14,19 @@
 
     <h1 class="text-center">Update timesheet</h1>
 
-    <form:form method="post" modelAttribute="timesheetWeek" action="/timesheets/update">
+    <form:form method="post" modelAttribute="workWeek" action="/timesheets/update">
         <form:hidden path="dateMonday"/>
         <form:hidden path="id"/>
 
         <table class="table table-hover">
             <tr>
-                <th>${timesheetWeek.dateMonday}</th>
-                <th>${timesheetWeek.dateMonday.plusDays(1)}</th>
-                <th>${timesheetWeek.dateMonday.plusDays(2)}</th>
-                <th>${timesheetWeek.dateMonday.plusDays(3)}</th>
-                <th>${timesheetWeek.dateMonday.plusDays(4)}</th>
-                <th>${timesheetWeek.dateMonday.plusDays(5)}</th>
-                <th>${timesheetWeek.dateMonday.plusDays(6)}</th>
+                <th>${workWeek.dateMonday}</th>
+                <th>${workWeek.dateMonday.plusDays(1)}</th>
+                <th>${workWeek.dateMonday.plusDays(2)}</th>
+                <th>${workWeek.dateMonday.plusDays(3)}</th>
+                <th>${workWeek.dateMonday.plusDays(4)}</th>
+                <th>${workWeek.dateMonday.plusDays(5)}</th>
+                <th>${workWeek.dateMonday.plusDays(6)}</th>
             </tr>
             <tr>
                 <td>
@@ -76,7 +76,7 @@
 
         <table class="table table-hover">
             <tr>
-                <th style="width: 28%">Description of work done on ${timesheetWeek.dateMonday}</th>
+                <th style="width: 28%">Description of work done on ${workWeek.dateMonday}</th>
                 <td>
                     <form:textarea path="commentary.mondayCommentary" cols="135" rows="3" maxlength="650"
                                    cssStyle="resize: none" class="form-control"/>
@@ -84,7 +84,7 @@
                 </td>
             </tr>
             <tr>
-                <th style="width: 28%">Description of work done on ${timesheetWeek.dateMonday.plusDays(1)}</th>
+                <th style="width: 28%">Description of work done on ${workWeek.dateMonday.plusDays(1)}</th>
                 <td>
                     <form:textarea path="commentary.tuesdayCommentary" cols="135" rows="3" maxlength="650"
                                    cssStyle="resize: none" class="form-control"/>
@@ -92,7 +92,7 @@
                 </td>
             </tr>
             <tr>
-                <th style="width: 28%">Description of work done on ${timesheetWeek.dateMonday.plusDays(2)}</th>
+                <th style="width: 28%">Description of work done on ${workWeek.dateMonday.plusDays(2)}</th>
                 <td>
                     <form:textarea path="commentary.wednesdayCommentary" cols="135" rows="3" maxlength="650"
                                    cssStyle="resize: none" class="form-control"/>
@@ -100,7 +100,7 @@
                 </td>
             </tr>
             <tr>
-                <th style="width: 28%">Description of work done on ${timesheetWeek.dateMonday.plusDays(3)}</th>
+                <th style="width: 28%">Description of work done on ${workWeek.dateMonday.plusDays(3)}</th>
                 <td>
                     <form:textarea path="commentary.thursdayCommentary" cols="135" rows="3" maxlength="650"
                                    cssStyle="resize: none" class="form-control"/>
@@ -108,7 +108,7 @@
                 </td>
             </tr>
             <tr>
-                <th style="width: 28%">Description of work done on ${timesheetWeek.dateMonday.plusDays(4)}</th>
+                <th style="width: 28%">Description of work done on ${workWeek.dateMonday.plusDays(4)}</th>
                 <td>
                     <form:textarea path="commentary.fridayCommentary" cols="135" rows="3" maxlength="650"
                                    cssStyle="resize: none" class="form-control"/>
@@ -116,7 +116,7 @@
                 </td>
             </tr>
             <tr>
-                <th style="width: 28%">Description of work done on ${timesheetWeek.dateMonday.plusDays(5)}</th>
+                <th style="width: 28%">Description of work done on ${workWeek.dateMonday.plusDays(5)}</th>
                 <td>
                     <form:textarea path="commentary.saturdayCommentary" cols="135" rows="3" maxlength="650"
                                    cssStyle="resize: none" class="form-control"/>
@@ -124,7 +124,7 @@
                 </td>
             </tr>
             <tr>
-                <th style="width: 28%">Description of work done on ${timesheetWeek.dateMonday.plusDays(6)}</th>
+                <th style="width: 28%">Description of work done on ${workWeek.dateMonday.plusDays(6)}</th>
                 <td>
                     <form:textarea path="commentary.sundayCommentary" cols="135" rows="3" maxlength="650"
                                    cssStyle="resize: none" class="form-control"/>

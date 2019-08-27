@@ -5,8 +5,8 @@ import pl.qceyco.app.client.Client;
 import pl.qceyco.app.client.ClientRepository;
 import pl.qceyco.app.employee.Employee;
 import pl.qceyco.app.employee.EmployeeRepository;
-import pl.qceyco.app.timesheet.referenceUnit.TimesheetReferenceUnit;
-import pl.qceyco.app.timesheet.referenceUnit.TimesheetReferenceUnitRepository;
+import pl.qceyco.app.timesheet.unit.TimesheetUnit;
+import pl.qceyco.app.timesheet.unit.TimesheetUnitRepository;
 
 import java.util.List;
 
@@ -16,14 +16,14 @@ public class ProjectService {
     private final ClientRepository clientRepository;
     private final EmployeeRepository employeeRepository;
     private final ProjectRepository projectRepository;
-    private final TimesheetReferenceUnitRepository timesheetReferenceUnitRepository;
+    private final TimesheetUnitRepository timesheetUnitRepository;
 
     public ProjectService(ClientRepository clientRepository, EmployeeRepository employeeRepository, ProjectRepository projectRepository,
-                          TimesheetReferenceUnitRepository timesheetReferenceUnitRepository) {
+                          TimesheetUnitRepository timesheetUnitRepository) {
         this.clientRepository = clientRepository;
         this.employeeRepository = employeeRepository;
         this.projectRepository = projectRepository;
-        this.timesheetReferenceUnitRepository = timesheetReferenceUnitRepository;
+        this.timesheetUnitRepository = timesheetUnitRepository;
     }
 
     List<Client> getAllClients() {
@@ -47,9 +47,9 @@ public class ProjectService {
     }
 
     void delete(Long projectId) {
-        List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByProjectId(projectId);
-        for (TimesheetReferenceUnit t : timesheets) {
-            timesheetReferenceUnitRepository.delete(t);
+        List<TimesheetUnit> timesheets = timesheetUnitRepository.findAllByProjectId(projectId);
+        for (TimesheetUnit t : timesheets) {
+            timesheetUnitRepository.delete(t);
         }
         projectRepository.deleteById(projectId);
     }

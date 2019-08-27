@@ -28,10 +28,10 @@
                 <c:if test="${timesheet.project.id eq project.id}">
                     <tr>
                         <td>${timesheet.employee.nameDisplay}</td>
-                        <td>${timesheet.timesheetWeek.dateMonday}
-                            - ${timesheet.timesheetWeek.dateMonday.plusDays(6)}</td>
+                        <td>${timesheet.workWeek.dateMonday}
+                            - ${timesheet.workWeek.dateMonday.plusDays(6)}</td>
                         <td>${timesheet.countWeekHours()}</td>
-                        <td><a href="/timesheets/details/${timesheet.timesheetWeek.id}" target="_blank"
+                        <td><a href="/timesheets/details/${timesheet.workWeek.id}" target="_blank"
                                class="btn btn-info rounded-0 text-light m-1">Details</a></td>
                     </tr>
                 </c:if>

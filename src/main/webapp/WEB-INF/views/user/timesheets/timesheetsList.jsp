@@ -52,20 +52,20 @@
             <th>Action</th>
         </tr>
         <c:forEach var="TSrefUnit" items="${timesheetReferenceUnitsUser}">
-            <c:if test="${TSrefUnit.timesheetWeek.dateMonday.equals(nextMonday.minusDays(21))}">
+            <c:if test="${TSrefUnit.workWeek.dateMonday.equals(nextMonday.minusDays(21))}">
                 <tr>
                     <td>${TSrefUnit.project.signature}</td>
-                    <td>${TSrefUnit.timesheetWeek.mondayHours}</td>
-                    <td>${TSrefUnit.timesheetWeek.tuesdayHours}</td>
-                    <td>${TSrefUnit.timesheetWeek.wednesdayHours}</td>
-                    <td>${TSrefUnit.timesheetWeek.thursdayHours}</td>
-                    <td>${TSrefUnit.timesheetWeek.fridayHours}</td>
-                    <td>${TSrefUnit.timesheetWeek.saturdayHours}</td>
-                    <td>${TSrefUnit.timesheetWeek.sundayHours}</td>
+                    <td>${TSrefUnit.workWeek.mondayHours}</td>
+                    <td>${TSrefUnit.workWeek.tuesdayHours}</td>
+                    <td>${TSrefUnit.workWeek.wednesdayHours}</td>
+                    <td>${TSrefUnit.workWeek.thursdayHours}</td>
+                    <td>${TSrefUnit.workWeek.fridayHours}</td>
+                    <td>${TSrefUnit.workWeek.saturdayHours}</td>
+                    <td>${TSrefUnit.workWeek.sundayHours}</td>
                     <td>
-                        <a href="/timesheets/details/${TSrefUnit.timesheetWeek.id}"
+                        <a href="/timesheets/details/${TSrefUnit.workWeek.id}"
                            class="btn btn-info rounded-0 text-light m-1">Details</a>
-                        <a href="/timesheets/update/${TSrefUnit.timesheetWeek.id}"
+                        <a href="/timesheets/update/${TSrefUnit.workWeek.id}"
                            class="btn btn-warning rounded-0 text-light m-1">Update</a>
                         <a href="http://localhost:8080/timesheets/delete/${TSrefUnit.id}"
                            class="btn btn-danger rounded-0 text-light m-1"
@@ -93,20 +93,20 @@
             <th>Action</th>
         </tr>
         <c:forEach var="TSrefUnit" items="${timesheetReferenceUnitsUser}">
-            <c:if test="${TSrefUnit.timesheetWeek.dateMonday.equals(nextMonday.minusDays(14))}">
+            <c:if test="${TSrefUnit.workWeek.dateMonday.equals(nextMonday.minusDays(14))}">
                 <tr>
                     <td>${TSrefUnit.project.signature}</td>
-                    <td>${TSrefUnit.timesheetWeek.mondayHours}</td>
-                    <td>${TSrefUnit.timesheetWeek.tuesdayHours}</td>
-                    <td>${TSrefUnit.timesheetWeek.wednesdayHours}</td>
-                    <td>${TSrefUnit.timesheetWeek.thursdayHours}</td>
-                    <td>${TSrefUnit.timesheetWeek.fridayHours}</td>
-                    <td>${TSrefUnit.timesheetWeek.saturdayHours}</td>
-                    <td>${TSrefUnit.timesheetWeek.sundayHours}</td>
+                    <td>${TSrefUnit.workWeek.mondayHours}</td>
+                    <td>${TSrefUnit.workWeek.tuesdayHours}</td>
+                    <td>${TSrefUnit.workWeek.wednesdayHours}</td>
+                    <td>${TSrefUnit.workWeek.thursdayHours}</td>
+                    <td>${TSrefUnit.workWeek.fridayHours}</td>
+                    <td>${TSrefUnit.workWeek.saturdayHours}</td>
+                    <td>${TSrefUnit.workWeek.sundayHours}</td>
                     <td>
-                        <a href="/timesheets/details/${TSrefUnit.timesheetWeek.id}"
+                        <a href="/timesheets/details/${TSrefUnit.workWeek.id}"
                            class="btn btn-info rounded-0 text-light m-1">Details</a>
-                        <a href="/timesheets/update/${TSrefUnit.timesheetWeek.id}"
+                        <a href="/timesheets/update/${TSrefUnit.workWeek.id}"
                            class="btn btn-warning rounded-0 text-light m-1">Update</a>
                         <a href="http://localhost:8080/timesheets/delete/${TSrefUnit.id}"
                            class="btn btn-danger rounded-0 text-light m-1"
@@ -134,20 +134,20 @@
             <th>Action</th>
         </tr>
         <c:forEach var="TSrefUnit" items="${timesheetReferenceUnitsUser}">
-            <c:if test="${TSrefUnit.timesheetWeek.dateMonday.equals(nextMonday.minusDays(7))}">
+            <c:if test="${TSrefUnit.workWeek.dateMonday.equals(nextMonday.minusDays(7))}">
                 <tr>
                     <td>${TSrefUnit.project.signature}</td>
-                    <td>${TSrefUnit.timesheetWeek.mondayHours}</td>
-                    <td>${TSrefUnit.timesheetWeek.tuesdayHours}</td>
-                    <td>${TSrefUnit.timesheetWeek.wednesdayHours}</td>
-                    <td>${TSrefUnit.timesheetWeek.thursdayHours}</td>
-                    <td>${TSrefUnit.timesheetWeek.fridayHours}</td>
-                    <td>${TSrefUnit.timesheetWeek.saturdayHours}</td>
-                    <td>${TSrefUnit.timesheetWeek.sundayHours}</td>
+                    <td>${TSrefUnit.workWeek.mondayHours}</td>
+                    <td>${TSrefUnit.workWeek.tuesdayHours}</td>
+                    <td>${TSrefUnit.workWeek.wednesdayHours}</td>
+                    <td>${TSrefUnit.workWeek.thursdayHours}</td>
+                    <td>${TSrefUnit.workWeek.fridayHours}</td>
+                    <td>${TSrefUnit.workWeek.saturdayHours}</td>
+                    <td>${TSrefUnit.workWeek.sundayHours}</td>
                     <td>
-                        <a href="/timesheets/details/${TSrefUnit.timesheetWeek.id}"
+                        <a href="/timesheets/details/${TSrefUnit.workWeek.id}"
                            class="btn btn-info rounded-0 text-light m-1">Details</a>
-                        <a href="/timesheets/update/${TSrefUnit.timesheetWeek.id}"
+                        <a href="/timesheets/update/${TSrefUnit.workWeek.id}"
                            class="btn btn-warning rounded-0 text-light m-1">Update</a>
                         <a href="http://localhost:8080/timesheets/delete/${TSrefUnit.id}"
                            class="btn btn-danger rounded-0 text-light m-1"
@@ -174,20 +174,20 @@
             <th>Action</th>
         </tr>
         <c:forEach var="TSrefUnit" items="${timesheetReferenceUnitsUser}">
-            <c:if test="${TSrefUnit.timesheetWeek.dateMonday.equals(nextMonday)}">
+            <c:if test="${TSrefUnit.workWeek.dateMonday.equals(nextMonday)}">
                 <tr>
                     <td>${TSrefUnit.project.signature}</td>
-                    <td>${TSrefUnit.timesheetWeek.mondayHours}</td>
-                    <td>${TSrefUnit.timesheetWeek.tuesdayHours}</td>
-                    <td>${TSrefUnit.timesheetWeek.wednesdayHours}</td>
-                    <td>${TSrefUnit.timesheetWeek.thursdayHours}</td>
-                    <td>${TSrefUnit.timesheetWeek.fridayHours}</td>
-                    <td>${TSrefUnit.timesheetWeek.saturdayHours}</td>
-                    <td>${TSrefUnit.timesheetWeek.sundayHours}</td>
+                    <td>${TSrefUnit.workWeek.mondayHours}</td>
+                    <td>${TSrefUnit.workWeek.tuesdayHours}</td>
+                    <td>${TSrefUnit.workWeek.wednesdayHours}</td>
+                    <td>${TSrefUnit.workWeek.thursdayHours}</td>
+                    <td>${TSrefUnit.workWeek.fridayHours}</td>
+                    <td>${TSrefUnit.workWeek.saturdayHours}</td>
+                    <td>${TSrefUnit.workWeek.sundayHours}</td>
                     <td>
-                        <a href="/timesheets/details/${TSrefUnit.timesheetWeek.id}"
+                        <a href="/timesheets/details/${TSrefUnit.workWeek.id}"
                            class="btn btn-info rounded-0 text-light m-1">Details</a>
-                        <a href="/timesheets/update/${TSrefUnit.timesheetWeek.id}"
+                        <a href="/timesheets/update/${TSrefUnit.workWeek.id}"
                            class="btn btn-warning rounded-0 text-light m-1">Update</a>
                         <a href="http://localhost:8080/timesheets/delete/${TSrefUnit.id}"
                            class="btn btn-danger rounded-0 text-light m-1"

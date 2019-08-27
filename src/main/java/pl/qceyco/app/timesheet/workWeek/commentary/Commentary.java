@@ -1,4 +1,4 @@
-package pl.qceyco.app.timesheet.commentary;
+package pl.qceyco.app.timesheet.workWeek.commentary;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;

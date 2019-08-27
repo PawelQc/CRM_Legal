@@ -1,7 +1,5 @@
 package pl.qceyco.app.secureApp;
 
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +10,12 @@ import pl.qceyco.app.employee.Employee;
 @SessionAttributes("loggedInUser")
 public class LoginController {
 
+    private final LoginService loginService;
+
+    public LoginController(LoginService loginService) {
+        this.loginService = loginService;
+    }
+
     @RequestMapping("/login")
     public String loginPage() {
         return "login";
@@ -19,9 +23,7 @@ public class LoginController {
 
     @RequestMapping("/login-success")
     public String loginSuccess(Model model) {
-        UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-        validatePrinciple(authentication.getPrincipal());
-        Employee loggedInUser = ((UserPrincipal) authentication.getPrincipal()).getUserDetails();
+        Employee loggedInUser = loginService.getLoggedInUser();
         model.addAttribute("loggedInUser", loggedInUser);
         if (loggedInUser.getAdmin() == true) {
             return "admin/loginSuccessAdmin";
@@ -35,11 +37,6 @@ public class LoginController {
         return "logout";
     }
 
-    private void validatePrinciple(Object principal) {
-        if (!(principal instanceof UserPrincipal)) {
-            throw new IllegalArgumentException("Principal can not be null!");
-        }
-    }
 
 }
 

@@ -1,4 +1,4 @@
-package pl.qceyco.app.timesheet.referenceUnit;
+package pl.qceyco.app.timesheet.unit;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,9 +8,9 @@ import pl.qceyco.app.employee.Employee;
 import pl.qceyco.app.employee.EmployeeRepository;
 import pl.qceyco.app.project.Project;
 import pl.qceyco.app.project.ProjectRepository;
-import pl.qceyco.app.timesheet.commentary.CommentaryRepository;
-import pl.qceyco.app.timesheet.week.TimesheetWeek;
-import pl.qceyco.app.timesheet.week.TimesheetWeekRepository;
+import pl.qceyco.app.timesheet.workWeek.commentary.CommentaryRepository;
+import pl.qceyco.app.timesheet.workWeek.WorkWeek;
+import pl.qceyco.app.timesheet.workWeek.WorkWeekRepository;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -22,20 +22,20 @@ import java.util.List;
 @Controller
 @RequestMapping("/timesheets")
 
-public class TimesheetReferenceUnitController {
+public class TimesheetUnitController {
 
-    private final TimesheetReferenceUnitRepository timesheetReferenceUnitRepository;
+    private final TimesheetUnitRepository timesheetUnitRepository;
     private final ProjectRepository projectRepository;
     private final EmployeeRepository employeeRepository;
-    private final TimesheetWeekRepository timesheetWeekRepository;
+    private final WorkWeekRepository workWeekRepository;
     private final CommentaryRepository commentaryRepository;
 
-    public TimesheetReferenceUnitController(TimesheetReferenceUnitRepository timesheetReferenceUnitRepository, ProjectRepository projectRepository,
-                                            EmployeeRepository employeeRepository, TimesheetWeekRepository timesheetWeekRepository, CommentaryRepository commentaryRepository) {
-        this.timesheetReferenceUnitRepository = timesheetReferenceUnitRepository;
+    public TimesheetUnitController(TimesheetUnitRepository timesheetUnitRepository, ProjectRepository projectRepository,
+                                   EmployeeRepository employeeRepository, WorkWeekRepository workWeekRepository, CommentaryRepository commentaryRepository) {
+        this.timesheetUnitRepository = timesheetUnitRepository;
         this.projectRepository = projectRepository;
         this.employeeRepository = employeeRepository;
-        this.timesheetWeekRepository = timesheetWeekRepository;
+        this.workWeekRepository = workWeekRepository;
         this.commentaryRepository = commentaryRepository;
     }
 
@@ -50,8 +50,8 @@ public class TimesheetReferenceUnitController {
     }
 
     @ModelAttribute("timesheetReferenceUnitsAll")
-    public List<TimesheetReferenceUnit> populateTimesheetReferenceUnits() {
-        return timesheetReferenceUnitRepository.findAll();
+    public List<TimesheetUnit> populateTimesheetReferenceUnits() {
+        return timesheetUnitRepository.findAll();
     }
 
     ///////////////////////
@@ -66,7 +66,7 @@ public class TimesheetReferenceUnitController {
         if (employee.getAdmin()) {
             return "admin/timesheets/timesheetsList";
         } else {
-            List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByEmployeeId(employee.getId());
+            List<TimesheetUnit> timesheets = timesheetUnitRepository.findAllByEmployeeId(employee.getId());
             model.addAttribute("timesheetReferenceUnitsUser", timesheets);
             List<Project> projectsWhereEmployeeParticipates = projectRepository.findAllByEmployeeId(employee.getId());
             model.addAttribute("projectsWhereEmployeeParticipates", projectsWhereEmployeeParticipates);
@@ -76,8 +76,8 @@ public class TimesheetReferenceUnitController {
 
     @RequestMapping(value = "/details/{tsRefUId}", method = RequestMethod.GET)
     public String showATimesheetDetails(@PathVariable Long tsRefUId, HttpSession session, Model model) {
-        TimesheetReferenceUnit timesheetReferenceUnit = timesheetReferenceUnitRepository.findFirstById(tsRefUId);
-        model.addAttribute("timesheetDetails", timesheetReferenceUnit);
+        TimesheetUnit timesheetUnit = timesheetUnitRepository.findFirstById(tsRefUId);
+        model.addAttribute("timesheetDetails", timesheetUnit);
         return "timesheets/timesheetDetailsList";
     }
 
@@ -97,52 +97,52 @@ public class TimesheetReferenceUnitController {
     public String showAddForm(@PathVariable Long projectId, Model model, @RequestParam(required = false) String mode,
                               @RequestParam(required = false) String mondaySelect) {
         LocalDate nextMonday = getMondayDate(mode, mondaySelect, 7);
-        TimesheetWeek timesheetWeek = new TimesheetWeek();
-        timesheetWeek.setDateMonday(nextMonday);
-        model.addAttribute("timesheetWeek", timesheetWeek);
+        WorkWeek workWeek = new WorkWeek();
+        workWeek.setDateMonday(nextMonday);
+        model.addAttribute("timesheetWeek", workWeek);
         Project project = projectRepository.findFirstById(projectId);
         model.addAttribute("project", project);
         return "timesheets/timesheetAdd";
     }
 
     @RequestMapping(value = "/add/{projectId}", method = RequestMethod.POST)
-    public String processAddForm(@PathVariable Long projectId, @ModelAttribute @Valid TimesheetWeek timesheetWeek,
+    public String processAddForm(@PathVariable Long projectId, @ModelAttribute @Valid WorkWeek workWeek,
                                  BindingResult result, HttpSession session, Model model) {
         if (result.hasErrors()) {
             return "timesheets/timesheetAdd";
         }
         Employee loggedInUser = (Employee) session.getAttribute("loggedInUser");
-        if (similarTimesheetExists(projectId, timesheetWeek, model, loggedInUser)) {
+        if (similarTimesheetExists(projectId, workWeek, model, loggedInUser)) {
             Project project = projectRepository.findFirstById(projectId);
             model.addAttribute("project", project);
             return "timesheets/timesheetAdd";
         }
-        TimesheetReferenceUnit timesheetReferenceUnit = setTimesheetReferenceUnitValue(projectId, timesheetWeek, loggedInUser);
-        timesheetReferenceUnitRepository.save(timesheetReferenceUnit);
+        TimesheetUnit timesheetUnit = setTimesheetReferenceUnitValue(projectId, workWeek, loggedInUser);
+        timesheetUnitRepository.save(timesheetUnit);
         return "redirect:/timesheets/list";
     }
 
     @RequestMapping(value = "/delete/{tsRefUId}", method = RequestMethod.GET)
     public String delete(@PathVariable Long tsRefUId) {
-        timesheetReferenceUnitRepository.deleteById(tsRefUId);
+        timesheetUnitRepository.deleteById(tsRefUId);
         return "redirect:/timesheets/list";
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String showUpdateForm(@PathVariable Long id, Model model) {
-        TimesheetWeek timesheetWeek = timesheetWeekRepository.findFirstById(id);
-        if (checkIfRecordExist(model, timesheetWeek == null, "error", "Update Error")) return "error";
-        model.addAttribute("timesheetWeek", timesheetWeek);
+        WorkWeek workWeek = workWeekRepository.findFirstById(id);
+        if (checkIfRecordExist(model, workWeek == null, "error", "Update Error")) return "error";
+        model.addAttribute("timesheetWeek", workWeek);
         return "timesheets/timesheetUpdate";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String processUpdateForm(@ModelAttribute @Valid TimesheetWeek timesheetWeek, BindingResult result) {
+    public String processUpdateForm(@ModelAttribute @Valid WorkWeek workWeek, BindingResult result) {
         if (result.hasErrors()) {
             return "timesheets/timesheetUpdate";
         }
-        timesheetWeek.setDateMonday(timesheetWeek.getDateMonday().plusDays(1));
-        timesheetWeekRepository.save(timesheetWeek);
+        workWeek.setDateMonday(workWeek.getDateMonday().plusDays(1));
+        workWeekRepository.save(workWeek);
         return "redirect:list";
     }
 
@@ -151,7 +151,7 @@ public class TimesheetReferenceUnitController {
                                             Model model, HttpSession session) {
         Employee loggedInUser = (Employee) session.getAttribute("loggedInUser");
         if (loggedInUser.getAdmin()) {
-            List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByProjectIdOrderByEmployeeId(projectId);
+            List<TimesheetUnit> timesheets = timesheetUnitRepository.findAllByProjectIdOrderByEmployeeId(projectId);
             if (checkIfRecordExist(model, timesheets.size() == 0, "errorNoTimesheets", "Error: There are no timesheets to display!"))
                 return "redirect:/timesheets/list";
             model.addAttribute("projectId", projectId);
@@ -160,7 +160,7 @@ public class TimesheetReferenceUnitController {
             model.addAttribute("nextMonday", nextMonday);
             return "admin/timesheets/timesheetsListOfGivenProject";
         } else {
-            List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByProjectIdAndEmployeeId(projectId, loggedInUser.getId());
+            List<TimesheetUnit> timesheets = timesheetUnitRepository.findAllByProjectIdAndEmployeeId(projectId, loggedInUser.getId());
             if (checkIfRecordExist(model, timesheets.size() == 0, "errorNoTimesheets", "Error: There are no timesheets to display!"))
                 return "redirect:/timesheets/list";
             model.addAttribute("timesheets", timesheets);
@@ -170,7 +170,7 @@ public class TimesheetReferenceUnitController {
 
     @RequestMapping(value = "/sort-by-employee", method = {RequestMethod.POST, RequestMethod.GET})
     public String showTimesheetsByEmployeeId(@RequestParam Long employeeId, Model model, @RequestParam(required = false) String mode, @RequestParam(required = false) String mondaySelect) {
-        List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByEmployeeId(employeeId);
+        List<TimesheetUnit> timesheets = timesheetUnitRepository.findAllByEmployeeId(employeeId);
         if (checkIfRecordExist(model, timesheets.size() == 0, "errorNoTimesheets", "Error: There are no timesheets to display!"))
             return "redirect:/timesheets/list";
         model.addAttribute("employeeId", employeeId);
@@ -196,20 +196,20 @@ public class TimesheetReferenceUnitController {
         return nextMonday;
     }
 
-    private TimesheetReferenceUnit setTimesheetReferenceUnitValue(@PathVariable Long projectId, @Valid @ModelAttribute TimesheetWeek timesheetWeek, Employee loggedInUser) {
-        timesheetWeek.setDateMonday(timesheetWeek.getDateMonday().plusDays(1));
-        timesheetWeekRepository.save(timesheetWeek);
+    private TimesheetUnit setTimesheetReferenceUnitValue(@PathVariable Long projectId, @Valid @ModelAttribute WorkWeek workWeek, Employee loggedInUser) {
+        workWeek.setDateMonday(workWeek.getDateMonday().plusDays(1));
+        workWeekRepository.save(workWeek);
         Project project = projectRepository.findFirstByIdWithProjectTeamMembers(projectId);
-        TimesheetReferenceUnit timesheetReferenceUnit = new TimesheetReferenceUnit();
-        timesheetReferenceUnit.setTimesheetWeek(timesheetWeek);
-        timesheetReferenceUnit.setEmployee(loggedInUser);
-        timesheetReferenceUnit.setProject(project);
-        return timesheetReferenceUnit;
+        TimesheetUnit timesheetUnit = new TimesheetUnit();
+        timesheetUnit.setWorkWeek(workWeek);
+        timesheetUnit.setEmployee(loggedInUser);
+        timesheetUnit.setProject(project);
+        return timesheetUnit;
     }
 
-    private boolean similarTimesheetExists(@PathVariable Long projectId, @Valid @ModelAttribute TimesheetWeek timesheetWeek, Model model, Employee loggedInUser) {
-        TimesheetReferenceUnit timesheetSimilarInDB = timesheetReferenceUnitRepository
-                .findFirstByEmployeeIdAndProjectIdForSpecificWeek(loggedInUser.getId(), projectId, timesheetWeek.getDateMonday(), timesheetWeek.getDateMonday().plusDays(1));
+    private boolean similarTimesheetExists(@PathVariable Long projectId, @Valid @ModelAttribute WorkWeek workWeek, Model model, Employee loggedInUser) {
+        TimesheetUnit timesheetSimilarInDB = timesheetUnitRepository
+                .findFirstByEmployeeIdAndProjectIdForSpecificWeek(loggedInUser.getId(), projectId, workWeek.getDateMonday(), workWeek.getDateMonday().plusDays(1));
         if (timesheetSimilarInDB != null) {
             model.addAttribute("errorSimilarTsExists", "Error: there is already existing timesheet for this project and date!");
             model.addAttribute("timesheetSimilarInDB", timesheetSimilarInDB);

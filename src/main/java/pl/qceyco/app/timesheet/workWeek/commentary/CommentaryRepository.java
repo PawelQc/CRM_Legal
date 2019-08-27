@@ -1,4 +1,4 @@
-package pl.qceyco.app.timesheet.commentary;
+package pl.qceyco.app.timesheet.workWeek.commentary;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

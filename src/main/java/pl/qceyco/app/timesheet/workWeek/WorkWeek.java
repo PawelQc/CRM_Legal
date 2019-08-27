@@ -1,17 +1,16 @@
-package pl.qceyco.app.timesheet.week;
+package pl.qceyco.app.timesheet.workWeek;
 
-import pl.qceyco.app.timesheet.commentary.Commentary;
+import pl.qceyco.app.timesheet.workWeek.commentary.Commentary;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
-@Table(name = "timesheet_week")
-public class TimesheetWeek {
+@Table(name = "work_week")
+public class WorkWeek {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -180,7 +179,7 @@ public class TimesheetWeek {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TimesheetWeek that = (TimesheetWeek) o;
+        WorkWeek that = (WorkWeek) o;
         return id.equals(that.id);
     }
 

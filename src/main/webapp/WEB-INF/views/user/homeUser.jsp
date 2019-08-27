@@ -79,39 +79,39 @@
             <th>Work description</th>
         </tr>
         <tr>
-            <td style="width: 130px">${recentTimesheet.timesheetWeek.dateMonday}</td>
-            <td>${recentTimesheet.timesheetWeek.mondayHours}</td>
-            <td>${recentTimesheet.timesheetWeek.commentary.mondayCommentary}</td>
+            <td style="width: 130px">${recentTimesheet.workWeek.dateMonday}</td>
+            <td>${recentTimesheet.workWeek.mondayHours}</td>
+            <td>${recentTimesheet.workWeek.commentary.mondayCommentary}</td>
         </tr>
         <tr>
-            <td style="width: 130px">${recentTimesheet.timesheetWeek.dateMonday.plusDays(1)}</td>
-            <td>${recentTimesheet.timesheetWeek.tuesdayHours}</td>
-            <td>${recentTimesheet.timesheetWeek.commentary.tuesdayCommentary}</td>
+            <td style="width: 130px">${recentTimesheet.workWeek.dateMonday.plusDays(1)}</td>
+            <td>${recentTimesheet.workWeek.tuesdayHours}</td>
+            <td>${recentTimesheet.workWeek.commentary.tuesdayCommentary}</td>
         </tr>
         <tr>
-            <td style="width: 130px">${recentTimesheet.timesheetWeek.dateMonday.plusDays(2)}</td>
-            <td>${recentTimesheet.timesheetWeek.wednesdayHours}</td>
-            <td>${recentTimesheet.timesheetWeek.commentary.wednesdayCommentary}</td>
+            <td style="width: 130px">${recentTimesheet.workWeek.dateMonday.plusDays(2)}</td>
+            <td>${recentTimesheet.workWeek.wednesdayHours}</td>
+            <td>${recentTimesheet.workWeek.commentary.wednesdayCommentary}</td>
         </tr>
         <tr>
-            <td style="width: 130px">${recentTimesheet.timesheetWeek.dateMonday.plusDays(3)}</td>
-            <td>${recentTimesheet.timesheetWeek.thursdayHours}</td>
-            <td>${recentTimesheet.timesheetWeek.commentary.thursdayCommentary}</td>
+            <td style="width: 130px">${recentTimesheet.workWeek.dateMonday.plusDays(3)}</td>
+            <td>${recentTimesheet.workWeek.thursdayHours}</td>
+            <td>${recentTimesheet.workWeek.commentary.thursdayCommentary}</td>
         </tr>
         <tr>
-            <td style="width: 130px">${recentTimesheet.timesheetWeek.dateMonday.plusDays(4)}</td>
-            <td>${recentTimesheet.timesheetWeek.fridayHours}</td>
-            <td>${recentTimesheet.timesheetWeek.commentary.fridayCommentary}</td>
+            <td style="width: 130px">${recentTimesheet.workWeek.dateMonday.plusDays(4)}</td>
+            <td>${recentTimesheet.workWeek.fridayHours}</td>
+            <td>${recentTimesheet.workWeek.commentary.fridayCommentary}</td>
         </tr>
         <tr>
-            <td style="width: 130px">${recentTimesheet.timesheetWeek.dateMonday.plusDays(5)}</td>
-            <td>${recentTimesheet.timesheetWeek.saturdayHours}</td>
-            <td>${recentTimesheet.timesheetWeek.commentary.saturdayCommentary}</td>
+            <td style="width: 130px">${recentTimesheet.workWeek.dateMonday.plusDays(5)}</td>
+            <td>${recentTimesheet.workWeek.saturdayHours}</td>
+            <td>${recentTimesheet.workWeek.commentary.saturdayCommentary}</td>
         </tr>
         <tr>
-            <td style="width: 130px">${recentTimesheet.timesheetWeek.dateMonday.plusDays(6)}</td>
-            <td>${recentTimesheet.timesheetWeek.sundayHours}</td>
-            <td>${recentTimesheet.timesheetWeek.commentary.sundayCommentary}</td>
+            <td style="width: 130px">${recentTimesheet.workWeek.dateMonday.plusDays(6)}</td>
+            <td>${recentTimesheet.workWeek.sundayHours}</td>
+            <td>${recentTimesheet.workWeek.commentary.sundayCommentary}</td>
         </tr>
     </table>
 </div>

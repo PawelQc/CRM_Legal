@@ -6,10 +6,10 @@ import org.springframework.stereotype.Service;
 import pl.qceyco.app.employee.additinalInfo.AdditionalInfoEmployeeRepository;
 import pl.qceyco.app.project.Project;
 import pl.qceyco.app.project.ProjectRepository;
-import pl.qceyco.app.secureApp.Authority;
-import pl.qceyco.app.secureApp.AuthorityRepository;
-import pl.qceyco.app.timesheet.referenceUnit.TimesheetReferenceUnit;
-import pl.qceyco.app.timesheet.referenceUnit.TimesheetReferenceUnitRepository;
+import pl.qceyco.app.secureApp.authorityUser.Authority;
+import pl.qceyco.app.secureApp.authorityUser.AuthorityRepository;
+import pl.qceyco.app.timesheet.unit.TimesheetUnit;
+import pl.qceyco.app.timesheet.unit.TimesheetUnitRepository;
 
 import java.util.List;
 import java.util.Set;
@@ -21,16 +21,16 @@ public class EmployeeService {
     private final ProjectRepository projectRepository;
     private final AdditionalInfoEmployeeRepository additionalInfoEmployeeRepository;
     private final EmployeeRepository employeeRepository;
-    private final TimesheetReferenceUnitRepository timesheetReferenceUnitRepository;
+    private final TimesheetUnitRepository timesheetUnitRepository;
 
     public EmployeeService(EmployeeRepository employeeRepository, AdditionalInfoEmployeeRepository additionalInfoEmployeeRepository,
                            ProjectRepository projectRepository, AuthorityRepository authorityRepository,
-                           TimesheetReferenceUnitRepository timesheetReferenceUnitRepository) {
+                           TimesheetUnitRepository timesheetUnitRepository) {
         this.employeeRepository = employeeRepository;
         this.additionalInfoEmployeeRepository = additionalInfoEmployeeRepository;
         this.projectRepository = projectRepository;
         this.authorityRepository = authorityRepository;
-        this.timesheetReferenceUnitRepository = timesheetReferenceUnitRepository;
+        this.timesheetUnitRepository = timesheetUnitRepository;
     }
 
     List<Employee> getAllEmployees() {
@@ -87,10 +87,10 @@ public class EmployeeService {
 
     void delete(Long employeeId) {
         Employee employeeToDelete = employeeRepository.findFirstById(employeeId);
-        List<TimesheetReferenceUnit> employeesTimesheets = timesheetReferenceUnitRepository.findAllByEmployeeId(employeeToDelete.getId());
+        List<TimesheetUnit> employeesTimesheets = timesheetUnitRepository.findAllByEmployeeId(employeeToDelete.getId());
         if (employeesTimesheets.size() > 0) {
-            for (TimesheetReferenceUnit t : employeesTimesheets) {
-                timesheetReferenceUnitRepository.delete(t);
+            for (TimesheetUnit t : employeesTimesheets) {
+                timesheetUnitRepository.delete(t);
             }
         }
         employeeRepository.deleteById(employeeId);

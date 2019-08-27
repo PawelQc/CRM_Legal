@@ -14,8 +14,8 @@ import pl.qceyco.app.employee.Employee;
 import pl.qceyco.app.employee.EmployeeRepository;
 import pl.qceyco.app.project.Project;
 import pl.qceyco.app.project.ProjectRepository;
-import pl.qceyco.app.timesheet.referenceUnit.TimesheetReferenceUnit;
-import pl.qceyco.app.timesheet.referenceUnit.TimesheetReferenceUnitRepository;
+import pl.qceyco.app.timesheet.unit.TimesheetUnit;
+import pl.qceyco.app.timesheet.unit.TimesheetUnitRepository;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -28,15 +28,15 @@ import static java.time.temporal.TemporalAdjusters.firstInMonth;
 
 public class ReportsController {
 
-    private final TimesheetReferenceUnitRepository timesheetReferenceUnitRepository;
+    private final TimesheetUnitRepository timesheetUnitRepository;
     private final ProjectRepository projectRepository;
     private final EmployeeRepository employeeRepository;
     private final ClientRepository clientRepository;
     private final ClientLegalPersonRepository clientLegalPersonRepository;
 
-    public ReportsController(TimesheetReferenceUnitRepository timesheetReferenceUnitRepository, ProjectRepository projectRepository,
+    public ReportsController(TimesheetUnitRepository timesheetUnitRepository, ProjectRepository projectRepository,
                              EmployeeRepository employeeRepository, ClientRepository clientRepository, ClientLegalPersonRepository clientLegalPersonRepository) {
-        this.timesheetReferenceUnitRepository = timesheetReferenceUnitRepository;
+        this.timesheetUnitRepository = timesheetUnitRepository;
         this.projectRepository = projectRepository;
         this.employeeRepository = employeeRepository;
         this.clientRepository = clientRepository;
@@ -59,8 +59,8 @@ public class ReportsController {
     }
 
     @ModelAttribute("timesheetReferenceUnitsAll")
-    public List<TimesheetReferenceUnit> populateTimesheetReferenceUnits() {
-        return timesheetReferenceUnitRepository.findAll();
+    public List<TimesheetUnit> populateTimesheetReferenceUnits() {
+        return timesheetUnitRepository.findAll();
     }
 
     ///////////////////////
@@ -98,10 +98,10 @@ public class ReportsController {
             return "reports/employeeReport/reportEmployeeReportForm";
         }
         LocalDate endDate = selectedMonday.plusDays(27);
-        List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByEmployeeIdIn4Weeks(employeeId, selectedMonday, endDate);
+        List<TimesheetUnit> timesheets = timesheetUnitRepository.findAllByEmployeeIdIn4Weeks(employeeId, selectedMonday, endDate);
         Integer amountOfNonBillableHours = 0;
         Integer amountOfBillableHours = 0;
-        for (TimesheetReferenceUnit t : timesheets) {
+        for (TimesheetUnit t : timesheets) {
             if (!t.getProject().getBillable()) {
                 amountOfNonBillableHours += t.countWeekHours();
             }
@@ -134,8 +134,8 @@ public class ReportsController {
         }
         Project project = projectRepository.findFirstByIdWithProjectTeamMembers(projectId);
         Integer amountOfHours = 0;
-        List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByProjectIdOrderByEmployeeId(projectId);
-        for (TimesheetReferenceUnit t : timesheets) {
+        List<TimesheetUnit> timesheets = timesheetUnitRepository.findAllByProjectIdOrderByEmployeeId(projectId);
+        for (TimesheetUnit t : timesheets) {
             amountOfHours += t.countWeekHours();
         }
         Integer clientDefaultHourlyRate = project.getClient().getAdditionalInfo().getHourlyRateIsCharged();
@@ -162,11 +162,11 @@ public class ReportsController {
             return "reports/invoicePreview/invoicePreviewForm";
         }
         LocalDate endDate = selectedMonday.plusDays(27);
-        List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByClientIn4Weeks(clientId, selectedMonday, endDate);
+        List<TimesheetUnit> timesheets = timesheetUnitRepository.findAllByClientIn4Weeks(clientId, selectedMonday, endDate);
         List<Project> projectsOfClient = projectRepository.findAllByClientId(clientId);
         Client client = clientRepository.findFirstById(clientId);
         Integer amountOfHours = 0;
-        for (TimesheetReferenceUnit t : timesheets) {
+        for (TimesheetUnit t : timesheets) {
             amountOfHours += t.countWeekHours();
         }
         addModelAttributesInvoicePreview(model, selectedMonday, timesheets, projectsOfClient, client, amountOfHours);
@@ -207,7 +207,7 @@ public class ReportsController {
         model.addAttribute("isProjectProfitable", isProjectProfitable);
     }
 
-    private void addModelAttributesInvoicePreview(Model model, LocalDate selectedMonday, List<TimesheetReferenceUnit> timesheets, List<Project> projectsOfClient, Client client, Integer amountOfHours) {
+    private void addModelAttributesInvoicePreview(Model model, LocalDate selectedMonday, List<TimesheetUnit> timesheets, List<Project> projectsOfClient, Client client, Integer amountOfHours) {
         model.addAttribute("selectedMonday", selectedMonday);
         model.addAttribute("timesheets", timesheets);
         model.addAttribute("projectsOfClient", projectsOfClient);
