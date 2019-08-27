@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.qceyco.app.employee.Employee;
-import pl.qceyco.app.employee.EmployeeRepository;
 import pl.qceyco.app.employee.additinalInfo.AdditionalInfoEmployee;
-import pl.qceyco.app.employee.additinalInfo.AdditionalInfoEmployeeRepository;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -20,19 +18,17 @@ import javax.validation.Valid;
 
 public class UserInfoController {
 
-    private final AdditionalInfoEmployeeRepository additionalInfoEmployeeRepository;
-    private final EmployeeRepository employeeRepository;
+    private final UserInfoService userInfoService;
 
-    public UserInfoController(AdditionalInfoEmployeeRepository additionalInfoEmployeeRepository, EmployeeRepository employeeRepository) {
-        this.additionalInfoEmployeeRepository = additionalInfoEmployeeRepository;
-        this.employeeRepository = employeeRepository;
+    public UserInfoController(UserInfoService userInfoService) {
+        this.userInfoService = userInfoService;
     }
 
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     public String showDetails(Model model, HttpSession session) {
         Employee loggedInUser = (Employee) session.getAttribute("loggedInUser");
-        Employee employee = employeeRepository.findFirstById(loggedInUser.getId());
-        AdditionalInfoEmployee additionalInfoEmployee = additionalInfoEmployeeRepository.findFirstById(loggedInUser.getId());
+        Employee employee = userInfoService.getEmployeeById(loggedInUser.getId());
+        AdditionalInfoEmployee additionalInfoEmployee = userInfoService.getAdditionalInfoById(loggedInUser.getAdditionalInfo().getId());
         model.addAttribute("employee", employee);
         model.addAttribute("additionalInfo", additionalInfoEmployee);
         if (loggedInUser.getAdmin()) {
@@ -44,7 +40,7 @@ public class UserInfoController {
 
     @RequestMapping(value = "/info/update/{infoId}", method = RequestMethod.GET)
     public String showUpdateForm(@PathVariable Long infoId, Model model) {
-        AdditionalInfoEmployee additionalInfoEmployee = additionalInfoEmployeeRepository.findFirstById(infoId);
+        AdditionalInfoEmployee additionalInfoEmployee = userInfoService.getAdditionalInfoById(infoId);
         if (additionalInfoEmployee == null) {
             model.addAttribute("error", "Update Error");
             return "error";
@@ -58,7 +54,7 @@ public class UserInfoController {
         if (result.hasErrors()) {
             return "admin/info/infoUpdate";
         }
-        additionalInfoEmployeeRepository.save(additionalInfoEmployee);
+        userInfoService.saveUpdate(additionalInfoEmployee);
         return "redirect:/user/info";
     }
 

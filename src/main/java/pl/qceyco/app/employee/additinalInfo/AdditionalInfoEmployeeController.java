@@ -5,7 +5,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.qceyco.app.employee.Employee;
-import pl.qceyco.app.employee.EmployeeRepository;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -15,12 +14,10 @@ import javax.validation.Valid;
 
 public class AdditionalInfoEmployeeController {
 
-    private final AdditionalInfoEmployeeRepository additionalInfoEmployeeRepository;
-    private final EmployeeRepository employeeRepository;
+    private final AdditionalInfoEmployeeService additionalInfoEmployeeService;
 
-    public AdditionalInfoEmployeeController(AdditionalInfoEmployeeRepository additionalInfoEmployeeRepository, EmployeeRepository employeeRepository) {
-        this.additionalInfoEmployeeRepository = additionalInfoEmployeeRepository;
-        this.employeeRepository = employeeRepository;
+    public AdditionalInfoEmployeeController(AdditionalInfoEmployeeService additionalInfoEmployeeService) {
+        this.additionalInfoEmployeeService = additionalInfoEmployeeService;
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -29,9 +26,9 @@ public class AdditionalInfoEmployeeController {
         if (additionalInfoId == null) {
             return "redirect:/employees/additional-info/add/" + employeeId;
         }
-        Employee employee = employeeRepository.findFirstById(employeeId);
+        Employee employee = additionalInfoEmployeeService.getEmployeeById(employeeId);
         model.addAttribute("employee", employee);
-        AdditionalInfoEmployee additionalInfoEmployee = additionalInfoEmployeeRepository.findFirstById(additionalInfoId);
+        AdditionalInfoEmployee additionalInfoEmployee = additionalInfoEmployeeService.getAdditionalInfoById(additionalInfoId);
         model.addAttribute("additionalInfoEmployee", additionalInfoEmployee);
         Employee loggedInUser = (Employee) session.getAttribute("loggedInUser");
         if (loggedInUser.getAdmin()) {
@@ -43,7 +40,7 @@ public class AdditionalInfoEmployeeController {
 
     @RequestMapping(value = "/add/{employeeId}", method = RequestMethod.GET)
     public String showAddForm(@PathVariable Long employeeId, Model model) {
-        Employee employee = employeeRepository.findFirstById(employeeId);
+        Employee employee = additionalInfoEmployeeService.getEmployeeById(employeeId);
         model.addAttribute("employee", employee);
         model.addAttribute("additionalInfoEmployee", new AdditionalInfoEmployee());
         return "admin/employees/detailedInfo/employeeDetailsAdd";
@@ -54,21 +51,18 @@ public class AdditionalInfoEmployeeController {
         if (result.hasErrors()) {
             return "admin/employees/detailedInfo/employeeDetailsAdd";
         }
-        additionalInfoEmployeeRepository.save(additionalInfoEmployee);
-        Employee employee = employeeRepository.findFirstById(employeeId);
-        employee.setAdditionalInfo(additionalInfoEmployee);
-        employeeRepository.save(employee);
+        additionalInfoEmployeeService.saveAdd(employeeId, additionalInfoEmployee);
         return "redirect:/employees/list";
     }
 
     @RequestMapping(value = "/update/{infoId}", method = RequestMethod.GET)
     public String showUpdateForm(@PathVariable Long infoId, Model model) {
-        AdditionalInfoEmployee additionalInfoEmployee = additionalInfoEmployeeRepository.findFirstById(infoId);
+        AdditionalInfoEmployee additionalInfoEmployee = additionalInfoEmployeeService.getAdditionalInfoById(infoId);
         if (additionalInfoEmployee == null) {
             model.addAttribute("error", "Update Error");
             return "error";
         }
-        Employee employee = employeeRepository.findFirstByAdditionalInfo_Id(infoId);
+        Employee employee = additionalInfoEmployeeService.getEmployeeByInfoId(infoId);
         model.addAttribute("employee", employee);
         model.addAttribute("additionalInfoEmployee", additionalInfoEmployee);
         return "admin/employees/detailedInfo/employeeDetailsUpdate";
@@ -79,7 +73,7 @@ public class AdditionalInfoEmployeeController {
         if (result.hasErrors()) {
             return "admin/employees/detailedInfo/employeeDetailsUpdate";
         }
-        additionalInfoEmployeeRepository.save(additionalInfoEmployee);
+        additionalInfoEmployeeService.saveUpdate(additionalInfoEmployee);
         return "redirect:/employees/list";
     }
 
