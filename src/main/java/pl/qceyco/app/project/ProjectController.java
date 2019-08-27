@@ -8,11 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.qceyco.app.client.Client;
-import pl.qceyco.app.client.ClientRepository;
 import pl.qceyco.app.employee.Employee;
-import pl.qceyco.app.employee.EmployeeRepository;
-import pl.qceyco.app.timesheet.referenceUnit.TimesheetReferenceUnit;
-import pl.qceyco.app.timesheet.referenceUnit.TimesheetReferenceUnitRepository;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -23,35 +19,26 @@ import java.util.List;
 
 public class ProjectController {
 
-    private final ClientRepository clientRepository;
-    private final EmployeeRepository employeeRepository;
-    private final ProjectRepository projectRepository;
-    private final TimesheetReferenceUnitRepository timesheetReferenceUnitRepository;
+    private final ProjectService projectService;
 
-    public ProjectController(ClientRepository clientRepository, EmployeeRepository employeeRepository, ProjectRepository projectRepository,
-                             TimesheetReferenceUnitRepository timesheetReferenceUnitRepository) {
-        this.clientRepository = clientRepository;
-        this.employeeRepository = employeeRepository;
-        this.projectRepository = projectRepository;
-        this.timesheetReferenceUnitRepository = timesheetReferenceUnitRepository;
+    public ProjectController(ProjectService projectService) {
+        this.projectService = projectService;
     }
 
     @ModelAttribute("clients")
     public List<Client> populateClients() {
-        return clientRepository.findAll();
+        return projectService.getAllClients();
     }
 
     @ModelAttribute("employees")
     public List<Employee> populateEmployees() {
-        return employeeRepository.findAll();
+        return projectService.getAllEmployees();
     }
 
     @ModelAttribute("projects")
     public List<Project> populateProjects() {
-        return projectRepository.findAllWithProjectTeamMembers();
+        return projectService.getAllProjects();
     }
-
-    //////////////////////
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String showAllProjects(HttpSession session) {
@@ -78,23 +65,19 @@ public class ProjectController {
             model.addAttribute("errorClientChoice", "choose a client");
             return "admin/projects/projectAdd";
         }
-        projectRepository.save(project);
+        projectService.save(project);
         return "redirect:list";
     }
 
     @RequestMapping(value = "/delete/{projectId}", method = RequestMethod.GET)
     public String delete(@PathVariable Long projectId) {
-        List<TimesheetReferenceUnit> timesheets = timesheetReferenceUnitRepository.findAllByProjectId(projectId);
-        for (TimesheetReferenceUnit t : timesheets) {
-            timesheetReferenceUnitRepository.delete(t);
-        }
-        projectRepository.deleteById(projectId);
+        projectService.delete(projectId);
         return "redirect:../list";
     }
 
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
-    public String showUpdateForm(@PathVariable Long id, Model model) {
-        Project project = projectRepository.findFirstByIdWithProjectTeamMembers(id);
+    @RequestMapping(value = "/update/{projectId}", method = RequestMethod.GET)
+    public String showUpdateForm(@PathVariable Long projectId, Model model) {
+        Project project = projectService.getProjectById(projectId);
         if (project == null) {
             model.addAttribute("error", "Update Error");
             return "error";
@@ -112,7 +95,7 @@ public class ProjectController {
             model.addAttribute("errorClientChoice", "choose a client");
             return "admin/projects/projectUpdate";
         }
-        projectRepository.save(project);
+        projectService.save(project);
         return "redirect:list";
     }
 

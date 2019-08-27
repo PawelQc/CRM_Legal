@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ProjectRepository extends JpaRepository<Project, Long>, ProjectRepositoryCustom {
 
-    Project findFirstById(Long legalCaseId);
+    Project findFirstById(Long projectId);
 
     Project findFirstByClientId(Long clientId);
 
