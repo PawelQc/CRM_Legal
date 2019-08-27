@@ -20,22 +20,21 @@ public class ClientService {
         this.projectRepository = projectRepository;
     }
 
-
-    public List<Client> getAllClients() {
+    List<Client> getAllClients() {
         return clientRepository.findAll();
     }
 
-    public Project getAnyProjectByClientId(Long clientId) {
+    Project getAnyProjectByClientId(Long clientId) {
         return projectRepository.findFirstByClientId(clientId);
     }
 
-    public void deleteClient(Long clientId) {
+    void deleteClient(Long clientId) {
         Client clientToDelete = clientRepository.findFirstById(clientId);
         clientRepository.deleteById(clientId);
         if (clientToDelete.getAdditionalInfo() != null) {
             Long infoId = clientToDelete.getAdditionalInfo().getId();
             additionalInfoClientRepository.deleteById(infoId);
         }
-
     }
+
 }

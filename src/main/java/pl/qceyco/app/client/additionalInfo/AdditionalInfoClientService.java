@@ -15,26 +15,26 @@ public class AdditionalInfoClientService {
         this.clientRepository = clientRepository;
     }
 
-    public Client getClientById(Long clientId) {
+    Client getClientById(Long clientId) {
         return clientRepository.findFirstById(clientId);
     }
 
-    public AdditionalInfoClient getAdditionalInfoById(Long infoId) {
+    AdditionalInfoClient getAdditionalInfoById(Long infoId) {
         return additionalInfoClientRepository.findFirstById(infoId);
     }
 
-    public void saveAdd(Long clientId, AdditionalInfoClient additionalInfoClient) {
+    void saveAdd(Long clientId, AdditionalInfoClient additionalInfoClient) {
         additionalInfoClientRepository.save(additionalInfoClient);
         Client client = clientRepository.findFirstById(clientId);
         client.setAdditionalInfo(additionalInfoClient);
         clientRepository.save(client);
     }
 
-    public void saveUpdate(AdditionalInfoClient additionalInfoClient) {
+    void saveUpdate(AdditionalInfoClient additionalInfoClient) {
         additionalInfoClientRepository.save(additionalInfoClient);
     }
 
-    public Client getClientByInfoId(Long infoId) {
+    Client getClientByInfoId(Long infoId) {
         return clientRepository.findFirstByAdditionalInfo_Id(infoId);
     }
 

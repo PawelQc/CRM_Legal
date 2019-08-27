@@ -11,11 +11,11 @@ public class ClientLegalPersonService {
         this.clientLegalPersonRepository = clientLegalPersonRepository;
     }
 
-    public void save(ClientLegalPerson clientLegalPerson) {
+    void save(ClientLegalPerson clientLegalPerson) {
         clientLegalPersonRepository.save(clientLegalPerson);
     }
 
-    public ClientLegalPerson findClientById(Long clientId) {
+    ClientLegalPerson findClientById(Long clientId) {
         return clientLegalPersonRepository.findFirstById(clientId);
     }
 
