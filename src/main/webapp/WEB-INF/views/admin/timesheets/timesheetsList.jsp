@@ -64,7 +64,7 @@
             <th>${nextMonday.minusDays(15)}</th>
             <th>Action</th>
         </tr>
-        <c:forEach var="TSrefUnit" items="${timesheetReferenceUnitsAll}">
+        <c:forEach var="TSrefUnit" items="${timesheetsAll}">
             <c:if test="${TSrefUnit.workWeek.dateMonday.equals(nextMonday.minusDays(21))}">
                 <tr>
                     <td>${TSrefUnit.project.signature}</td>
@@ -107,7 +107,7 @@
             <th>${nextMonday.minusDays(8)}</th>
             <th>Action</th>
         </tr>
-        <c:forEach var="TSrefUnit" items="${timesheetReferenceUnitsAll}">
+        <c:forEach var="TSrefUnit" items="${timesheetsAll}">
             <c:if test="${TSrefUnit.workWeek.dateMonday.equals(nextMonday.minusDays(14))}">
                 <tr>
                     <td>${TSrefUnit.project.signature}</td>
@@ -150,7 +150,7 @@
             <th>${nextMonday.minusDays(1)}</th>
             <th>Action</th>
         </tr>
-        <c:forEach var="TSrefUnit" items="${timesheetReferenceUnitsAll}">
+        <c:forEach var="TSrefUnit" items="${timesheetsAll}">
             <c:if test="${TSrefUnit.workWeek.dateMonday.equals(nextMonday.minusDays(7))}">
                 <tr>
                     <td>${TSrefUnit.project.signature}</td>
@@ -193,7 +193,7 @@
             <th>${nextMonday.plusDays(6)}</th>
             <th>Action</th>
         </tr>
-        <c:forEach var="TSrefUnit" items="${timesheetReferenceUnitsAll}">
+        <c:forEach var="TSrefUnit" items="${timesheetsAll}">
             <c:if test="${TSrefUnit.workWeek.dateMonday.equals(nextMonday)}">
                 <tr>
                     <td>${TSrefUnit.project.signature}</td>

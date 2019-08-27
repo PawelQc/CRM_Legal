@@ -20,7 +20,7 @@
             <th>Client</th>
             <th>Action</th>
         </tr>
-        <c:forEach var="project" items="${projectsWhereEmployeeParticipates}" varStatus="count">
+        <c:forEach var="project" items="${projectsUser}" varStatus="count">
             <tr>
                 <td>${count.count}</td>
                 <td>${project.signature}</td>

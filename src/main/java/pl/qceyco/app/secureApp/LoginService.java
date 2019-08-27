@@ -9,7 +9,7 @@ import pl.qceyco.app.secureApp.config.UserPrincipal;
 @Service
 public class LoginService {
 
-    public Employee getLoggedInUser() {
+    Employee getLoggedInUser() {
         UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
         validatePrincipal(authentication.getPrincipal());
         return ((UserPrincipal) authentication.getPrincipal()).getUserDetails();

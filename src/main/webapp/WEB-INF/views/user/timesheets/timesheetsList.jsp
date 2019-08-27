@@ -17,7 +17,7 @@
             <form action="/timesheets/sort-by-project" method="post">
                 <label><h4>sort by project</h4>
                     <select name="projectId">
-                        <c:forEach items="${projectsWhereEmployeeParticipates}" var="project">
+                        <c:forEach items="${projectsUser}" var="project">
                             <option value="${project.id}">${project.signature}</option>
                         </c:forEach>
                     </select> <br>
@@ -51,7 +51,7 @@
             <th>${nextMonday.minusDays(15)}</th>
             <th>Action</th>
         </tr>
-        <c:forEach var="TSrefUnit" items="${timesheetReferenceUnitsUser}">
+        <c:forEach var="TSrefUnit" items="${timesheetsUser}">
             <c:if test="${TSrefUnit.workWeek.dateMonday.equals(nextMonday.minusDays(21))}">
                 <tr>
                     <td>${TSrefUnit.project.signature}</td>
@@ -92,7 +92,7 @@
             <th>${nextMonday.minusDays(8)}</th>
             <th>Action</th>
         </tr>
-        <c:forEach var="TSrefUnit" items="${timesheetReferenceUnitsUser}">
+        <c:forEach var="TSrefUnit" items="${timesheetsUser}">
             <c:if test="${TSrefUnit.workWeek.dateMonday.equals(nextMonday.minusDays(14))}">
                 <tr>
                     <td>${TSrefUnit.project.signature}</td>
@@ -133,7 +133,7 @@
             <th>${nextMonday.minusDays(1)}</th>
             <th>Action</th>
         </tr>
-        <c:forEach var="TSrefUnit" items="${timesheetReferenceUnitsUser}">
+        <c:forEach var="TSrefUnit" items="${timesheetsUser}">
             <c:if test="${TSrefUnit.workWeek.dateMonday.equals(nextMonday.minusDays(7))}">
                 <tr>
                     <td>${TSrefUnit.project.signature}</td>
@@ -173,7 +173,7 @@
             <th>${nextMonday.plusDays(6)}</th>
             <th>Action</th>
         </tr>
-        <c:forEach var="TSrefUnit" items="${timesheetReferenceUnitsUser}">
+        <c:forEach var="TSrefUnit" items="${timesheetsUser}">
             <c:if test="${TSrefUnit.workWeek.dateMonday.equals(nextMonday)}">
                 <tr>
                     <td>${TSrefUnit.project.signature}</td>
