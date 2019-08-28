@@ -1,4 +1,4 @@
-package pl.qceyco.app.reports;
+package pl.qceyco.app.report;
 
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -19,15 +19,15 @@ import java.util.List;
 import static java.time.temporal.TemporalAdjusters.firstInMonth;
 
 @Service
-public class ReportsService {
+public class ReportService {
     private final TimesheetUnitRepository timesheetUnitRepository;
     private final ProjectRepository projectRepository;
     private final EmployeeRepository employeeRepository;
     private final ClientRepository clientRepository;
     private final ClientLegalPersonRepository clientLegalPersonRepository;
 
-    public ReportsService(TimesheetUnitRepository timesheetUnitRepository, ProjectRepository projectRepository,
-                          EmployeeRepository employeeRepository, ClientRepository clientRepository, ClientLegalPersonRepository clientLegalPersonRepository) {
+    public ReportService(TimesheetUnitRepository timesheetUnitRepository, ProjectRepository projectRepository,
+                         EmployeeRepository employeeRepository, ClientRepository clientRepository, ClientLegalPersonRepository clientLegalPersonRepository) {
         this.timesheetUnitRepository = timesheetUnitRepository;
         this.projectRepository = projectRepository;
         this.employeeRepository = employeeRepository;

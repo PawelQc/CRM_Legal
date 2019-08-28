@@ -1,4 +1,4 @@
-package pl.qceyco.app.reports;
+package pl.qceyco.app.report;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
@@ -18,32 +18,32 @@ import java.util.List;
 @Controller
 @RequestMapping("/reports")
 
-public class ReportsController {
+public class ReportController {
 
-    private final ReportsService reportsService;
+    private final ReportService reportService;
 
-    public ReportsController(ReportsService reportsService) {
-        this.reportsService = reportsService;
+    public ReportController(ReportService reportService) {
+        this.reportService = reportService;
     }
 
     @ModelAttribute("projects")
     public List<Project> populateProjects() {
-        return reportsService.getAllBillableProjects();
+        return reportService.getAllBillableProjects();
     }
 
     @ModelAttribute("employees")
     public List<Employee> populateEmployees() {
-        return reportsService.getAllEmployees();
+        return reportService.getAllEmployees();
     }
 
     @ModelAttribute("clients")
     public List<Client> populateClients() {
-        return reportsService.getAllClients();
+        return reportService.getAllClients();
     }
 
     @ModelAttribute("timesheetUnitsAll")
     public List<TimesheetUnit> populateTimesheetUnits() {
-        return reportsService.getAllTimesheets();
+        return reportService.getAllTimesheets();
     }
 
     @RequestMapping(value = "/options", method = RequestMethod.GET)
@@ -73,12 +73,12 @@ public class ReportsController {
             return "reports/employeeReport/reportEmployeeReportForm";
         }
         LocalDate selectedMonday = LocalDate.parse(startDate);
-        LocalDate firstMondayInMonth = reportsService.getFirstMondayOfMonth(selectedMonday);
+        LocalDate firstMondayInMonth = reportService.getFirstMondayOfMonth(selectedMonday);
         if (!selectedMonday.equals(firstMondayInMonth)) {
             model.addAttribute("errorInvalidData", "Error: Selected date is not a first Monday of a month!");
             return "reports/employeeReport/reportEmployeeReportForm";
         }
-        reportsService.employeeReportProcess(selectedMonday, employeeId, model);
+        reportService.employeeReportProcess(selectedMonday, employeeId, model);
 
         return "reports/employeeReport/reportEmployeeReportGenerated";
     }
@@ -89,7 +89,7 @@ public class ReportsController {
             model.addAttribute("errorNotSufficientData", "Error: Indicate all data requested in order to generate a report!");
             return "reports/projectReport/reportProjectReportForm";
         }
-        reportsService.projectReportProcess(projectId, model);
+        reportService.projectReportProcess(projectId, model);
         return "reports/projectReport/reportProjectReportGenerated";
     }
 
@@ -101,12 +101,12 @@ public class ReportsController {
         }
         //todo walidacja do zmiany - zmienić w widoku możliwość wyboru tylko określonych dat
         LocalDate selectedMonday = LocalDate.parse(startDate);
-        LocalDate firstMondayInMonth = reportsService.getFirstMondayOfMonth(selectedMonday);
+        LocalDate firstMondayInMonth = reportService.getFirstMondayOfMonth(selectedMonday);
         if (!selectedMonday.equals(firstMondayInMonth)) {
             model.addAttribute("errorInvalidData", "Error: Selected date is not a first Monday of a month!");
             return "reports/invoicePreview/invoicePreviewForm";
         }
-        reportsService.invoicePreviewProcess(selectedMonday, clientId, model);
+        reportService.invoicePreviewProcess(selectedMonday, clientId, model);
         return "reports/invoicePreview/invoicePreviewGenerated";
     }
 

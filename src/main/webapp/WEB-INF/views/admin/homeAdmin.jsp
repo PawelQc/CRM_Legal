@@ -30,10 +30,11 @@
             </tr>
         </c:forEach>
     </table>
-    <a href="/home/chart-employees-hours" style="margin-right: 10px"
-       class="btn btn-warning rounded-0 text-light m-1">Billable vs non-billable - chart</a>
-    <a href="/home/chart-employees-utilisation"
-       class="btn btn-success rounded-0 text-light m-1">Utilisation comparision - chart</a>
+    <%--    todo wykresy?--%>
+    <%--    <a href="/home/chart-employees-hours" style="margin-right: 10px"--%>
+    <%--       class="btn btn-warning rounded-0 text-light m-1">Billable vs non-billable - chart</a>--%>
+    <%--    <a href="/home/chart-employees-utilisation"--%>
+    <%--       class="btn btn-success rounded-0 text-light m-1">Utilisation comparision - chart</a>--%>
 </div>
 <div></div>
 
@@ -56,10 +57,11 @@
             </tr>
         </c:forEach>
     </table>
-    <a href="/home/chart-project-hours"
-       class="btn btn-warning rounded-0 text-light m-1">Projects and hours - chart</a>
-    <a href="/home/chart-total-hours"
-       class="btn btn-success rounded-0 text-light m-1">Total hours vs project - chart</a>
+    <%--    todo wykresy?--%>
+    <%--    <a href="/home/chart-project-hours"--%>
+    <%--       class="btn btn-warning rounded-0 text-light m-1">Projects and hours - chart</a>--%>
+    <%--    <a href="/home/chart-total-hours"--%>
+    <%--       class="btn btn-success rounded-0 text-light m-1">Total hours vs project - chart</a>--%>
 </div>
 
 <div class="container">
