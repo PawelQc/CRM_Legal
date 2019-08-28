@@ -13,7 +13,7 @@
 
 
 <h1 class="text-center">Recent activity of all employees</h1> <br>
-<div style="width: 600px; float: right; display: inline-block; margin-right: 100px">
+<div class="home-right-div">
     <table class="table table-hover table-condensed">
         <th colspan="2">
             <h3 class="text-center"> Work time utilisation for: ${thisMonthFirstMonday}
@@ -38,7 +38,7 @@
 </div>
 <div></div>
 
-<div style="width: 600px; float: left; display: inline-block; margin-left: 100px; margin-bottom: 80px">
+<div class="home-left-div">
     <table class="table table-hover table-condensed">
         <tr>
             <th colspan="2">

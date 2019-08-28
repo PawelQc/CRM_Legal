@@ -12,9 +12,9 @@
 <div class="container">
     <h1 class="text-center">Timesheets of project: ${timesheetsChosenProject.get(0).project.signature}</h1>
     <a href="/timesheets/sort-by-project?projectId=${projectId}&mode=prev&mondaySelect=${nextMonday}"
-       class="btn btn-info rounded-0 text-light m-1" style="width: 90px">< Previous</a>
+       class="btn btn-info rounded-0 text-light m-1 btn-ts-prev">< Previous</a>
     <a href="/timesheets/sort-by-project?projectId=${projectId}&mode=next&mondaySelect=${nextMonday}"
-       class="btn btn-info rounded-0 text-light m-1" style="width: 90px; float: right">Next ></a>
+       class="btn btn-info rounded-0 text-light m-1 btn-ts-next">Next ></a>
 
     <table class="table table-hover table-condensed">
         <tr>

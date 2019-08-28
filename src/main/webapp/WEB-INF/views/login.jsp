@@ -10,7 +10,7 @@
 <body>
 <%@ include file="/fragments/header.jspf" %>
 
-<header class="w3-container w3-red w3-center" style="padding:128px 16px">
+<header class="w3-container w3-red w3-center header-padding">
     <div class="container">
         <h1>Login</h1>
         <h4 class="text-info"> ${SPRING_SECURITY_LAST_EXCEPTION.message} </h4>

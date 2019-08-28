@@ -17,7 +17,7 @@
             <th>No</th>
             <th>Signature</th>
             <th>Name</th>
-            <th style="width: 270px">Description</th>
+            <th class="project-desc-width">Description</th>
             <th>Team</th>
             <th>Client</th>
             <th>Remuneration limit</th>
@@ -28,7 +28,7 @@
                 <td>${count.count}</td>
                 <td>${project.signature}</td>
                 <td>${project.name}</td>
-                <td style="width: 270px">${project.description}</td>
+                <td class="project-desc-width">${project.description}</td>
                 <td>
                     <ul>
                         <c:forEach items="${project.projectTeam}" var="lawyer">

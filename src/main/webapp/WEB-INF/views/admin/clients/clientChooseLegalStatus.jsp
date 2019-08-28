@@ -10,15 +10,15 @@
 <%@ include file="/fragments/header.jspf" %>
 <div class="container">
     <h1 class="text-center">Adding new client: choose client's legal status:</h1>
-    <ul class="text-center" style="list-style-type: none">
+    <ul class="text-center ul-no-style">
         <li>
-            <a href="/clients/legal-person/add" class="btn btn-success rounded-0 text-light m-1" style="width: 180px">
+            <a href="/clients/legal-person/add" class="btn btn-success rounded-0 text-light m-1 btn-client-add">
                 <h4>legal person</h4>
             </a>
         </li>
         <br>
         <li>
-            <a href="/clients/natural-person/add" class="btn btn-success rounded-0 text-light m-1" style="width: 180px">
+            <a href="/clients/natural-person/add" class="btn btn-success rounded-0 text-light m-1 btn-client-add">
                 <h4>natural person</h4>
             </a>
         </li>

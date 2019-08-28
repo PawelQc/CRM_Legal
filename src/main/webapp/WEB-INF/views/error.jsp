@@ -10,7 +10,7 @@
 <%@ include file="/fragments/header.jspf" %>
 
 <div class="container">
-    <h4 class="text-center">${error}</h4>
+    <h4 class="text-center warning">${error}</h4>
 </div>
 <%@ include file="/fragments/footer.jspf" %>
 </body>

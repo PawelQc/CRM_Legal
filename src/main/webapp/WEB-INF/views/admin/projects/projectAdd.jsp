@@ -46,7 +46,7 @@
 
         <div class="form-group">
             <label for="descriptionId">Description:</label>
-            <form:textarea path="description" id="descriptionId" class="form-control" cssStyle="resize: none"
+            <form:textarea path="description" id="descriptionId" class="form-control txt-area-no-resize"
                            maxlength="200"/>
             <form:errors path="description" element="div" cssClass="text-warning"/>
         </div>

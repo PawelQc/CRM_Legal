@@ -11,7 +11,7 @@
 <%@ include file="/fragments/header.jspf" %>
 
 <h1 class="text-center">Your recent activity</h1> <br>
-<div style="width: 600px; float: right; display: inline-block; margin-right: 100px">
+<div class="home-right-div">
     <table class="table table-hover table-condensed">
         <th colspan="2">
             <h3 class="text-center">Previous month statistics (${previousMonthFirstMonday}
@@ -45,7 +45,7 @@
 </div>
 <div></div>
 
-<div style="width: 600px; float: left; display: inline-block; margin-left: 100px; margin-bottom: 80px">
+<div class="home-left-div">
     <table class="table table-hover table-condensed">
         <tr>
             <th colspan="2">
@@ -66,7 +66,7 @@
     </table>
 </div>
 
-<div style="width: 1000px; margin-left: auto; margin-right: auto; margin-top: auto">
+<div class="home-bottom-div">
     <table class="table table-hover table-condensed">
         <tr>
             <th colspan="3">
@@ -74,42 +74,42 @@
             </th>
         </tr>
         <tr>
-            <th style="width: 130px">Date</th>
+            <th class="date-row">Date</th>
             <th>Hours</th>
             <th>Work description</th>
         </tr>
         <tr>
-            <td style="width: 130px">${recentTimesheet.workWeek.dateMonday}</td>
+            <td class="date-row">${recentTimesheet.workWeek.dateMonday}</td>
             <td>${recentTimesheet.workWeek.mondayHours}</td>
             <td>${recentTimesheet.workWeek.commentary.mondayCommentary}</td>
         </tr>
         <tr>
-            <td style="width: 130px">${recentTimesheet.workWeek.dateMonday.plusDays(1)}</td>
+            <td class="date-row">${recentTimesheet.workWeek.dateMonday.plusDays(1)}</td>
             <td>${recentTimesheet.workWeek.tuesdayHours}</td>
             <td>${recentTimesheet.workWeek.commentary.tuesdayCommentary}</td>
         </tr>
         <tr>
-            <td style="width: 130px">${recentTimesheet.workWeek.dateMonday.plusDays(2)}</td>
+            <td class="date-row">${recentTimesheet.workWeek.dateMonday.plusDays(2)}</td>
             <td>${recentTimesheet.workWeek.wednesdayHours}</td>
             <td>${recentTimesheet.workWeek.commentary.wednesdayCommentary}</td>
         </tr>
         <tr>
-            <td style="width: 130px">${recentTimesheet.workWeek.dateMonday.plusDays(3)}</td>
+            <td class="date-row">${recentTimesheet.workWeek.dateMonday.plusDays(3)}</td>
             <td>${recentTimesheet.workWeek.thursdayHours}</td>
             <td>${recentTimesheet.workWeek.commentary.thursdayCommentary}</td>
         </tr>
         <tr>
-            <td style="width: 130px">${recentTimesheet.workWeek.dateMonday.plusDays(4)}</td>
+            <td class="date-row">${recentTimesheet.workWeek.dateMonday.plusDays(4)}</td>
             <td>${recentTimesheet.workWeek.fridayHours}</td>
             <td>${recentTimesheet.workWeek.commentary.fridayCommentary}</td>
         </tr>
         <tr>
-            <td style="width: 130px">${recentTimesheet.workWeek.dateMonday.plusDays(5)}</td>
+            <td class="date-row">${recentTimesheet.workWeek.dateMonday.plusDays(5)}</td>
             <td>${recentTimesheet.workWeek.saturdayHours}</td>
             <td>${recentTimesheet.workWeek.commentary.saturdayCommentary}</td>
         </tr>
         <tr>
-            <td style="width: 130px">${recentTimesheet.workWeek.dateMonday.plusDays(6)}</td>
+            <td class="date-row">${recentTimesheet.workWeek.dateMonday.plusDays(6)}</td>
             <td>${recentTimesheet.workWeek.sundayHours}</td>
             <td>${recentTimesheet.workWeek.commentary.sundayCommentary}</td>
         </tr>

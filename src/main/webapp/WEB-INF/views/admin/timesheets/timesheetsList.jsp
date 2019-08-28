@@ -9,11 +9,11 @@
 <body>
 <%@ include file="/fragments/header.jspf" %>
 
-<div style="width: 70%; margin-left:auto; margin-right:auto;">
+<div class="ts-main-div">
     <h1 class="text-center">Timesheets added between ${nextMonday.minusDays(21)} - ${nextMonday.plusDays(6)}</h1>
     <h4 class="text-warning">${errorNoTimesheets}</h4>
-    <div style="text-align: center">
-        <div style="display: inline-block; margin-right: 50px">
+    <div class="text-center">
+        <div class="ts-form-sort">
             <form action="/timesheets/sort-by-project" method="post">
                 <label><h4>sort by project</h4>
                     <select name="projectId">
@@ -25,7 +25,7 @@
                 </label>
             </form>
         </div>
-        <div style="display: inline-block">
+        <div class="ts-form-sort">
             <form action="/timesheets/sort-by-employee" method="post">
                 <label><h4>sort by employee</h4>
                     <select name="employeeId">
@@ -38,14 +38,13 @@
             </form>
         </div>
     </div>
-    <a href="/timesheets/choose-project" class="btn btn-success rounded-0 text-light m-1"
-       style="display: inline-block; width: 90px">Add</a>
+    <a href="/timesheets/choose-project" class="btn btn-success rounded-0 text-light m-1 btn-ts-add">Add</a>
     <br> <br>
 
-    <a href="/timesheets/list?mode=prev&mondaySelect=${nextMonday}" class="btn btn-info rounded-0 text-light m-1"
-       style="width: 90px">< Previous</a>
-    <a href="/timesheets/list?mode=next&mondaySelect=${nextMonday}" class="btn btn-info rounded-0 text-light m-1"
-       style="width: 90px; float: right">Next ></a>
+    <a href="/timesheets/list?mode=prev&mondaySelect=${nextMonday}"
+       class="btn btn-info rounded-0 text-light m-1 btn-ts-prev">< Previous</a>
+    <a href="/timesheets/list?mode=next&mondaySelect=${nextMonday}"
+       class="btn btn-info rounded-0 text-light m-1 btn-ts-next">Next ></a>
 
     <table class="table table-condensed table-hover">
         <tr>

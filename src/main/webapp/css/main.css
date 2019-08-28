@@ -1,27 +1,16 @@
-body {
-    padding-bottom: 50px;
-    background-image: linear-gradient(to top, lightgrey 0%, lightgrey 1%, #e0e0e0 26%, #efefef 48%, #d9d9d9 75%, #bcbcbc 100%)
-}
-
-body, h1, h2, h3, h4, h5, h6 {
-    font-family: "Lato", sans-serif;
-}
-
-.w3-bar, h1, button {
-    font-family: "Montserrat", sans-serif
-}
-
-.fa-anchor, .fa-coffee {
-    font-size: 200px
-}
-
 html {
     position: relative;
     min-height: 100%;
 }
 
 body {
-    margin: 0 0 100px;
+    padding-bottom: 50px;
+    background-image: linear-gradient(to top, lightgrey 0%, lightgrey 1%, #e0e0e0 26%, #efefef 48%, #d9d9d9 75%, #bcbcbc 100%);
+    margin: 0 0 100px
+}
+
+body, h1, h2, h3, h4, h5, h6 {
+    font-family: "Lato", sans-serif;
 }
 
 footer {
@@ -34,3 +23,117 @@ footer {
     overflow: hidden;
     color: white;
 }
+
+.w3-bar, h1, button {
+    font-family: "Montserrat", sans-serif
+}
+
+.fa-anchor, .fa-coffee {
+    font-size: 200px
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.header-padding {
+    padding: 128px 16px
+}
+
+.home-right-div {
+    width: 600px;
+    float: right;
+    display: inline-block;
+    margin-right: 100px
+}
+
+.home-left-div {
+    width: 600px;
+    float: left;
+    display: inline-block;
+    margin-left: 100px;
+    margin-bottom: 80px
+}
+
+.home-bottom-div {
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto
+}
+
+.date-row {
+    width: 130px
+}
+
+.ul-no-style {
+    list-style-type: none
+}
+
+.btn-client-add {
+    width: 180px
+}
+
+.btn-ts-add {
+    display: inline-block;
+    width: 90px
+}
+
+.btn-ts-prev {
+    width: 90px
+}
+
+.btn-ts-next {
+    width: 90px;
+    float: right
+}
+
+.btn-report-option {
+    width: 250px
+}
+
+.btn-margin{
+    margin-right: 10px
+}
+
+.txt-area-no-resize {
+    resize: none
+}
+
+.project-desc-width {
+    width: 270px
+}
+
+.ts-main-div {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto
+}
+
+.ts-form-sort {
+    display: inline-block;
+    margin-right: 50px
+}
+
+.report-invoice-width{
+    width: 200px
+}
+
+.ts-form-desc{
+    width: 28%
+}
+
+.ts-form-warn-btn{
+    display: inline-block
+}
+
+.ts-details-tab{
+    width: 1200px; table-layout: auto
+}
+
+
+

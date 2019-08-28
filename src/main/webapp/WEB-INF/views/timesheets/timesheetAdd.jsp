@@ -11,7 +11,7 @@
 
 <div class="container">
     <h1 class="text-center">Add timesheet to project: ${project.signature}</h1>
-    <h4 class="text-warning" style="display: inline-block">${errorSimilarTsExists}</h4>
+    <h4 class="text-warning ts-form-warn-btn">${errorSimilarTsExists}</h4>
     <c:if test="${not empty timesheetSimilarInDB}">
         <a href="/timesheets/details/${timesheetSimilarInDB.workWeek.id}" target="_blank"
            class="btn btn-danger rounded-0 text-light m-1">check</a> <br> <br>
@@ -88,64 +88,64 @@
 
         <table class="table table-hover">
             <tr>
-                <th style="width: 28%">Description of work done on ${workWeek.dateMonday}</th>
+                <th class="ts-form-desc">Description of work done on ${workWeek.dateMonday}</th>
                 <td>
                     <form:textarea path="commentary.mondayCommentary" cols="135" rows="3" maxlength="650"
-                                   cssStyle="resize: none" class="form-control"/>
+                                   class="form-control txt-area-no-resize"/>
                     <form:errors path="commentary.mondayCommentary" element="div" cssClass="text-warning"/>
                 </td>
             </tr>
             <tr>
-                <th style="width: 28%">Description of work done on ${workWeek.dateMonday.plusDays(1)}</th>
+                <th class="ts-form-desc">Description of work done on ${workWeek.dateMonday.plusDays(1)}</th>
                 <td>
                     <form:textarea path="commentary.tuesdayCommentary" cols="135" rows="3" maxlength="650"
-                                   cssStyle="resize: none" class="form-control"/>
+                                   class="form-control txt-area-no-resize"/>
                     <form:errors path="commentary.tuesdayCommentary" element="div" cssClass="text-warning"/>
                 </td>
             </tr>
             <tr>
-                <th style="width: 28%">Description of work done on ${workWeek.dateMonday.plusDays(2)}</th>
+                <th class="ts-form-desc">Description of work done on ${workWeek.dateMonday.plusDays(2)}</th>
                 <td>
                     <form:textarea path="commentary.wednesdayCommentary" cols="135" rows="3" maxlength="650"
-                                   cssStyle="resize: none" class="form-control"/>
+                                   class="form-control txt-area-no-resize"/>
                     <form:errors path="commentary.wednesdayCommentary" element="div" cssClass="text-warning"/>
                 </td>
             </tr>
             <tr>
-                <th style="width: 28%">Description of work done on ${workWeek.dateMonday.plusDays(3)}</th>
+                <th class="ts-form-desc">Description of work done on ${workWeek.dateMonday.plusDays(3)}</th>
                 <td>
                     <form:textarea path="commentary.thursdayCommentary" cols="135" rows="3" maxlength="650"
-                                   cssStyle="resize: none" class="form-control"/>
+                                   class="form-control txt-area-no-resize"/>
                     <form:errors path="commentary.thursdayCommentary" element="div" cssClass="text-warning"/>
                 </td>
             </tr>
             <tr>
-                <th style="width: 28%">Description of work done on ${workWeek.dateMonday.plusDays(4)}</th>
+                <th class="ts-form-desc">Description of work done on ${workWeek.dateMonday.plusDays(4)}</th>
                 <td>
                     <form:textarea path="commentary.fridayCommentary" cols="135" rows="3" maxlength="650"
-                                   cssStyle="resize: none" class="form-control"/>
+                                   class="form-control txt-area-no-resize"/>
                     <form:errors path="commentary.fridayCommentary" element="div" cssClass="text-warning"/>
                 </td>
             </tr>
             <tr>
-                <th style="width: 28%">Description of work done on ${workWeek.dateMonday.plusDays(5)}</th>
+                <th class="ts-form-desc">Description of work done on ${workWeek.dateMonday.plusDays(5)}</th>
                 <td>
                     <form:textarea path="commentary.saturdayCommentary" cols="135" rows="3" maxlength="650"
-                                   cssStyle="resize: none" class="form-control"/>
+                                   class="form-control txt-area-no-resize"/>
                     <form:errors path="commentary.saturdayCommentary" element="div" cssClass="text-warning"/>
                 </td>
             </tr>
             <tr>
-                <th style="width: 28%">Description of work done on ${workWeek.dateMonday.plusDays(6)}</th>
+                <th class="ts-form-desc">Description of work done on ${workWeek.dateMonday.plusDays(6)}</th>
                 <td>
                     <form:textarea path="commentary.sundayCommentary" cols="135" rows="3" maxlength="650"
-                                   cssStyle="resize: none" class="form-control"/>
+                                   class="form-control txt-area-no-resize"/>
                     <form:errors path="commentary.sundayCommentary" element="div" cssClass="text-warning"/>
                 </td>
             </tr>
         </table>
 
-        <div style="text-align: center">
+        <div class="text-center">
             <input type="submit" value="Save" class="btn-lg">
         </div>
     </form:form>

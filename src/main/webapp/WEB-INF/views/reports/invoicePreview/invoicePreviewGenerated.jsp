@@ -40,23 +40,23 @@
     </c:forEach>
     <table class="table table-condensed table-hover">
         <tr>
-            <th style="width: 200px">Total hours</th>
+            <th class="report-invoice-width">Total hours</th>
             <td>${amountOfHours}</td>
         </tr>
         <tr>
-            <th style="width: 200px">Hourly rate</th>
+            <th class="report-invoice-width">Hourly rate</th>
             <td>${client.additionalInfo.hourlyRateIsCharged} PLN</td>
         </tr>
         <tr>
-            <th style="width: 200px">Net invoice amount</th>
+            <th class="report-invoice-width">Net invoice amount</th>
             <td>${amountOfHours * client.additionalInfo.hourlyRateIsCharged} PLN</td>
         </tr>
         <tr>
-            <th style="width: 200px">Output VAT</th>
+            <th class="report-invoice-width">Output VAT</th>
             <td>${amountOfHours * client.additionalInfo.hourlyRateIsCharged * 0.23} PLN</td>
         </tr>
         <tr>
-            <th style="width: 200px">Due amount</th>
+            <th class="report-invoice-width">Due amount</th>
             <td>${amountOfHours * client.additionalInfo.hourlyRateIsCharged * 1.23} PLN</td>
         </tr>
     </table>
