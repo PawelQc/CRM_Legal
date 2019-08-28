@@ -8,7 +8,6 @@ import pl.qceyco.app.project.Project;
 import pl.qceyco.app.project.ProjectRepository;
 import pl.qceyco.app.timesheet.workWeek.WorkWeek;
 import pl.qceyco.app.timesheet.workWeek.WorkWeekRepository;
-import pl.qceyco.app.timesheet.workWeek.commentary.CommentaryRepository;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -22,15 +21,13 @@ public class TimesheetUnitService {
     private final ProjectRepository projectRepository;
     private final EmployeeRepository employeeRepository;
     private final WorkWeekRepository workWeekRepository;
-    private final CommentaryRepository commentaryRepository;
 
     public TimesheetUnitService(TimesheetUnitRepository timesheetUnitRepository, ProjectRepository projectRepository,
-                                EmployeeRepository employeeRepository, WorkWeekRepository workWeekRepository, CommentaryRepository commentaryRepository) {
+                                EmployeeRepository employeeRepository, WorkWeekRepository workWeekRepository) {
         this.timesheetUnitRepository = timesheetUnitRepository;
         this.projectRepository = projectRepository;
         this.employeeRepository = employeeRepository;
         this.workWeekRepository = workWeekRepository;
-        this.commentaryRepository = commentaryRepository;
     }
 
     List<Employee> getAllEmployees() {
@@ -73,15 +70,15 @@ public class TimesheetUnitService {
         return workWeekRepository.findFirstById(workWeekId);
     }
 
-    public void saveAdd(TimesheetUnit timesheetUnit) {
+    void saveAdd(TimesheetUnit timesheetUnit) {
         timesheetUnitRepository.save(timesheetUnit);
     }
 
-    public void saveUpdate(WorkWeek workWeek) {
+    void saveUpdate(WorkWeek workWeek) {
         workWeekRepository.save(workWeek);
     }
 
-    public void deleteById(Long timesheetUnitId) {
+    void deleteById(Long timesheetUnitId) {
         timesheetUnitRepository.deleteById(timesheetUnitId);
     }
 
@@ -99,7 +96,7 @@ public class TimesheetUnitService {
         return nextMonday;
     }
 
-    public boolean similarTimesheetExists(Long projectId, WorkWeek workWeek, Model model, Employee loggedInUser) {
+    boolean similarTimesheetExists(Long projectId, WorkWeek workWeek, Model model, Employee loggedInUser) {
         TimesheetUnit timesheetSimilarInDB = timesheetUnitRepository
                 .findFirstByEmployeeIdAndProjectIdForSpecificWeek(loggedInUser.getId(), projectId, workWeek.getDateMonday(), workWeek.getDateMonday().plusDays(1));
         if (timesheetSimilarInDB != null) {
@@ -112,7 +109,7 @@ public class TimesheetUnitService {
         return false;
     }
 
-    public TimesheetUnit setTimesheetUnitValues(Long projectId, WorkWeek workWeek, Employee loggedInUser) {
+    TimesheetUnit setTimesheetUnitValues(Long projectId, WorkWeek workWeek, Employee loggedInUser) {
         workWeek.setDateMonday(workWeek.getDateMonday().plusDays(1));
         workWeekRepository.save(workWeek);
         Project project = projectRepository.findFirstByIdWithProjectTeamMembers(projectId);
@@ -123,7 +120,7 @@ public class TimesheetUnitService {
         return timesheetUnit;
     }
 
-    public boolean noTimesheetInDB(List<TimesheetUnit> timesheets, Model model) {
+    boolean noTimesheetInDB(List<TimesheetUnit> timesheets, Model model) {
         if (timesheets.size() == 0) {
             model.addAttribute("errorNoTimesheets", "Error: There are no timesheets to display!");
             return true;
@@ -131,7 +128,7 @@ public class TimesheetUnitService {
         return false;
     }
 
-    public boolean noWorkWeekInDB(Model model, WorkWeek workWeek) {
+    boolean noWorkWeekInDB(Model model, WorkWeek workWeek) {
         if (workWeek == null) {
             model.addAttribute("error", "Update Error");
             return true;
