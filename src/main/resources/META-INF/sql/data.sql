@@ -24,10 +24,10 @@ INSERT INTO authority VALUES (null, 'ROLE_ADMIN');
 INSERT INTO authority VALUES (null, 'ROLE_USER');
 
 INSERT INTO employee_authority VALUES (1, 1);
-INSERT INTO employee_authority VALUES (2, 11);
-INSERT INTO employee_authority VALUES (3, 11);
-INSERT INTO employee_authority VALUES (4, 11);
-INSERT INTO employee_authority VALUES (5, 11);
+INSERT INTO employee_authority VALUES (11, 11);
+INSERT INTO employee_authority VALUES (21, 11);
+INSERT INTO employee_authority VALUES (31, 11);
+INSERT INTO employee_authority VALUES (41, 11);
 
 INSERT INTO projects VALUES (null, 100000, "divorce of the client with his spouse; client demands alimony from his wife", true, "divorce", "2019/06/fam", 1000)
 INSERT INTO projects VALUES (null, 50000, "client's wish is to sue his former employer for damages incurred during his employment time", true, "damages", "2017/01/civ", 1000)
