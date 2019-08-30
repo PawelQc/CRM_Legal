@@ -1,39 +1,39 @@
 INSERT INTO additional_info_clients VALUES (null, "ul. Alberta 3/43, 01-577 Warszawa", "77249000056420077578477743", "kulczyk.j@gmail.com", 550, "9318235090", "879876543")
 INSERT INTO additional_info_clients VALUES (null, "ul. Krecia 2, 01-343 Warszawa", "86106000058780488477816280", "tarcz.and@onet.pl", 480, "8943064667", "564432123")
--- INSERT INTO additional_info_clients VALUES (null, "ul. Zamszy 7, 01-434 Warszawa", "59150017356396376097274923", "info.polexport@polex.pl", 700, "1219027734", "512098876")
--- INSERT INTO additional_info_clients VALUES (null, "ul. Sienna 39, 01-101 Warszawa", "56124067132770425575384752", "info@PKlegal.pl", 500, "7991032682", "542765432")
+INSERT INTO additional_info_clients VALUES (null, "ul. Zamszy 7, 01-434 Warszawa", "59150017356396376097274923", "info.polexport@polex.pl", 700, "1219027734", "512098876")
+INSERT INTO additional_info_clients VALUES (null, "ul. Sienna 39, 01-101 Warszawa", "56124067132770425575384752", "info@PKlegal.pl", 500, "7991032682", "542765432")
 
 INSERT INTO clients_natural_person VALUES (1000, 1, "Janusz", "Kulczyk")
 INSERT INTO clients_natural_person VALUES (1001, 11, "Andrzej", "Tarczynski")
--- INSERT INTO clients_legal_person VALUES (1002, 3, "PolExport sp. z o.o.")
--- INSERT INTO clients_legal_person VALUES (1003, 4 , "Kancelaria")
+INSERT INTO clients_legal_person VALUES (1002, 21, "PolExport sp. z o.o.")
+INSERT INTO clients_legal_person VALUES (1003, 31 , "Kancelaria")
 
 INSERT INTO additional_info_employees VALUES (null, 10, 500, 300, "546434654", 60000)
--- INSERT INTO additional_info_employees VALUES (null, 8, 400, 100, "634567987", 20000)
--- INSERT INTO additional_info_employees VALUES (null, 5, 300, 60, "765456987", 12000)
--- INSERT INTO additional_info_employees VALUES (null, 0, 200, 40, "546768987", 9000)
--- INSERT INTO additional_info_employees VALUES (null, 15, 600, 400, "654765876", 80000)
+INSERT INTO additional_info_employees VALUES (null, 8, 400, 100, "634567987", 20000)
+INSERT INTO additional_info_employees VALUES (null, 5, 300, 60, "765456987", 12000)
+INSERT INTO additional_info_employees VALUES (null, 0, 200, 40, "546768987", 9000)
+INSERT INTO additional_info_employees VALUES (null, 15, 600, 400, "654765876", 80000)
 
 INSERT INTO employees VALUES (null, "adam.kowalski@PKlegal.pl", "Adam", 1, "Kowalski", "$2a$10$LusF4zmyfIfHTvA8KKSLEO.lrY8Y6LX4UHo99uqV0.sS2D5EJZAPi", 1)
--- INSERT INTO employees VALUES (null, "k.janicki@PKlegal.pl", "Krzysztof", 0, "Janicki", "$2a$10$fgAg6NLP7JIHjiyOl5.Z0uNArcKjrthwOFEYsqMkWU3K.DScXtZi6", 2)
--- INSERT INTO employees VALUES (null, "patryk.zubrzycki@PKlegal.pl", "Patryk", 0, "Zubrzycki", "$2a$10$3Zt7i.Zwjr0bahsObyu0vuVJENxQWEPYvqciZExZM4ki1NpCodyMe", 3)
--- INSERT INTO employees VALUES (null, "pawel.janiak@PKlegal.pl", "Pawel", 0, "Janiak", "$2a$10$4JUnbHe/sW1o8NOUYt9dRuzL8wQitlHZOjoIQtfwjZRK9nIHVxpr6", 4)
--- INSERT INTO employees VALUES (null, "zenon.krzywiski@PKlegal.pl", "Zenon", 0, "Krzywiski", "$2a$10$6NTqm.zz3H6wTlPbgR7lU.xGq0W.C9Ir5WgDZpADnSlANGi8yOCwW", 5)
+INSERT INTO employees VALUES (null, "k.janicki@PKlegal.pl", "Krzysztof", 0, "Janicki", "$2a$10$fgAg6NLP7JIHjiyOl5.Z0uNArcKjrthwOFEYsqMkWU3K.DScXtZi6", 11)
+INSERT INTO employees VALUES (null, "patryk.zubrzycki@PKlegal.pl", "Patryk", 0, "Zubrzycki", "$2a$10$3Zt7i.Zwjr0bahsObyu0vuVJENxQWEPYvqciZExZM4ki1NpCodyMe", 21)
+INSERT INTO employees VALUES (null, "pawel.janiak@PKlegal.pl", "Pawel", 0, "Janiak", "$2a$10$4JUnbHe/sW1o8NOUYt9dRuzL8wQitlHZOjoIQtfwjZRK9nIHVxpr6", 31)
+INSERT INTO employees VALUES (null, "zenon.krzywiski@PKlegal.pl", "Zenon", 0, "Krzywiski", "$2a$10$6NTqm.zz3H6wTlPbgR7lU.xGq0W.C9Ir5WgDZpADnSlANGi8yOCwW", 41)
 
 INSERT INTO authority VALUES (null, 'ROLE_ADMIN');
 INSERT INTO authority VALUES (null, 'ROLE_USER');
 
 INSERT INTO employee_authority VALUES (1, 1);
--- INSERT INTO employee_authority VALUES (2, 2);
--- INSERT INTO employee_authority VALUES (3, 2);
--- INSERT INTO employee_authority VALUES (4, 2);
--- INSERT INTO employee_authority VALUES (5, 2);
+INSERT INTO employee_authority VALUES (2, 11);
+INSERT INTO employee_authority VALUES (3, 11);
+INSERT INTO employee_authority VALUES (4, 11);
+INSERT INTO employee_authority VALUES (5, 11);
 
 INSERT INTO projects VALUES (null, 100000, "divorce of the client with his spouse; client demands alimony from his wife", true, "divorce", "2019/06/fam", 1000)
 INSERT INTO projects VALUES (null, 50000, "client's wish is to sue his former employer for damages incurred during his employment time", true, "damages", "2017/01/civ", 1000)
 INSERT INTO projects VALUES (null, 200000, "client is investigated by the tax office due to tax arrears in fiscal year 2018", true, "tax dispute", "2019/07/tax", 1001)
--- INSERT INTO projects VALUES (null, 250000, "merger of the parent company with its subsidiary in Cyprus", true, "merger", "2018/08/com", 1002)
--- INSERT INTO projects VALUES (null, 0, "non billable actvities - private development etc.", false, "private development", "PD/nonBillable", 1003)
+INSERT INTO projects VALUES (null, 250000, "merger of the parent company with its subsidiary in Cyprus", true, "merger", "2018/08/com", 1002)
+INSERT INTO projects VALUES (null, 0, "non billable actvities - private development etc.", false, "private development", "PD/nonBillable", 1003)
 
 INSERT INTO project_employee VALUES (1, 1)
 -- INSERT INTO project_employee VALUES (1, 2)
