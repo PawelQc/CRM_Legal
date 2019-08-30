@@ -47,7 +47,7 @@ In case when there is an existing timesheet - user is informed about it.
 <img src="images/timesheetAdd.png">
 
 #### Timesheet details
-Each timesheet may be analysed.
+Each timesheet may be analyzed.
 <img src="images/timesheetDetails.png">
 
 #### Reports
