@@ -37,8 +37,31 @@ Admin may add, edit and delete clients. User may only see input data.
 Admin may add, edit and delete employees. User may only see input data.
 <img src="images/employeesList.png">
 
+#### Timesheets
+Each user may add, edit and delete his timesheets. Admin has access to timesheets of all users.
+<img src="images/timesheetList.png">
 
+#### Adding new timesheet
+In case when there is an existing timesheet - user is informed about it.
+<img src="images/timesheetAdd.png">
 
+#### Timesheet details
+Each timesheet may be analysed.
+<img src="images/timesheetDetails.png">
 
+#### Reports
+Admin may generate reports which are generated based on the timesheet data.
+<img src="images/reportChoice.png">
 
+#### Employee report form
+In order to generate a report there is an appropriate validation of input data.
+<img src="images/reportForm.png">
 
+#### Employee report
+<img src="images/reportEmployee.png">
+
+#### Project report
+<img src="images/reportProject.png">
+
+#### Invoice preview report
+<img src="images/reportInvoicePreview.png">
