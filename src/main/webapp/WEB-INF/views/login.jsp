@@ -8,7 +8,6 @@
     <%@ include file="/fragments/head.jspf" %>
 </head>
 <body>
-<%@ include file="/fragments/header.jspf" %>
 
 <header class="w3-container w3-red w3-center header-padding">
     <div class="container">

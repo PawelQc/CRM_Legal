@@ -8,8 +8,6 @@
     <%@ include file="/fragments/head.jspf" %>
 </head>
 <body>
-<%@ include file="/fragments/header.jspf" %>
-
 <header class="w3-container w3-red w3-center header-padding">
     <h1 class="w3-margin w3-jumbo">Legal CRM - Welcome</h1>
     <h3>Full access requires user authentication </h3> <br>
