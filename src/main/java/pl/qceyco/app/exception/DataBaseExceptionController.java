@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class DataBaseExceptionController {
 
     @ExceptionHandler(value = Exception.class)
-    public String handleDBException() {
+    public String handleDBException(Exception e) {
         return "dataBaseError";
     }
 
