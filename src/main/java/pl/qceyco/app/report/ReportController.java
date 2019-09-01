@@ -3,10 +3,7 @@ package pl.qceyco.app.report;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import pl.qceyco.app.client.Client;
 import pl.qceyco.app.employee.Employee;
 import pl.qceyco.app.project.Project;
@@ -64,6 +61,19 @@ public class ReportController {
     @RequestMapping(value = "/invoice-preview/form", method = RequestMethod.GET)
     public String showInvoicePreviewForm() {
         return "reports/invoicePreview/invoicePreviewForm";
+    }
+
+    @RequestMapping(value = "/export-timesheets/choose-employee", method = RequestMethod.GET)
+    public String showEmployeeChoiceForm() {
+        return "reports/excelExport/employeeChoiceList";
+    }
+
+    @RequestMapping(value = "/export-timesheets//{employeeId}", method = RequestMethod.GET)
+    public String showDataChoiceForm(@PathVariable Long employeeId) {
+
+     //service:    pobierz projekty pracownika-pokaz je w widoku
+
+        return "reports/excelExport/employeeChoiceList";
     }
 
     @RequestMapping(value = "/monthly-employee-report/process", method = RequestMethod.POST)

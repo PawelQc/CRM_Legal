@@ -1,24 +1,19 @@
-package pl.qceyco.app.xlsGenerator;
+package pl.qceyco.app.excelGenerator;
 
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import pl.qceyco.app.client.Client;
-import pl.qceyco.app.client.ClientService;
-import pl.qceyco.app.employee.Employee;
 import pl.qceyco.app.timesheet.unit.TimesheetUnit;
 import pl.qceyco.app.timesheet.unit.TimesheetUnitRepository;
 
 import javax.servlet.http.HttpSession;
-import java.io.*;
-import java.util.List;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/")
@@ -64,7 +59,6 @@ public class ExcelController {
         row.createCell(7).setCellValue(timesheetUnit.getWorkWeek().getDateMonday().plusDays(4).toString());
         row.createCell(8).setCellValue(timesheetUnit.getWorkWeek().getDateMonday().plusDays(5).toString());
         row.createCell(9).setCellValue(timesheetUnit.getWorkWeek().getDateMonday().plusDays(6).toString());
-
 
 
         String path = System.getProperty("user.home");

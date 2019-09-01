@@ -26,6 +26,9 @@
         <a href="/reports/invoice-preview/form" class="btn btn-warning rounded-0 text-light m-1 btn-report-option">
             <h4>generate invoice preview</h4>
         </a>
+        <a href="/reports/export-timesheets/choose-employee" class="btn btn-success rounded-0 text-light m-1 btn-report-option">
+            <h4>export timesheets to excel</h4>
+        </a>
     </div>
 </div>
 <%@ include file="/fragments/footer.jspf" %>
