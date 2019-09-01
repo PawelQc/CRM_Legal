@@ -45,7 +45,7 @@ public class HomePageService {
         Map<String, Integer> employeesAndUtilisation = new HashMap<>();
         List<Employee> employees = employeeRepository.findAll();
         for (Employee e : employees) {
-            List<TimesheetUnit> timesheets = timesheetUnitRepository.findAllByEmployeeIdIn4Weeks(e.getId(), startDate, endDate);
+            List<TimesheetUnit> timesheets = timesheetUnitRepository.findAllByEmployeeIdInSearchPeriod(e.getId(), startDate, endDate);
             Integer nonBillableHours = countNonBillableHours(timesheets);
             Integer billableHours = countBillableHours(timesheets);
             Integer workTimeUtilizationLevel = getWorkTimeUtilisationLevelAsInt(nonBillableHours, billableHours);
@@ -66,7 +66,7 @@ public class HomePageService {
 
     private List<TimesheetUnit> getTimesheetsForRecentWeek() {
         LocalDate previousMonday = getPreviousMonday();
-        List<TimesheetUnit> timesheets = timesheetUnitRepository.findAllInRecentWeek(previousMonday, previousMonday.plusDays(1));
+        List<TimesheetUnit> timesheets = timesheetUnitRepository.findAllInSearchPeriod(previousMonday, previousMonday.plusDays(1));
         return timesheets;
     }
 
@@ -97,7 +97,7 @@ public class HomePageService {
 
     private Integer getProjectHours(LocalDate startDate, LocalDate endDate, Project project) {
         Integer hours = 0;
-        List<TimesheetUnit> projectTimesheets = timesheetUnitRepository.findAllByProjectIn4Weeks(project.getId(), startDate, endDate);
+        List<TimesheetUnit> projectTimesheets = timesheetUnitRepository.findAllByProjectInSearchPeriod(project.getId(), startDate, endDate);
         for (TimesheetUnit t : projectTimesheets) {
             hours += t.countWeekHours();
         }
@@ -128,7 +128,7 @@ public class HomePageService {
         TimesheetUnit recentTimesheet = timesheetUnitRepository.findFirstByEmployeeIdOrderByIdDesc(userId);
         LocalDate previousMonthFirstMonday = LocalDate.now().minusMonths(1).with(firstInMonth(DayOfWeek.MONDAY));
         LocalDate endDate = previousMonthFirstMonday.plusDays(27);
-        List<TimesheetUnit> timesheetsPreviousMonth = timesheetUnitRepository.findAllByEmployeeIdIn4Weeks(userId, previousMonthFirstMonday, endDate);
+        List<TimesheetUnit> timesheetsPreviousMonth = timesheetUnitRepository.findAllByEmployeeIdInSearchPeriod(userId, previousMonthFirstMonday, endDate);
         Integer nonBillableHours = countNonBillableHours(timesheetsPreviousMonth);
         Integer billableHours = countBillableHours(timesheetsPreviousMonth);
         Integer workTimeUtilizationLevel = getWorkTimeUtilisationLevelAsInt(nonBillableHours, billableHours);

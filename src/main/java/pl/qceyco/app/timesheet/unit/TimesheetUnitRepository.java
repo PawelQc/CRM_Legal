@@ -22,19 +22,19 @@ public interface TimesheetUnitRepository extends JpaRepository<TimesheetUnit, Lo
     List<TimesheetUnit> findAllByProjectIdAndEmployeeId(Long projectId, Long employeeId);
 
     @Query("SELECT t FROM TimesheetUnit t JOIN t.workWeek w where t.employee.id = ?1 and w.dateMonday between ?2 and ?3")
-    List<TimesheetUnit> findAllByEmployeeIdIn4Weeks(Long employeeId, LocalDate start, LocalDate end);
+    List<TimesheetUnit> findAllByEmployeeIdInSearchPeriod(Long employeeId, LocalDate start, LocalDate end);
 
     @Query("SELECT t FROM TimesheetUnit t JOIN t.workWeek w where t.project.client.id = ?1 and w.dateMonday between ?2 and ?3 order by w.dateMonday")
-    List<TimesheetUnit> findAllByClientIn4Weeks(Long employeeId, LocalDate start, LocalDate end);
+    List<TimesheetUnit> findAllByClientInSearchPeriod(Long employeeId, LocalDate start, LocalDate end);
 
     @Query("SELECT t FROM TimesheetUnit t JOIN t.workWeek w where t.project.id = ?1 and w.dateMonday between ?2 and ?3")
-    List<TimesheetUnit> findAllByProjectIn4Weeks(Long projectId, LocalDate start, LocalDate end);
+    List<TimesheetUnit> findAllByProjectInSearchPeriod(Long projectId, LocalDate start, LocalDate end);
 
     @Query("SELECT t FROM TimesheetUnit t JOIN t.workWeek w where t.employee.id = ?1 and t.project.id = ?2 and w.dateMonday between ?3 and ?4")
-    TimesheetUnit findFirstByEmployeeIdAndProjectIdForSpecificWeek(Long employeeId, Long projectId, LocalDate start, LocalDate end);
+    TimesheetUnit findFirstByEmployeeIdAndProjectIdInSearchPeriod(Long employeeId, Long projectId, LocalDate start, LocalDate end);
 
     @Query("SELECT t FROM TimesheetUnit t JOIN t.workWeek w where w.dateMonday between ?1 and ?2 order by t.employee.id")
-    List<TimesheetUnit> findAllInRecentWeek(LocalDate start, LocalDate end);
+    List<TimesheetUnit> findAllInSearchPeriod(LocalDate start, LocalDate end);
 
 }
 

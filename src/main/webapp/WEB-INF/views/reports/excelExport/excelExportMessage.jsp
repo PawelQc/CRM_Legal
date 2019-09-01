@@ -10,10 +10,11 @@
 <%@ include file="/fragments/header.jspf" %>
 
 <div class="container">
-    <h4 class="text-center warning">${error}</h4>
+    <h4 class="text-center text-warning">${excelError}</h4>
+    <c:if test="${empty excelError}" >
+        <h4 class="text-center">${excelSuccess}</h4>
+    </c:if>
 </div>
 <%@ include file="/fragments/footer.jspf" %>
 </body>
 </html>
-
-<%--todo popraw wszytskie fragmenty gdzie jest walidacja czy jest null - zrob jeden exception handler--%>

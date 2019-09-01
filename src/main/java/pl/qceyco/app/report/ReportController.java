@@ -9,6 +9,7 @@ import pl.qceyco.app.employee.Employee;
 import pl.qceyco.app.project.Project;
 import pl.qceyco.app.timesheet.unit.TimesheetUnit;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -63,17 +64,9 @@ public class ReportController {
         return "reports/invoicePreview/invoicePreviewForm";
     }
 
-    @RequestMapping(value = "/export-timesheets/choose-employee", method = RequestMethod.GET)
+    @RequestMapping(value = "/export-timesheets/form", method = RequestMethod.GET)
     public String showEmployeeChoiceForm() {
-        return "reports/excelExport/employeeChoiceList";
-    }
-
-    @RequestMapping(value = "/export-timesheets//{employeeId}", method = RequestMethod.GET)
-    public String showDataChoiceForm(@PathVariable Long employeeId) {
-
-     //service:    pobierz projekty pracownika-pokaz je w widoku
-
-        return "reports/excelExport/employeeChoiceList";
+        return "reports/excelExport/excelExportForm";
     }
 
     @RequestMapping(value = "/monthly-employee-report/process", method = RequestMethod.POST)
@@ -92,6 +85,25 @@ public class ReportController {
 
         return "reports/employeeReport/reportEmployeeReportGenerated";
     }
+
+    @RequestMapping(value = "/export-timesheets/process", method = RequestMethod.POST)
+    public String processTimesheetExportReport(@RequestParam Long employeeId, @RequestParam String startDate,
+                                               @RequestParam String endDate, Model model) {
+        if (employeeId == null || StringUtils.isBlank(startDate) || StringUtils.isBlank(endDate)) {
+            model.addAttribute("errorNotSufficientData", "Error: Indicate all data requested in order to generate a report!");
+            return "reports/excelExport/excelExportForm";
+        }
+        LocalDate selectedMonday = LocalDate.parse(startDate);
+        LocalDate selectedSunday = LocalDate.parse(endDate);
+        if (!selectedMonday.getDayOfWeek().equals(DayOfWeek.MONDAY) || !selectedSunday.getDayOfWeek().equals(DayOfWeek.SUNDAY)
+                || selectedMonday.isAfter(selectedSunday)) {
+            model.addAttribute("errorInvalidData", "Error: Selected dates are incorrect!");
+            return "reports/excelExport/excelExportForm";
+        }
+        reportService.exportTimesheetsProcess(selectedMonday, selectedSunday, employeeId, model);
+        return "reports/excelExport/excelExportMessage";
+    }
+
 
     @RequestMapping(value = "/project-report/process", method = RequestMethod.POST)
     public String processProjectReport(@RequestParam Long projectId, Model model) {
