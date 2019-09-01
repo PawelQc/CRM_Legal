@@ -59,7 +59,7 @@ public class AdditionalInfoClientController {
     public String showUpdateForm(@PathVariable Long infoId, Model model) {
         AdditionalInfoClient additionalInfoClient = additionalInfoClientService.getAdditionalInfoById(infoId);
         if (additionalInfoClient == null) {
-            model.addAttribute("error", "Update Error");
+            model.addAttribute("error", "Error: something went wrong... Cause: problem with update - wrong id");
             return "error";
         }
         Client client = additionalInfoClientService.getClientByInfoId(infoId);

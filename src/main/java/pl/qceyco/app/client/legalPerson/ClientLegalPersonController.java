@@ -40,7 +40,7 @@ public class ClientLegalPersonController {
     public String showUpdateForm(@PathVariable Long clientId, Model model) {
         ClientLegalPerson clientLegalPerson = clientLegalPersonService.findClientById(clientId);
         if (clientLegalPerson == null) {
-            model.addAttribute("error", "Update Error");
+            model.addAttribute("error", "Error: something went wrong... Cause: problem with update - wrong id");
             return "error";
         }
         model.addAttribute("clientLegalPerson", clientLegalPerson);

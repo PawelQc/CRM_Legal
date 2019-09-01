@@ -79,7 +79,7 @@ public class ProjectController {
     public String showUpdateForm(@PathVariable Long projectId, Model model) {
         Project project = projectService.getProjectById(projectId);
         if (project == null) {
-            model.addAttribute("error", "Update Error");
+            model.addAttribute("error", "Error: something went wrong... Cause: problem with update - wrong id");
             return "error";
         }
         model.addAttribute("project", project);

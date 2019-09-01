@@ -59,7 +59,7 @@ public class AdditionalInfoEmployeeController {
     public String showUpdateForm(@PathVariable Long infoId, Model model) {
         AdditionalInfoEmployee additionalInfoEmployee = additionalInfoEmployeeService.getAdditionalInfoById(infoId);
         if (additionalInfoEmployee == null) {
-            model.addAttribute("error", "Update Error");
+            model.addAttribute("error", "Error: something went wrong... Cause: problem with update - wrong id");
             return "error";
         }
         Employee employee = additionalInfoEmployeeService.getEmployeeByInfoId(infoId);
