@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Error</title>
+    <title>Excel export</title>
     <%@ include file="/fragments/head.jspf" %>
 </head>
 <body>

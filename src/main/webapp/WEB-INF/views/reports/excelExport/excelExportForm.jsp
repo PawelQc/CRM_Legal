@@ -11,7 +11,7 @@
 
 <div class="container">
     <h1 class="text-center">Export employee timesheets to excel file</h1>
-    <h4 class="text-center">Choose an employee and start date to generate a report</h4>
+    <h4 class="text-center">Choose an employee, start and end date to generate a report</h4>
     <p class="text-warning">${errorInvalidData}</p>
     <p class="text-warning">${errorNotSufficientData}</p>
 
