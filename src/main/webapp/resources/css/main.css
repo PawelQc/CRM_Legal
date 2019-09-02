@@ -4,8 +4,8 @@ html {
 }
 
 body {
-    padding-bottom: 50px;
-    background-image: linear-gradient(to top, lightgrey 0%, lightgrey 1%, #e0e0e0 26%, #efefef 48%, #d9d9d9 75%, #bcbcbc 100%);
+    background-image: url('/resources/images/background.jpg');
+    /*background-image: linear-gradient(to top, lightgrey 0%, lightgrey 1%, #e0e0e0 26%, #efefef 48%, #d9d9d9 75%, #bcbcbc 100%);*/
     margin: 0 0 100px;
 }
 
@@ -135,5 +135,12 @@ footer {
     width: 1200px; table-layout: auto
 }
 
+.backgroundImage1 {
+    background-image: url('/resources/images/start.jpg')
+}
+
+.backgroundImage2 {
+    background-image: url('/resources/images/background.jpg')
+}
 
 
