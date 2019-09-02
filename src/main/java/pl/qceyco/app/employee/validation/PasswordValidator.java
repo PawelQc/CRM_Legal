@@ -7,6 +7,9 @@ import javax.validation.ConstraintValidatorContext;
 
 public class PasswordValidator implements ConstraintValidator<Password, String> {
 
+    // Chyba chciałeś użyć tych zmiennych
+    // Obsłużyłeś je poprawnie w anotacji
+    // Ale potem w metodzie isValid i tak wpisałeś wartości na sztywno
     private int max;
     private int min;
 

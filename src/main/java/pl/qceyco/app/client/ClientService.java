@@ -10,6 +10,11 @@ import java.util.List;
 @Service
 public class ClientService {
 
+    // Tylko jako ciekawostka
+    // Jedna z wersji metodologii używania serwisów mówi, że serwis komunikuje się
+    // z repozytorium za które odpowiada oraz innymi serwisami
+    // Ale tak jest dobrze, to tylko ciekawostka
+    // I tak wszystko zależy od założeń projektu na którym będziesz pracować
     private final ProjectRepository projectRepository;
     private final ClientRepository clientRepository;
     private final AdditionalInfoClientRepository additionalInfoClientRepository;
