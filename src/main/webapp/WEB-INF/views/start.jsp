@@ -14,6 +14,8 @@
     <a href="/login" class="btn btn-warning btn-lg rounded-0 text-light m-1">LOGIN</a>
 </header>
 
+    <img src="/resources/img/landing.jpg"  height="100" width="100">
+
 <div class="w3-row-padding w3-padding-64 w3-container">
     <div class="w3-content">
         <div class="w3-twothird">
