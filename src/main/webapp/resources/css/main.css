@@ -6,7 +6,7 @@ html {
 body {
     padding-bottom: 50px;
     background-image: linear-gradient(to top, lightgrey 0%, lightgrey 1%, #e0e0e0 26%, #efefef 48%, #d9d9d9 75%, #bcbcbc 100%);
-    margin: 0 0 100px
+    margin: 0 0 100px;
 }
 
 body, h1, h2, h3, h4, h5, h6 {
