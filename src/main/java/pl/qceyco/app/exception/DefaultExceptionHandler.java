@@ -1,16 +1,15 @@
 package pl.qceyco.app.exception;
 
+import org.hibernate.exception.SQLGrammarException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import java.sql.SQLSyntaxErrorException;
-
 @ControllerAdvice
 public class DefaultExceptionHandler {
 
-    @ExceptionHandler(value = SQLSyntaxErrorException.class)
-    public String handleDBException(SQLSyntaxErrorException e) {
+    @ExceptionHandler(value = SQLGrammarException.class)
+    public String handleDBException(SQLGrammarException e) {
         return "dataBaseError";
     }
 
