@@ -14,24 +14,22 @@
 
     <div class="text-center">
         <div class="ts-form-sort">
-            <form action="/timesheets/sort-by-project" method="post">
-                <form action="/timesheets/sort-by-project" method="post">
-                    <select name="projectId" id="projectId" class="form-control">
-                        <c:forEach items="${projectsUser}" var="project">
-                            <option value="${project.id}">${project.signature}</option>
-                        </c:forEach>
-                    </select> <br>
-                    <input type="submit" value="Sort" class="btn-success">
-                </label>
+            <form action="<c:url value="/timesheets/sort-by-project"/>" method="post">
+                <select name="projectId" id="projectId" class="form-control">
+                    <c:forEach items="${projectsUser}" var="project">
+                        <option value="${project.id}">${project.signature}</option>
+                    </c:forEach>
+                </select> <br>
+                <input type="submit" value="Sort" class="btn-success">
             </form>
         </div>
     </div>
-    <a href="/timesheets/choose-project" class="btn btn-success rounded-0 text-light m-1 btn-ts-add">Add</a>
+    <a href="<c:url value="/timesheets/choose-project"/>" class="btn btn-success rounded-0 text-light m-1 btn-ts-add">Add</a>
     <br> <br>
 
-    <a href="/timesheets/list?mode=prev&mondaySelect=${nextMonday}"
+    <a href="<c:url value="/timesheets/list?mode=prev&mondaySelect=${nextMonday}"/>"
        class="btn btn-info rounded-0 text-light m-1 btn-ts-prev">< Previous</a>
-    <a href="/timesheets/list?mode=next&mondaySelect=${nextMonday}"
+    <a href="<c:url value="/timesheets/list?mode=next&mondaySelect=${nextMonday}"/>"
        class="btn btn-info rounded-0 text-light m-1 btn-ts-next">Next ></a>
 
     <table class="table table-hover table-condensed">

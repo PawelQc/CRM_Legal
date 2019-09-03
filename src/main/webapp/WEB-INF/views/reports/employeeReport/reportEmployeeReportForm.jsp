@@ -15,7 +15,7 @@
     <p class="text-warning">${errorInvalidData}</p>
     <p class="text-warning">${errorNotSufficientData}</p>
 
-    <form action="/reports/monthly-employee-report/process" method="post">
+    <form action="<c:url value="/reports/monthly-employee-report/process"/>" method="post">
         <div class="form-group">
             <label for="employeeId">Select employee:</label>
             <select name="employeeId" class="form-control">

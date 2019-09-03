@@ -37,7 +37,7 @@
                     <c:if test="${not empty exception}"> - </c:if>
                 </td>
                 <td>
-                    <a href="/clients/additional-info/list?clientId=${client.id}&additionalInfoId=${client.additionalInfo.id}"
+                    <a href="<c:url value="/clients/additional-info/list?clientId=${client.id}&additionalInfoId=${client.additionalInfo.id}"/>"
                        class="btn btn-info rounded-0 text-light m-1">Details</a></td>
             </tr>
         </c:forEach>

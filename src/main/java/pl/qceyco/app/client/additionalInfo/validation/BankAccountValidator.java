@@ -3,7 +3,7 @@ package pl.qceyco.app.client.additionalInfo.validation;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class BankAccountValidator implements ConstraintValidator<BankAccount, String> {
+class BankAccountValidator implements ConstraintValidator<BankAccount, String> {
 
     @Override
     public void initialize(BankAccount password) {

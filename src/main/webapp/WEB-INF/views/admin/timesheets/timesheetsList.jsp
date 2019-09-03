@@ -13,7 +13,7 @@
     <h4 class="text-warning">${errorNoTimesheets}</h4>
     <div class="text-center">
         <div class="ts-form-sort">
-            <form action="/timesheets/sort-by-project" method="post">
+            <form action="<c:url value="/timesheets/sort-by-project"/>" method="post">
                 <label for="projectId">sort by project</label>
                  <select name="projectId" id="projectId" class="form-control">
                         <c:forEach items="${projects}" var="project">
@@ -21,11 +21,10 @@
                         </c:forEach>
                     </select> <br>
                     <input type="submit" value="Sort" class="btn-success">
-                </label>
             </form>
         </div>
         <div class="ts-form-sort">
-            <form action="/timesheets/sort-by-employee" method="post">
+            <form action="<c:url value="/timesheets/sort-by-employee"/>" method="post">
                 <label for="employeeId">sort by employee</label>
                  <select name="employeeId" id="employeeId" class="form-control">
                         <c:forEach items="${employees}" var="employee">
@@ -33,15 +32,14 @@
                         </c:forEach>
                     </select> <br>
                     <input type="submit" value="Sort" class="btn-success">
-                </label>
             </form>
         </div>
     </div>
-    <a href="/timesheets/choose-project" class="btn btn-success rounded-0 text-light m-1 btn-ts-add">Add</a>
+    <a href="<c:url value="/timesheets/choose-project"/>" class="btn btn-success rounded-0 text-light m-1 btn-ts-add">Add</a>
     <br> <br>
-    <a href="/timesheets/list?mode=prev&mondaySelect=${nextMonday}"
+    <a href="<c:url value="/timesheets/list?mode=prev&mondaySelect=${nextMonday}"/>"
        class="btn btn-info rounded-0 text-light m-1 btn-ts-prev">< Previous</a>
-    <a href="/timesheets/list?mode=next&mondaySelect=${nextMonday}"
+    <a href="<c:url value="/timesheets/list?mode=next&mondaySelect=${nextMonday}"/>"
        class="btn btn-info rounded-0 text-light m-1 btn-ts-next">Next ></a>
     <table class="table table-condensed table-hover">
         <tr>

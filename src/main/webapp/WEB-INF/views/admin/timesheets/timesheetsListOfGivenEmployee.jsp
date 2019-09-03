@@ -11,9 +11,9 @@
 
 <div class="container">
     <h1 class="text-center">Timesheets added by: ${timesheetsChosenUser.get(0).employee.nameDisplay}</h1>
-    <a href="/timesheets/sort-by-employee?employeeId=${employeeId}&mode=prev&mondaySelect=${nextMonday}"
+    <a href="<c:url value="/timesheets/sort-by-employee?employeeId=${employeeId}&mode=prev&mondaySelect=${nextMonday}"/>"
        class="btn btn-info rounded-0 text-light m-1 btn-ts-prev">< Previous</a>
-    <a href="/timesheets/sort-by-employee?employeeId=${employeeId}&mode=next&mondaySelect=${nextMonday}"
+    <a href="<c:url value="/timesheets/sort-by-employee?employeeId=${employeeId}&mode=next&mondaySelect=${nextMonday}"/>"
        class="btn btn-info rounded-0 text-light m-1 btn-ts-next">Next ></a>
 
     <table class="table table-condensed table-hover">

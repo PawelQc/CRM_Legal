@@ -66,13 +66,11 @@ public class HomePageService {
 
     private List<TimesheetUnit> getTimesheetsForRecentWeek() {
         LocalDate previousMonday = getPreviousMonday();
-        List<TimesheetUnit> timesheets = timesheetUnitRepository.findAllInSearchPeriod(previousMonday, previousMonday.plusDays(1));
-        return timesheets;
+        return timesheetUnitRepository.findAllInSearchPeriod(previousMonday, previousMonday.plusDays(1));
     }
 
     private LocalDate getPreviousMonday() {
-        LocalDate previousMonday = LocalDate.now().with(TemporalAdjusters.previous(DayOfWeek.MONDAY)).minusDays(7);
-        return previousMonday;
+        return LocalDate.now().with(TemporalAdjusters.previous(DayOfWeek.MONDAY)).minusDays(7);
     }
 
     private Integer countBillableHours(List<TimesheetUnit> timesheets) {
