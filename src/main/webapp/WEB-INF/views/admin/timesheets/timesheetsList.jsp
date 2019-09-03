@@ -9,13 +9,10 @@
 <body>
 <%@ include file="/fragments/header.jspf" %>
 
-<div class="slider-item overlay backgroundImage1" data-stellar-background-ratio="0.5">
+<div class="slider-item overlay backgroundImage2" data-stellar-background-ratio="1">
     <div class="container">
         <div class="row slider-text align-items-center justify-content-center">
             <div class="col-lg-9 text-center col-sm-12 element-animate">
-<%--todo przerabiac widoki?--%>
-<%--todo nie działą obrazek background--%>
-
                     <h2 class="text-center">Timesheets added between ${nextMonday.minusDays(21)} - ${nextMonday.plusDays(6)}</h2>
                     <h4 class="text-warning">${errorNoTimesheets}</h4>
                     <div class="text-center">
