@@ -5,19 +5,24 @@
 <html>
 <head>
     <title>Login success</title>
-    <%@ include file="/fragments/head.jspf" %>
+    <%@ include file="/fragments/headStart.jspf" %>
 </head>
 <body>
 <%@ include file="/fragments/header.jspf" %>
 
-<br>
-<br>
-<br>
-<br>
-<div class="container">
-    <h2 class="text-center">Successful logging as admin: ${loggedInUser.nameDisplay}</h2>
+
+<div class="slider-item overlay backgroundImage1" data-stellar-background-ratio="0.5">
+    <div class="container">
+        <div class="row slider-text align-items-center justify-content-center">
+            <div class="col-lg-9 text-center col-sm-12 element-animate">
+                <h1 class="text-center">Successful logging as admin: ${loggedInUser.nameDisplay}</h1>
+
+            </div>
+        </div>
+    </div>
 </div>
 
 <%@ include file="/fragments/footer.jspf" %>
+<%@ include file="/fragments/jsCodeStart.jspf" %>
 </body>
 </html>

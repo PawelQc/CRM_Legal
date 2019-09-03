@@ -21,7 +21,7 @@
             <form:input type="text" path="companyName" id="companyNameId" class="form-control"/>
             <form:errors path="companyName" element="div" cssClass="text-warning"/>
         </div>
-        <input type="submit" value="Update">
+        <input type="submit" value="Update" class="btn-success">
     </form:form>
 </div>
 

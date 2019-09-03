@@ -15,7 +15,8 @@ public class DefaultExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     public String handleDefaultException(Exception e, Model model) {
-        model.addAttribute("error", "Error: something went wrong... Cause: " + e.getMessage());
+        model.addAttribute("error", "Error: something went wrong...");
+        model.addAttribute("errorMessage", "Cause: " + e.getMessage());
         return "error";
     }
 

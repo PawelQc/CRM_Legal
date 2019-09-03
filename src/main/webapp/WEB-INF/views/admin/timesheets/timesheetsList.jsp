@@ -8,44 +8,41 @@
 </head>
 <body>
 <%@ include file="/fragments/header.jspf" %>
-
 <div class="ts-main-div">
     <h1 class="text-center">Timesheets added between ${nextMonday.minusDays(21)} - ${nextMonday.plusDays(6)}</h1>
     <h4 class="text-warning">${errorNoTimesheets}</h4>
     <div class="text-center">
         <div class="ts-form-sort">
             <form action="/timesheets/sort-by-project" method="post">
-                <label><h4>sort by project</h4>
-                    <select name="projectId">
+                <label for="projectId">sort by project</label>
+                 <select name="projectId" id="projectId" class="form-control">
                         <c:forEach items="${projects}" var="project">
                             <option value="${project.id}">${project.signature}</option>
                         </c:forEach>
                     </select> <br>
-                    <input type="submit" value="Sort">
+                    <input type="submit" value="Sort" class="btn-success">
                 </label>
             </form>
         </div>
         <div class="ts-form-sort">
             <form action="/timesheets/sort-by-employee" method="post">
-                <label><h4>sort by employee</h4>
-                    <select name="employeeId">
+                <label for="employeeId">sort by project</label>
+                 <select name="employeeId" id="employeeId" class="form-control">
                         <c:forEach items="${employees}" var="employee">
                             <option value="${employee.id}">${employee.firstName} ${employee.lastName}</option>
                         </c:forEach>
                     </select> <br>
-                    <input type="submit" value="Sort">
+                    <input type="submit" value="Sort" class="btn-success">
                 </label>
             </form>
         </div>
     </div>
     <a href="/timesheets/choose-project" class="btn btn-success rounded-0 text-light m-1 btn-ts-add">Add</a>
     <br> <br>
-
     <a href="/timesheets/list?mode=prev&mondaySelect=${nextMonday}"
        class="btn btn-info rounded-0 text-light m-1 btn-ts-prev">< Previous</a>
     <a href="/timesheets/list?mode=next&mondaySelect=${nextMonday}"
        class="btn btn-info rounded-0 text-light m-1 btn-ts-next">Next ></a>
-
     <table class="table table-condensed table-hover">
         <tr>
             <th colspan="10"><h4 class="text-center">Timesheet for: ${nextMonday.minusDays(21)}
@@ -88,7 +85,6 @@
             </c:if>
         </c:forEach>
     </table>
-
     <table class="table table-condensed table-hover">
         <tr>
             <th colspan="10"><h4 class="text-center">Timesheet for: ${nextMonday.minusDays(14)}
@@ -131,7 +127,6 @@
             </c:if>
         </c:forEach>
     </table>
-
     <table class="table table-condensed table-hover">
         <tr>
             <th colspan="10"><h4 class="text-center">Timesheet for: ${nextMonday.minusDays(7)}
@@ -174,7 +169,6 @@
             </c:if>
         </c:forEach>
     </table>
-
     <table class="table table-condensed table-hover">
         <tr>
             <th colspan="10"><h4 class="text-center">Timesheet for: ${nextMonday} - ${nextMonday.plusDays(6)}</h4>

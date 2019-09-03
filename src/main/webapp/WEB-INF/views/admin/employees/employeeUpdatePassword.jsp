@@ -16,7 +16,7 @@
             <input type="password" name="password" class="form-control" id="passwordId">
         </div>
         <p class="text-warning"> ${errorPasswordInput}</p>
-        <input type="submit" value="Update">
+        <input type="submit" value="Update" class="btn-success">
     </form>
 </div>
 <%@ include file="/fragments/footer.jspf" %>

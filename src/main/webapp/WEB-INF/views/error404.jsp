@@ -4,14 +4,23 @@
 <html>
 <head>
     <title>Error 404</title>
-    <%@ include file="/fragments/head.jspf" %>
+    <%@ include file="/fragments/headStart.jspf" %>
 </head>
 <body>
 <%@ include file="/fragments/header.jspf" %>
 
-<div class="container">
-    <h4 class="text-center text-warning">Error: page not found</h4>
+
+<div class="slider-item overlay backgroundImage2" data-stellar-background-ratio="0.5">
+    <div class="container">
+        <div class="row slider-text align-items-center justify-content-center">
+            <div class="col-lg-9 text-center col-sm-12 element-animate">
+                <h1 class="text-center" style="color: chartreuse">Error: page not found</h1>
+            </div>
+        </div>
+    </div>
 </div>
 <%@ include file="/fragments/footer.jspf" %>
+<%@ include file="/fragments/jsCodeStart.jspf" %>
+
 </body>
 </html>

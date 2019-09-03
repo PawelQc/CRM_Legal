@@ -47,8 +47,10 @@ public class AdditionalInfoClientController {
     }
 
     @RequestMapping(value = "/add/{clientId}", method = RequestMethod.POST)
-    public String processAddForm(@PathVariable Long clientId, @ModelAttribute @Valid AdditionalInfoClient additionalInfoClient, BindingResult result) {
+    public String processAddForm(@PathVariable Long clientId, @ModelAttribute @Valid AdditionalInfoClient additionalInfoClient, BindingResult result, Model model) {
         if (result.hasErrors()) {
+            Client client = additionalInfoClientService.getClientById(clientId);
+            model.addAttribute("client", client);
             return "admin/clients/detailedInfo/clientDetailsAdd";
         }
         additionalInfoClientService.saveAdd(clientId, additionalInfoClient);
@@ -69,8 +71,10 @@ public class AdditionalInfoClientController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String processUpdateForm(@ModelAttribute @Valid AdditionalInfoClient additionalInfoClient, BindingResult result) {
+    public String processUpdateForm(@ModelAttribute @Valid AdditionalInfoClient additionalInfoClient, BindingResult result, Model model) {
         if (result.hasErrors()) {
+            Client client = additionalInfoClientService.getClientByInfoId(additionalInfoClient.getId());
+            model.addAttribute("client", client);
             return "admin/clients/detailedInfo/clientDetailsUpdate";
         }
         additionalInfoClientService.saveUpdate(additionalInfoClient);

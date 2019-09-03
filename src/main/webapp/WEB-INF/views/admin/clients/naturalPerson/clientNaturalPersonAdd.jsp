@@ -22,7 +22,7 @@
             <form:input type="text" path="lastName" id="lastNameId" class="form-control"/>
             <form:errors path="lastName" element="div" cssClass="text-warning"/>
         </div>
-        <input type="submit" value="Save">
+        <input type="submit" value="Save" class="btn-success">
     </form:form>
 </div>
 

@@ -134,7 +134,7 @@
         </table>
 
         <div class="text-center">
-            <input type="submit" value="Update" class="btn-lg">
+            <input type="submit" value="Update" class="btn-lg btn-success">
         </div>
     </form:form>
 </div>

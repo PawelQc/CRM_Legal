@@ -13,10 +13,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Password {
 
-    int min();
-
-    int max();
-
     String message() default "password must be minimum 8 and maximum 60 characters";
 
     Class<?>[] groups() default {};

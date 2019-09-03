@@ -32,7 +32,7 @@
             <label for="endDateId">Select end date (must be Sunday):</label>
             <input type="date" name="endDate" id="endDateId" class="form-control">
         </div>
-        <input type="submit" value="Generate report">
+        <input type="submit" value="Generate report" class="btn-success">
     </form>
 </div>
 

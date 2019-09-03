@@ -50,7 +50,7 @@
             <form:errors path="hourlyRateIsCharged" element="div" cssClass="text-warning"/>
         </div>
 
-        <input type="submit" value="Save">
+        <input type="submit" value="Save" class="btn-success">
     </form:form>
 </div>
 

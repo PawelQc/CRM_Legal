@@ -23,7 +23,7 @@
                 </c:forEach>
             </select>
         </div>
-        <input type="submit" value="Generate report">
+        <input type="submit" value="Generate report" class="btn-success">
     </form>
 </div>
 

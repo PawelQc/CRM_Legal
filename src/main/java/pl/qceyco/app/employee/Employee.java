@@ -36,7 +36,7 @@ public class Employee {
     private String emailLogin;
 
     @Column(name = "password", length = 60)
-    @Password(min = 8, max = 60)
+    @Password()
     private String password;
 
     @NotNull
