@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class DefaultExceptionHandler {
 
-    @ExceptionHandler(value = SQLGrammarException.class)
-    public String handleDBException(SQLGrammarException e) {
-        return "dataBaseError";
-    }
+//    @ExceptionHandler(value = SQLGrammarException.class)
+//    public String handleDBException(SQLGrammarException e) {
+//        return "dataBaseError";
+//    }
 
     @ExceptionHandler(value = Exception.class)
     public String handleDefaultException(Exception e, Model model) {
