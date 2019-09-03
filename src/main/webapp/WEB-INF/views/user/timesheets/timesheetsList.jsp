@@ -15,13 +15,13 @@
     <div class="text-center">
         <div class="ts-form-sort">
             <form action="/timesheets/sort-by-project" method="post">
-                <label><h4>sort by project</h4>
-                    <select name="projectId">
+                <form action="/timesheets/sort-by-project" method="post">
+                    <select name="projectId" id="projectId" class="form-control">
                         <c:forEach items="${projectsUser}" var="project">
                             <option value="${project.id}">${project.signature}</option>
                         </c:forEach>
                     </select> <br>
-                    <input type="submit" value="Sort">
+                    <input type="submit" value="Sort" class="btn-success">
                 </label>
             </form>
         </div>

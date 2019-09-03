@@ -3173,16 +3173,6 @@ input[type="button"].btn-block {
     background-color: #dee2e6;
     border-radius: 1rem; }
 
-.nav {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  padding-left: 0;
-  margin-bottom: 0;
-  list-style: none; }
-
 .nav-link {
   display: block;
   padding: 0.5rem 1rem; }
@@ -7162,8 +7152,7 @@ a.text-success:hover, a.text-success:focus {
 a.text-info:hover, a.text-info:focus {
   color: #117a8b !important; }
 
-.text-warning {
-  color: #ffc107 !important; }
+
 
 a.text-warning:hover, a.text-warning:focus {
   color: #d39e00 !important; }

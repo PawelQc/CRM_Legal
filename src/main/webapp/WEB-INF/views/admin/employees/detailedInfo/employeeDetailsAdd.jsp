@@ -44,7 +44,7 @@
             <form:input type="number" path="phoneNumber" id="phoneNumberId" class="form-control"/>
             <form:errors path="phoneNumber" element="div" cssClass="text-warning"/>
         </div>
-        <input type="submit" value="Save">
+        <input type="submit" value="Save" class="btn-success">
     </form:form>
 </div>
 

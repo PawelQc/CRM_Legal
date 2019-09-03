@@ -28,7 +28,7 @@
             <label for="dateId">Select start date (must be first Monday of a month):</label>
             <input type="date" name="startDate" id="dateId" class="form-control">
         </div>
-        <input type="submit" value="Generate report">
+        <input type="submit" value="Generate report" class="btn-success">
     </form>
 </div>
 

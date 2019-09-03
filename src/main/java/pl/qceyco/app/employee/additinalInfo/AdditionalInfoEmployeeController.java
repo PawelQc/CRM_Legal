@@ -47,8 +47,10 @@ public class AdditionalInfoEmployeeController {
     }
 
     @RequestMapping(value = "/add/{employeeId}", method = RequestMethod.POST)
-    public String processAddForm(@PathVariable Long employeeId, @ModelAttribute @Valid AdditionalInfoEmployee additionalInfoEmployee, BindingResult result) {
+    public String processAddForm(@PathVariable Long employeeId, @ModelAttribute @Valid AdditionalInfoEmployee additionalInfoEmployee, BindingResult result, Model model) {
         if (result.hasErrors()) {
+            Employee employee = additionalInfoEmployeeService.getEmployeeById(employeeId);
+            model.addAttribute("employee", employee);
             return "admin/employees/detailedInfo/employeeDetailsAdd";
         }
         additionalInfoEmployeeService.saveAdd(employeeId, additionalInfoEmployee);
@@ -69,8 +71,10 @@ public class AdditionalInfoEmployeeController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String processUpdateForm(@ModelAttribute @Valid AdditionalInfoEmployee additionalInfoEmployee, BindingResult result) {
+    public String processUpdateForm(@ModelAttribute @Valid AdditionalInfoEmployee additionalInfoEmployee, BindingResult result, Model model) {
         if (result.hasErrors()) {
+            Employee employee = additionalInfoEmployeeService.getEmployeeByInfoId(additionalInfoEmployee.getId());
+            model.addAttribute("employee", employee);
             return "admin/employees/detailedInfo/employeeDetailsUpdate";
         }
         additionalInfoEmployeeService.saveUpdate(additionalInfoEmployee);
