@@ -3233,33 +3233,7 @@ input[type="button"].btn-block {
 .tab-content > .active {
   display: block; }
 
-.navbar {
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  padding: 0.5rem 1rem; }
-  .navbar > .container,
-  .navbar > .container-fluid {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between; }
+
 
 .navbar-brand {
   display: inline-block;
@@ -3272,23 +3246,6 @@ input[type="button"].btn-block {
   .navbar-brand:hover, .navbar-brand:focus {
     text-decoration: none; }
 
-.navbar-nav {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  padding-left: 0;
-  margin-bottom: 0;
-  list-style: none; }
-  .navbar-nav .nav-link {
-    padding-right: 0;
-    padding-left: 0; }
-  .navbar-nav .dropdown-menu {
-    position: static;
-    float: none; }
 
 .navbar-text {
   display: inline-block;
@@ -7236,8 +7193,7 @@ a.text-dark:hover, a.text-dark:focus {
     min-width: 992px !important; }
   .container {
     min-width: 992px !important; }
-  .navbar {
-    display: none; }
+
   .badge {
     border: 1px solid #000; }
   .table {

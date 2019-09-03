@@ -13,7 +13,7 @@
     <div class="container">
         <div class="row slider-text align-items-center justify-content-center">
             <div class="col-lg-9 text-center col-sm-12 element-animate">
-                <h2 class="text-center">Successful logout! </h2>
+                <h1 class="text-center">Successful logout! </h1>
 
             </div>
         </div>

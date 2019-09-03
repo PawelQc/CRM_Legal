@@ -14,7 +14,7 @@
     <div class="container">
         <div class="row slider-text align-items-center justify-content-center">
             <div class="col-lg-9 text-center col-sm-12 element-animate">
-                <h2 class="text-center">Successful logging as user: ${loggedInUser.nameDisplay}</h2>
+                <h1 class="text-center">Successful logging as user: ${loggedInUser.nameDisplay}</h1>
 
             </div>
         </div>

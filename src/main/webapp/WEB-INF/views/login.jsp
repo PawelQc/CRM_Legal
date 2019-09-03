@@ -14,15 +14,22 @@
     <div class="container">
         <div class="row slider-text align-items-center justify-content-center">
             <div class="col-lg-9 text-center col-sm-12 element-animate">
-                <h2>Login</h2>
-                <h4 class="text-warning"> ${SPRING_SECURITY_LAST_EXCEPTION.message} </h4>
+                <a href="/" class="btn btn-success rounded-0 text-light m-1"><h3>Go back to homepage</h3></a> <br><br><br>
+
+                <h1>Login</h1>
+                <h3 class="text-warning">
+                    <c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
+                            Your login attempt was not successful due to <br/><br/>
+                            <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/>.
+                    </c:if>
+                </h3>
                 <form action="login" method='post'>
                     <div class="form-group">
-                        <label for="email">Email address:</label>
+                        <label for="email"><h4>Email address:</h4></label>
                         <input type="email" class="form-control" id="email" name='username'>
                     </div>
                     <div class="form-group">
-                        <label for="pwd">Password:</label>
+                        <label for="pwd"><h4>Password:</h4></label>
                         <input type="password" class="form-control" id="pwd" name='password'>
                     </div>
                     <button type="submit" class="btn btn-warning btn-lg rounded-0 text-light m-1">Submit</button>

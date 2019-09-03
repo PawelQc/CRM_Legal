@@ -166,5 +166,16 @@ a{
     color: chartreuse;
 }
 
+.navbar-text-big{
+    font-size: 25px;
+}
+.navbar-text-small{
+    font-size: 20px;
+}
+
+.error{
+    font-size: 50px;
+}
+
 
 

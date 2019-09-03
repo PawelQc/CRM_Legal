@@ -3,26 +3,35 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/">Legal CRM</a>
+            <a class="navbar-brand navbar-text-big" href="/">Legal CRM</a>
         </div>
         <ul class="nav navbar-nav">
-            <li><a href="/home">Home</a></li>
-            <li><a href="/projects/list">Projects</a></li>
-            <li><a href="/clients/list">Clients</a></li>
-            <li><a href="/employees/list">Employees</a></li>
-            <li><a href="/timesheets/list">Timesheets</a></li>
+            <li class="navbar-text-small"><a href="/home">Home</a></li>
+            <li class="navbar-text-small"><a href="/projects/list">Projects</a></li>
+            <li class="navbar-text-small"><a href="/clients/list">Clients</a></li>
+            <li class="navbar-text-small"><a href="/employees/list">Employees</a></li>
+            <li class="navbar-text-small"><a href="/timesheets/list">Timesheets</a></li>
             <c:if test="${loggedInUser.getAdmin()}">
-                <li><a href="/reports/options">Reports</a></li>
+                <li class="navbar-text-small"><a href="/reports/options">Reports</a></li>
             </c:if>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="/user/info"><span class="glyphicon glyphicon-user"></span> ${loggedInUser.nameDisplay}</a></li>
+            <li class="navbar-text-small">
+                <a href="/user/info"><span
+                        class="glyphicon glyphicon-user"></span> ${loggedInUser.nameDisplay}
+                    <c:if test="${loggedInUser.getAdmin()}">
+                        (admin)
+                    </c:if>
+                </a>
+            </li>
             <c:choose>
                 <c:when test="${not empty loggedInUser}">
-                    <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    <li class="navbar-text-small"><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>
+                        Logout</a></li>
                 </c:when>
                 <c:otherwise>
-                    <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <li class="navbar-text-small"><a href="/login"><span class="glyphicon glyphicon-log-in"></span>
+                        Login</a></li>
                 </c:otherwise>
             </c:choose>
         </ul>
