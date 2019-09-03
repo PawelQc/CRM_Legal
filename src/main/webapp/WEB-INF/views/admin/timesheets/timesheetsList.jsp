@@ -26,7 +26,7 @@
         </div>
         <div class="ts-form-sort">
             <form action="/timesheets/sort-by-employee" method="post">
-                <label for="employeeId">sort by project</label>
+                <label for="employeeId">sort by employee</label>
                  <select name="employeeId" id="employeeId" class="form-control">
                         <c:forEach items="${employees}" var="employee">
                             <option value="${employee.id}">${employee.firstName} ${employee.lastName}</option>
