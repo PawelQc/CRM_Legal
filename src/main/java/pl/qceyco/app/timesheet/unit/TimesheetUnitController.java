@@ -117,7 +117,7 @@ public class TimesheetUnitController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String processUpdateForm(@ModelAttribute @Valid WorkWeek workWeek, BindingResult result) {
         if (result.hasErrors()) return "timesheets/timesheetUpdate";
-        workWeek.setDateMonday(workWeek.getDateMonday().plusDays(1));
+        workWeek.setDateMonday(workWeek.getDateMonday());
         timesheetUnitService.saveUpdate(workWeek);
         return "redirect:list";
     }

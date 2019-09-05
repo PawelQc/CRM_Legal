@@ -110,7 +110,7 @@ public class TimesheetUnitService {
     }
 
     TimesheetUnit setTimesheetUnitValues(Long projectId, WorkWeek workWeek, Employee loggedInUser) {
-        workWeek.setDateMonday(workWeek.getDateMonday().plusDays(1));
+        workWeek.setDateMonday(workWeek.getDateMonday());
         workWeekRepository.save(workWeek);
         Project project = projectRepository.findFirstByIdWithProjectTeamMembers(projectId);
         TimesheetUnit timesheetUnit = new TimesheetUnit();
