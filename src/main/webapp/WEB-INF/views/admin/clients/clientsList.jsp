@@ -51,7 +51,7 @@
                         </c:choose>
                         <a href="<c:url value="/clients/additional-info/list?clientId=${client.id}&additionalInfoId=${client.additionalInfo.id}"/>"
                            class="btn btn-info rounded-0 text-light m-1">Details</a>
-                        <a href="http://localhost:8080/clients/delete/${client.id}"
+                        <a href="/clients/delete/${client.id}"
                            class="btn btn-danger rounded-0 text-light m-1"
                            onclick="return confirm('Are you sure you want to delete this client?'); ">Delete</a>
                     </td>

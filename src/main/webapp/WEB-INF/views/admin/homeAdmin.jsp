@@ -82,19 +82,19 @@
             <th>${previousMonday.plusDays(6)}</th>
             <th>Action</th>
         </tr>
-        <c:forEach var="TSrefUnit" items="${timesheets}">
+        <c:forEach var="timesheet" items="${timesheets}">
             <tr>
-                <td>${TSrefUnit.employee.nameDisplay}</td>
-                <td>${TSrefUnit.project.signature}</td>
-                <td>${TSrefUnit.workWeek.mondayHours}</td>
-                <td>${TSrefUnit.workWeek.tuesdayHours}</td>
-                <td>${TSrefUnit.workWeek.wednesdayHours}</td>
-                <td>${TSrefUnit.workWeek.thursdayHours}</td>
-                <td>${TSrefUnit.workWeek.fridayHours}</td>
-                <td>${TSrefUnit.workWeek.saturdayHours}</td>
-                <td>${TSrefUnit.workWeek.sundayHours}</td>
+                <td>${timesheet.employee.nameDisplay}</td>
+                <td>${timesheet.project.signature}</td>
+                <td>${timesheet.workWeek.mondayHours}</td>
+                <td>${timesheet.workWeek.tuesdayHours}</td>
+                <td>${timesheet.workWeek.wednesdayHours}</td>
+                <td>${timesheet.workWeek.thursdayHours}</td>
+                <td>${timesheet.workWeek.fridayHours}</td>
+                <td>${timesheet.workWeek.saturdayHours}</td>
+                <td>${timesheet.workWeek.sundayHours}</td>
                 <td>
-                    <a href="/timesheets/details/${TSrefUnit.workWeek.id}" target="_blank"
+                    <a href="/timesheets/details/${timesheet.workWeek.id}" target="_blank"
                        class="btn btn-info rounded-0 text-light m-1">Details</a>
                 </td>
             </tr>
