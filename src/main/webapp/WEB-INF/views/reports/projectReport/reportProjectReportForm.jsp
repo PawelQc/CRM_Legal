@@ -14,7 +14,7 @@
     <h4 class="text-center">Choose a project to generate a report</h4>
     <p class="text-warning">${errorNotSufficientData}</p>
 
-    <form action="/reports/project-report/process" method="post">
+    <form action="<c:url value="/reports/project-report/process"/>" method="post">
         <div class="form-group">
             <label for="projectId">Select project:</label>
             <select name="projectId" class="form-control">

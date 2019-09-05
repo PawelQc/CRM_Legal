@@ -26,7 +26,7 @@
                 <td>${employee.lastName}</td>
                 <td>${employee.emailLogin}</td>
                 <td>
-                    <a href="/employees/additional-info/list?employeeId=${employee.id}&additionalInfoId=${employee.additionalInfo.id}"
+                    <a href="<c:url value="/employees/additional-info/list?employeeId=${employee.id}&additionalInfoId=${employee.additionalInfo.id}"/>"
                        class="btn btn-info rounded-0 text-light m-1">Details</a>
                 </td>
             </tr>

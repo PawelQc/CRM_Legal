@@ -18,13 +18,14 @@
             <div class="col-lg-9 text-center col-sm-12 element-animate">
                 <h1> Legal CRM</h1>
                 <h1 style="font-size: 2em">Making business simpler</h1>
-
                 <c:choose>
                     <c:when test="${not empty loggedInUser}">
-                        <a href="/home" class="btn btn-success btn-lg rounded-0 text-light m-1"><h4>Go back to crm</h4></a>
+                        <a href="<c:url value="/home"/>" class="btn btn-success btn-lg rounded-0 text-light m-1">
+                            <h4>Go back to crm</h4></a>
                     </c:when>
                     <c:otherwise>
-                        <a href="/login" class="btn btn-warning btn-lg rounded-0 text-light m-1"><h4>LOGIN</h4></a>
+                        <a href="<c:url value="/login"/>" class="btn btn-warning btn-lg rounded-0 text-light m-1">
+                            <h4> LOGIN</h4></a>
                     </c:otherwise>
                 </c:choose>
             </div>

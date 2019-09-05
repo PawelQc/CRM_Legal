@@ -15,7 +15,7 @@
     <p class="text-warning">${errorInvalidData}</p>
     <p class="text-warning">${errorNotSufficientData}</p>
 
-    <form action="/reports/invoice-preview/process" method="post">
+    <form action="<c:url value="/reports/invoice-preview/process"/>" method="post">
         <div class="form-group">
             <label for="clientId">Select client:</label>
             <select name="clientId" class="form-control">

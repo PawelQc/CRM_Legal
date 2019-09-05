@@ -14,24 +14,22 @@
 
     <div class="text-center">
         <div class="ts-form-sort">
-            <form action="/timesheets/sort-by-project" method="post">
-                <form action="/timesheets/sort-by-project" method="post">
-                    <select name="projectId" id="projectId" class="form-control">
-                        <c:forEach items="${projectsUser}" var="project">
-                            <option value="${project.id}">${project.signature}</option>
-                        </c:forEach>
-                    </select> <br>
-                    <input type="submit" value="Sort" class="btn-success">
-                </label>
+            <form action="<c:url value="/timesheets/sort-by-project"/>" method="post">
+                <select name="projectId" id="projectId" class="form-control">
+                    <c:forEach items="${projectsUser}" var="project">
+                        <option value="${project.id}">${project.signature}</option>
+                    </c:forEach>
+                </select> <br>
+                <input type="submit" value="Sort" class="btn-success">
             </form>
         </div>
     </div>
-    <a href="/timesheets/choose-project" class="btn btn-success rounded-0 text-light m-1 btn-ts-add">Add</a>
+    <a href="<c:url value="/timesheets/choose-project"/>" class="btn btn-success rounded-0 text-light m-1 btn-ts-add">Add</a>
     <br> <br>
 
-    <a href="/timesheets/list?mode=prev&mondaySelect=${nextMonday}"
+    <a href="<c:url value="/timesheets/list?mode=prev&mondaySelect=${nextMonday}"/>"
        class="btn btn-info rounded-0 text-light m-1 btn-ts-prev">< Previous</a>
-    <a href="/timesheets/list?mode=next&mondaySelect=${nextMonday}"
+    <a href="<c:url value="/timesheets/list?mode=next&mondaySelect=${nextMonday}"/>"
        class="btn btn-info rounded-0 text-light m-1 btn-ts-next">Next ></a>
 
     <table class="table table-hover table-condensed">
@@ -50,23 +48,23 @@
             <th>${nextMonday.minusDays(15)}</th>
             <th>Action</th>
         </tr>
-        <c:forEach var="TSrefUnit" items="${timesheetsUser}">
-            <c:if test="${TSrefUnit.workWeek.dateMonday.equals(nextMonday.minusDays(21))}">
+        <c:forEach var="timesheet" items="${timesheetsUser}">
+            <c:if test="${timesheet.workWeek.dateMonday.equals(nextMonday.minusDays(21))}">
                 <tr>
-                    <td>${TSrefUnit.project.signature}</td>
-                    <td>${TSrefUnit.workWeek.mondayHours}</td>
-                    <td>${TSrefUnit.workWeek.tuesdayHours}</td>
-                    <td>${TSrefUnit.workWeek.wednesdayHours}</td>
-                    <td>${TSrefUnit.workWeek.thursdayHours}</td>
-                    <td>${TSrefUnit.workWeek.fridayHours}</td>
-                    <td>${TSrefUnit.workWeek.saturdayHours}</td>
-                    <td>${TSrefUnit.workWeek.sundayHours}</td>
+                    <td>${timesheet.project.signature}</td>
+                    <td>${timesheet.workWeek.mondayHours}</td>
+                    <td>${timesheet.workWeek.tuesdayHours}</td>
+                    <td>${timesheet.workWeek.wednesdayHours}</td>
+                    <td>${timesheet.workWeek.thursdayHours}</td>
+                    <td>${timesheet.workWeek.fridayHours}</td>
+                    <td>${timesheet.workWeek.saturdayHours}</td>
+                    <td>${timesheet.workWeek.sundayHours}</td>
                     <td>
-                        <a href="/timesheets/details/${TSrefUnit.workWeek.id}"
+                        <a href="/timesheets/details/${timesheet.workWeek.id}"
                            class="btn btn-info rounded-0 text-light m-1">Details</a>
-                        <a href="/timesheets/update/${TSrefUnit.workWeek.id}"
+                        <a href="/timesheets/update/${timesheet.workWeek.id}"
                            class="btn btn-warning rounded-0 text-light m-1">Update</a>
-                        <a href="http://localhost:8080/timesheets/delete/${TSrefUnit.id}"
+                        <a href="/timesheets/delete/${timesheet.id}"
                            class="btn btn-danger rounded-0 text-light m-1"
                            onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
                     </td>
@@ -91,23 +89,23 @@
             <th>${nextMonday.minusDays(8)}</th>
             <th>Action</th>
         </tr>
-        <c:forEach var="TSrefUnit" items="${timesheetsUser}">
-            <c:if test="${TSrefUnit.workWeek.dateMonday.equals(nextMonday.minusDays(14))}">
+        <c:forEach var="timesheet" items="${timesheetsUser}">
+            <c:if test="${timesheet.workWeek.dateMonday.equals(nextMonday.minusDays(14))}">
                 <tr>
-                    <td>${TSrefUnit.project.signature}</td>
-                    <td>${TSrefUnit.workWeek.mondayHours}</td>
-                    <td>${TSrefUnit.workWeek.tuesdayHours}</td>
-                    <td>${TSrefUnit.workWeek.wednesdayHours}</td>
-                    <td>${TSrefUnit.workWeek.thursdayHours}</td>
-                    <td>${TSrefUnit.workWeek.fridayHours}</td>
-                    <td>${TSrefUnit.workWeek.saturdayHours}</td>
-                    <td>${TSrefUnit.workWeek.sundayHours}</td>
+                    <td>${timesheet.project.signature}</td>
+                    <td>${timesheet.workWeek.mondayHours}</td>
+                    <td>${timesheet.workWeek.tuesdayHours}</td>
+                    <td>${timesheet.workWeek.wednesdayHours}</td>
+                    <td>${timesheet.workWeek.thursdayHours}</td>
+                    <td>${timesheet.workWeek.fridayHours}</td>
+                    <td>${timesheet.workWeek.saturdayHours}</td>
+                    <td>${timesheet.workWeek.sundayHours}</td>
                     <td>
-                        <a href="/timesheets/details/${TSrefUnit.workWeek.id}"
+                        <a href="/timesheets/details/${timesheet.workWeek.id}"
                            class="btn btn-info rounded-0 text-light m-1">Details</a>
-                        <a href="/timesheets/update/${TSrefUnit.workWeek.id}"
+                        <a href="/timesheets/update/${timesheet.workWeek.id}"
                            class="btn btn-warning rounded-0 text-light m-1">Update</a>
-                        <a href="http://localhost:8080/timesheets/delete/${TSrefUnit.id}"
+                        <a href="/timesheets/delete/${timesheet.id}"
                            class="btn btn-danger rounded-0 text-light m-1"
                            onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
                     </td>
@@ -132,23 +130,23 @@
             <th>${nextMonday.minusDays(1)}</th>
             <th>Action</th>
         </tr>
-        <c:forEach var="TSrefUnit" items="${timesheetsUser}">
-            <c:if test="${TSrefUnit.workWeek.dateMonday.equals(nextMonday.minusDays(7))}">
+        <c:forEach var="timesheet" items="${timesheetsUser}">
+            <c:if test="${timesheet.workWeek.dateMonday.equals(nextMonday.minusDays(7))}">
                 <tr>
-                    <td>${TSrefUnit.project.signature}</td>
-                    <td>${TSrefUnit.workWeek.mondayHours}</td>
-                    <td>${TSrefUnit.workWeek.tuesdayHours}</td>
-                    <td>${TSrefUnit.workWeek.wednesdayHours}</td>
-                    <td>${TSrefUnit.workWeek.thursdayHours}</td>
-                    <td>${TSrefUnit.workWeek.fridayHours}</td>
-                    <td>${TSrefUnit.workWeek.saturdayHours}</td>
-                    <td>${TSrefUnit.workWeek.sundayHours}</td>
+                    <td>${timesheet.project.signature}</td>
+                    <td>${timesheet.workWeek.mondayHours}</td>
+                    <td>${timesheet.workWeek.tuesdayHours}</td>
+                    <td>${timesheet.workWeek.wednesdayHours}</td>
+                    <td>${timesheet.workWeek.thursdayHours}</td>
+                    <td>${timesheet.workWeek.fridayHours}</td>
+                    <td>${timesheet.workWeek.saturdayHours}</td>
+                    <td>${timesheet.workWeek.sundayHours}</td>
                     <td>
-                        <a href="/timesheets/details/${TSrefUnit.workWeek.id}"
+                        <a href="/timesheets/details/${timesheet.workWeek.id}"
                            class="btn btn-info rounded-0 text-light m-1">Details</a>
-                        <a href="/timesheets/update/${TSrefUnit.workWeek.id}"
+                        <a href="/timesheets/update/${timesheet.workWeek.id}"
                            class="btn btn-warning rounded-0 text-light m-1">Update</a>
-                        <a href="http://localhost:8080/timesheets/delete/${TSrefUnit.id}"
+                        <a href="/timesheets/delete/${timesheet.id}"
                            class="btn btn-danger rounded-0 text-light m-1"
                            onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
                     </td>
@@ -172,23 +170,23 @@
             <th>${nextMonday.plusDays(6)}</th>
             <th>Action</th>
         </tr>
-        <c:forEach var="TSrefUnit" items="${timesheetsUser}">
-            <c:if test="${TSrefUnit.workWeek.dateMonday.equals(nextMonday)}">
+        <c:forEach var="timesheet" items="${timesheetsUser}">
+            <c:if test="${timesheet.workWeek.dateMonday.equals(nextMonday)}">
                 <tr>
-                    <td>${TSrefUnit.project.signature}</td>
-                    <td>${TSrefUnit.workWeek.mondayHours}</td>
-                    <td>${TSrefUnit.workWeek.tuesdayHours}</td>
-                    <td>${TSrefUnit.workWeek.wednesdayHours}</td>
-                    <td>${TSrefUnit.workWeek.thursdayHours}</td>
-                    <td>${TSrefUnit.workWeek.fridayHours}</td>
-                    <td>${TSrefUnit.workWeek.saturdayHours}</td>
-                    <td>${TSrefUnit.workWeek.sundayHours}</td>
+                    <td>${timesheet.project.signature}</td>
+                    <td>${timesheet.workWeek.mondayHours}</td>
+                    <td>${timesheet.workWeek.tuesdayHours}</td>
+                    <td>${timesheet.workWeek.wednesdayHours}</td>
+                    <td>${timesheet.workWeek.thursdayHours}</td>
+                    <td>${timesheet.workWeek.fridayHours}</td>
+                    <td>${timesheet.workWeek.saturdayHours}</td>
+                    <td>${timesheet.workWeek.sundayHours}</td>
                     <td>
-                        <a href="/timesheets/details/${TSrefUnit.workWeek.id}"
+                        <a href="/timesheets/details/${timesheet.workWeek.id}"
                            class="btn btn-info rounded-0 text-light m-1">Details</a>
-                        <a href="/timesheets/update/${TSrefUnit.workWeek.id}"
+                        <a href="/timesheets/update/${timesheet.workWeek.id}"
                            class="btn btn-warning rounded-0 text-light m-1">Update</a>
-                        <a href="http://localhost:8080/timesheets/delete/${TSrefUnit.id}"
+                        <a href="/timesheets/delete/${timesheet.id}"
                            class="btn btn-danger rounded-0 text-light m-1"
                            onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
                     </td>

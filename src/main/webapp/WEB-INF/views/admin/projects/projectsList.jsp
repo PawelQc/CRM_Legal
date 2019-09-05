@@ -11,7 +11,7 @@
 
 <div class="container">
     <h1 class="text-center">Projects</h1>
-    <a href="/projects/add" class="btn btn-success rounded-0 text-light m-1">Add project</a>
+    <a href="<c:url value="/projects/add"/>" class="btn btn-success rounded-0 text-light m-1">Add project</a>
     <table class="table table-hover table-condensed">
         <tr>
             <th>No</th>
@@ -40,7 +40,7 @@
                 <td>${project.capOnRemuneration}</td>
                 <td>
                     <a href="/projects/update/${project.id}" class="btn btn-warning rounded-0 text-light m-1">Update</a>
-                    <a href="http://localhost:8080/projects/delete/${project.id}"
+                    <a href="/projects/delete/${project.id}"
                        class="btn btn-danger rounded-0 text-light m-1"
                        onclick="return confirm('Are you sure you want to delete this project? All related timesheets will be lost!');">Delete</a>
                 </td>

@@ -14,7 +14,7 @@
 <div class="container page-container">
     <div class="content-wrap">
         <h1 class="text-center">Clients</h1>
-        <a href="/clients/add" class="btn btn-success rounded-0 text-light m-1">Add client</a>
+        <a href="<c:url value="/clients/add"/>" class="btn btn-success rounded-0 text-light m-1">Add client</a>
         <table class="table table-hover">
             <tr>
                 <th>No</th>
@@ -49,9 +49,9 @@
                                    class="btn btn-warning rounded-0 text-light m-1">Update</a>
                             </c:otherwise>
                         </c:choose>
-                        <a href="/clients/additional-info/list?clientId=${client.id}&additionalInfoId=${client.additionalInfo.id}"
+                        <a href="<c:url value="/clients/additional-info/list?clientId=${client.id}&additionalInfoId=${client.additionalInfo.id}"/>"
                            class="btn btn-info rounded-0 text-light m-1">Details</a>
-                        <a href="http://localhost:8080/clients/delete/${client.id}"
+                        <a href="/clients/delete/${client.id}"
                            class="btn btn-danger rounded-0 text-light m-1"
                            onclick="return confirm('Are you sure you want to delete this client?'); ">Delete</a>
                     </td>

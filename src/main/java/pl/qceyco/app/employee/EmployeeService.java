@@ -66,8 +66,8 @@ public class EmployeeService {
     }
 
     void setAuthority(Employee employee) {
-        Authority authority = null;
-        if (employee.getAdmin() == true) {
+        Authority authority;
+        if (employee.getAdmin()) {
             authority = authorityRepository.findFirstByName("ROLE_ADMIN");
         } else {
             authority = authorityRepository.findFirstByName("ROLE_USER");

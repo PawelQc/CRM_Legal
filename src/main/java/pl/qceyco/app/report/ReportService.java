@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import pl.qceyco.app.client.Client;
 import pl.qceyco.app.client.ClientRepository;
-import pl.qceyco.app.client.legalPerson.ClientLegalPersonRepository;
 import pl.qceyco.app.employee.Employee;
 import pl.qceyco.app.employee.EmployeeRepository;
 import pl.qceyco.app.project.Project;
@@ -28,15 +27,13 @@ public class ReportService {
     private final ProjectRepository projectRepository;
     private final EmployeeRepository employeeRepository;
     private final ClientRepository clientRepository;
-    private final ClientLegalPersonRepository clientLegalPersonRepository;
 
     public ReportService(TimesheetUnitRepository timesheetUnitRepository, ProjectRepository projectRepository,
-                         EmployeeRepository employeeRepository, ClientRepository clientRepository, ClientLegalPersonRepository clientLegalPersonRepository) {
+                         EmployeeRepository employeeRepository, ClientRepository clientRepository) {
         this.timesheetUnitRepository = timesheetUnitRepository;
         this.projectRepository = projectRepository;
         this.employeeRepository = employeeRepository;
         this.clientRepository = clientRepository;
-        this.clientLegalPersonRepository = clientLegalPersonRepository;
     }
 
     List<Project> getAllBillableProjects() {
@@ -210,7 +207,8 @@ public class ReportService {
         } catch (Exception e) {
             model.addAttribute("excelError", "Error: cannot generate excel file. Cause: " + e.getMessage());
         }
-        model.addAttribute("excelSuccess", "Success! Your report is saved at: " + filePath + "/timesheetReport.xlsx");
+        model.addAttribute("excelSuccess", "Success! Your report was saved at:");
+        model.addAttribute("path", filePath + "/timesheetReport.xlsx");
     }
 
     private void insertHeaderDataIntoExcel(LocalDate start, LocalDate end, Employee reportedEmployee, CellStyle headerStyle, Sheet sheet) {

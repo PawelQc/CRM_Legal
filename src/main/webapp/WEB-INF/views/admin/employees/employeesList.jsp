@@ -11,7 +11,7 @@
 
 <div class="container">
     <h1 class="text-center">Employees</h1>
-    <a href="/employees/add" class="btn btn-success rounded-0 text-light m-1">Add employee</a>
+    <a href="<c:url value="/employees/add"/>" class="btn btn-success rounded-0 text-light m-1">Add employee</a>
     <table class="table table-hover">
         <tr>
             <th>No</th>
@@ -31,9 +31,9 @@
                        class="btn btn-warning rounded-0 text-light m-1">Update</a>
                     <a href="/employees/update-password/${employee.id}"
                        class="btn btn-warning rounded-0 text-light m-1">Change password</a>
-                    <a href="/employees/additional-info/list?employeeId=${employee.id}&additionalInfoId=${employee.additionalInfo.id}"
+                    <a href="<c:url value="/employees/additional-info/list?employeeId=${employee.id}&additionalInfoId=${employee.additionalInfo.id}"/>"
                        class="btn btn-info rounded-0 text-light m-1">Details</a>
-                    <a href="http://localhost:8080/employees/delete/${employee.id}"
+                    <a href="/employees/delete/${employee.id}"
                        class="btn btn-danger rounded-0 text-light m-1"
                        onclick="return confirm('Are you sure you want to delete this employee? All his timesheets will be deleted!');">Delete</a>
                 </td>

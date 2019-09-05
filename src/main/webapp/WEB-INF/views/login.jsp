@@ -14,7 +14,7 @@
     <div class="container">
         <div class="row slider-text align-items-center justify-content-center">
             <div class="col-lg-9 text-center col-sm-12 element-animate">
-                <a href="/" class="btn btn-success rounded-0 text-light m-1"><h3>Go back to homepage</h3></a> <br><br><br>
+                <a href="<c:url value="/"/>" class="btn btn-success rounded-0 text-light m-1"><h3>Go back to homepage</h3></a> <br><br><br>
 
                 <h1>Login</h1>
                 <h3 class="text-warning">
