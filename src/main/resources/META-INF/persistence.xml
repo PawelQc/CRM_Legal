@@ -4,12 +4,13 @@
              http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
              version="2.1">
     <persistence-unit name="legalCrmPersistenceUnit">
+
         <properties>
             <property name="javax.persistence.jdbc.url"
-                      value="jdbc:mysql://eu-cdbr-west-02.cleardb.net/heroku_cfbc784ba567286?reconnect=true"/>
-            <property name="javax.persistence.jdbc.user" value="bfe0df75760f9d"/>
-            <property name="javax.persistence.jdbc.password" value="0bf5b3ea"/>
-            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+                      value="jdbc:postgresql://ec2-176-34-183-20.eu-west-1.compute.amazonaws.com:5432/d7kpvfta89kjb9?reconnect=true"/>
+            <property name="javax.persistence.jdbc.user" value="vklunxzqoyojcd"/>
+            <property name="javax.persistence.jdbc.password" value="a71e79de3e235d011bc0c7640496ab65df3467b596c0a769e26792a803b04bb5"/>
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
 
             <property name="hibernate.hbm2ddl.auto" value="update"/>
@@ -18,7 +19,7 @@
 
             <property name="javax.persistence.sql-load-script-source" value="META-INF/sql/data.sql"/>
 
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL57Dialect"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL95Dialect"/>
             <property name="hibernate.connection.characterEncoding" value="utf8"/>
         </properties>
     </persistence-unit>
