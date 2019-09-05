@@ -6,9 +6,9 @@
     <persistence-unit name="legalCrmPersistenceUnit">
         <properties>
             <property name="javax.persistence.jdbc.url"
-                      value="jdbc:mysql://eu-cdbr-west-02.cleardb.net/heroku_cfbc784ba567286?reconnect=true"/>
-            <property name="javax.persistence.jdbc.user" value="bfe0df75760f9d"/>
-            <property name="javax.persistence.jdbc.password" value="0bf5b3ea"/>
+                      value="jdbc:mysql://remotemysql.com/G8edcKPKac?reconnect=true"/>
+            <property name="javax.persistence.jdbc.user" value="G8edcKPKac"/>
+            <property name="javax.persistence.jdbc.password" value="xwfe69Jacc"/>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
 
