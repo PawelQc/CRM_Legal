@@ -1,7 +1,7 @@
 # LegalCRM
 This is a basic web application which was created in Java.
 You may access and test this app via: https://legal-crm.herokuapp.com/  (see login details below).
-##### IMPORTANT: if you recieive error message - please try again - this app requires some time to load data from remote database :-)
+##### IMPORTANT: In case of error message - please try again - this app requires some time to load data from remote database :-)
 
 ### Tools and frameworks used
 Spring MVC, Hibernate, Spring Security, Spring Data, JavaScript, MySQL, Bootstrap 
