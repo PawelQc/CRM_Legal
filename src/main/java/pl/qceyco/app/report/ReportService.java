@@ -60,6 +60,7 @@ public class ReportService {
         return timesheetUnitRepository.findAllByEmployeeIdInSearchPeriod(employeeId, start, end);
     }
 
+    //EMPLOYEE REPORT ******************************************************************************************************
     void employeeReportProcess(LocalDate selectedMonday, Long employeeId, Model model) {
         LocalDate endDate = selectedMonday.plusDays(27);
         List<TimesheetUnit> timesheets = getAllEmployeeTimesheetsFrom4Weeks(employeeId, selectedMonday, endDate);
@@ -124,6 +125,7 @@ public class ReportService {
         return workTimeUtilizationLevelD.intValue();
     }
 
+    //PROJECT REPORT ******************************************************************************************************
     void projectReportProcess(Long projectId, Model model) {
         Project project = projectRepository.findFirstByIdWithProjectTeamMembers(projectId);
         Integer amountOfHours = countProjectHours(projectId);
@@ -153,6 +155,7 @@ public class ReportService {
         model.addAttribute("isProjectProfitable", isProjectProfitable);
     }
 
+    //INVOICE PREVIEW REPORT ******************************************************************************************************
     void invoicePreviewProcess(LocalDate selectedMonday, Long clientId, Model model) {
         LocalDate endDate = selectedMonday.plusDays(27);
         List<TimesheetUnit> timesheets = timesheetUnitRepository.findAllByClientInSearchPeriod(clientId, selectedMonday, endDate);
@@ -173,6 +176,7 @@ public class ReportService {
         model.addAttribute("amountOfHours", amountOfHours);
     }
 
+    //TIMESHEET EXCEL REPORT ******************************************************************************************************
     void exportTimesheetsProcess(LocalDate start, LocalDate end, Long employeeId, Model model) {
         String filePath = null;
         try {
