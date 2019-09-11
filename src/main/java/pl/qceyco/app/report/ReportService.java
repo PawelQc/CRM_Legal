@@ -14,6 +14,10 @@ import pl.qceyco.app.project.ProjectRepository;
 import pl.qceyco.app.timesheet.unit.TimesheetUnit;
 import pl.qceyco.app.timesheet.unit.TimesheetUnitRepository;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -178,29 +182,37 @@ public class ReportService {
 
     //TIMESHEET EXCEL REPORT ******************************************************************************************************
     void exportTimesheetsProcess(LocalDate start, LocalDate end, Long employeeId, Model model) {
-        String filePath = null;
-        try {
-            List<TimesheetUnit> timesheetsAll = timesheetUnitRepository.findAllByEmployeeIdInSearchPeriod(employeeId, start, end);
-            List<Project> projectsAll = projectRepository.findAllByEmployeeId(employeeId);
-            Employee reportedEmployee = employeeRepository.findFirstById(employeeId);
-            Workbook workbook = new XSSFWorkbook();
-            CellStyle headerStyle = setHeaderStyle(workbook);
-            for (Project project : projectsAll) {
-                Sheet sheet = createSheet(workbook, project);
-                insertHeaderDataIntoExcel(start, end, reportedEmployee, headerStyle, sheet);
-                int rowNumber = 4;
-                insertTimesheetsIntoExcel(timesheetsAll, project, sheet, rowNumber);
-            }
-            filePath = System.getProperty("user.home");
-            String fileLocation = filePath + "/" + "timesheetReport.xlsx";
-            FileOutputStream outputStream = new FileOutputStream(fileLocation);
-            workbook.write(outputStream);
-            workbook.close();
+        XSSFWorkbook workbook;
+        String fileDictName = "timesheets.xlsx";
+        JFileChooser fileChooser = new JFileChooser();
+        FileFilter filter = new FileNameExtensionFilter("Files", ".xlsx");
+        fileChooser.addChoosableFileFilter(filter);
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        fileChooser.setDialogTitle("Save the report file");
+        fileChooser.setSelectedFile(new File(fileDictName));
+        int userSelection = fileChooser.showSaveDialog(fileChooser);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            fileDictName = fileChooser.getSelectedFile().getAbsolutePath();
+        }
+        File file = new File(fileDictName);
+        workbook = new XSSFWorkbook();
+        List<TimesheetUnit> timesheetsAll = timesheetUnitRepository.findAllByEmployeeIdInSearchPeriod(employeeId, start, end);
+        List<Project> projectsAll = projectRepository.findAllByEmployeeId(employeeId);
+        Employee reportedEmployee = employeeRepository.findFirstById(employeeId);
+        CellStyle headerStyle = setHeaderStyle(workbook);
+        for (Project project : projectsAll) {
+            Sheet sheet = createSheet(workbook, project);
+            insertHeaderDataIntoExcel(start, end, reportedEmployee, headerStyle, sheet);
+            int rowNumber = 4;
+            insertTimesheetsIntoExcel(timesheetsAll, project, sheet, rowNumber);
+        }
+        try (FileOutputStream out = new FileOutputStream(file)) {
+            workbook.write(out);
         } catch (Exception e) {
             model.addAttribute("excelError", "Error: cannot generate excel file. Cause: " + e.getMessage());
         }
         model.addAttribute("excelSuccess", "Success! Your report was saved at:");
-        model.addAttribute("path", filePath + "/timesheetReport.xlsx");
+        model.addAttribute("path", fileDictName);
     }
 
     private CellStyle setHeaderStyle(Workbook workbook) {
