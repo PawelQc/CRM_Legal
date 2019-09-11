@@ -14,6 +14,10 @@ import pl.qceyco.app.project.ProjectRepository;
 import pl.qceyco.app.timesheet.unit.TimesheetUnit;
 import pl.qceyco.app.timesheet.unit.TimesheetUnitRepository;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -60,6 +64,7 @@ public class ReportService {
         return timesheetUnitRepository.findAllByEmployeeIdInSearchPeriod(employeeId, start, end);
     }
 
+    //EMPLOYEE REPORT ******************************************************************************************************
     void employeeReportProcess(LocalDate selectedMonday, Long employeeId, Model model) {
         LocalDate endDate = selectedMonday.plusDays(27);
         List<TimesheetUnit> timesheets = getAllEmployeeTimesheetsFrom4Weeks(employeeId, selectedMonday, endDate);
@@ -71,7 +76,7 @@ public class ReportService {
         Integer hourlyRate = reportedEmployee.getAdditionalInfo().getHourlyRateChargingClients();
         Integer valueOfRenderedServices = hourlyRate * billableHours;
         boolean isMonthlyTargetAchieved = false;
-        double bonusAmountD = 0.0;
+        Double bonusAmountD = 0.0;
         if (valueOfRenderedServices >= targetBudget) {
             isMonthlyTargetAchieved = true;
             bonusAmountD = (reportedEmployee.getAdditionalInfo().getBonus() * (valueOfRenderedServices - targetBudget)) / 100.0;
@@ -92,40 +97,39 @@ public class ReportService {
         model.addAttribute("bonusAmount", bonusAmount);
     }
 
-    private Integer getBonusAmountAsInt(double bonusAmountD) {
-        bonusAmountD = Math.floor(bonusAmountD);
-        return (Integer) (int) bonusAmountD;
+    private Integer getBonusAmountAsInt(Double bonusAmount) {
+        bonusAmount = Math.floor(bonusAmount);
+        return bonusAmount.intValue();
     }
 
     private Integer countBillableHours(List<TimesheetUnit> timesheets) {
         Integer billableHours = 0;
-        for (TimesheetUnit t : timesheets) {
-            if (t.getProject().getBillable()) {
-                billableHours += t.countWeekHours();
-            }
-        }
+        billableHours = timesheets.stream()
+                .filter(t -> t.getProject().getBillable())
+                .mapToInt(TimesheetUnit::countWeekHours)
+                .sum();
         return billableHours;
     }
 
     private Integer countNonBillableHours(List<TimesheetUnit> timesheets) {
         Integer nonBillableHours = 0;
-        for (TimesheetUnit t : timesheets) {
-            if (!t.getProject().getBillable()) {
-                nonBillableHours += t.countWeekHours();
-            }
-        }
+        nonBillableHours = timesheets.stream()
+                .filter(t -> !t.getProject().getBillable())
+                .mapToInt(TimesheetUnit::countWeekHours)
+                .sum();
         return nonBillableHours;
     }
 
     private Integer getWorkTimeUtilisationLevelAsInt(Integer nonBillableHours, Integer billableHours) {
-        double workTimeUtilizationLevelD = (double) billableHours / (billableHours + nonBillableHours) * 100;
+        Double workTimeUtilizationLevelD = billableHours.doubleValue() / (billableHours + nonBillableHours) * 100;
         if (Double.isNaN(workTimeUtilizationLevelD)) {
-            workTimeUtilizationLevelD = 0;
+            workTimeUtilizationLevelD = 0.0;
         }
         workTimeUtilizationLevelD = Math.floor(workTimeUtilizationLevelD);
-        return (Integer) (int) workTimeUtilizationLevelD;
+        return workTimeUtilizationLevelD.intValue();
     }
 
+    //PROJECT REPORT ******************************************************************************************************
     void projectReportProcess(Long projectId, Model model) {
         Project project = projectRepository.findFirstByIdWithProjectTeamMembers(projectId);
         Integer amountOfHours = countProjectHours(projectId);
@@ -142,9 +146,9 @@ public class ReportService {
     private Integer countProjectHours(Long projectId) {
         Integer amountOfHours = 0;
         List<TimesheetUnit> timesheets = timesheetUnitRepository.findAllByProjectIdOrderByEmployeeId(projectId);
-        for (TimesheetUnit t : timesheets) {
-            amountOfHours += t.countWeekHours();
-        }
+        amountOfHours = timesheets.stream()
+                .mapToInt(TimesheetUnit::countWeekHours)
+                .sum();
         return amountOfHours;
     }
 
@@ -155,15 +159,16 @@ public class ReportService {
         model.addAttribute("isProjectProfitable", isProjectProfitable);
     }
 
+    //INVOICE PREVIEW REPORT ******************************************************************************************************
     void invoicePreviewProcess(LocalDate selectedMonday, Long clientId, Model model) {
         LocalDate endDate = selectedMonday.plusDays(27);
         List<TimesheetUnit> timesheets = timesheetUnitRepository.findAllByClientInSearchPeriod(clientId, selectedMonday, endDate);
         List<Project> projectsOfClient = projectRepository.findAllByClientId(clientId);
         Client client = clientRepository.findFirstById(clientId);
         Integer amountOfHours = 0;
-        for (TimesheetUnit t : timesheets) {
-            amountOfHours += t.countWeekHours();
-        }
+        amountOfHours = timesheets.stream()
+                .mapToInt(TimesheetUnit::countWeekHours)
+                .sum();
         addModelAttributesInvoicePreview(model, selectedMonday, timesheets, projectsOfClient, client, amountOfHours);
     }
 
@@ -175,40 +180,53 @@ public class ReportService {
         model.addAttribute("amountOfHours", amountOfHours);
     }
 
+    //TIMESHEET EXCEL REPORT ******************************************************************************************************
     void exportTimesheetsProcess(LocalDate start, LocalDate end, Long employeeId, Model model) {
-        String filePath = null;
-        try {
-            List<TimesheetUnit> timesheetsAll = timesheetUnitRepository.findAllByEmployeeIdInSearchPeriod(employeeId, start, end);
-            List<Project> projectsAll = projectRepository.findAllByEmployeeId(employeeId);
-            Employee reportedEmployee = employeeRepository.findFirstById(employeeId);
-            Workbook workbook = new XSSFWorkbook();
-            CellStyle headerStyle = workbook.createCellStyle();
-            XSSFFont font = ((XSSFWorkbook) workbook).createFont();
-            font.setFontName("Arial");
-            font.setBold(true);
-            headerStyle.setFont(font);
-            for (Project project : projectsAll) {
-                String projectSignature = project.getSignature().replace("/", "-");
-                Sheet sheet = workbook.createSheet(projectSignature);
-                insertHeaderDataIntoExcel(start, end, reportedEmployee, headerStyle, sheet);
-                int rowNumber = 4;
-                for (TimesheetUnit timesheet : timesheetsAll) {
-                    if (timesheet.getProject().equals(project)) {
-                        insertTimesheetDataIntoExcel(sheet, rowNumber, timesheet);
-                        rowNumber = rowNumber + 7;
-                    }
-                }
-            }
-            filePath = System.getProperty("user.home");
-            String fileLocation = filePath + "/" + "timesheetReport.xlsx";
-            FileOutputStream outputStream = new FileOutputStream(fileLocation);
-            workbook.write(outputStream);
-            workbook.close();
+        XSSFWorkbook workbook;
+        String fileDictName = "timesheets.xlsx";
+        JFileChooser fileChooser = new JFileChooser();
+        FileFilter filter = new FileNameExtensionFilter("Files", ".xlsx");
+        fileChooser.addChoosableFileFilter(filter);
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        fileChooser.setDialogTitle("Save the report file");
+        fileChooser.setSelectedFile(new File(fileDictName));
+        int userSelection = fileChooser.showSaveDialog(fileChooser);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            fileDictName = fileChooser.getSelectedFile().getAbsolutePath();
+        }
+        File file = new File(fileDictName);
+        workbook = new XSSFWorkbook();
+        List<TimesheetUnit> timesheetsAll = timesheetUnitRepository.findAllByEmployeeIdInSearchPeriod(employeeId, start, end);
+        List<Project> projectsAll = projectRepository.findAllByEmployeeId(employeeId);
+        Employee reportedEmployee = employeeRepository.findFirstById(employeeId);
+        CellStyle headerStyle = setHeaderStyle(workbook);
+        for (Project project : projectsAll) {
+            Sheet sheet = createSheet(workbook, project);
+            insertHeaderDataIntoExcel(start, end, reportedEmployee, headerStyle, sheet);
+            int rowNumber = 4;
+            insertTimesheetsIntoExcel(timesheetsAll, project, sheet, rowNumber);
+        }
+        try (FileOutputStream out = new FileOutputStream(file)) {
+            workbook.write(out);
         } catch (Exception e) {
             model.addAttribute("excelError", "Error: cannot generate excel file. Cause: " + e.getMessage());
         }
         model.addAttribute("excelSuccess", "Success! Your report was saved at:");
-        model.addAttribute("path", filePath + "/timesheetReport.xlsx");
+        model.addAttribute("path", fileDictName);
+    }
+
+    private CellStyle setHeaderStyle(Workbook workbook) {
+        CellStyle headerStyle = workbook.createCellStyle();
+        XSSFFont font = ((XSSFWorkbook) workbook).createFont();
+        font.setFontName("Arial");
+        font.setBold(true);
+        headerStyle.setFont(font);
+        return headerStyle;
+    }
+
+    private Sheet createSheet(Workbook workbook, Project project) {
+        String projectSignature = project.getSignature().replace("/", "-");
+        return workbook.createSheet(projectSignature);
     }
 
     private void insertHeaderDataIntoExcel(LocalDate start, LocalDate end, Employee reportedEmployee, CellStyle headerStyle, Sheet sheet) {
@@ -238,6 +256,16 @@ public class ReportService {
         tableHeadersCell3.setCellStyle(headerStyle);
     }
 
+    private void insertTimesheetsIntoExcel(List<TimesheetUnit> timesheetsAll, Project project, Sheet sheet, int rowNumber) {
+        for (TimesheetUnit timesheet : timesheetsAll) {
+            if (timesheet.getProject().equals(project)) {
+                insertTimesheetDataIntoExcel(sheet, rowNumber, timesheet);
+                rowNumber = rowNumber + 7;
+            }
+        }
+    }
+
+    //todo podzielić to na poszczególne dni?
     private void insertTimesheetDataIntoExcel(Sheet sheet, int rowNumber, TimesheetUnit timesheet) {
         Row monday = sheet.createRow(rowNumber);
         monday.createCell(0).setCellValue(timesheet.getWorkWeek().getDateMonday().toString());
