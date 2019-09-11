@@ -75,40 +75,38 @@ public class HomePageService {
 
     private Integer countBillableHours(List<TimesheetUnit> timesheets) {
         Integer billableHours = 0;
-        for (TimesheetUnit t : timesheets) {
-            if (t.getProject().getBillable()) {
-                billableHours += t.countWeekHours();
-            }
-        }
+        billableHours = timesheets.stream()
+                .filter(t -> t.getProject().getBillable())
+                .mapToInt(TimesheetUnit::countWeekHours)
+                .sum();
         return billableHours;
     }
 
     private Integer countNonBillableHours(List<TimesheetUnit> timesheets) {
         Integer nonBillableHours = 0;
-        for (TimesheetUnit t : timesheets) {
-            if (!t.getProject().getBillable()) {
-                nonBillableHours += t.countWeekHours();
-            }
-        }
+        nonBillableHours = timesheets.stream()
+                .filter(t -> !t.getProject().getBillable())
+                .mapToInt(TimesheetUnit::countWeekHours)
+                .sum();
         return nonBillableHours;
     }
 
     private Integer getProjectHours(LocalDate startDate, LocalDate endDate, Project project) {
         Integer hours = 0;
         List<TimesheetUnit> projectTimesheets = timesheetUnitRepository.findAllByProjectInSearchPeriod(project.getId(), startDate, endDate);
-        for (TimesheetUnit t : projectTimesheets) {
-            hours += t.countWeekHours();
-        }
+        hours = projectTimesheets.stream()
+                .mapToInt(TimesheetUnit::countWeekHours)
+                .sum();
         return hours;
     }
 
     private Integer getWorkTimeUtilisationLevelAsInt(Integer nonBillableHours, Integer billableHours) {
-        double workTimeUtilizationLevelD = (double) billableHours / (billableHours + nonBillableHours) * 100;
+        Double workTimeUtilizationLevelD = billableHours.doubleValue() / (billableHours + nonBillableHours) * 100;
         if (Double.isNaN(workTimeUtilizationLevelD)) {
-            workTimeUtilizationLevelD = 0;
+            workTimeUtilizationLevelD = 0.0;
         }
         workTimeUtilizationLevelD = Math.floor(workTimeUtilizationLevelD);
-        return (Integer) (int) workTimeUtilizationLevelD;
+        return workTimeUtilizationLevelD.intValue();
     }
 
     private void adminHomeSetAttributes(Model model, LocalDate thisMonthFirstMonday, Map<String, Integer> projectsAndHours, Map<String,
@@ -134,19 +132,19 @@ public class HomePageService {
         Integer hourlyRate = loggedInUser.getAdditionalInfo().getHourlyRateChargingClients();
         Integer valueOfRenderedServices = hourlyRate * billableHours;
         boolean isMonthlyTargetAchieved = false;
-        double bonusAmountD = 0.0;
+        Double bonusAmountD = 0.0;
         if (valueOfRenderedServices >= targetBudget) {
             isMonthlyTargetAchieved = true;
-            bonusAmountD = (loggedInUser.getAdditionalInfo().getBonus() * (valueOfRenderedServices - targetBudget)) / 100;
+            bonusAmountD = (loggedInUser.getAdditionalInfo().getBonus() * (valueOfRenderedServices - targetBudget)) / 100.0;
         }
         Integer bonusAmount = getBonusAmountAsInt(bonusAmountD);
         userHomeSetAttributes(model, projectsOfUser, recentTimesheet, previousMonthFirstMonday, nonBillableHours, billableHours,
                 workTimeUtilizationLevel, valueOfRenderedServices, isMonthlyTargetAchieved, bonusAmount);
     }
 
-    private Integer getBonusAmountAsInt(double bonusAmountD) {
-        bonusAmountD = Math.floor(bonusAmountD);
-        return (Integer) (int) bonusAmountD;
+    private Integer getBonusAmountAsInt(Double bonusAmount) {
+        bonusAmount = Math.floor(bonusAmount);
+        return bonusAmount.intValue();
     }
 
     private void userHomeSetAttributes(Model model, List<Project> projectsOfUser, TimesheetUnit recentTimesheet, LocalDate previousMonthFirstMonday,
