@@ -31,6 +31,7 @@ public class HomePageService {
         this.employeeRepository = employeeRepository;
     }
 
+    //HOME ADMIN ######################################################################################################
     void processAdminHome(Model model) {
         LocalDate thisMonthFirstMonday = LocalDate.now().with(firstInMonth(DayOfWeek.MONDAY));
         LocalDate endDate = thisMonthFirstMonday.plusDays(27);
@@ -52,16 +53,6 @@ public class HomePageService {
             employeesAndUtilisation.put(e.getNameDisplay(), workTimeUtilizationLevel);
         }
         return employeesAndUtilisation;
-    }
-
-    private Map<String, Integer> getProjectsToHoursData(LocalDate startDate, LocalDate endDate) {
-        Map<String, Integer> projectsAndHours = new HashMap<>();
-        List<Project> projects = projectRepository.findAll();
-        for (Project p : projects) {
-            Integer hours = getProjectHours(startDate, endDate, p);
-            projectsAndHours.put(p.getSignature(), hours);
-        }
-        return projectsAndHours;
     }
 
     private List<TimesheetUnit> getTimesheetsForRecentWeek() {
@@ -91,6 +82,16 @@ public class HomePageService {
         return nonBillableHours;
     }
 
+    private Map<String, Integer> getProjectsToHoursData(LocalDate startDate, LocalDate endDate) {
+        Map<String, Integer> projectsAndHours = new HashMap<>();
+        List<Project> projects = projectRepository.findAll();
+        for (Project p : projects) {
+            Integer hours = getProjectHours(startDate, endDate, p);
+            projectsAndHours.put(p.getSignature(), hours);
+        }
+        return projectsAndHours;
+    }
+
     private Integer getProjectHours(LocalDate startDate, LocalDate endDate, Project project) {
         Integer hours = 0;
         List<TimesheetUnit> projectTimesheets = timesheetUnitRepository.findAllByProjectInSearchPeriod(project.getId(), startDate, endDate);
@@ -118,6 +119,7 @@ public class HomePageService {
         model.addAttribute("previousMonday", previousMonday);
     }
 
+    //HOME USER ######################################################################################################
     void processUserHome(Employee loggedInUser, Model model) {
         Long userId = loggedInUser.getId();
         List<Project> projectsOfUser = projectRepository.findAllByEmployeeId(userId);
