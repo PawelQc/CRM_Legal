@@ -1,4 +1,4 @@
-package pl.qceyco.secureApp.authorityUser;
+package pl.qceyco.security.authorityUser;
 
 
 public enum  AuthorityType {

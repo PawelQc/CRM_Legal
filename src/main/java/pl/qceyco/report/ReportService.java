@@ -65,7 +65,8 @@ public class ReportService {
     }
 
     //EMPLOYEE REPORT ******************************************************************************************************
-    void employeeReportProcess(LocalDate selectedMonday, Long employeeId, Model model) {
+    EmployeeReport employeeReportProcess(LocalDate selectedMonday, Long employeeId, Model model) {
+        EmployeeReport employeeReport = new EmployeeReport();
         LocalDate endDate = selectedMonday.plusDays(27);
         List<TimesheetUnit> timesheets = getAllEmployeeTimesheetsFrom4Weeks(employeeId, selectedMonday, endDate);
         Integer nonBillableHours = countNonBillableHours(timesheets);
@@ -81,9 +82,12 @@ public class ReportService {
             isMonthlyTargetAchieved = true;
             bonusAmountD = (reportedEmployee.getAdditionalInfo().getBonus() * (valueOfRenderedServices - targetBudget)) / 100.0;
         }
+        employeeReport.setEmployee(reportedEmployee);
+        employeeReport.setValueOfRenderedServices(valueOfRenderedServices);
         Integer bonusAmount = getBonusAmountAsInt(bonusAmountD);
         addModelAttributesEmployeeReport(model, selectedMonday, nonBillableHours, billableHours, workTimeUtilizationLevel,
-                reportedEmployee, valueOfRenderedServices, isMonthlyTargetAchieved, bonusAmount);
+                reportedEmployee, isMonthlyTargetAchieved, bonusAmount);
+        return employeeReport;
     }
 
     //todo ilość przekazywanych atrybutów jest zmienna + są one różne - jest sens korzystać z buildera?

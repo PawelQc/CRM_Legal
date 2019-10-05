@@ -1,4 +1,4 @@
-package pl.qceyco.secureApp.authorityUser;
+package pl.qceyco.security.authorityUser;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

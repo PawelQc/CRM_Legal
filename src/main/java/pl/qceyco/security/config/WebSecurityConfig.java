@@ -1,4 +1,4 @@
-package pl.qceyco.secureApp.config;
+package pl.qceyco.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

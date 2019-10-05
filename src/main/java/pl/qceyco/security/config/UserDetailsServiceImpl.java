@@ -1,4 +1,4 @@
-package pl.qceyco.secureApp.config;
+package pl.qceyco.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

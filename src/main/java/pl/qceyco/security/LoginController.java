@@ -1,4 +1,4 @@
-package pl.qceyco.secureApp;
+package pl.qceyco.security;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -84,7 +84,8 @@ public class ReportController {
             model.addAttribute("errorInvalidData", "Error: Selected date is not a first Monday of a month!");
             return "reports/employeeReport/reportEmployeeReportForm";
         }
-        reportService.employeeReportProcess(selectedMonday, employeeId, model);
+        EmployeeReport employeeReport = reportService.employeeReportProcess(selectedMonday, employeeId, model);
+        model.addAttribute("employeeReport", employeeReport);
 
         return "reports/employeeReport/reportEmployeeReportGenerated";
     }

@@ -1,10 +1,10 @@
-package pl.qceyco.secureApp;
+package pl.qceyco.security;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import pl.qceyco.employee.Employee;
-import pl.qceyco.secureApp.config.UserPrincipal;
+import pl.qceyco.security.config.UserPrincipal;
 
 @Service
 public class LoginService {
