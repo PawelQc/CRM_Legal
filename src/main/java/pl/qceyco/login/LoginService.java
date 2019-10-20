@@ -1,4 +1,4 @@
-package pl.qceyco.homepage.login;
+package pl.qceyco.login;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
