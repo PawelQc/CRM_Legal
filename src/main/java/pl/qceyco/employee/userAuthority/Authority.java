@@ -1,4 +1,4 @@
-package pl.qceyco.security.authorityUser;
+package pl.qceyco.employee.userAuthority;
 
 import javax.persistence.*;
 

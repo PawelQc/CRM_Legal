@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 import pl.qceyco.employee.additinalInfo.AdditionalInfoEmployeeRepository;
 import pl.qceyco.project.Project;
 import pl.qceyco.project.ProjectRepository;
-import pl.qceyco.security.authorityUser.Authority;
-import pl.qceyco.security.authorityUser.AuthorityRepository;
+import pl.qceyco.employee.userAuthority.Authority;
+import pl.qceyco.employee.userAuthority.AuthorityRepository;
 import pl.qceyco.timesheet.unit.TimesheetUnit;
 import pl.qceyco.timesheet.unit.TimesheetUnitRepository;
 

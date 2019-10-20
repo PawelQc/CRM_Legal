@@ -3,7 +3,7 @@ package pl.qceyco.employee;
 import org.hibernate.validator.constraints.Email;
 import pl.qceyco.employee.additinalInfo.AdditionalInfoEmployee;
 import pl.qceyco.employee.validation.Password;
-import pl.qceyco.security.authorityUser.Authority;
+import pl.qceyco.employee.userAuthority.Authority;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

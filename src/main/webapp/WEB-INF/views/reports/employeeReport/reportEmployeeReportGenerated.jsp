@@ -10,32 +10,33 @@
 <%@ include file="/fragments/header.jspf" %>
 
 <div class="container">
-    <h1 class="text-center">Monthly employee report for: ${reportedEmployee.nameDisplay}</h1>
-    <h3 class="text-center">Time interval: ${selectedMonday} - ${selectedMonday.plusDays(27)}</h3>
+    <h1 class="text-center">Monthly employee report for: ${employeeReport.reportedEmployee.nameDisplay}</h1>
+    <h3 class="text-center">Time interval: ${employeeReport.selectedMonday}
+        - ${employeeReport.selectedMonday.plusDays(27)}</h3>
     <table class="table table-hover">
         <tr>
             <th>Billable hours</th>
-            <td>${amountOfBillableHours}</td>
+            <td>${employeeReport.amountOfBillableHours}</td>
         </tr>
         <tr>
             <th>Non billable hours</th>
-            <td>${amountOfNonBillableHours}</td>
+            <td>${employeeReport.amountOfNonBillableHours}</td>
         </tr>
         <tr>
             <th>Work time utilization level</th>
-            <td>${workTimeUtilizationLevel}%</td>
+            <td>${employeeReport.workTimeUtilizationLevel}%</td>
         </tr>
         <tr>
-            <th>Is monthly target achieved? (${reportedEmployee.additionalInfo.targetBudget} PLN)</th>
-            <td>${isMonthlyTargetAchieved}</td>
+            <th>Is monthly target achieved? (${employeeReport.reportedEmployee.additionalInfo.targetBudget} PLN)</th>
+            <td>${employeeReport.isMonthlyTargetAchieved}</td>
         </tr>
         <tr>
             <th>Value of rendered services</th>
-            <td>${valueOfRenderedServices} PLN</td>
+            <td>${employeeReport.valueOfRenderedServices} PLN</td>
         </tr>
         <tr>
             <th>Bonus amount</th>
-            <td>${bonusAmount} PLN</td>
+            <td>${employeeReport.bonusAmount} PLN</td>
         </tr>
     </table>
 </div>

@@ -1,4 +1,4 @@
-package pl.qceyco.homepage;
+package pl.qceyco.homepage.home;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

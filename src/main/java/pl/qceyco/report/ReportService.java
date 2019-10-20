@@ -64,7 +64,7 @@ public class ReportService {
         return timesheetUnitRepository.findAllByEmployeeIdInSearchPeriod(employeeId, start, end);
     }
 
-    //EMPLOYEE REPORT ******************************************************************************************************
+//EMPLOYEE REPORT ******************************************************************************************************
     EmployeeReport employeeReportProcess(LocalDate selectedMonday, Long employeeId, Model model) {
         EmployeeReport employeeReport = new EmployeeReport();
         LocalDate endDate = selectedMonday.plusDays(27);
@@ -82,25 +82,16 @@ public class ReportService {
             isMonthlyTargetAchieved = true;
             bonusAmountD = (reportedEmployee.getAdditionalInfo().getBonus() * (valueOfRenderedServices - targetBudget)) / 100.0;
         }
-        employeeReport.setEmployee(reportedEmployee);
-        employeeReport.setValueOfRenderedServices(valueOfRenderedServices);
         Integer bonusAmount = getBonusAmountAsInt(bonusAmountD);
-        addModelAttributesEmployeeReport(model, selectedMonday, nonBillableHours, billableHours, workTimeUtilizationLevel,
-                reportedEmployee, isMonthlyTargetAchieved, bonusAmount);
+        employeeReport.setReportedEmployee(reportedEmployee);
+        employeeReport.setValueOfRenderedServices(valueOfRenderedServices);
+        employeeReport.setAmountOfBillableHours(billableHours);
+        employeeReport.setAmountOfNonBillableHours(nonBillableHours);
+        employeeReport.setBonusAmount(bonusAmount);
+        employeeReport.setMonthlyTargetAchieved(isMonthlyTargetAchieved);
+        employeeReport.setWorkTimeUtilizationLevel(workTimeUtilizationLevel);
+        employeeReport.setSelectedMonday(selectedMonday);
         return employeeReport;
-    }
-
-    //todo ilość przekazywanych atrybutów jest zmienna + są one różne - jest sens korzystać z buildera?
-
-    private void addModelAttributesEmployeeReport(Model model, LocalDate selectedMonday, Integer amountOfNonBillableHours, Integer amountOfBillableHours, Integer workTimeUtilizationLevel, Employee reportedEmployee, Integer valueOfRenderedServices, boolean isMonthlyTargetAchieved, Integer bonusAmount) {
-        model.addAttribute("valueOfRenderedServices", valueOfRenderedServices);
-        model.addAttribute("reportedEmployee", reportedEmployee);
-        model.addAttribute("selectedMonday", selectedMonday);
-        model.addAttribute("amountOfBillableHours", amountOfBillableHours);
-        model.addAttribute("amountOfNonBillableHours", amountOfNonBillableHours);
-        model.addAttribute("workTimeUtilizationLevel", workTimeUtilizationLevel);
-        model.addAttribute("isMonthlyTargetAchieved", isMonthlyTargetAchieved);
-        model.addAttribute("bonusAmount", bonusAmount);
     }
 
     private Integer getBonusAmountAsInt(Double bonusAmount) {
@@ -135,7 +126,7 @@ public class ReportService {
         return workTimeUtilizationLevelD.intValue();
     }
 
-    //PROJECT REPORT ******************************************************************************************************
+//PROJECT REPORT ******************************************************************************************************
     void projectReportProcess(Long projectId, Model model) {
         Project project = projectRepository.findFirstByIdWithProjectTeamMembers(projectId);
         Integer amountOfHours = countProjectHours(projectId);
@@ -165,7 +156,7 @@ public class ReportService {
         model.addAttribute("isProjectProfitable", isProjectProfitable);
     }
 
-    //INVOICE PREVIEW REPORT ******************************************************************************************************
+//INVOICE PREVIEW REPORT ******************************************************************************************************
     void invoicePreviewProcess(LocalDate selectedMonday, Long clientId, Model model) {
         LocalDate endDate = selectedMonday.plusDays(27);
         List<TimesheetUnit> timesheets = timesheetUnitRepository.findAllByClientInSearchPeriod(clientId, selectedMonday, endDate);
@@ -186,7 +177,7 @@ public class ReportService {
         model.addAttribute("amountOfHours", amountOfHours);
     }
 
-    //TIMESHEET EXCEL REPORT ******************************************************************************************************
+//TIMESHEET EXCEL REPORT ******************************************************************************************************
     void exportTimesheetsProcess(LocalDate start, LocalDate end, Long employeeId, Model model) {
         XSSFWorkbook workbook;
         String fileDictName = "timesheets.xlsx";
@@ -271,7 +262,6 @@ public class ReportService {
         }
     }
 
-    //todo podzielić to na poszczególne dni?
     private void insertTimesheetDataIntoExcel(Sheet sheet, int rowNumber, TimesheetUnit timesheet) {
         Row monday = sheet.createRow(rowNumber);
         monday.createCell(0).setCellValue(timesheet.getWorkWeek().getDateMonday().toString());
