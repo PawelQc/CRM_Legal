@@ -10,10 +10,10 @@
 <%@ include file="/fragments/header.jspf" %>
 
 <div class="container">
-    <h1 class="text-center">Invoice preview for client: ${client.nameDisplay}</h1>
-    <h3 class="text-center">Time interval: ${selectedMonday} - ${selectedMonday.plusDays(27)}</h3>
+    <h1 class="text-center">Invoice preview for client: ${invoiceReport.client.nameDisplay}</h1>
+    <h3 class="text-center">Time interval: ${invoiceReport.selectedMonday} - ${invoiceReport.selectedMonday.plusDays(27)}</h3>
 
-    <c:forEach var="project" items="${projectsOfClient}">
+    <c:forEach var="project" items="${invoiceReport.projectsOfClient}">
         <table class="table table-hover table-condensed">
             <tr>
                 <th class="text-center" colspan="4">Project: ${project.signature}</th>
@@ -24,7 +24,7 @@
                 <th>Hours</th>
                 <th>Description</th>
             </tr>
-            <c:forEach items="${timesheets}" var="timesheet">
+            <c:forEach items="${invoiceReport.timesheets}" var="timesheet">
                 <c:if test="${timesheet.project.id eq project.id}">
                     <tr>
                         <td>${timesheet.employee.nameDisplay}</td>
@@ -41,23 +41,23 @@
     <table class="table table-condensed table-hover">
         <tr>
             <th class="report-invoice-width">Total hours</th>
-            <td>${amountOfHours}</td>
+            <td>${invoiceReport.amountOfHours}</td>
         </tr>
         <tr>
             <th class="report-invoice-width">Hourly rate</th>
-            <td>${client.additionalInfo.hourlyRateIsCharged} PLN</td>
+            <td>${invoiceReport.client.additionalInfo.hourlyRateIsCharged} PLN</td>
         </tr>
         <tr>
             <th class="report-invoice-width">Net invoice amount</th>
-            <td>${amountOfHours * client.additionalInfo.hourlyRateIsCharged} PLN</td>
+            <td>${invoiceReport.amountOfHours * invoiceReport.client.additionalInfo.hourlyRateIsCharged} PLN</td>
         </tr>
         <tr>
             <th class="report-invoice-width">Output VAT</th>
-            <td>${amountOfHours * client.additionalInfo.hourlyRateIsCharged * 0.23} PLN</td>
+            <td>${invoiceReport.amountOfHours * invoiceReport.client.additionalInfo.hourlyRateIsCharged * 0.23} PLN</td>
         </tr>
         <tr>
             <th class="report-invoice-width">Due amount</th>
-            <td>${amountOfHours * client.additionalInfo.hourlyRateIsCharged * 1.23} PLN</td>
+            <td>${invoiceReport.amountOfHours * invoiceReport.client.additionalInfo.hourlyRateIsCharged * 1.23} PLN</td>
         </tr>
     </table>
 </div>

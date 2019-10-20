@@ -10,23 +10,23 @@
 <%@ include file="/fragments/header.jspf" %>
 
 <div class="container">
-    <h1 class="text-center">Project profitability report for: ${project.signature}</h1>
+    <h1 class="text-center">Project profitability report for: ${projectReport.project.signature}</h1>
     <table class="table table-hover">
         <tr>
             <th>Total man-hours</th>
-            <td>${amountOfHours}</td>
+            <td>${projectReport.amountOfHours}</td>
         </tr>
         <tr>
             <th>Value of rendered services</th>
-            <td>${potentialValueOfRenderedServices} PLN</td>
+            <td>${projectReport.potentialValueOfRenderedServices} PLN</td>
         </tr>
         <tr>
             <th>Cap on remuneration</th>
-            <td>${project.capOnRemuneration} PLN</td>
+            <td>${projectReport.project.capOnRemuneration} PLN</td>
         </tr>
         <tr>
             <th>Is project profitable?</th>
-            <td>${isProjectProfitable}</td>
+            <td>${projectReport.isProjectProfitable}</td>
         </tr>
     </table>
 </div>

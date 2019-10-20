@@ -31,7 +31,7 @@ public class HomePageService {
         this.employeeRepository = employeeRepository;
     }
 
-    //HOME ADMIN ######################################################################################################
+//HOME ADMIN ######################################################################################################
     void processAdminHome(Model model) {
         LocalDate thisMonthFirstMonday = LocalDate.now().with(firstInMonth(DayOfWeek.MONDAY));
         LocalDate endDate = thisMonthFirstMonday.plusDays(27);
@@ -119,7 +119,7 @@ public class HomePageService {
         model.addAttribute("previousMonday", previousMonday);
     }
 
-    //HOME USER ######################################################################################################
+//HOME USER ######################################################################################################
     void processUserHome(Employee loggedInUser, Model model) {
         Long userId = loggedInUser.getId();
         List<Project> projectsOfUser = projectRepository.findAllByEmployeeId(userId);

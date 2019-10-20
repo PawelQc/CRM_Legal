@@ -64,8 +64,8 @@ public class ReportService {
         return timesheetUnitRepository.findAllByEmployeeIdInSearchPeriod(employeeId, start, end);
     }
 
-//EMPLOYEE REPORT ******************************************************************************************************
-    EmployeeReport employeeReportProcess(LocalDate selectedMonday, Long employeeId, Model model) {
+    //EMPLOYEE REPORT ******************************************************************************************************
+    EmployeeReport employeeReportProcess(LocalDate selectedMonday, Long employeeId) {
         EmployeeReport employeeReport = new EmployeeReport();
         LocalDate endDate = selectedMonday.plusDays(27);
         List<TimesheetUnit> timesheets = getAllEmployeeTimesheetsFrom4Weeks(employeeId, selectedMonday, endDate);
@@ -126,18 +126,23 @@ public class ReportService {
         return workTimeUtilizationLevelD.intValue();
     }
 
-//PROJECT REPORT ******************************************************************************************************
-    void projectReportProcess(Long projectId, Model model) {
+    //PROJECT REPORT ******************************************************************************************************
+    ProjectReport projectReportProcess(Long projectId) {
         Project project = projectRepository.findFirstByIdWithProjectTeamMembers(projectId);
-        Integer amountOfHours = countProjectHours(projectId);
-        Integer clientDefaultHourlyRate = project.getClient().getAdditionalInfo().getHourlyRateIsCharged();
-        Integer potentialValueOfRenderedServices = amountOfHours * clientDefaultHourlyRate;
-        Integer capOnRemuneration = project.getCapOnRemuneration();
+        int amountOfHours = countProjectHours(projectId);
+        int clientDefaultHourlyRate = project.getClient().getAdditionalInfo().getHourlyRateIsCharged();
+        int potentialValueOfRenderedServices = amountOfHours * clientDefaultHourlyRate;
+        int capOnRemuneration = project.getCapOnRemuneration();
         boolean isProjectProfitable = true;
         if (potentialValueOfRenderedServices > capOnRemuneration) {
             isProjectProfitable = false;
         }
-        addModelAttributesProjectReport(model, project, amountOfHours, potentialValueOfRenderedServices, isProjectProfitable);
+        ProjectReport projectReport = new ProjectReport();
+        projectReport.setAmountOfHours(amountOfHours);
+        projectReport.setPotentialValueOfRenderedServices(potentialValueOfRenderedServices);
+        projectReport.setProject(project);
+        projectReport.setProjectProfitable(isProjectProfitable);
+        return projectReport;
     }
 
     private Integer countProjectHours(Long projectId) {
@@ -149,15 +154,8 @@ public class ReportService {
         return amountOfHours;
     }
 
-    private void addModelAttributesProjectReport(Model model, Project project, Integer amountOfHours, Integer potentialValueOfRenderedServices, boolean isProjectProfitable) {
-        model.addAttribute("amountOfHours", amountOfHours);
-        model.addAttribute("project", project);
-        model.addAttribute("potentialValueOfRenderedServices", potentialValueOfRenderedServices);
-        model.addAttribute("isProjectProfitable", isProjectProfitable);
-    }
-
-//INVOICE PREVIEW REPORT ******************************************************************************************************
-    void invoicePreviewProcess(LocalDate selectedMonday, Long clientId, Model model) {
+    //INVOICE PREVIEW REPORT ******************************************************************************************************
+    InvoiceReport invoicePreviewProcess(LocalDate selectedMonday, Long clientId) {
         LocalDate endDate = selectedMonday.plusDays(27);
         List<TimesheetUnit> timesheets = timesheetUnitRepository.findAllByClientInSearchPeriod(clientId, selectedMonday, endDate);
         List<Project> projectsOfClient = projectRepository.findAllByClientId(clientId);
@@ -166,18 +164,16 @@ public class ReportService {
         amountOfHours = timesheets.stream()
                 .mapToInt(TimesheetUnit::countWeekHours)
                 .sum();
-        addModelAttributesInvoicePreview(model, selectedMonday, timesheets, projectsOfClient, client, amountOfHours);
+        InvoiceReport invoiceReport = new InvoiceReport();
+        invoiceReport.setAmountOfHours(amountOfHours);
+        invoiceReport.setClient(client);
+        invoiceReport.setSelectedMonday(selectedMonday);
+        invoiceReport.setTimesheets(timesheets);
+        invoiceReport.setProjectsOfClient(projectsOfClient);
+        return invoiceReport;
     }
 
-    private void addModelAttributesInvoicePreview(Model model, LocalDate selectedMonday, List<TimesheetUnit> timesheets, List<Project> projectsOfClient, Client client, Integer amountOfHours) {
-        model.addAttribute("selectedMonday", selectedMonday);
-        model.addAttribute("timesheets", timesheets);
-        model.addAttribute("projectsOfClient", projectsOfClient);
-        model.addAttribute("client", client);
-        model.addAttribute("amountOfHours", amountOfHours);
-    }
-
-//TIMESHEET EXCEL REPORT ******************************************************************************************************
+    //TIMESHEET EXCEL REPORT ******************************************************************************************************
     void exportTimesheetsProcess(LocalDate start, LocalDate end, Long employeeId, Model model) {
         XSSFWorkbook workbook;
         String fileDictName = "timesheets.xlsx";

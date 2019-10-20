@@ -84,7 +84,7 @@ public class ReportController {
             model.addAttribute("errorInvalidData", "Error: Selected date is not a first Monday of a month!");
             return "reports/employeeReport/reportEmployeeReportForm";
         }
-        EmployeeReport employeeReport = reportService.employeeReportProcess(selectedMonday, employeeId, model);
+        EmployeeReport employeeReport = reportService.employeeReportProcess(selectedMonday, employeeId);
         model.addAttribute("employeeReport", employeeReport);
 
         return "reports/employeeReport/reportEmployeeReportGenerated";
@@ -114,7 +114,8 @@ public class ReportController {
             model.addAttribute("errorNotSufficientData", "Error: Indicate all data requested in order to generate a report!");
             return "reports/projectReport/reportProjectReportForm";
         }
-        reportService.projectReportProcess(projectId, model);
+        ProjectReport projectReport = reportService.projectReportProcess(projectId);
+        model.addAttribute("projectReport", projectReport);
         return "reports/projectReport/reportProjectReportGenerated";
     }
 
@@ -131,7 +132,8 @@ public class ReportController {
             model.addAttribute("errorInvalidData", "Error: Selected date is not a first Monday of a month!");
             return "reports/invoicePreview/invoicePreviewForm";
         }
-        reportService.invoicePreviewProcess(selectedMonday, clientId, model);
+        InvoiceReport invoiceReport = reportService.invoicePreviewProcess(selectedMonday, clientId);
+        model.addAttribute("invoiceReport", invoiceReport);
         return "reports/invoicePreview/invoicePreviewGenerated";
     }
 
