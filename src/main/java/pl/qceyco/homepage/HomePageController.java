@@ -25,7 +25,7 @@ public class HomePageController {
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String showHomePage(HttpSession session, Model model) {
         Employee loggedInUser = (Employee) session.getAttribute("loggedInUser");
-        if (loggedInUser.getAdmin()) {
+        if (loggedInUser.isAdmin()) {
             homePageService.processAdminHome(model);
             return "admin/homeAdmin";
         } else {

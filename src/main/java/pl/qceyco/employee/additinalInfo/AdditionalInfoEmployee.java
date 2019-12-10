@@ -1,5 +1,7 @@
 package pl.qceyco.employee.additinalInfo;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -8,6 +10,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "additional_info_employees")
+@Data
 public class AdditionalInfoEmployee {
 
     @Id
@@ -40,66 +43,5 @@ public class AdditionalInfoEmployee {
     @Column(name = "phone_number", length = 15)
     @Size(min = 5, max = 15)
     private String phoneNumber;
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Integer getHourlyRateReceivingSalary() {
-        return hourlyRateReceivingSalary;
-    }
-
-    public void setHourlyRateReceivingSalary(Integer hourlyRateReceivingSalary) {
-        this.hourlyRateReceivingSalary = hourlyRateReceivingSalary;
-    }
-
-    public Integer getHourlyRateChargingClients() {
-        return hourlyRateChargingClients;
-    }
-
-    public void setHourlyRateChargingClients(Integer hourlyRateChargingClients) {
-        this.hourlyRateChargingClients = hourlyRateChargingClients;
-    }
-
-    public Integer getTargetBudget() {
-        return targetBudget;
-    }
-
-    public void setTargetBudget(Integer targetBudget) {
-        this.targetBudget = targetBudget;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public Integer getBonus() {
-        return bonus;
-    }
-
-    public void setBonus(Integer bonus) {
-        this.bonus = bonus;
-    }
-
-    @Override
-    public String toString() {
-        return "AdditionalInfoEmployee{" +
-                "id=" + id +
-                ", hourlyRateReceivingSalary=" + hourlyRateReceivingSalary +
-                ", hourlyRateChargingClients=" + hourlyRateChargingClients +
-                ", targetBudget=" + targetBudget +
-                ", bonus=" + bonus +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                '}';
-    }
 
 }

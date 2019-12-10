@@ -31,7 +31,7 @@ public class AdditionalInfoEmployeeController {
         AdditionalInfoEmployee additionalInfoEmployee = additionalInfoEmployeeService.getAdditionalInfoById(additionalInfoId);
         model.addAttribute("additionalInfoEmployee", additionalInfoEmployee);
         Employee loggedInUser = (Employee) session.getAttribute("loggedInUser");
-        if (loggedInUser.getAdmin()) {
+        if (loggedInUser.isAdmin()) {
             return "admin/employees/detailedInfo/employeeDetailsList";
         } else {
             return "user/employees/detailedInfo/employeeDetailsList";

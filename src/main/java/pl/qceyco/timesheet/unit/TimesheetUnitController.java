@@ -46,7 +46,7 @@ public class TimesheetUnitController {
         LocalDate nextMonday = timesheetUnitService.getMondayDate(mode, mondaySelect, 28);
         model.addAttribute("nextMonday", nextMonday);
         Employee loggedInUser = (Employee) session.getAttribute("loggedInUser");
-        if (loggedInUser.getAdmin()) {
+        if (loggedInUser.isAdmin()) {
             return "admin/timesheets/timesheetsList";
         } else {
             List<TimesheetUnit> timesheets = timesheetUnitService.getUserTimesheets(loggedInUser.getId());
@@ -67,7 +67,7 @@ public class TimesheetUnitController {
     @RequestMapping(value = "/choose-project", method = RequestMethod.GET)
     public String chooseProject(HttpSession session, Model model) {
         Employee loggedInUser = (Employee) session.getAttribute("loggedInUser");
-        if (loggedInUser.getAdmin()) {
+        if (loggedInUser.isAdmin()) {
             return "admin/timesheets/timesheetProjectChoiceList";
         } else {
             List<Project> projectsWhereEmployeeParticipates = timesheetUnitService.getUserProjects(loggedInUser.getId());
@@ -128,7 +128,7 @@ public class TimesheetUnitController {
     public String showTimesheetsByProjectId(@RequestParam Long projectId, @RequestParam(required = false) String mode, @RequestParam(required = false) String mondaySelect,
                                             Model model, HttpSession session) {
         Employee loggedInUser = (Employee) session.getAttribute("loggedInUser");
-        if (loggedInUser.getAdmin()) {
+        if (loggedInUser.isAdmin()) {
             List<TimesheetUnit> timesheets = timesheetUnitService.getAllTimesheetsOfGivenProject(projectId);
             if (timesheetUnitService.noTimesheetInDB(timesheets, model)) {
                 return "redirect:/timesheets/list";

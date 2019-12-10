@@ -25,7 +25,7 @@ public class ClientController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String showAllClients(HttpSession session, Model model) {
         Employee employee = (Employee) session.getAttribute("loggedInUser");
-        if (employee.getAdmin()) {
+        if (employee.isAdmin()) {
             return "admin/clients/clientsList";
         } else {
             return "user/clients/clientsList";

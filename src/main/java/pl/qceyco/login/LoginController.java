@@ -25,7 +25,7 @@ public class LoginController {
     public String loginSuccess(Model model) {
         Employee loggedInUser = loginService.getLoggedInUser();
         model.addAttribute("loggedInUser", loggedInUser);
-        if (loggedInUser.getAdmin()) {
+        if (loggedInUser.isAdmin()) {
             return "admin/loginSuccessAdmin";
         } else {
             return "user/loginSuccessUser";

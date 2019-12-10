@@ -43,7 +43,7 @@ public class ProjectController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String showAllProjects(HttpSession session) {
         Employee employee = (Employee) session.getAttribute("loggedInUser");
-        if (employee.getAdmin()) {
+        if (employee.isAdmin()) {
             return "admin/projects/projectsList";
         } else {
             return "user/projects/projectsList";

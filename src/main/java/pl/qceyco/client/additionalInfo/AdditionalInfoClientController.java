@@ -31,7 +31,7 @@ public class AdditionalInfoClientController {
         model.addAttribute("additionalInfoClient", additionalInfoClient);
         model.addAttribute("client", client);
         Employee employee = (Employee) session.getAttribute("loggedInUser");
-        if (employee.getAdmin()) {
+        if (employee.isAdmin()) {
             return "admin/clients/detailedInfo/clientDetailsList";
         } else {
             return "user/clients/detailedInfo/clientDetailsList";

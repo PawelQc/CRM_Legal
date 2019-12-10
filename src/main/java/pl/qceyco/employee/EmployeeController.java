@@ -23,7 +23,7 @@ public class EmployeeController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String showAllEmployees(HttpSession session, Model model) {
         Employee employee = (Employee) session.getAttribute("loggedInUser");
-        if (employee.getAdmin()) {
+        if (employee.isAdmin()) {
             return "admin/employees/employeesList";
         } else {
             return "user/employees/employeesList";
@@ -54,7 +54,7 @@ public class EmployeeController {
     @RequestMapping(value = "/delete/{employeeId}", method = RequestMethod.GET)
     public String delete(@PathVariable Long employeeId, Model model, HttpSession session) {
         Employee employee = employeeService.getEmployeeById(employeeId);
-        if (employee.getAdmin()) {
+        if (employee.isAdmin()) {
             model.addAttribute("deleteErrorIsAdmin", "Cannot delete admin account!");
             return "admin/employees/employeesList";
         }
