@@ -1,11 +1,13 @@
 package pl.qceyco.client;
 
+import lombok.Data;
 import pl.qceyco.client.additionalInfo.AdditionalInfoClient;
 
 import javax.persistence.*;
 
 @Entity(name = "xxx_client")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Data
 public class Client {
 
     @Id
@@ -16,27 +18,4 @@ public class Client {
     @JoinColumn(name = "additional_info_id")
     private AdditionalInfoClient additionalInfo;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public AdditionalInfoClient getAdditionalInfo() {
-        return additionalInfo;
-    }
-
-    public void setAdditionalInfo(AdditionalInfoClient additionalInfo) {
-        this.additionalInfo = additionalInfo;
-    }
-
-    @Override
-    public String toString() {
-        return "Client{" +
-                "id=" + id +
-                ", additionalInfo=" + additionalInfo +
-                '}';
-    }
 }

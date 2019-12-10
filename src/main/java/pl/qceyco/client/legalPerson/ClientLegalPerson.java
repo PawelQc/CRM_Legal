@@ -1,5 +1,6 @@
 package pl.qceyco.client.legalPerson;
 
+import lombok.Data;
 import pl.qceyco.client.Client;
 
 import javax.persistence.Column;
@@ -10,6 +11,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "clients_legal_person")
+@Data
 public class ClientLegalPerson extends Client {
 
     @Column(name = "company_name", length = 100)
@@ -19,22 +21,8 @@ public class ClientLegalPerson extends Client {
     @Transient
     private String nameDisplay;
 
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
     public String getNameDisplay() {
         return companyName;
     }
 
-    @Override
-    public String toString() {
-        return "ClientLegalPerson{" +
-                "companyName='" + companyName + '\'' +
-                '}';
-    }
 }
