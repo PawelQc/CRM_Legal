@@ -1,6 +1,7 @@
 package pl.qceyco.client.naturalPerson;
 
 import lombok.Data;
+import pl.qceyco.NameDisplayInterface;
 import pl.qceyco.client.Client;
 
 import javax.persistence.Column;
@@ -12,7 +13,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "clients_natural_person")
 @Data
-public class ClientNaturalPerson extends Client {
+public class ClientNaturalPerson extends Client implements NameDisplayInterface {
 
     @Column(name = "first_name", length = 50)
     @Size(min = 2, max = 50)
@@ -25,6 +26,7 @@ public class ClientNaturalPerson extends Client {
     @Transient
     private String nameDisplay;
 
+    @Override
     public String getNameDisplay() {
         return firstName + " " + lastName;
     }

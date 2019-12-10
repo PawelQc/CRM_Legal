@@ -1,5 +1,6 @@
 package pl.qceyco.timesheet.unit;
 
+import lombok.Data;
 import pl.qceyco.employee.Employee;
 import pl.qceyco.project.Project;
 import pl.qceyco.timesheet.workWeek.WorkWeek;
@@ -8,6 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "timesheet_unit")
+@Data
 public class TimesheetUnit {
 
     @Id
@@ -25,48 +27,6 @@ public class TimesheetUnit {
     @OneToOne
     @JoinColumn(name = "project_id")
     private Project project;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public WorkWeek getWorkWeek() {
-        return workWeek;
-    }
-
-    public void setWorkWeek(WorkWeek workWeek) {
-        this.workWeek = workWeek;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
-    }
-
-    @Override
-    public String toString() {
-        return "TimesheetReferenceUnit{" +
-                "id=" + id +
-                ", timesheetWeek=" + workWeek +
-                ", employee=" + employee +
-                ", project=" + project +
-                '}';
-    }
 
     public Integer countWeekHours() {
         return workWeek.getMondayHours() +

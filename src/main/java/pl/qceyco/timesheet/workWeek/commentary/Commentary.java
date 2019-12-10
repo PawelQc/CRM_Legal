@@ -1,10 +1,13 @@
 package pl.qceyco.timesheet.workWeek.commentary;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "commentary")
+@Data
 public class Commentary {
 
     @Id
@@ -39,81 +42,4 @@ public class Commentary {
     @Size(max = 650)
     private String sundayCommentary;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getMondayCommentary() {
-        return mondayCommentary;
-    }
-
-    public void setMondayCommentary(String mondayCommentary) {
-        this.mondayCommentary = mondayCommentary;
-    }
-
-    public String getTuesdayCommentary() {
-        return tuesdayCommentary;
-    }
-
-    public void setTuesdayCommentary(String tuesdayCommentary) {
-        this.tuesdayCommentary = tuesdayCommentary;
-    }
-
-    public String getWednesdayCommentary() {
-        return wednesdayCommentary;
-    }
-
-    public void setWednesdayCommentary(String wednesdayCommentary) {
-        this.wednesdayCommentary = wednesdayCommentary;
-    }
-
-    public String getThursdayCommentary() {
-        return thursdayCommentary;
-    }
-
-    public void setThursdayCommentary(String thursdayCommentary) {
-        this.thursdayCommentary = thursdayCommentary;
-    }
-
-    public String getFridayCommentary() {
-        return fridayCommentary;
-    }
-
-    public void setFridayCommentary(String fridayCommentary) {
-        this.fridayCommentary = fridayCommentary;
-    }
-
-    public String getSaturdayCommentary() {
-        return saturdayCommentary;
-    }
-
-    public void setSaturdayCommentary(String saturdayCommentary) {
-        this.saturdayCommentary = saturdayCommentary;
-    }
-
-    public String getSundayCommentary() {
-        return sundayCommentary;
-    }
-
-    public void setSundayCommentary(String sundayCommentary) {
-        this.sundayCommentary = sundayCommentary;
-    }
-
-    @Override
-    public String toString() {
-        return "Commentary{" +
-                "id=" + id +
-                ", mondayCommentary='" + mondayCommentary + '\'' +
-                ", tuesdayCommentary='" + tuesdayCommentary + '\'' +
-                ", wednesdayCommentary='" + wednesdayCommentary + '\'' +
-                ", thursdayCommentary='" + thursdayCommentary + '\'' +
-                ", fridayCommentary='" + fridayCommentary + '\'' +
-                ", saturdayCommentary='" + saturdayCommentary + '\'' +
-                ", sundayCommentary='" + sundayCommentary + '\'' +
-                '}';
-    }
 }

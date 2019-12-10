@@ -2,6 +2,7 @@ package pl.qceyco.employee;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.Email;
+import pl.qceyco.NameDisplayInterface;
 import pl.qceyco.employee.additinalInfo.AdditionalInfoEmployee;
 import pl.qceyco.employee.validation.Password;
 import pl.qceyco.employee.userAuthority.Authority;
@@ -15,7 +16,7 @@ import java.util.Set;
 @Entity
 @Table(name = "employees")
 @Data
-public class Employee {
+public class Employee implements NameDisplayInterface {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,6 +59,11 @@ public class Employee {
     //todo bez tej metody się wywala program
     public Boolean isAdmin() {
         return isAdmin;
+    }
+
+    @Override
+    public String getNameDisplay() {
+        return firstName + " " + lastName;
     }
 
 }
