@@ -100,10 +100,10 @@ public class TimesheetUnitService {
         TimesheetUnit timesheetSimilarInDB = timesheetUnitRepository
                 .findFirstByEmployeeIdAndProjectIdInSearchPeriod(loggedInUser.getId(), projectId, workWeek.getDateMonday(), workWeek.getDateMonday().plusDays(1));
         if (timesheetSimilarInDB != null) {
-            model.addAttribute("errorSimilarTsExists", "Error: there is already existing timesheet for this project and date!");
-            model.addAttribute("timesheetSimilarInDB", timesheetSimilarInDB);
             Project project = projectRepository.findFirstById(projectId);
             model.addAttribute("project", project);
+            model.addAttribute("errorSimilarTsExists", "Error: there is already existing timesheet for this project and date!");
+            model.addAttribute("timesheetSimilarInDB", timesheetSimilarInDB);
             return true;
         }
         return false;

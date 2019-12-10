@@ -116,7 +116,9 @@ public class TimesheetUnitController {
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String processUpdateForm(@ModelAttribute @Valid WorkWeek workWeek, BindingResult result) {
-        if (result.hasErrors()) return "timesheets/timesheetUpdate";
+        if (result.hasErrors()) {
+            return "timesheets/timesheetUpdate";
+        }
         workWeek.setDateMonday(workWeek.getDateMonday().plusDays(1));
         timesheetUnitService.saveUpdate(workWeek);
         return "redirect:list";
@@ -128,7 +130,9 @@ public class TimesheetUnitController {
         Employee loggedInUser = (Employee) session.getAttribute("loggedInUser");
         if (loggedInUser.getAdmin()) {
             List<TimesheetUnit> timesheets = timesheetUnitService.getAllTimesheetsOfGivenProject(projectId);
-            if (timesheetUnitService.noTimesheetInDB(timesheets, model)) return "redirect:/timesheets/list";
+            if (timesheetUnitService.noTimesheetInDB(timesheets, model)) {
+                return "redirect:/timesheets/list";
+            }
             model.addAttribute("projectId", projectId);
             model.addAttribute("timesheetsChosenProject", timesheets);
             LocalDate nextMonday = timesheetUnitService.getMondayDate(mode, mondaySelect, 28);
@@ -136,7 +140,9 @@ public class TimesheetUnitController {
             return "admin/timesheets/timesheetsListOfGivenProject";
         } else {
             List<TimesheetUnit> timesheets = timesheetUnitService.getUserTimesheetsOfGivenProject(projectId, loggedInUser.getId());
-            if (timesheetUnitService.noTimesheetInDB(timesheets, model)) return "redirect:/timesheets/list";
+            if (timesheetUnitService.noTimesheetInDB(timesheets, model)) {
+                return "redirect:/timesheets/list";
+            }
             model.addAttribute("timesheets", timesheets);
             return "user/timesheets/timesheetsListOfGivenProject";
         }
