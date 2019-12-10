@@ -67,7 +67,7 @@ public class HomePageService {
     private Integer countBillableHours(List<TimesheetUnit> timesheets) {
         Integer billableHours = 0;
         billableHours = timesheets.stream()
-                .filter(t -> t.getProject().getBillable())
+                .filter(t -> t.getProject().isBillable())
                 .mapToInt(TimesheetUnit::countWeekHours)
                 .sum();
         return billableHours;
@@ -76,7 +76,7 @@ public class HomePageService {
     private Integer countNonBillableHours(List<TimesheetUnit> timesheets) {
         Integer nonBillableHours = 0;
         nonBillableHours = timesheets.stream()
-                .filter(t -> !t.getProject().getBillable())
+                .filter(t -> !t.getProject().isBillable())
                 .mapToInt(TimesheetUnit::countWeekHours)
                 .sum();
         return nonBillableHours;
