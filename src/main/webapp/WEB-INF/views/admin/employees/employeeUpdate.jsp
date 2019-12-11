@@ -38,8 +38,8 @@
 
         <div class="form-group">
             <label for="isAdminId">Grant admin access?</label>
-            <form:checkbox path="admin" id="isAdminId" class="form-control"/>
-            <form:errors path="admin" element="div" cssClass="text-warning"/>
+            <form:checkbox path="isAdmin" id="isAdminId" class="form-control"/>
+            <form:errors path="isAdmin" element="div" cssClass="text-warning"/>
         </div>
 
         <input type="submit" value="Save" class="btn-success">

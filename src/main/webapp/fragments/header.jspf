@@ -11,7 +11,7 @@
             <li class="navbar-text-small"><a href="<c:url value="/clients/list"/>">Clients</a></li>
             <li class="navbar-text-small"><a href="<c:url value="/employees/list"/>">Employees</a></li>
             <li class="navbar-text-small"><a href="<c:url value="/timesheets/list"/>">Timesheets</a></li>
-            <c:if test="${loggedInUser.getAdmin()}">
+            <c:if test="${loggedInUser.isAdmin()}">
                 <li class="navbar-text-small"><a href="<c:url value="/reports/options"/>">Reports</a></li>
             </c:if>
         </ul>
@@ -19,7 +19,7 @@
             <li class="navbar-text-small">
                 <a href="${pageContext.request.contextPath}/user/info"><span
                         class="glyphicon glyphicon-user"></span> ${loggedInUser.nameDisplay}
-                    <c:if test="${loggedInUser.getAdmin()}">
+                    <c:if test="${loggedInUser.isAdmin()}">
                         (admin)
                     </c:if>
                 </a>

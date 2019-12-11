@@ -44,6 +44,6 @@ public class AdditionalInfoClient {
     @Min(1)
     @Max(100000)
     @NotNull
-    private Integer hourlyRateIsCharged;
+    private int hourlyRateIsCharged;
 
 }
