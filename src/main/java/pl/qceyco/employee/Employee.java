@@ -39,7 +39,7 @@ public class Employee implements NameDisplayInterface {
     private String emailLogin;
 
     @Column(name = "password", length = 60)
-    @Password()
+//    @Password             //todo błąd przy zapisie - coś jest nie tak z walidatorem
     private String password;
 
     @NotNull

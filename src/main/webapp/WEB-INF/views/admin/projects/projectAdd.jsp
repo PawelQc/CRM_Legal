@@ -63,8 +63,8 @@
 
         <div class="form-group">
             <label for="isBillableId">Is project billable?</label>
-            <form:checkbox path="billable" id="isBillableId" class="form-control"/>
-            <form:errors path="billable" element="div" cssClass="text-warning"/>
+            <form:checkbox path="isBillable" id="isBillableId" class="form-control"/>
+            <form:errors path="isBillable" element="div" cssClass="text-warning"/>
         </div>
 
         <input type="submit" value="Save" class="btn-success">
