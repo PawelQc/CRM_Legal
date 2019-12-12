@@ -42,7 +42,7 @@ public class Project {
     @Min(0)
     @Max(100000000)
     @NotNull
-    private Integer capOnRemuneration;
+    private int capOnRemuneration;
 
     @Column(name = "is_billable")
     @NotNull

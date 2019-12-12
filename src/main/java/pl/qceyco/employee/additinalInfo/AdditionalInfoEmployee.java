@@ -21,24 +21,24 @@ public class AdditionalInfoEmployee {
     @Min(1)
     @Max(100000)
     @NotNull
-    private Integer hourlyRateReceivingSalary;
+    private int hourlyRateReceivingSalary;
 
     @Column(name = "hourly_rate_client_charge_PLN")
     @Min(1)
     @Max(100000)
     @NotNull
-    private Integer hourlyRateChargingClients;
+    private int hourlyRateChargingClients;
 
     @Column(name = "target_budget_monthly")
     @Min(1)
     @Max(1000000)
     @NotNull
-    private Integer targetBudget;
+    private int targetBudget;
 
     @Min(0)
     @Max(100)
     @NotNull
-    private Integer bonus;
+    private int bonus;
 
     @Column(name = "phone_number", length = 15)
     @Size(min = 5, max = 15)
