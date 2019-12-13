@@ -1,5 +1,6 @@
 package pl.qceyco.report;
 
+import lombok.Builder;
 import lombok.Data;
 import pl.qceyco.client.Client;
 import pl.qceyco.project.Project;
@@ -9,6 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Data
+@Builder
 public class InvoiceReport {
 
     private Client client;

@@ -66,32 +66,26 @@ public class ReportService {
 
     //EMPLOYEE REPORT ******************************************************************************************************
     EmployeeReport employeeReportProcess(LocalDate selectedMonday, Long employeeId) {
-        EmployeeReport employeeReport = new EmployeeReport();
-        LocalDate endDate = selectedMonday.plusDays(27);
-        List<TimesheetUnit> timesheets = getAllEmployeeTimesheetsFrom4Weeks(employeeId, selectedMonday, endDate);
-        Integer nonBillableHours = countNonBillableHours(timesheets);
-        Integer billableHours = countBillableHours(timesheets);
-        Integer workTimeUtilizationLevel = getWorkTimeUtilisationLevelAsInt(nonBillableHours, billableHours);
-        Employee reportedEmployee = employeeRepository.findFirstById(employeeId);
-        Integer targetBudget = reportedEmployee.getAdditionalInfo().getTargetBudget();
-        Integer hourlyRate = reportedEmployee.getAdditionalInfo().getHourlyRateChargingClients();
-        Integer valueOfRenderedServices = hourlyRate * billableHours;
+        List<TimesheetUnit> timesheets = getAllEmployeeTimesheetsFrom4Weeks(employeeId, selectedMonday, selectedMonday.plusDays(27));
+        Integer hourlyRate = employeeRepository.findFirstById(employeeId).getAdditionalInfo().getHourlyRateChargingClients();
+        int valueOfRenderedServices = hourlyRate * countBillableHours(timesheets);
         boolean isMonthlyTargetAchieved = false;
-        Double bonusAmountD = 0.0;
-        if (valueOfRenderedServices >= targetBudget) {
+        double bonusAmountD = 0.0;
+        if (valueOfRenderedServices >= employeeRepository.findFirstById(employeeId).getAdditionalInfo().getTargetBudget()) {
             isMonthlyTargetAchieved = true;
-            bonusAmountD = (reportedEmployee.getAdditionalInfo().getBonus() * (valueOfRenderedServices - targetBudget)) / 100.0;
+            bonusAmountD = (employeeRepository.findFirstById(employeeId).getAdditionalInfo().getBonus() * (valueOfRenderedServices - employeeRepository.findFirstById(employeeId).getAdditionalInfo().getTargetBudget())) / 100.0;
         }
         Integer bonusAmount = getBonusAmountAsInt(bonusAmountD);
-        employeeReport.setReportedEmployee(reportedEmployee);
-        employeeReport.setValueOfRenderedServices(valueOfRenderedServices);
-        employeeReport.setAmountOfBillableHours(billableHours);
-        employeeReport.setAmountOfNonBillableHours(nonBillableHours);
-        employeeReport.setBonusAmount(bonusAmount);
-        employeeReport.setMonthlyTargetAchieved(isMonthlyTargetAchieved);
-        employeeReport.setWorkTimeUtilizationLevel(workTimeUtilizationLevel);
-        employeeReport.setSelectedMonday(selectedMonday);
-        return employeeReport;
+        return EmployeeReport.builder()
+                .reportedEmployee(employeeRepository.findFirstById(employeeId))
+                .amountOfBillableHours(countBillableHours(timesheets))
+                .amountOfNonBillableHours(countNonBillableHours(timesheets))
+                .workTimeUtilizationLevel(getWorkTimeUtilisationLevelAsInt(countNonBillableHours(timesheets), countBillableHours(timesheets)))
+                .isMonthlyTargetAchieved(isMonthlyTargetAchieved)
+                .bonusAmount(bonusAmount)
+                .selectedMonday(selectedMonday)
+                .valueOfRenderedServices(valueOfRenderedServices)
+                .build();
     }
 
     private Integer getBonusAmountAsInt(Double bonusAmount) {
@@ -100,7 +94,7 @@ public class ReportService {
     }
 
     private Integer countBillableHours(List<TimesheetUnit> timesheets) {
-        Integer billableHours = 0;
+        int billableHours = 0;
         billableHours = timesheets.stream()
                 .filter(t -> t.getProject().isBillable())
                 .mapToInt(TimesheetUnit::countWeekHours)
@@ -109,7 +103,7 @@ public class ReportService {
     }
 
     private Integer countNonBillableHours(List<TimesheetUnit> timesheets) {
-        Integer nonBillableHours = 0;
+        int nonBillableHours = 0;
         nonBillableHours = timesheets.stream()
                 .filter(t -> !t.getProject().isBillable())
                 .mapToInt(TimesheetUnit::countWeekHours)
@@ -118,35 +112,31 @@ public class ReportService {
     }
 
     private Integer getWorkTimeUtilisationLevelAsInt(Integer nonBillableHours, Integer billableHours) {
-        Double workTimeUtilizationLevelD = billableHours.doubleValue() / (billableHours + nonBillableHours) * 100;
+        double workTimeUtilizationLevelD = billableHours.doubleValue() / (billableHours + nonBillableHours) * 100;
         if (Double.isNaN(workTimeUtilizationLevelD)) {
             workTimeUtilizationLevelD = 0.0;
         }
         workTimeUtilizationLevelD = Math.floor(workTimeUtilizationLevelD);
-        return workTimeUtilizationLevelD.intValue();
+        return (int) workTimeUtilizationLevelD;
     }
 
     //PROJECT REPORT ******************************************************************************************************
     ProjectReport projectReportProcess(Long projectId) {
-        Project project = projectRepository.findFirstByIdWithProjectTeamMembers(projectId);
-        int amountOfHours = countProjectHours(projectId);
-        int clientDefaultHourlyRate = project.getClient().getAdditionalInfo().getHourlyRateIsCharged();
-        int potentialValueOfRenderedServices = amountOfHours * clientDefaultHourlyRate;
-        int capOnRemuneration = project.getCapOnRemuneration();
+        int potentialValueOfRenderedServices = countProjectHours(projectId) * projectRepository.findFirstByIdWithProjectTeamMembers(projectId).getClient().getAdditionalInfo().getHourlyRateIsCharged();
         boolean isProjectProfitable = true;
-        if (potentialValueOfRenderedServices > capOnRemuneration) {
+        if (potentialValueOfRenderedServices > projectRepository.findFirstByIdWithProjectTeamMembers(projectId).getCapOnRemuneration()) {
             isProjectProfitable = false;
         }
-        ProjectReport projectReport = new ProjectReport();
-        projectReport.setAmountOfHours(amountOfHours);
-        projectReport.setPotentialValueOfRenderedServices(potentialValueOfRenderedServices);
-        projectReport.setProject(project);
-        projectReport.setProjectProfitable(isProjectProfitable);
-        return projectReport;
+        return ProjectReport.builder()
+                .amountOfHours(countProjectHours(projectId))
+                .projectIsProfitable(isProjectProfitable)
+                .potentialValueOfRenderedServices(potentialValueOfRenderedServices)
+                .project(projectRepository.findFirstByIdWithProjectTeamMembers(projectId))
+                .build();
     }
 
     private Integer countProjectHours(Long projectId) {
-        Integer amountOfHours = 0;
+        int amountOfHours = 0;
         List<TimesheetUnit> timesheets = timesheetUnitRepository.findAllByProjectIdOrderByEmployeeId(projectId);
         amountOfHours = timesheets.stream()
                 .mapToInt(TimesheetUnit::countWeekHours)
@@ -156,21 +146,14 @@ public class ReportService {
 
     //INVOICE PREVIEW REPORT ******************************************************************************************************
     InvoiceReport invoicePreviewProcess(LocalDate selectedMonday, Long clientId) {
-        LocalDate endDate = selectedMonday.plusDays(27);
-        List<TimesheetUnit> timesheets = timesheetUnitRepository.findAllByClientInSearchPeriod(clientId, selectedMonday, endDate);
-        List<Project> projectsOfClient = projectRepository.findAllByClientId(clientId);
-        Client client = clientRepository.findFirstById(clientId);
-        Integer amountOfHours = 0;
-        amountOfHours = timesheets.stream()
-                .mapToInt(TimesheetUnit::countWeekHours)
-                .sum();
-        InvoiceReport invoiceReport = new InvoiceReport();
-        invoiceReport.setAmountOfHours(amountOfHours);
-        invoiceReport.setClient(client);
-        invoiceReport.setSelectedMonday(selectedMonday);
-        invoiceReport.setTimesheets(timesheets);
-        invoiceReport.setProjectsOfClient(projectsOfClient);
-        return invoiceReport;
+        return InvoiceReport.builder()
+                .amountOfHours(timesheetUnitRepository.findAllByClientInSearchPeriod(clientId, selectedMonday, selectedMonday.plusDays(27))
+                        .stream().mapToInt(TimesheetUnit::countWeekHours).sum())
+                .client(clientRepository.findFirstById(clientId))
+                .projectsOfClient(projectRepository.findAllByClientId(clientId))
+                .selectedMonday(selectedMonday)
+                .timesheets(timesheetUnitRepository.findAllByClientInSearchPeriod(clientId, selectedMonday, selectedMonday.plusDays(27)))
+                .build();
     }
 
     //TIMESHEET EXCEL REPORT ******************************************************************************************************

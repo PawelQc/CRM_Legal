@@ -26,7 +26,7 @@
         </tr>
         <tr>
             <th>Is project profitable?</th>
-            <td>${projectReport.isProjectProfitable}</td>
+            <td>${projectReport.projectIsProfitable}</td>
         </tr>
     </table>
 </div>

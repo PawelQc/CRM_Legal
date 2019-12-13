@@ -28,7 +28,7 @@
         </tr>
         <tr>
             <th>Is monthly target achieved? (${employeeReport.reportedEmployee.additionalInfo.targetBudget} PLN)</th>
-            <td>${employeeReport.isMonthlyTargetAchieved}</td>
+            <td>${employeeReport.monthlyTargetAchieved}</td>
         </tr>
         <tr>
             <th>Value of rendered services</th>
