@@ -20,15 +20,15 @@ public class ClientService {
         this.projectRepository = projectRepository;
     }
 
-    List<Client> getAllClients() {
+    public List<Client> getAllClients() {
         return clientRepository.findAll();
     }
 
-    Project getAnyProjectByClientId(Long clientId) {
+    public Project getAnyProjectByClientId(Long clientId) {
         return projectRepository.findFirstByClientId(clientId);
     }
 
-    void deleteClient(Long clientId) {
+    public void deleteClient(Long clientId) {
         Client clientToDelete = clientRepository.findFirstById(clientId);
         clientRepository.deleteById(clientId);
         if (clientToDelete.getAdditionalInfo() != null) {

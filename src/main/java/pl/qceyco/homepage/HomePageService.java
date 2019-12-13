@@ -65,7 +65,7 @@ public class HomePageService {
     }
 
     private Integer countBillableHours(List<TimesheetUnit> timesheets) {
-        Integer billableHours = 0;
+        int billableHours = 0;
         billableHours = timesheets.stream()
                 .filter(t -> t.getProject().isBillable())
                 .mapToInt(TimesheetUnit::countWeekHours)
@@ -74,7 +74,7 @@ public class HomePageService {
     }
 
     private Integer countNonBillableHours(List<TimesheetUnit> timesheets) {
-        Integer nonBillableHours = 0;
+        int nonBillableHours = 0;
         nonBillableHours = timesheets.stream()
                 .filter(t -> !t.getProject().isBillable())
                 .mapToInt(TimesheetUnit::countWeekHours)
@@ -93,7 +93,7 @@ public class HomePageService {
     }
 
     private Integer getProjectHours(LocalDate startDate, LocalDate endDate, Project project) {
-        Integer hours = 0;
+        int hours = 0;
         List<TimesheetUnit> projectTimesheets = timesheetUnitRepository.findAllByProjectInSearchPeriod(project.getId(), startDate, endDate);
         hours = projectTimesheets.stream()
                 .mapToInt(TimesheetUnit::countWeekHours)
@@ -102,12 +102,12 @@ public class HomePageService {
     }
 
     private Integer getWorkTimeUtilisationLevelAsInt(Integer nonBillableHours, Integer billableHours) {
-        Double workTimeUtilizationLevelD = billableHours.doubleValue() / (billableHours + nonBillableHours) * 100;
+        double workTimeUtilizationLevelD = billableHours.doubleValue() / (billableHours + nonBillableHours) * 100;
         if (Double.isNaN(workTimeUtilizationLevelD)) {
             workTimeUtilizationLevelD = 0.0;
         }
         workTimeUtilizationLevelD = Math.floor(workTimeUtilizationLevelD);
-        return workTimeUtilizationLevelD.intValue();
+        return (int) workTimeUtilizationLevelD;
     }
 
     private void adminHomeSetAttributes(Model model, LocalDate thisMonthFirstMonday, Map<String, Integer> projectsAndHours, Map<String,
@@ -134,7 +134,7 @@ public class HomePageService {
         Integer hourlyRate = loggedInUser.getAdditionalInfo().getHourlyRateChargingClients();
         Integer valueOfRenderedServices = hourlyRate * billableHours;
         boolean isMonthlyTargetAchieved = false;
-        Double bonusAmountD = 0.0;
+        double bonusAmountD = 0.0;
         if (valueOfRenderedServices >= targetBudget) {
             isMonthlyTargetAchieved = true;
             bonusAmountD = (loggedInUser.getAdditionalInfo().getBonus() * (valueOfRenderedServices - targetBudget)) / 100.0;

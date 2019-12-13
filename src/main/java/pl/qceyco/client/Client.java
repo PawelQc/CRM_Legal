@@ -1,6 +1,8 @@
 package pl.qceyco.client;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import pl.qceyco.client.additionalInfo.AdditionalInfoClient;
 
 import javax.persistence.*;
@@ -8,6 +10,8 @@ import javax.persistence.*;
 @Entity(name = "xxx_client")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Client {
 
     @Id
