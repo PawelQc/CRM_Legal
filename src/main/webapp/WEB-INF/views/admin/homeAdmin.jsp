@@ -16,14 +16,14 @@
 <div class="home-right-div">
     <table class="table table-hover table-condensed">
         <th colspan="2">
-            <h3 class="text-center"> Work time utilisation for: ${thisMonthFirstMonday}
-                - ${thisMonthFirstMonday.plusDays(27)}</h3>
+            <h3 class="text-center"> Work time utilisation for: ${homeParams.thisMonthFirstMonday}
+                - ${homeParams.thisMonthFirstMonday.plusDays(27)}</h3>
         </th>
         <tr>
             <th>Employee</th>
             <th>Utilisation level</th>
         </tr>
-        <c:forEach items="${employeesAndUtilisation}" var="entry">
+        <c:forEach items="${homeParams.employeesAndUtilisation}" var="entry">
             <tr>
                 <td>${entry.key}</td>
                 <td>${entry.value}%</td>
@@ -42,15 +42,15 @@
     <table class="table table-hover table-condensed">
         <tr>
             <th colspan="2">
-                <h3 class="text-center">Projects and work hours for: ${thisMonthFirstMonday}
-                    - ${thisMonthFirstMonday.plusDays(27)}</h3>
+                <h3 class="text-center">Projects and work hours for: ${homeParams.thisMonthFirstMonday}
+                    - ${homeParams.thisMonthFirstMonday.plusDays(27)}</h3>
             </th>
         </tr>
         <tr>
             <th class="text-center">Project</th>
             <th class="text-center">Hours</th>
         </tr>
-        <c:forEach var="entry" items="${projectsAndHours}">
+        <c:forEach var="entry" items="${homeParams.projectsAndHours}">
             <tr>
                 <td class="text-center">${entry.key}</td>
                 <td class="text-center">${entry.value}</td>
@@ -67,22 +67,22 @@
 <div class="container">
     <table class="table table-condensed table-hover">
         <tr>
-            <th colspan="10"><h3 class="text-center">Recent timesheets: ${previousMonday}
-                - ${previousMonday.plusDays(6)}</h3></th>
+            <th colspan="10"><h3 class="text-center">Recent timesheets: ${homeParams.previousMonday}
+                - ${homeParams.previousMonday.plusDays(6)}</h3></th>
         </tr>
         <tr>
             <th>Employee</th>
             <th>Project</th>
-            <th>${previousMonday}</th>
-            <th>${previousMonday.plusDays(1)}</th>
-            <th>${previousMonday.plusDays(2)}</th>
-            <th>${previousMonday.plusDays(3)}</th>
-            <th>${previousMonday.plusDays(4)}</th>
-            <th>${previousMonday.plusDays(5)}</th>
-            <th>${previousMonday.plusDays(6)}</th>
+            <th>${homeParams.previousMonday}</th>
+            <th>${homeParams.previousMonday.plusDays(1)}</th>
+            <th>${homeParams.previousMonday.plusDays(2)}</th>
+            <th>${homeParams.previousMonday.plusDays(3)}</th>
+            <th>${homeParams.previousMonday.plusDays(4)}</th>
+            <th>${homeParams.previousMonday.plusDays(5)}</th>
+            <th>${homeParams.previousMonday.plusDays(6)}</th>
             <th>Action</th>
         </tr>
-        <c:forEach var="timesheet" items="${timesheets}">
+        <c:forEach var="timesheet" items="${homeParams.timesheets}">
             <tr>
                 <td>${timesheet.employee.nameDisplay}</td>
                 <td>${timesheet.project.signature}</td>

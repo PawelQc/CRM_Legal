@@ -1,7 +1,6 @@
 package pl.qceyco.homepage;
 
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 import pl.qceyco.employee.Employee;
 import pl.qceyco.employee.EmployeeRepository;
 import pl.qceyco.project.Project;
@@ -31,15 +30,16 @@ public class HomePageService {
         this.employeeRepository = employeeRepository;
     }
 
-//HOME ADMIN ######################################################################################################
-    void processAdminHome(Model model) {
+    //HOME ADMIN ######################################################################################################
+    AdminHomeParams processAdminHome() {
         LocalDate thisMonthFirstMonday = LocalDate.now().with(firstInMonth(DayOfWeek.MONDAY));
-        LocalDate endDate = thisMonthFirstMonday.plusDays(27);
-        Map<String, Integer> projectsAndHours = getProjectsToHoursData(thisMonthFirstMonday, endDate);
-        Map<String, Integer> employeesAndUtilisation = getEmployeesUtilisationData(thisMonthFirstMonday, endDate);
-        List<TimesheetUnit> timesheets = getTimesheetsForRecentWeek();
-        LocalDate previousMonday = getPreviousMonday();
-        adminHomeSetAttributes(model, thisMonthFirstMonday, projectsAndHours, employeesAndUtilisation, previousMonday, timesheets);
+        return AdminHomeParams.builder()
+                .employeesAndUtilisation(getEmployeesUtilisationData(thisMonthFirstMonday, thisMonthFirstMonday.plusDays(27)))
+                .previousMonday(getPreviousMonday())
+                .projectsAndHours(getProjectsToHoursData(thisMonthFirstMonday, thisMonthFirstMonday.plusDays(27)))
+                .thisMonthFirstMonday(thisMonthFirstMonday)
+                .timesheets(getTimesheetsForRecentWeek())
+                .build();
     }
 
     private Map<String, Integer> getEmployeesUtilisationData(LocalDate startDate, LocalDate endDate) {
@@ -110,60 +110,35 @@ public class HomePageService {
         return (int) workTimeUtilizationLevelD;
     }
 
-    private void adminHomeSetAttributes(Model model, LocalDate thisMonthFirstMonday, Map<String, Integer> projectsAndHours, Map<String,
-            Integer> employeesAndUtilisation, LocalDate previousMonday, List<TimesheetUnit> timesheets) {
-        model.addAttribute("projectsAndHours", projectsAndHours);
-        model.addAttribute("employeesAndUtilisation", employeesAndUtilisation);
-        model.addAttribute("timesheets", timesheets);
-        model.addAttribute("thisMonthFirstMonday", thisMonthFirstMonday);
-        model.addAttribute("previousMonday", previousMonday);
-    }
-
-//HOME USER ######################################################################################################
-    void processUserHome(Employee loggedInUser, Model model) {
+    //HOME USER ######################################################################################################
+    UserHomeParams processUserHome(Employee loggedInUser) {
         Long userId = loggedInUser.getId();
-        List<Project> projectsOfUser = projectRepository.findAllByEmployeeId(userId);
-        TimesheetUnit recentTimesheet = timesheetUnitRepository.findFirstByEmployeeIdOrderByIdDesc(userId);
         LocalDate previousMonthFirstMonday = LocalDate.now().minusMonths(1).with(firstInMonth(DayOfWeek.MONDAY));
-        LocalDate endDate = previousMonthFirstMonday.plusDays(27);
-        List<TimesheetUnit> timesheetsPreviousMonth = timesheetUnitRepository.findAllByEmployeeIdInSearchPeriod(userId, previousMonthFirstMonday, endDate);
-        Integer nonBillableHours = countNonBillableHours(timesheetsPreviousMonth);
-        Integer billableHours = countBillableHours(timesheetsPreviousMonth);
-        Integer workTimeUtilizationLevel = getWorkTimeUtilisationLevelAsInt(nonBillableHours, billableHours);
-        Integer targetBudget = loggedInUser.getAdditionalInfo().getTargetBudget();
-        Integer hourlyRate = loggedInUser.getAdditionalInfo().getHourlyRateChargingClients();
-        Integer valueOfRenderedServices = hourlyRate * billableHours;
+        List<TimesheetUnit> timesheetsPreviousMonth = timesheetUnitRepository.findAllByEmployeeIdInSearchPeriod(userId, previousMonthFirstMonday, previousMonthFirstMonday.plusDays(27));
+        int valueOfRenderedServices = loggedInUser.getAdditionalInfo().getHourlyRateChargingClients() * countBillableHours(timesheetsPreviousMonth);
         boolean isMonthlyTargetAchieved = false;
         double bonusAmountD = 0.0;
-        if (valueOfRenderedServices >= targetBudget) {
+        if (valueOfRenderedServices >= loggedInUser.getAdditionalInfo().getTargetBudget()) {
             isMonthlyTargetAchieved = true;
-            bonusAmountD = (loggedInUser.getAdditionalInfo().getBonus() * (valueOfRenderedServices - targetBudget)) / 100.0;
+            bonusAmountD = (loggedInUser.getAdditionalInfo().getBonus() * (valueOfRenderedServices - loggedInUser.getAdditionalInfo().getTargetBudget())) / 100.0;
         }
-        Integer bonusAmount = getBonusAmountAsInt(bonusAmountD);
-        userHomeSetAttributes(model, projectsOfUser, recentTimesheet, previousMonthFirstMonday, nonBillableHours, billableHours,
-                workTimeUtilizationLevel, valueOfRenderedServices, isMonthlyTargetAchieved, bonusAmount);
+        return UserHomeParams.builder()
+                .projectsOfUser(projectRepository.findAllByEmployeeId(userId))
+                .amountOfBillableHours(countBillableHours(timesheetsPreviousMonth))
+                .amountOfNonBillableHours(countNonBillableHours(timesheetsPreviousMonth))
+                .monthlyTargetAchieved(isMonthlyTargetAchieved)
+                .bonusAmount(getBonusAmountAsInt(bonusAmountD))
+                .previousMonthFirstMonday(previousMonthFirstMonday)
+                .recentTimesheet(timesheetUnitRepository.findFirstByEmployeeIdOrderByIdDesc(userId))
+                .valueOfRenderedServices(loggedInUser.getAdditionalInfo().getHourlyRateChargingClients() * countBillableHours(timesheetsPreviousMonth))
+                .workTimeUtilizationLevel(getWorkTimeUtilisationLevelAsInt(countNonBillableHours(timesheetsPreviousMonth), countBillableHours(timesheetsPreviousMonth)))
+                .build();
     }
 
     private Integer getBonusAmountAsInt(Double bonusAmount) {
         bonusAmount = Math.floor(bonusAmount);
         return bonusAmount.intValue();
     }
-
-    private void userHomeSetAttributes(Model model, List<Project> projectsOfUser, TimesheetUnit recentTimesheet, LocalDate previousMonthFirstMonday,
-                                       Integer amountOfNonBillableHours, Integer amountOfBillableHours, Integer workTimeUtilizationLevel,
-                                       Integer valueOfRenderedServices, boolean isMonthlyTargetAchieved, Integer bonusAmount) {
-        model.addAttribute("valueOfRenderedServices", valueOfRenderedServices);
-        model.addAttribute("previousMonthFirstMonday", previousMonthFirstMonday);
-        model.addAttribute("amountOfBillableHours", amountOfBillableHours);
-        model.addAttribute("amountOfNonBillableHours", amountOfNonBillableHours);
-        model.addAttribute("workTimeUtilizationLevel", workTimeUtilizationLevel);
-        model.addAttribute("isMonthlyTargetAchieved", isMonthlyTargetAchieved);
-        model.addAttribute("bonusAmount", bonusAmount);
-        model.addAttribute("projectsOfUser", projectsOfUser);
-        model.addAttribute("recentTimesheet", recentTimesheet);
-    }
-
-
 }
 
 

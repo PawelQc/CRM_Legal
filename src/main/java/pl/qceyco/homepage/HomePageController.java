@@ -26,10 +26,12 @@ public class HomePageController {
     public String showHomePage(HttpSession session, Model model) {
         Employee loggedInUser = (Employee) session.getAttribute("loggedInUser");
         if (loggedInUser.isAdmin()) {
-            homePageService.processAdminHome(model);
+            AdminHomeParams adminHomeParams = homePageService.processAdminHome();
+            model.addAttribute("homeParams", adminHomeParams);
             return "admin/homeAdmin";
         } else {
-            homePageService.processUserHome(loggedInUser, model);
+            UserHomeParams userHomeParams = homePageService.processUserHome(loggedInUser);
+            model.addAttribute("uHomeParams", userHomeParams);
             return "user/homeUser";
         }
     }
