@@ -112,12 +112,11 @@ public class TimesheetUnitService {
     TimesheetUnit setTimesheetUnitValues(Long projectId, WorkWeek workWeek, Employee loggedInUser) {
         workWeek.setDateMonday(workWeek.getDateMonday().plusDays(1));
         workWeekRepository.save(workWeek);
-        Project project = projectRepository.findFirstByIdWithProjectTeamMembers(projectId);
-        TimesheetUnit timesheetUnit = new TimesheetUnit();
-        timesheetUnit.setWorkWeek(workWeek);
-        timesheetUnit.setEmployee(loggedInUser);
-        timesheetUnit.setProject(project);
-        return timesheetUnit;
+        return TimesheetUnit.builder()
+                .project(projectRepository.findFirstByIdWithProjectTeamMembers(projectId))
+                .workWeek(workWeek)
+                .employee(loggedInUser)
+                .build();
     }
 
     boolean noTimesheetInDB(List<TimesheetUnit> timesheets, Model model) {

@@ -1,6 +1,8 @@
 package pl.qceyco.timesheet.unit;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import pl.qceyco.employee.Employee;
 import pl.qceyco.project.Project;
 import pl.qceyco.timesheet.workWeek.WorkWeek;
@@ -10,6 +12,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "timesheet_unit")
 @Data
+@Builder
+@NoArgsConstructor
 public class TimesheetUnit {
 
     @Id
