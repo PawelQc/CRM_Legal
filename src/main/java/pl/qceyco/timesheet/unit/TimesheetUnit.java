@@ -12,7 +12,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "timesheet_unit")
 @Data
-@Builder
 @NoArgsConstructor
 public class TimesheetUnit {
 
@@ -31,6 +30,13 @@ public class TimesheetUnit {
     @OneToOne
     @JoinColumn(name = "project_id")
     private Project project;
+
+    @Builder
+    public TimesheetUnit(WorkWeek workWeek, Employee employee, Project project) {
+        this.workWeek = workWeek;
+        this.employee = employee;
+        this.project = project;
+    }
 
     public Integer countWeekHours() {
         return workWeek.getMondayHours() +
