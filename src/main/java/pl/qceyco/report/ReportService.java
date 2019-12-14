@@ -67,17 +67,18 @@ public class ReportService {
     //EMPLOYEE REPORT ******************************************************************************************************
     EmployeeReport employeeReportProcess(LocalDate selectedMonday, Long employeeId) {
         List<TimesheetUnit> timesheets = getAllEmployeeTimesheetsFrom4Weeks(employeeId, selectedMonday, selectedMonday.plusDays(27));
-        Integer hourlyRate = employeeRepository.findFirstById(employeeId).getAdditionalInfo().getHourlyRateChargingClients();
+        Employee employee = employeeRepository.findFirstById(employeeId);
+        Integer hourlyRate = employee.getAdditionalInfo().getHourlyRateChargingClients();
         int valueOfRenderedServices = hourlyRate * countBillableHours(timesheets);
         boolean isMonthlyTargetAchieved = false;
         double bonusAmountD = 0.0;
-        if (valueOfRenderedServices >= employeeRepository.findFirstById(employeeId).getAdditionalInfo().getTargetBudget()) {
+        if (valueOfRenderedServices >= employee.getAdditionalInfo().getTargetBudget()) {
             isMonthlyTargetAchieved = true;
-            bonusAmountD = (employeeRepository.findFirstById(employeeId).getAdditionalInfo().getBonus() * (valueOfRenderedServices - employeeRepository.findFirstById(employeeId).getAdditionalInfo().getTargetBudget())) / 100.0;
+            bonusAmountD = (employee.getAdditionalInfo().getBonus() * (valueOfRenderedServices - employee.getAdditionalInfo().getTargetBudget())) / 100.0;
         }
         Integer bonusAmount = getBonusAmountAsInt(bonusAmountD);
         return EmployeeReport.builder()
-                .reportedEmployee(employeeRepository.findFirstById(employeeId))
+                .reportedEmployee(employee)
                 .amountOfBillableHours(countBillableHours(timesheets))
                 .amountOfNonBillableHours(countNonBillableHours(timesheets))
                 .workTimeUtilizationLevel(getWorkTimeUtilisationLevelAsInt(countNonBillableHours(timesheets), countBillableHours(timesheets)))
@@ -135,7 +136,7 @@ public class ReportService {
                 .build();
     }
 
-    public Integer countProjectHours(Long projectId) {
+    private Integer countProjectHours(Long projectId) {
         int amountOfHours = 0;
         List<TimesheetUnit> timesheets = timesheetUnitRepository.findAllByProjectIdOrderByEmployeeId(projectId);
         amountOfHours = timesheets.stream()

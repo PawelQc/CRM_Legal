@@ -15,6 +15,7 @@ import pl.qceyco.timesheet.unit.TimesheetUnit;
 import pl.qceyco.timesheet.unit.TimesheetUnitRepository;
 import pl.qceyco.timesheet.workWeek.WorkWeek;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -23,50 +24,57 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
-class ProjectReportServiceTest {
+class EmployeeReportServiceTest {
 
-    private TimesheetUnitRepository timesheetUnitRepository;
-    private ProjectRepository projectRepository;
+    private EmployeeRepository employeeRepository;
     private ReportService reportService;
 
     @BeforeEach
     void setUp() {
-        timesheetUnitRepository = mock(TimesheetUnitRepository.class);
-        projectRepository = mock(ProjectRepository.class);
-        EmployeeRepository employeeRepository = mock(EmployeeRepository.class);
+        TimesheetUnitRepository timesheetUnitRepository = mock(TimesheetUnitRepository.class);
+        ProjectRepository projectRepository = mock(ProjectRepository.class);
         ClientRepository clientRepository = mock(ClientRepository.class);
+        employeeRepository = mock(EmployeeRepository.class);
         reportService = new ReportService(timesheetUnitRepository, projectRepository, employeeRepository, clientRepository);
     }
 
     @Test
-    void givenNonEmptyDB_whenTestProcessProjectReport_thenResultIsReturned() {
+    void givenNonEmptyDB_whenTestProcessEmployeeReport_thenResultIsReturned() {
         TimesheetUnit timesheetUnit1 = prepareTimesheetUnit1Data();
         TimesheetUnit timesheetUnit2 = prepareTimesheetUnit2Data();
-        given(timesheetUnitRepository.findAllByProjectIdOrderByEmployeeId(1L)).willReturn(Arrays.asList(timesheetUnit1, timesheetUnit2));
-        given(projectRepository.findFirstByIdWithProjectTeamMembers(1L)).willReturn(prepareProjectData());
+        given(employeeRepository.findFirstById(1L)).willReturn(prepareEmployeeData());
+        given(reportService.getAllEmployeeTimesheetsFrom4Weeks(1L, LocalDate.now(), LocalDate.now().plusDays(27))).willReturn(Arrays.asList(timesheetUnit1, timesheetUnit2));
 
-        ProjectReport actualReport = reportService.projectReportProcess(1L);
-        assertThat(actualReport.getPotentialValueOfRenderedServices(), is(44000));
-        assertThat(actualReport.getAmountOfHours(), is(80));
-        assertThat(actualReport.isProjectIsProfitable(), is(false));
+        EmployeeReport actualReport = reportService.employeeReportProcess(LocalDate.now(), 1L);
+        assertThat(actualReport.getAmountOfBillableHours(), is(80));
+        assertThat(actualReport.getAmountOfNonBillableHours(), is(0));
+        assertThat(actualReport.getBonusAmount(), is(2200));
+        assertThat(actualReport.getValueOfRenderedServices(), is(32000));
+        assertThat(actualReport.getWorkTimeUtilizationLevel(), is(100));
+        assertThat(actualReport.isMonthlyTargetAchieved(), is(true));
     }
 
     @Test
-    void givenEmptyDB_whenTestProcessProjectReport_thenResultIsNoValues() {
-        given(timesheetUnitRepository.findAllByProjectIdOrderByEmployeeId(1L)).willReturn(Collections.emptyList());
-        given(projectRepository.findFirstByIdWithProjectTeamMembers(1L)).willReturn(prepareProjectData());
+    void givenEmptyDB_whenTestProcessEmployeeReport_thenResultIsNoValues() {
+        given(employeeRepository.findFirstById(1L)).willReturn(prepareEmployeeData());
+        given(reportService.getAllEmployeeTimesheetsFrom4Weeks(1L, LocalDate.now(), LocalDate.now())).willReturn(Collections.emptyList());
 
-        ProjectReport actualReport = reportService.projectReportProcess(1L);
-        assertThat(actualReport.getPotentialValueOfRenderedServices(), is(0));
-        assertThat(actualReport.getAmountOfHours(), is(0));
-        assertThat(actualReport.isProjectIsProfitable(), is(true));
+        EmployeeReport actualReport = reportService.employeeReportProcess(LocalDate.now(), 1L);
+        assertThat(actualReport.getAmountOfBillableHours(), is(0));
+        assertThat(actualReport.getAmountOfNonBillableHours(), is(0));
+        assertThat(actualReport.getBonusAmount(), is(0));
+        assertThat(actualReport.getValueOfRenderedServices(), is(0));
+        assertThat(actualReport.getWorkTimeUtilizationLevel(), is(0));
+        assertThat(actualReport.isMonthlyTargetAchieved(), is(false));
     }
+
 
     //######################### PREPARE TEST DATA ###############################################3
 
-    private Employee prepareEmployee1Data() {
+    private Employee prepareEmployeeData() {
         AdditionalInfoEmployee additionalInfoEmployee1 = AdditionalInfoEmployee.builder()
                 .hourlyRateChargingClients(400)
+                .hourlyRateReceivingSalary(200)
                 .bonus(10)
                 .targetBudget(10000).build();
         return Employee.builder()
@@ -74,20 +82,10 @@ class ProjectReportServiceTest {
                 .additionalInfo(additionalInfoEmployee1).build();
     }
 
-    private Employee prepareEmployee2Data() {
-        AdditionalInfoEmployee additionalInfoEmployee2 = AdditionalInfoEmployee.builder()
-                .hourlyRateChargingClients(500)
-                .bonus(15)
-                .targetBudget(15000).build();
-        return Employee.builder()
-                .id(2L)
-                .additionalInfo(additionalInfoEmployee2).build();
-    }
-
     private Project prepareProjectData() {
         return Project.builder()
                 .client(prepareClientData())
-                .projectTeam(Arrays.asList(prepareEmployee1Data(), prepareEmployee2Data()))
+                .projectTeam(Collections.singletonList(prepareEmployeeData()))
                 .capOnRemuneration(10000)
                 .isBillable(true)
                 .id(1L).build();
@@ -113,14 +111,14 @@ class ProjectReportServiceTest {
 
     private TimesheetUnit prepareTimesheetUnit1Data() {
         return TimesheetUnit.builder()
-                .employee(prepareEmployee1Data())
+                .employee(prepareEmployeeData())
                 .project(prepareProjectData())
                 .workWeek(prepareWorkWeek1Data()).build();
     }
 
     private TimesheetUnit prepareTimesheetUnit2Data() {
         return TimesheetUnit.builder()
-                .employee(prepareEmployee2Data())
+                .employee(prepareEmployeeData())
                 .project(prepareProjectData())
                 .workWeek(prepareWorkWeek2Data()).build();
     }
