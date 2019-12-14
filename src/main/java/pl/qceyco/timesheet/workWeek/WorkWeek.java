@@ -1,6 +1,9 @@
 package pl.qceyco.timesheet.workWeek;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import pl.qceyco.timesheet.workWeek.commentary.Commentary;
 
 import javax.persistence.*;
@@ -11,6 +14,9 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "work_week")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class WorkWeek {
 
     @Id

@@ -121,7 +121,7 @@ public class ReportService {
     }
 
     //PROJECT REPORT ******************************************************************************************************
-    ProjectReport projectReportProcess(Long projectId) {
+    public ProjectReport projectReportProcess(Long projectId) {
         int potentialValueOfRenderedServices = countProjectHours(projectId) * projectRepository.findFirstByIdWithProjectTeamMembers(projectId).getClient().getAdditionalInfo().getHourlyRateIsCharged();
         boolean isProjectProfitable = true;
         if (potentialValueOfRenderedServices > projectRepository.findFirstByIdWithProjectTeamMembers(projectId).getCapOnRemuneration()) {
@@ -135,7 +135,7 @@ public class ReportService {
                 .build();
     }
 
-    private Integer countProjectHours(Long projectId) {
+    public Integer countProjectHours(Long projectId) {
         int amountOfHours = 0;
         List<TimesheetUnit> timesheets = timesheetUnitRepository.findAllByProjectIdOrderByEmployeeId(projectId);
         amountOfHours = timesheets.stream()

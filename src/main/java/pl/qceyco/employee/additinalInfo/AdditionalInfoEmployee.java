@@ -1,6 +1,9 @@
 package pl.qceyco.employee.additinalInfo;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -11,6 +14,9 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "additional_info_employees")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class AdditionalInfoEmployee {
 
     @Id

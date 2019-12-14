@@ -1,6 +1,9 @@
 package pl.qceyco.project;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.NotEmpty;
 import pl.qceyco.client.Client;
 import pl.qceyco.employee.Employee;
@@ -16,6 +19,9 @@ import java.util.List;
 @Entity
 @Table(name = "projects")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Project {
 
     @Id

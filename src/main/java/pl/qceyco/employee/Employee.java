@@ -1,6 +1,9 @@
 package pl.qceyco.employee;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Email;
 import pl.qceyco.NameDisplayInterface;
 import pl.qceyco.employee.additinalInfo.AdditionalInfoEmployee;
@@ -16,6 +19,9 @@ import java.util.Set;
 @Entity
 @Table(name = "employees")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Employee implements NameDisplayInterface {
 
     @Id
