@@ -15,7 +15,7 @@ public class DefaultExceptionHandler {
     public String handleDefaultException(Exception e, Model model) {
         model.addAttribute("error", "Error: something went wrong...");
         model.addAttribute("errorMessage", "Cause: " + e.getMessage());
-        LOGGER.error(e.getMessage());
+        LOGGER.error(e.getMessage());       //todo logger nie zapisuje logu do pliku...
         return "error";
     }
 
