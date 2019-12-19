@@ -20,32 +20,33 @@ import java.util.Collections;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 class ProjectReportServiceTest {
 
-    private TimesheetUnitRepository timesheetUnitRepository;
-    private ProjectRepository projectRepository;
-    private ReportService reportService;
+    private TimesheetUnitRepository mockTimesheetUnitRepository;
+    private ReportService mockReportService;
 
     @BeforeEach
     void setUp() {
-        timesheetUnitRepository = mock(TimesheetUnitRepository.class);
-        projectRepository = mock(ProjectRepository.class);
-        EmployeeRepository employeeRepository = mock(EmployeeRepository.class);
-        ClientRepository clientRepository = mock(ClientRepository.class);
-        reportService = new ReportService(timesheetUnitRepository, projectRepository, employeeRepository, clientRepository);
+        ProjectRepository mockProjectRepository = mock(ProjectRepository.class);
+        EmployeeRepository mockEmployeeRepository = mock(EmployeeRepository.class);
+        ClientRepository mockClientRepository = mock(ClientRepository.class);
+        mockTimesheetUnitRepository = mock(TimesheetUnitRepository.class);
+        mockReportService = new ReportService(mockTimesheetUnitRepository, mockProjectRepository, mockEmployeeRepository, mockClientRepository);
+        given(mockProjectRepository.findFirstByIdWithProjectTeamMembers(anyLong())).willReturn(prepareProjectData());
+
     }
 
     @Test
     void givenNonEmptyDB_whenTestProcessProjectReport_thenResultIsReturned() {
         TimesheetUnit timesheetUnit1 = prepareTimesheetUnit1Data();
         TimesheetUnit timesheetUnit2 = prepareTimesheetUnit2Data();
-        given(timesheetUnitRepository.findAllByProjectIdOrderByEmployeeId(1L)).willReturn(Arrays.asList(timesheetUnit1, timesheetUnit2));
-        given(projectRepository.findFirstByIdWithProjectTeamMembers(1L)).willReturn(prepareProjectData());
+        given(mockTimesheetUnitRepository.findAllByProjectIdOrderByEmployeeId(anyLong())).willReturn(Arrays.asList(timesheetUnit1, timesheetUnit2));
 
-        ProjectReport actualReport = reportService.projectReportProcess(1L);
+        ProjectReport actualReport = mockReportService.projectReportProcess(1L);
         assertThat(actualReport.getPotentialValueOfRenderedServices(), is(44000));
         assertThat(actualReport.getAmountOfHours(), is(80));
         assertThat(actualReport.isProjectIsProfitable(), is(false));
@@ -53,10 +54,9 @@ class ProjectReportServiceTest {
 
     @Test
     void givenEmptyDB_whenTestProcessProjectReport_thenResultIsNoValues() {
-        given(timesheetUnitRepository.findAllByProjectIdOrderByEmployeeId(1L)).willReturn(Collections.emptyList());
-        given(projectRepository.findFirstByIdWithProjectTeamMembers(1L)).willReturn(prepareProjectData());
+        given(mockTimesheetUnitRepository.findAllByProjectIdOrderByEmployeeId(anyLong())).willReturn(Collections.emptyList());
 
-        ProjectReport actualReport = reportService.projectReportProcess(1L);
+        ProjectReport actualReport = mockReportService.projectReportProcess(1L);
         assertThat(actualReport.getPotentialValueOfRenderedServices(), is(0));
         assertThat(actualReport.getAmountOfHours(), is(0));
         assertThat(actualReport.isProjectIsProfitable(), is(true));

@@ -21,29 +21,30 @@ import java.util.Collections;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 class EmployeeReportServiceTest {
 
-    private EmployeeRepository employeeRepository;
     private ReportService reportService;
 
     @BeforeEach
     void setUp() {
-        TimesheetUnitRepository timesheetUnitRepository = mock(TimesheetUnitRepository.class);
-        ProjectRepository projectRepository = mock(ProjectRepository.class);
-        ClientRepository clientRepository = mock(ClientRepository.class);
-        employeeRepository = mock(EmployeeRepository.class);
-        reportService = new ReportService(timesheetUnitRepository, projectRepository, employeeRepository, clientRepository);
+        TimesheetUnitRepository mockTimesheetUnitRepository = mock(TimesheetUnitRepository.class);
+        ProjectRepository mockProjectRepository = mock(ProjectRepository.class);
+        ClientRepository mockClientRepository = mock(ClientRepository.class);
+        EmployeeRepository mockEmployeeRepository = mock(EmployeeRepository.class);
+        reportService = new ReportService(mockTimesheetUnitRepository, mockProjectRepository, mockEmployeeRepository, mockClientRepository);
+        given(mockEmployeeRepository.findFirstById(anyLong())).willReturn(prepareEmployeeData());
     }
 
     @Test
     void givenNonEmptyDB_whenTestProcessEmployeeReport_thenResultIsReturned() {
         TimesheetUnit timesheetUnit1 = prepareTimesheetUnit1Data();
         TimesheetUnit timesheetUnit2 = prepareTimesheetUnit2Data();
-        given(employeeRepository.findFirstById(1L)).willReturn(prepareEmployeeData());
-        given(reportService.getAllEmployeeTimesheetsFrom4Weeks(1L, LocalDate.now(), LocalDate.now().plusDays(27))).willReturn(Arrays.asList(timesheetUnit1, timesheetUnit2));
+        given(reportService.getAllEmployeeTimesheetsFrom4Weeks(anyLong(), any(LocalDate.class), any(LocalDate.class))).willReturn(Arrays.asList(timesheetUnit1, timesheetUnit2));
 
         EmployeeReport actualReport = reportService.employeeReportProcess(LocalDate.now(), 1L);
         assertThat(actualReport.getAmountOfBillableHours(), is(80));
@@ -56,7 +57,6 @@ class EmployeeReportServiceTest {
 
     @Test
     void givenEmptyDB_whenTestProcessEmployeeReport_thenResultIsNoValues() {
-        given(employeeRepository.findFirstById(1L)).willReturn(prepareEmployeeData());
         given(reportService.getAllEmployeeTimesheetsFrom4Weeks(1L, LocalDate.now(), LocalDate.now())).willReturn(Collections.emptyList());
 
         EmployeeReport actualReport = reportService.employeeReportProcess(LocalDate.now(), 1L);
